@@ -12,6 +12,7 @@
     ./wm
     ./terminal
     ./waypaper.nix
+    ./fcitx
   ];
   home = {
     inherit username;

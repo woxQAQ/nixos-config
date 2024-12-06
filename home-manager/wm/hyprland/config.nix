@@ -10,6 +10,7 @@
         "waybar &"
         "nm-applet &"
         "swww-daemon &"
+        "fcitx5 -d --replace"
       ];
       input = {
         kb_layout = "us";

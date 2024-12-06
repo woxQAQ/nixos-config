@@ -1,21 +1,16 @@
 {
   pkgs,
-  nur-ryan4yin,
   ...
 }:
 {
-  home.file.".local/share/fcitx5/themes".source = "${
-    nur-ryan4yin.packages.${pkgs.system}.catppuccin-fcitx5
-  }/src";
-
   xdg.configFile = {
     "fcitx5/profile" = {
-      source = ./profile;
+      source = ./profile.conf;
       # every time fcitx5 switch input method, it will modify ~/.config/fcitx5/profile,
       # so we need to force replace it in every rebuild to avoid file conflict.
       force = true;
     };
-    "fcitx5/conf/classicui.conf".source = ./classicui.conf;
+    "fcitx5/conf/classicui.conf".source = ./class.conf;
   };
 
   i18n.inputMethod = {
