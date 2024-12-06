@@ -6,6 +6,8 @@
         "hash dbus-update-activation-environment 2>/dev/null &"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &"
         "wl-clip-persist --clipboard both &"
+        "wl-paste --watch cliphist store &"
+        "waybar &"
         "swww-daemon"
       ];
       input = {
@@ -120,7 +122,7 @@
 
       bind = [
         # show keybinds list
-        "$mainMod, F1, exec, show-keybinds"
+        # "$mainMod, F1, exec, show-keybinds"
 
         # keybindings
         "$mainMod, Return, exec, alacritty"
@@ -130,9 +132,9 @@
         "$mainMod, Q, killactive,"
         "$mainMod, F, fullscreen, 0"
         "$mainMod SHIFT, F, fullscreen, 1"
-        "$mainMod, Space, exec, toggle_float"
-        "$mainMod, D, exec, rofi -show drun || pkill rofi"
-        "$mainMod SHIFT, D, exec, webcord --enable-features=UseOzonePlatform --ozone-platform=wayland"
+        # "$mainMod, Space, exec, toggle_float"
+        "$mainMod, Space, exec, rofi -show drun || pkill rofi"
+        # "$mainMod SHIFT, D, exec, webcord --enable-features=UseOzonePlatform --ozone-platform=wayland"
         "$mainMod SHIFT, S, exec, hyprctl dispatch exec '[workspace 5 silent] SoundWireServer'"
         # "$mainMod, Escape, exec, swaylock"
         # "ALT, Escape, exec, hyprlock"
@@ -143,7 +145,7 @@
         # "$mainMod CTRL, E, exec, nemo"
         # "$mainMod, E, exec, hyprctl dispatch exec '[float; center; size 1111 700] nemo'"
         # "$mainMod SHIFT, E, exec, hyprctl dispatch exec '[float; center; size 1111 700] kitty yazi'"
-        "$mainMod SHIFT, B, exec, toggle_waybar"
+        # "$mainMod SHIFT, B, exec, toggle_waybar"
         "$mainMod, C ,exec, hyprpicker -a"
         "$mainMod, W,exec, wallpaper-picker"
         "$mainMod SHIFT, W,exec, hyprctl dispatch exec '[float; center; size 925 615] waypaper'"
@@ -354,7 +356,8 @@
     };
 
     extraConfig = "
-      monitor=,preferred,auto,auto
+      monitor= DP-3, 2560x1440@144,2560x0,1
+      monitor= HDMI-A-2, 2560x1440@144,0x0,1
 
       xwayland {
         force_zero_scaling = true

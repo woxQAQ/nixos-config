@@ -32,6 +32,7 @@
     }@inputs:
     let
       username = "woxQAQ";
+      host = "woxQAQ";
       system = "x86_64-linux";
     in
     {
@@ -46,7 +47,7 @@
             {
               home-manager.users.${username} = import ./home-manager;
               home-manager.extraSpecialArgs = {
-                inherit inputs username;
+                inherit inputs username host;
               };
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;
