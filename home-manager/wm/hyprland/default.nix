@@ -19,6 +19,12 @@
     wf-recorder
     glib
     wayland
+    pamixer
+    mako
+    wlogout
+    swaylock
+    swaybg
+    wlr-randr
   ];
   systemd.user.targets.hyprland-session.Unit.Wants = [
     "xdg-desktop-autostart.target"

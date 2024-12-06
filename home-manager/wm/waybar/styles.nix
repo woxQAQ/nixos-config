@@ -33,6 +33,10 @@ in
       font-size: ${font_size};
     }
 
+    #window {
+      color: ${text_color};
+    }
+
     window#waybar {
       background: #282828;
       border-top: 1px solid #928374;
@@ -65,6 +69,7 @@ in
 
     #clock {
       color: ${text_color};
+      margin-right: 10px;
     }
 
     #tray {
@@ -78,6 +83,7 @@ in
     }
     #tray menuitem {
       padding: 1px;
+      color: ${text_color}
     }
 
     #pulseaudio, #network, #cpu, #memory, #disk, #battery, #custom-notification {

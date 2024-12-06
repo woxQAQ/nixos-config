@@ -9,5 +9,6 @@
     # snex9x
     # sameboy
     gamescope
+    winetricks
   ];
 }

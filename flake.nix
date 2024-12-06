@@ -47,7 +47,11 @@
             {
               home-manager.users.${username} = import ./home-manager;
               home-manager.extraSpecialArgs = {
-                inherit inputs username host;
+                inherit
+                  inputs
+                  username
+                  host
+                  ;
               };
               home-manager.useUserPackages = true;
               home-manager.useGlobalPkgs = true;

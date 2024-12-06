@@ -10,6 +10,8 @@
   imports = [
     ./program
     ./wm
+    ./terminal
+    ./waypaper.nix
   ];
   home = {
     inherit username;

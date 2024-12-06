@@ -7,5 +7,6 @@
     ./nvim.nix
     ./game.nix
     ./rofi.nix
+    ./cloud-native.nix
   ];
 }

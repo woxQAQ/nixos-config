@@ -33,7 +33,7 @@ in
       "hyprland/workspaces"
       "tray"
     ];
-    modules-center = [ "clock" ];
+    modules-center = [ "hyprland/window" ];
     modules-right = [
       "cpu"
       "memory"
@@ -42,6 +42,7 @@ in
       "pulseaudio"
       "network"
       # "battery"
+      "clock"
       "custom/notification"
     ];
     clock = {
