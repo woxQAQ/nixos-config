@@ -180,6 +180,7 @@
     wget
     git
     gnumake
+    killall
     pkgs.nixfmt-rfc-style
   ];
   environment.variables.EDITOR = "vim";
