@@ -5,8 +5,9 @@
       exec-once = [
         "hash dbus-update-activation-environment 2>/dev/null &"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &"
-        "wl-clip-persist --clipboard both &"
+        # "wl-clip-persist --clipboard both &"
         "wl-paste --watch cliphist store &"
+        # "waybar --bar main-bar --log-level error --style ~/.config/waybar/style.css &"
         "waybar &"
         "nm-applet &"
         "swww-daemon &"
@@ -32,8 +33,8 @@
         border_size = 4;
         "col.active_border" = "0xFFB4A1DB";
         "col.inactive_border" = "0xFF343A40";
-        border_part_of_window = false;
-        no_border_on_floating = false;
+        # border_part_of_window = false;
+        # no_border_on_floating = false;
       };
       misc = {
         disable_autoreload = true;
@@ -259,6 +260,7 @@
 
       # windowrule
       windowrule = [
+        "pseudo,fcitx"
         "float,Viewnior"
         "center,Viewnior"
         "size 1200 800,Viewnior"

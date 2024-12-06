@@ -33,6 +33,7 @@ in
       font-size: ${font_size};
     }
 
+    
     #window {
       color: ${text_color};
     }
