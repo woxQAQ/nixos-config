@@ -13,6 +13,13 @@
         startup_mode = "Maximized";
       };
 
+      terminal = {
+        shell = {
+          program = "${pkgs.zsh}/bin/zsh";
+          # args = [""]
+        };
+      };
+
       scrolling.history = 10000;
 
       font = {
