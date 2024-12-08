@@ -70,11 +70,17 @@
     packages = with pkgs; [
       # icon fonts
       material-design-icons
+      font-awesome
 
       # normal fonts
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-emoji
+
+      source-sans
+      source-serif
+      source-han-sans
+      source-han-serif
 
       # nerdfonts
       nerd-fonts.fira-code

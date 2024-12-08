@@ -4,6 +4,7 @@
   username,
   host,
   inputs,
+  nur-ryan4yin,
   ...
 }:
 {
