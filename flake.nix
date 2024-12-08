@@ -22,12 +22,14 @@
     # nix-gaming.url = "github:fufexan/nix-gaming";
     nur.url = "github:nix-community/NUR";
     hypr-contrib.url = "github:hyprwm/contrib";
+    nur-ryan4yin.url = "github:ryan4yin/nur-packages";
   };
   outputs =
     {
       self,
       nixpkgs,
       home-manager,
+      nur-ryan4yin,
       ...
     }@inputs:
     let
@@ -38,19 +40,21 @@
     {
       nixosConfigurations = {
         ${username} = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          # specialArgs = {inherit inputs;};
+          # specialArgs = { inherit inputs; inherit nur-ryan4yin;};
+          specialArgs = {inherit inputs;};
           inherit system;
           modules = [
             ./configuration.nix
             home-manager.nixosModules.home-manager
             {
+              home-manager.backupFileExtension = "home-manager.backup";
               home-manager.users.${username} = import ./home-manager;
               home-manager.extraSpecialArgs = {
                 inherit
                   inputs
                   username
                   host
+                  nur-ryan4yin
                   ;
               };
               home-manager.useUserPackages = true;

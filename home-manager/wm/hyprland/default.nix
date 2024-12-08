@@ -8,6 +8,7 @@
   imports = [
     ./vars.nix
     ./config.nix
+    ./waybar.nix
   ];
   
   home.packages = with pkgs; [
@@ -37,5 +38,14 @@
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     # portalPackage =
     #   inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  };
+  xdg.configFile = {
+    "hypr/waybar" = {
+      source = ./conf/waybar;
+      recursive = true;
+    };
+    "hypr/scripts" = {
+      source = ./scripts;
+    };
   };
 }

@@ -53,9 +53,9 @@
     };
     bat = {
       enable = true;
-      config = {
-        paper = "less -FR";
-      };
+      # config = {
+      #   paper = "less -FR";
+      # };
     };
     jq.enable = true;
     eza = {

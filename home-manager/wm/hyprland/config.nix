@@ -8,10 +8,11 @@
         # "wl-clip-persist --clipboard both &"
         "wl-paste --watch cliphist store &"
         # "waybar --bar main-bar --log-level error --style ~/.config/waybar/style.css &"
-        "waybar &"
+        "sh ~/.config/hypr/scripts/startup.sh"
         "nm-applet &"
         "swww-daemon &"
         "fcitx5 -d --replace"
+        # "hyprctl setcursor Bibata-Modern-Classic 24"
       ];
       input = {
         kb_layout = "us";
@@ -66,7 +67,7 @@
 
       decoration = {
         rounding = 8;
-        active_opacity =1.0; 
+        active_opacity = 1.0;
         inactive_opacity = 0.90;
         fullscreen_opacity = 1.0;
 
@@ -76,7 +77,7 @@
           passes = 2;
           brightness = 1;
           contrast = 1.4;
-          ignore_opacity = true;
+          ignore_opacity = false;
           noise = 0;
           new_optimizations = true;
           xray = true;
