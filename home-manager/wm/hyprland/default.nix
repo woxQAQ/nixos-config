@@ -44,6 +44,10 @@
       source = ./conf/waybar;
       recursive = true;
     };
+    "hypr/wlogout" = {
+      source = ./conf/wlogout;
+      recursive = true;
+    };
     "hypr/scripts" = {
       source = ./scripts;
     };
