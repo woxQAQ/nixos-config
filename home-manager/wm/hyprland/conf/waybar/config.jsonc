@@ -9,6 +9,7 @@
     "spacing": 15,
     "modules-left": [
         "custom/launcher",
+        "custom/powermenu",
         "hyprland/workspaces",
         "tray"
     ],
@@ -60,6 +61,11 @@
             "4": [],
             "5": []
         }
+    },
+    "custom/powermenu": {
+        "format": "\uf011",
+        "on-click": "$HOME/.config/hypr/scripts/wlogout.sh",
+        "tooltip": false
     },
     "cpu": {
         "format": "<span foreground='#98971A'> </span> {usage}%",
