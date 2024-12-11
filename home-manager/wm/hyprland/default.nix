@@ -10,7 +10,7 @@
     ./config.nix
     ./waybar.nix
   ];
-  
+
   home.packages = with pkgs; [
     swww
     grim
@@ -46,6 +46,10 @@
     };
     "hypr/wlogout" = {
       source = ./conf/wlogout;
+      recursive = true;
+    };
+    "hypr/mako" = {
+      source = ./conf/mako;
       recursive = true;
     };
     "hypr/scripts" = {

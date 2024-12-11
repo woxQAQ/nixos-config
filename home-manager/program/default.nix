@@ -8,5 +8,8 @@
     ./game.nix
     ./rofi.nix
     ./cloud-native.nix
+    ./zed.nix
+    ./xdg.nix
+    ./gtk.nix
   ];
 }
