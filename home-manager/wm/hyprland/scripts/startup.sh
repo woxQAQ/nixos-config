@@ -9,3 +9,5 @@ for _prs in "${_ps[@]}"; do
 done
 
 ~/.config/hypr/scripts/waybar.sh &
+
+~/.config/hypr/scripts/notifications.sh &

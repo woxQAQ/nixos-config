@@ -85,6 +85,7 @@
       # nerdfonts
       nerd-fonts.fira-code
       nerd-fonts.jetbrains-mono
+      nerd-fonts.hack
       # (nerd-fonts.override {
       #   fonts = [
       #     "FiraCode"
@@ -123,10 +124,43 @@
       dedicatedServer.openFirewall = false;
 
       gamescopeSession.enable = true;
+      package = pkgs.steam.override {
+        extraPkgs =
+          pkgs: with pkgs; [
+            xorg.libXcursor
+            xorg.libXi
+            xorg.libXinerama
+            xorg.libXScrnSaver
+            libpng
+            libpulseaudio
+            libvorbis
+            stdenv.cc.cc.lib
+            libkrb5
+            keyutils
 
+            # fix CJK fonts
+            source-sans
+            source-serif
+            source-han-sans
+            source-han-serif
+
+            # audio
+            pipewire
+
+            # other common
+            udev
+            alsa-lib
+            vulkan-loader
+            xorg.libX11
+            xorg.libXcursor
+            xorg.libXi
+            xorg.libXrandr # To use the x11 feature
+            libxkbcommon
+            wayland # To use the wayland feature
+          ];
+      };
       extraCompatPackages = [ pkgs.proton-ge-bin ];
     };
-
     gamescope = {
       enable = true;
       capSysNice = true;
@@ -135,6 +169,23 @@
         "--expose-wayland"
       ];
     };
+  };
+  services.kmscon = {
+    # Use kmscon as the virtual console instead of gettys.
+    # kmscon is a kms/dri-based userspace virtual terminal implementation.
+    # It supports a richer feature set than the standard linux console VT,
+    # including full unicode support, and when the video card supports drm should be much faster.
+    enable = true;
+    fonts = [
+      {
+        name = "Source Code Pro";
+        package = pkgs.source-code-pro;
+      }
+    ];
+    extraOptions = "--term xterm-256color";
+    extraConfig = "font-size=12";
+    # Whether to use 3D hardware acceleration to render the console.
+    hwRender = true;
   };
   xdg.portal = {
     enable = true;
