@@ -72,7 +72,7 @@
         fullscreen_opacity = 1.0;
 
         blur = {
-          enabled = true;
+          enabled = no;
           size = 3;
           passes = 2;
           brightness = 1;
@@ -164,16 +164,6 @@
         # switch focus
         "$mainMod, left, movefocus, l"
         "$mainMod, right, movefocus, r"
-        "$mainMod, up, movefocus, u"
-        "$mainMod, down, movefocus, d"
-        "$mainMod, h, movefocus, l"
-        "$mainMod, j, movefocus, d"
-        "$mainMod, k, movefocus, u"
-        "$mainMod, l, movefocus, r"
-
-        # switch workspace
-        "$mainMod, 1, workspace, 1"
-        "$mainMod, 2, workspace, 2"
         "$mainMod, 3, workspace, 3"
         "$mainMod, 4, workspace, 4"
         "$mainMod, 5, workspace, 5"

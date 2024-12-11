@@ -124,6 +124,7 @@
       dedicatedServer.openFirewall = false;
 
       gamescopeSession.enable = true;
+      fontPackages = with pkgs; [ noto-fonts-cjk-sans ];
       package = pkgs.steam.override {
         extraPkgs =
           pkgs: with pkgs; [
