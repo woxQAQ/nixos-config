@@ -16,7 +16,7 @@
 
     includes = [
       {
-        path = "~/.gitconfig";
+        path = "${config.home.homeDirectory}/.gnupg/.gitconfig";
       }
     ];
   };
