@@ -18,6 +18,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       # submodules = true;
     };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      # url = "/home/gaetan/perso/nix/nixvim/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hyprland.url = "github:hyprwm/Hyprland";
     # nix-gaming.url = "github:fufexan/nix-gaming";
     nur.url = "github:nix-community/NUR";
@@ -41,14 +46,14 @@
       nixosConfigurations = {
         ${username} = nixpkgs.lib.nixosSystem {
           # specialArgs = { inherit inputs; inherit nur-ryan4yin;};
-          specialArgs = {inherit inputs;};
+          specialArgs = { inherit inputs; };
           inherit system;
           modules = [
             ./configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.backupFileExtension = "home-manager.backup";
-              home-manager.users.${username} = import ./home-manager;
+              home-manager.users.${username} = import ./home;
               home-manager.extraSpecialArgs = {
                 inherit
                   inputs

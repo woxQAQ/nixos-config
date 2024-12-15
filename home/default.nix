@@ -13,6 +13,7 @@
     ./wm
     ./terminal
     ./waypaper.nix
+    ./neovim
     ./fcitx
   ];
   home = {
