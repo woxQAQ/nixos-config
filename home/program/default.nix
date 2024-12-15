@@ -10,5 +10,6 @@
     ./zed.nix
     ./xdg.nix
     ./gtk.nix
+    ./git.nix
   ];
 }
