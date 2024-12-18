@@ -2,7 +2,7 @@
   imports = [
     ./comments.nix
     ./term.nix
-    ./lsp.nix
+    ./lsp
     ./lualine.nix
     ./neotree.nix
     ./dashboard.nix
@@ -10,6 +10,7 @@
     ./helm.nix
     ./barbar
     ./git
+    ./chat
     ./which-key.nix
     ./projects.nix
     ./treesitter.nix

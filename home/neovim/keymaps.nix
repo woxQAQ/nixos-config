@@ -20,6 +20,8 @@
             })
             {
               "<Space>" = "<NOP>";
+              "jk" = "<ESC>";
+              "jj" = "<ESC>";
 
               # Esc to clear search results
               "<esc>" = ":noh<CR>";

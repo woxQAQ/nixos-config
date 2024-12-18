@@ -2,6 +2,7 @@
   imports = [
     ./keymaps.nix
     ./lspsaga.nix
+    ./refactor.nix
   ];
   programs.nixvim = {
     plugins = {
