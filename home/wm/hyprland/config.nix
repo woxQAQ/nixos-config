@@ -361,9 +361,9 @@
     };
 
     extraConfig = "
-      monitor= DP-3, 2560x1440@144,2560x0,1
-      monitor= HDMI-A-2, 2560x1440@144,0x0,1
-
+      monitor= DP-3, 2560x1440@144,2048x0,1.25
+      monitor= HDMI-A-2, 2560x1440@144,0x0,1.25
+      
       xwayland {
         force_zero_scaling = true
       }

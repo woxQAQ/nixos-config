@@ -23,5 +23,10 @@
       ];
       command = "setlocal spell spelllang=en";
     }
+    {
+      event = "FileType";
+      pattern = "helm";
+      command = "LspRestart";
+    }
   ];
 }

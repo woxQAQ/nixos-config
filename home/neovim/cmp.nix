@@ -8,6 +8,8 @@
 
     plugins = {
       luasnip.enable = true;
+      friendly-snippets.enable = true;
+      cmp-nixpkgs-maintainers.enable = true;
 
       lspkind = {
         enable = true;
@@ -22,6 +24,7 @@
             buffer = "[buffer]";
             neorg = "[neorg]";
             nixpkgs_maintainers = "[nixpkgs]";
+            friendly-snippets = "[friendly-snippets]";
           };
         };
       };
@@ -53,6 +56,7 @@
             }
             { name = "neorg"; }
             { name = "nixpkgs_maintainers"; }
+            { name = "friendly-snippets"; }
           ];
         };
       };

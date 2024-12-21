@@ -2,11 +2,17 @@
   imports = [
     ./comments.nix
     ./term.nix
-    ./lsp.nix
+    ./lsp
     ./lualine.nix
     ./neotree.nix
     ./dashboard.nix
     ./telescope.nix
+    ./helm.nix
+    ./barbar
+    ./git
+    # ./chat
+    ./which-key.nix
+    ./projects.nix
     ./treesitter.nix
   ];
 
@@ -15,17 +21,7 @@
 
     plugins = {
       web-devicons.enable = true;
-
-      gitsigns = {
-        enable = true;
-        settings.signs = {
-          add.text = "+";
-          change.text = "~";
-        };
-      };
-
       nvim-autopairs.enable = true;
-
       colorizer = {
         enable = true;
         settings.user_default_options.names = false;

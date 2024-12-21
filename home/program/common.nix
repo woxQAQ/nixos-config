@@ -13,6 +13,7 @@
     mpv
     neofetch
     tldr
+    ripgrep
     treefmt2
     wl-clipboard
     gcc

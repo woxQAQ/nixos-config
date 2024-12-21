@@ -281,6 +281,8 @@
     enable = true;
     enableSSHSupport = true;
   };
+  services.gnome.gnome-keyring.enable = false;
+
 
   # List services that you want to enable:
 

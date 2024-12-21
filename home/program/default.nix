@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 {
   imports = [
+    ./cursor.nix
     ./vscode.nix
     ./browsers.nix
     ./common.nix
