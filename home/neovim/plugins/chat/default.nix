@@ -1,17 +1,13 @@
 {
   programs.nixvim.plugins = {
-    avante = {
+    chatgpt = {
       enable = true;
       settings = {
-        provider = "openai";
-        openai = {
-          endpoint = "https://api.deepseek.com/v1";
-          models = "deepseek-coder";
-          temperature = 0;
-          max_toknes = 4096;
-        };
+        api_host_cmd = ''
+          echo -n "https://api.deepseek.com/v1"
+        '';
+        api_key_cmd = "pass sk-2f640edda9024129990180aceb3815f0";
       };
     };
-
   };
 }

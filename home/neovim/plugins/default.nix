@@ -10,7 +10,7 @@
     ./helm.nix
     ./barbar
     ./git
-    ./chat
+    # ./chat
     ./which-key.nix
     ./projects.nix
     ./treesitter.nix
