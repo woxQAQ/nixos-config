@@ -12,6 +12,7 @@
     kubecm
     kubernetes-helm
     argocd
+    minikube
     kubebuilder
   ];
   programs = {

@@ -9,6 +9,7 @@
     # snex9x
     # sameboy
     gamescope
+    hmcl
     winetricks
   ];
 }

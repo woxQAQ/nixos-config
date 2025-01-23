@@ -238,6 +238,10 @@
     gnumake
     killall
     pkgs.nixfmt-rfc-style
+    pavucontrol  # 音量控制GUI
+    pamixer      # 命令行音量控制
+    pulseaudio   # 提供一些命令行工具
+    easyeffects  # 音频效果器（可选）
   ];
   environment.variables.EDITOR = "vim";
   nix.settings.substituters = [
@@ -265,6 +269,8 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "audio"
+      "pipewire"
     ];
   };
 
@@ -282,7 +288,9 @@
     enableSSHSupport = true;
   };
   services.gnome.gnome-keyring.enable = false;
-
+  programs.localsend = {
+    enable = true;
+  };
 
   # List services that you want to enable:
 
@@ -318,5 +326,22 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.11"; # Did you read the comment?
+
+  # 添加音频相关配置
+  security.rtkit.enable = true;  # 可选，但推荐启用以获得更好的实时音频性能
+  
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+    
+  };
+
+  hardware.firmware = with pkgs; [
+    sof-firmware  # Sound Open Firmware
+    alsa-firmware
+  ];
 
 }

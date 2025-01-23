@@ -11,12 +11,12 @@
         "sh ~/.config/hypr/scripts/startup.sh"
         "nm-applet &"
         "swww-daemon &"
-        "fcitx5 -d --replace"
+        "fcitx5 -d"
         # "hyprctl setcursor Bibata-Modern-Classic 24"
       ];
       input = {
         kb_layout = "us";
-        kb_options = "grp:alt_caps_toggle";
+        # kb_options = "caps:capslock";
         numlock_by_default = true;
         follow_mouse = 1;
         float_switch_override_focus = 0;
@@ -68,7 +68,7 @@
       decoration = {
         rounding = 8;
         active_opacity = 1.0;
-        inactive_opacity = 0.90;
+        inactive_opacity = 1.0;
         fullscreen_opacity = 1.0;
 
         blur = {
@@ -136,7 +136,8 @@
         "$mainMod, Q, killactive,"
         "$mainMod, F, fullscreen, 0"
         "$mainMod SHIFT, F, fullscreen, 1"
-        # "$mainMod, Space, exec, toggle_float"
+        "$mainMod, T, togglefloating"
+        "$mainMod, C, exec, cursor"
         "$mainMod, Space, exec, rofi -show drun || pkill rofi"
         # "$mainMod SHIFT, D, exec, webcord --enable-features=UseOzonePlatform --ozone-platform=wayland"
         "$mainMod SHIFT, S, exec, hyprctl dispatch exec '[workspace 5 silent] SoundWireServer'"
@@ -236,6 +237,10 @@
 
         # clipboard manager
         "$mainMod, V, exec, cliphist list | rofi -dmenu -theme-str 'window {width: 50%;} listview {columns: 1;}' | cliphist decode | wl-copy"
+
+        # 添加重启 Hyprland 的快捷键
+        "$mainMod SHIFT, R, exec, hyprctl dispatch exit" # 完全退出 Hyprland
+        "$mainMod ALT, R, exec, hyprctl reload"         # 重新加载配置
       ];
 
       # # binds active in lockscreen
@@ -257,6 +262,28 @@
       bindm = [
         "$mainMod, mouse:272, movewindow"
         "$mainMod, mouse:273, resizewindow"
+      ];
+
+      env = [
+        "NIXOS_OZONE_WL,1" # for any ozone-based browser & electron apps to run on wayland
+        "MOZ_ENABLE_WAYLAND,1" # for firefox to run on wayland
+        "MOZ_WEBRENDER,1"
+        # misc
+        "_JAVA_AWT_WM_NONREPARENTING,1"
+        "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+        "QT_QPA_PLATFORM,wayland"
+        "SDL_VIDEODRIVER,wayland"
+        "GDK_BACKEND,wayland"
+        "GDK_SCALE,1.25"
+        "XCURSOR_SIZE,24"
+        "XDG_SESSION_TYPE,wayland"
+        "XDG_CURRENT_DESKTOP,Hyprland"
+        "XDG_SESSION_DESKTOP,Hyprland"
+        "GTK_IM_MODULE,fcitx"
+        "QT_IM_MODULE,fcitx"
+        "XMODIFIERS,@im=fcitx"
+        "SDL_IM_MODULE,fcitx"
+        "GLFW_IM_MODULE,ibus"
       ];
 
       # windowrule
@@ -358,15 +385,21 @@
         "w[tg1], gapsout:0, gapsin:0"
         "f[1], gapsout:0, gapsin:0"
       ];
+      monitor = [
+        "DP-3,2560x1440@180,2048x0,1.25"
+        "HDMI-A-2,2560x1440@144,0x0,1.25"
+      ];
+      xwayland = {
+        force_zero_scaling = true;
+      };
     };
-
-    extraConfig = "
-      monitor= DP-3, 2560x1440@144,2048x0,1.25
-      monitor= HDMI-A-2, 2560x1440@144,0x0,1.25
+    # extraConfig = "
+    #   monitor= DP-3, 2560x1440@144,auto,1.25,bitdepth,10
+    #   monitor= HDMI-A-2, 2560x1440@144,auto,1.25,bitdepth,10
       
-      xwayland {
-        force_zero_scaling = true
-      }
-    ";
+    #   xwayland {
+    #     force_zero_scaling = true
+    #   }
+    # ";
   };
 }

@@ -23,10 +23,8 @@
       scrolling.history = 10000;
 
       font = {
-        # normal.family = "JetBrains Mono";
-        # bold.family = "JetBrains Mono";
-        # italic.family = "JetBrains Mono";
-        size = 14;
+        normal.family = "FiraCode Nerd Font";
+        size = 12;
       };
 
       # draw_bold_text_with_bright_colors = true;
