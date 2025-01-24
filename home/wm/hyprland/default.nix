@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ./vars.nix
+    # ./vars.nix
     ./config.nix
     ./waybar.nix
   ];
@@ -26,6 +26,7 @@
     swaylock
     swaybg
     wlr-randr
+    alsa-utils
   ];
   systemd.user.targets.hyprland-session.Unit.Wants = [
     "xdg-desktop-autostart.target"
@@ -35,6 +36,7 @@
     xwayland = {
       enable = true;
     };
+    systemd.enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     # portalPackage =
     #   inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;

@@ -9,10 +9,17 @@
     yq-go
     jq
     htop
+    putty
     go
+    node2nix
+    dbeaver-bin
+    dbgate
     mpv
     neofetch
+    font-manager
+    jdk23
     tldr
+    qq
     ripgrep
     treefmt2
     wl-clipboard
@@ -31,6 +38,9 @@
     yarn
     nodePackages.pnpm
   ];
+  home.file.".npmrc".text = ''
+    prefix=~/.npm-packages
+  '';
   programs = {
     fzf = {
       enable = true;
@@ -64,5 +74,13 @@
       git = true;
       icons = "auto";
     };
+    go = {
+      enable = true;
+      goPath = "go";
+    };
   };
+  home.sessionPath = [
+    "$HOME/go/bin"
+    "$HOME/.npm-packages/bin"
+  ];
 }
