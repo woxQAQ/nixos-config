@@ -1,3 +1,0 @@
-.phony: fmt
-fmt:
-	nixfmt

@@ -2,7 +2,6 @@
 {
   imports = [
     ./cursor.nix
-    ./vscode.nix
     ./browsers.nix
     ./common.nix
     ./game.nix
