@@ -15,6 +15,7 @@
     swww
     grim
     slurp
+    hyprcursor
     wl-clip-persist
     cliphist
     wf-recorder
@@ -33,9 +34,6 @@
   ];
   wayland.windowManager.hyprland = {
     enable = true;
-    xwayland = {
-      enable = true;
-    };
     systemd.enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     # portalPackage =

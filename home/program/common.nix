@@ -17,7 +17,7 @@
     mpv
     neofetch
     font-manager
-    jdk23
+    zulu23
     tldr
     qq
     ripgrep
