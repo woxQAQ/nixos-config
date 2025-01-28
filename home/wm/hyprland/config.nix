@@ -240,7 +240,7 @@
 
         # 添加重启 Hyprland 的快捷键
         "$mainMod SHIFT, R, exec, hyprctl dispatch exit" # 完全退出 Hyprland
-        "$mainMod ALT, R, exec, hyprctl reload"         # 重新加载配置
+        "$mainMod ALT, R, exec, hyprctl reload" # 重新加载配置
       ];
 
       # # binds active in lockscreen
@@ -265,6 +265,8 @@
       ];
 
       env = [
+        "HYPRCURSOR_THEME,Bibata-Modern-Ice"
+        "HYPRCURSOR_SIZE,24"
         "NIXOS_OZONE_WL,1" # for any ozone-based browser & electron apps to run on wayland
         "MOZ_ENABLE_WAYLAND,1" # for firefox to run on wayland
         "MOZ_WEBRENDER,1"
@@ -396,7 +398,7 @@
     # extraConfig = "
     #   monitor= DP-3, 2560x1440@144,auto,1.25,bitdepth,10
     #   monitor= HDMI-A-2, 2560x1440@144,auto,1.25,bitdepth,10
-      
+
     #   xwayland {
     #     force_zero_scaling = true
     #   }

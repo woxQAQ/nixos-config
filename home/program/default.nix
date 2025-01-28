@@ -8,7 +8,7 @@
     ./game.nix
     ./rofi.nix
     ./cloud-native.nix
-    ./zed.nix
+    ./ide.nix
     ./xdg.nix
     ./gtk.nix
     ./git.nix

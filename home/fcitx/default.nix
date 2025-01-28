@@ -4,8 +4,10 @@
   ...
 }:
 {
-  home.file.".local/share/fcitx5/themes".source = "${nur-ryan4yin.packages.${pkgs.system}.catppuccin-fcitx5}/src";
-  
+  home.file.".local/share/fcitx5/themes".source = "${
+    nur-ryan4yin.packages.${pkgs.system}.catppuccin-fcitx5
+  }/src";
+
   # Rime 配置文件
   xdg.configFile = {
     # fcitx5 配置
