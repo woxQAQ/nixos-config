@@ -44,28 +44,10 @@
     in
     {
       nixosConfigurations = {
-        ${username} = nixpkgs.lib.nixosSystem {
-          # specialArgs = { inherit inputs; inherit nur-ryan4yin;};
-          specialArgs = { inherit inputs; };
+        woxQAQ = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs host username nur-ryan4yin; };
           inherit system;
-          modules = [
-            ./configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.backupFileExtension = "home-manager.backup";
-              home-manager.users.${username} = import ./home;
-              home-manager.extraSpecialArgs = {
-                inherit
-                  inputs
-                  username
-                  host
-                  nur-ryan4yin
-                  ;
-              };
-              home-manager.useUserPackages = true;
-              home-manager.useGlobalPkgs = true;
-            }
-          ];
+          modules = [ ./hosts/woxQAQ ];
         };
       };
     };

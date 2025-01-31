@@ -16,10 +16,10 @@
     ./neovim
     ./fcitx
   ];
-  home = {
-    inherit username;
-    homeDirectory = "/home/${username}";
-    stateVersion = "24.11";
-  };
-  programs.home-manager.enable = true;
+  # home = {
+  #   inherit username;
+  #   homeDirectory = "/home/${username}";
+  #   stateVersion = "24.11";
+  # };
+  # programs.home-manager.enable = true;
 }

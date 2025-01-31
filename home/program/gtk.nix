@@ -11,6 +11,7 @@
   home.packages = with pkgs; [
     lxappearance-gtk2
     libsForQt5.qt5ct
+    gtk3
   ];
 
   # set dpi for 4k monitor

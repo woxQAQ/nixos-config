@@ -361,11 +361,11 @@
         "float,title:^(Confirm to replace files)$"
         "float,title:^(File Operation Progress)$"
 
-        "opacity 0.0 override,class:^(xwaylandvideobridge)$"
-        "noanim,class:^(xwaylandvideobridge)$"
-        "noinitialfocus,class:^(xwaylandvideobridge)$"
-        "maxsize 1 1,class:^(xwaylandvideobridge)$"
-        "noblur,class:^(xwaylandvideobridge)$"
+        # "opacity 0.0 override,class:^(xwaylandvideobridge)$"
+        # "noanim,class:^(xwaylandvideobridge)$"
+        # "noinitialfocus,class:^(xwaylandvideobridge)$"
+        # "maxsize 1 1,class:^(xwaylandvideobridge)$"
+        # "noblur,class:^(xwaylandvideobridge)$"
 
         # No gaps when only
         "bordersize 0, floating:0, onworkspace:w[t1]"

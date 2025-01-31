@@ -20,6 +20,7 @@
     cliphist
     wf-recorder
     glib
+    weston
     wayland
     pamixer
     mako
