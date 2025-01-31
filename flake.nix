@@ -45,7 +45,14 @@
     {
       nixosConfigurations = {
         woxQAQ = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs host username nur-ryan4yin; };
+          specialArgs = {
+            inherit
+              inputs
+              host
+              username
+              nur-ryan4yin
+              ;
+          };
           inherit system;
           modules = [ ./hosts/woxQAQ ];
         };
