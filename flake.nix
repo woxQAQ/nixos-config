@@ -6,7 +6,10 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     flake-schemas.url = "github:DeterminateSystems/flake-schemas";
-
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     neovim-flake = {
       #url = git+file:///home/gvolpe/workspace/neovim-flake;
       url = "github:gvolpe/neovim-flake";
@@ -41,6 +44,9 @@
       username = "woxQAQ";
       host = "woxQAQ";
       system = "x86_64-linux";
+      imports = [
+        ./flake
+      ];
     in
     {
       nixosConfigurations = {

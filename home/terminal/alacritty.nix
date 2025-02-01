@@ -24,8 +24,12 @@
 
       font = {
         normal.family = "FiraCode Nerd Font";
+        bold = {
+          style = "Bold";
+        };
         size = 12;
       };
+ 
 
       # draw_bold_text_with_bright_colors = true;
       window.opacity = 0.93;

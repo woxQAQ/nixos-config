@@ -11,5 +11,6 @@
     ./network.nix
     ./system.nix
     ./zram.nix
+    ./vm.nix
   ];
 }

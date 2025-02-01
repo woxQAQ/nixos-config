@@ -317,6 +317,7 @@
 
       # windowrulev2
       windowrulev2 = [
+        "float, class:Waydroid"
         "float, title:^(Picture-in-Picture)$"
         "opacity 1.0 override 1.0 override, title:^(Picture-in-Picture)$"
         "pin, title:^(Picture-in-Picture)$"
