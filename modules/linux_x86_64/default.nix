@@ -1,25 +1,7 @@
-{
-  pkgs,
-  lib,
-  inputs,
-  host,
-  nur-ryan4yin,
-  username,
-  ...
-}:
+{ pkgs, ... }:
 {
   imports = [
-    ./boot.nix
-    ./fonts.nix
-    ./locale.nix
-    ./network.nix
-    ./pipewire.nix
-    ./programs.nix
-    ./security.nix
-    ./services.nix
-    ./system.nix
-    ./user.nix
-    ./wayland.nix
-    ./zram.nix
+    ./base
+    ./desktop
   ];
 }

@@ -31,7 +31,7 @@
         ;
     };
     users.${username} = {
-      imports = [ ../../home ];
+      imports = [ ../../../home ];
       home.username = "${username}";
       home.homeDirectory = "/home/${username}";
       home.stateVersion = "24.05";

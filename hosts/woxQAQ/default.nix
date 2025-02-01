@@ -8,6 +8,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./boot.specified.nix
     ../../modules/base.nix
     ../../modules/linux_x86_64
   ];

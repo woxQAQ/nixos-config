@@ -1,9 +1,6 @@
 { pkgs, ... }:
 {
   programs = {
-    localsend.enable = true;
-
-    dconf.enable = true;
     gamescope = {
       enable = true;
       capSysNice = true;
