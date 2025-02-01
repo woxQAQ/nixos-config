@@ -13,7 +13,6 @@
     ./fonts.nix
     ./locale.nix
     ./network.nix
-    ./nix.nix
     ./pipewire.nix
     ./programs.nix
     ./security.nix
@@ -21,5 +20,6 @@
     ./system.nix
     ./user.nix
     ./wayland.nix
+    ./zram.nix
   ];
 }

@@ -1,18 +1,13 @@
 { lib, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    zip
-    unzip
-    p7zip
     gamescope
     repgrep
     yq-go
-    jq
     pavucontrol # 音量控制GUI
     pamixer # 命令行音量控制
     pulseaudio # 提供一些命令行工具
     easyeffects # 音频效果器（可选）
-    htop
     putty
     jellyfin-media-player
     go

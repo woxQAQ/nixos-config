@@ -2,10 +2,7 @@
 {
   programs = {
     localsend.enable = true;
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
+
     dconf.enable = true;
     gamescope = {
       enable = true;

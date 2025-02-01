@@ -11,4 +11,6 @@
     LC_TELEPHONE = "zh_CN.UTF-8";
     LC_TIME = "zh_CN.UTF-8";
   };
+  time.timeZone = "Asia/Shanghai";
+  i18n.defaultLocale = "en_US.UTF-8";
 }
