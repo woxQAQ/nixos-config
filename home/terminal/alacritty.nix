@@ -28,7 +28,7 @@
       };
 
       # draw_bold_text_with_bright_colors = true;
-      window.opacity = 0.9;
+      window.opacity = 0.93;
     };
   };
 }

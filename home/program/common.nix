@@ -16,7 +16,6 @@
     dbeaver-bin
     dbgate
     mpv
-    neofetch
     font-manager
     zulu23
     tldr
@@ -68,6 +67,13 @@
       # config = {
       #   paper = "less -FR";
       # };
+    };
+    btop = {
+      enable = true;
+      settings = {
+        color_theme = "catppuccin_mocha";
+        theme_background = false; # make btop transparent
+      };
     };
     jq.enable = true;
     eza = {
