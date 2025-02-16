@@ -12,7 +12,3 @@ switch:
 .PHONY: fmt
 fmt:
 	treefmt
-
-.PHONY: statix
-statix:
-    statix check >> out
