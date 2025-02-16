@@ -16,6 +16,11 @@
       source-han-sans
       source-han-serif
 
+      inconsolata
+      fira-code
+      roboto-mono
+      hack-font
+
       # nerdfonts
       nerd-fonts.fira-code
       nerd-fonts.jetbrains-mono

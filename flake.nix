@@ -2,6 +2,8 @@
   description = "woxQAQ's NixOS flake";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nix-gaming.url = "github:fufexan/nix-gaming";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
@@ -44,9 +46,10 @@
       username = "woxQAQ";
       host = "woxQAQ";
       system = "x86_64-linux";
-      imports = [
-        ./flake
-      ];
+      pkgs-unstable = import inputs.nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in
     {
       nixosConfigurations = {
@@ -57,6 +60,7 @@
               host
               username
               nur-ryan4yin
+              pkgs-unstable
               ;
           };
           inherit system;

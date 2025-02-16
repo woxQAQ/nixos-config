@@ -6,9 +6,9 @@
 }:
 {
   imports = [
-    ./boot.nix
+    ./boot
     ./locale.nix
-    ./network.nix
+    ./net
     ./system.nix
     ./zram.nix
     ./vm.nix

@@ -7,5 +7,4 @@
     dates = lib.mkDefault "weekly";
     options = lib.mkDefault "--delete-older-than 7d";
   };
-  system.stateVersion = "24.11";
 }

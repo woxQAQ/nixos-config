@@ -1,8 +1,9 @@
-{ config, pkgs, ... }:
+{ ... }:
 {
   imports = [
     ./cursor.nix
-    ./browsers.nix
+    ./chromium
+    ./nix
     ./common.nix
     ./game.nix
     ./rofi.nix

@@ -15,8 +15,12 @@
 
       terminal = {
         shell = {
-          program = "${pkgs.zsh}/bin/zsh";
-          # args = [""]
+          program = "${pkgs.bash}/bin/bash";
+          args = [
+            "--login"
+            "-c"
+            "nu --login --interactive"
+          ];
         };
       };
 
@@ -29,7 +33,6 @@
         };
         size = 12;
       };
- 
 
       # draw_bold_text_with_bright_colors = true;
       window.opacity = 0.93;

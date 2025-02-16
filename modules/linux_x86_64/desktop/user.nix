@@ -3,6 +3,7 @@
   inputs,
   nur-ryan4yin,
   host,
+  pkgs-unstable,
   ...
 }:
 {
@@ -26,6 +27,7 @@
       inherit
         inputs
         username
+        pkgs-unstable
         host
         nur-ryan4yin
         ;

@@ -6,4 +6,5 @@
       chainloader (''${root})/EFI/Microsoft/Boot/bootmgfw.efi
     }
   '';
+  hardware.amdgpu.initrd.enable = true;
 }

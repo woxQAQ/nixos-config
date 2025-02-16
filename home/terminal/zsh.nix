@@ -5,7 +5,7 @@
 }:
 {
   programs.zsh = {
-    enable = true;
+    enable = false;
     autosuggestion.enable = true;
     autocd = true;
     dirHashes = {

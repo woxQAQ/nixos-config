@@ -3,6 +3,9 @@
   home.packages = with pkgs; [
     gamescope
     repgrep
+    frp
+    bitwarden-desktop
+    cargo
     yq-go
     pavucontrol # 音量控制GUI
     pamixer # 命令行音量控制

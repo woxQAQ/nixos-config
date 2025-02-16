@@ -9,6 +9,6 @@
     jack.enable = true;
     wireplumber.enable = true;
   };
-  security.rtkit.enable = true; # 可选，但推荐启用以获得更好的实时音频性能
+  security.rtkit.enable = true;
   environment.systemPackages = with pkgs; [ pulseaudioFull ];
 }

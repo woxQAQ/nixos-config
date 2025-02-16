@@ -9,6 +9,7 @@
 }:
 {
   imports = [
+    ./misc.nix
     ./game
     ./fonts.nix
     ./pipewire.nix

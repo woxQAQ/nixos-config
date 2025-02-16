@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  flake,
+  username,
+  ...
+}:
 {
   xdg.portal = {
     enable = true;
@@ -10,4 +15,17 @@
     ];
   };
   programs.hyprland.enable = true;
+  services = {
+    greetd = {
+      enable = true;
+      settings = rec {
+        initial_session = {
+          command = "$HOME/.wayland-session";
+          user = username;
+        };
+        default_session = initial_session;
+        terminal.vt = 1;
+      };
+    };
+  };
 }
