@@ -10,4 +10,10 @@
     ./waypaper.nix
     ./fcitx
   ];
+
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+    };
+  };
 }

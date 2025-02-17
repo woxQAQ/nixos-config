@@ -1,11 +1,11 @@
-{ pkgs-unstable, ... }:
+{ pkgs, ... }:
 let
-  inherit (pkgs-unstable) nu_scripts;
+  inherit (pkgs.unstable) nu_scripts;
 in
 {
   programs.nushell = {
     enable = true;
-    package = pkgs-unstable.nushell;
+    package = pkgs.unstable.nushell;
     configFile.source = ./config.nu;
     extraConfig = ''
       # completion
