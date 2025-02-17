@@ -1,12 +1,10 @@
 {
   pkgs,
-  config,
   inputs,
   ...
 }:
 {
   imports = [
-    # ./vars.nix
     ./config.nix
     ./waybar.nix
   ];

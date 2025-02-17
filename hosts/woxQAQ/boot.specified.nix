@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   boot.loader.grub.extraEntries = ''
     menuentry "Windows" {
@@ -7,4 +7,5 @@
     }
   '';
   hardware.amdgpu.initrd.enable = true;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 }

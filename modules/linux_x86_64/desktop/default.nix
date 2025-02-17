@@ -1,10 +1,4 @@
 {
-  pkgs,
-  lib,
-  inputs,
-  host,
-  nur-ryan4yin,
-  username,
   ...
 }:
 {
