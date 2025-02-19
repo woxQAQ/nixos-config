@@ -3,8 +3,9 @@
 }:
 {
   imports = [
-    # ./misc.nix
+    ./misc.nix
     ./game
+    ./user.nix
     ./fonts.nix
     ./pipewire.nix
     ./programs.nix

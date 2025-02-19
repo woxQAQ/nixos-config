@@ -1,5 +1,7 @@
 {
   description = "woxQAQ's NixOS flake";
+
+  outputs = inputs: import ./outputs inputs;
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -31,44 +33,6 @@
     nur-ryan4yin.url = "github:ryan4yin/nur-packages";
     catppuccin.url = "github:catppuccin/nix";
   };
-  outputs =
-    { self, nixpkgs-unstable, ... }@inputs:
-    import ./outputs {
-      inherit self inputs;
-      inherit (self) outputs;
-    };
-  # outputs =
-  #   {
-  #     self,
-  #     nixpkgs,
-  #     home-manager,
-  #     nur-ryan4yin,
-  #     ...
-  #   }@inputs:
-  #   let
-  #     username = "woxQAQ";
-  #     host = "woxQAQ";
-  #     system = "x86_64-linux";
-  #     pkgs-unstable = import inputs.nixpkgs-unstable {
-  #       inherit system;
-  #       config.allowUnfree = true;
-  #     };
-  #   in
-  #   {
-  #     nixosConfigurations = {
-  #       woxQAQ = nixpkgs.lib.nixosSystem {
-  #         specialArgs = {
-  #           inherit
-  #             inputs
-  #             host
-  #             username
-  #             nur-ryan4yin
-  #             pkgs-unstable
-  #             ;
-  #         };
-  #         inherit system;
-  #         modules = [ ./hosts/woxQAQ ];
-  #       };
-  #     };
-  #   };
+
+  # outputs = inputs: import ./outputs inputs;
 }

@@ -1,35 +1,39 @@
 {
   self,
-  inputs,
-  outputs,
   ...
-}:
+}@inputs:
 let
-  lib = import ../lib {
+  system = "x86_64-linux";
+  inherit (inputs.nixpkgs) lib;
+  stateVersion = "24.11";
+  specialArgs = inputs // {
+    username = "woxQAQ";
+    inherit stateVersion;
+    unstable-pkg = import inputs.nixpkgs-unstable {
+      inherit system;
+      config.allowUnfree = true;
+    };
+  };
+  mylib = import ../lib;
+  args = {
     inherit
-      self
+      mylib
       inputs
-      outputs
+      lib
+      specialArgs
+      system
       ;
   };
-  inherit (lib) mkHost mkHome;
-  username = "woxQAQ";
-  stateVersion = "24.11";
+  nixosSystems = {
+    woxQAQ = import ./woxQAQ.nix (args);
+  };
+
+  nixosSystemsValues = builtins.attrValues nixosSystems;
+
 in
 {
-  nixosConfigurations = {
-    woxQAQ = mkHost {
-      inherit username stateVersion;
-      hostname = "woxQAQ";
-      desktop = "hyprland";
-    };
-  };
-  homeConfigurations = {
-    "${username}" = mkHome {
-      inherit username stateVersion;
-      hostname = "woxQAQ";
-      desktop = "hyprland";
-    };
-  };
-  overlays = import ./overlays { inherit inputs; };
+  debug_ = { inherit nixosSystems; };
+  nixosConfigurations = lib.attrsets.mergeAttrsList (
+    map (it: it.nixosConfigurations or { }) nixosSystemsValues
+  );
 }
