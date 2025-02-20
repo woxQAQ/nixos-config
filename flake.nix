@@ -1,5 +1,7 @@
 {
   description = "woxQAQ's NixOS flake";
+
+  outputs = inputs: import ./outputs inputs;
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -13,7 +15,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     neovim-flake = {
-      #url = git+file:///home/gvolpe/workspace/neovim-flake;
       url = "github:gvolpe/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-schemas.follows = "flake-schemas";
@@ -21,51 +22,17 @@
     hypr-binds-flake = {
       url = "github:hyprland-community/hypr-binds";
       inputs.nixpkgs.follows = "nixpkgs";
-      # submodules = true;
     };
     nixvim = {
       url = "github:nix-community/nixvim";
-      # url = "/home/gaetan/perso/nix/nixvim/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
-    # nix-gaming.url = "github:fufexan/nix-gaming";
     nur.url = "github:nix-community/NUR";
     hypr-contrib.url = "github:hyprwm/contrib";
     nur-ryan4yin.url = "github:ryan4yin/nur-packages";
+    catppuccin.url = "github:catppuccin/nix";
   };
-  outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      nur-ryan4yin,
-      ...
-    }@inputs:
-    let
-      username = "woxQAQ";
-      host = "woxQAQ";
-      system = "x86_64-linux";
-      pkgs-unstable = import inputs.nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-      };
-    in
-    {
-      nixosConfigurations = {
-        woxQAQ = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit
-              inputs
-              host
-              username
-              nur-ryan4yin
-              pkgs-unstable
-              ;
-          };
-          inherit system;
-          modules = [ ./hosts/woxQAQ ];
-        };
-      };
-    };
+
+  # outputs = inputs: import ./outputs inputs;
 }

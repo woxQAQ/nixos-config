@@ -1,12 +1,12 @@
 {
   pkgs,
-  pkgs-unstable,
+  unstable-pkg,
   ...
 }:
 {
   environment.shells = with pkgs; [
     bashInteractive
-    pkgs-unstable.nushell
+    unstable-pkg.nushell
   ];
   environment.systemPackages = with pkgs; [
     gnumake

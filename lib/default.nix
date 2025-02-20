@@ -1,0 +1,3 @@
+{
+  mkHost = import ./mkhost.nix;
+}
