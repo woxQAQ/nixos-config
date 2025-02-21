@@ -4,7 +4,6 @@
 }:
 {
   home.packages = with pkgs; [
-    podman
     docker-compose
     kubectl
     kubecm

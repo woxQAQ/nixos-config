@@ -1,5 +1,6 @@
 {
   self,
+  nixpkgs,
   ...
 }@inputs:
 let
@@ -14,7 +15,7 @@ let
       config.allowUnfree = true;
     };
   };
-  mylib = import ../lib;
+  mylib = import ../lib { inherit nixpkgs; };
   args = {
     inherit
       mylib

@@ -1,4 +1,17 @@
 { ... }:
 {
-  virtualisation.waydroid.enable = true;
+  virtualisation = {
+    waydroid.enable = true;
+
+    docker = {
+      enable = true;
+      daemon.settings = {
+        "features" = {
+          "containerd-snapshotter" = true;
+        };
+      };
+
+      enableOnBoot = true;
+    };
+  };
 }

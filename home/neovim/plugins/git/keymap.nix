@@ -12,6 +12,7 @@
             "<leader>gb" = ":Gitsigns toggle_current_line_blame<CR>";
             "<leader>gd" = ":Gitsigns diffthis<CR>";
             "<leader>gp" = ":Gitsigns preview_hunk<CR>";
+            "<leader>gg" = ":LazyGit";
             "]c" = ":Gitsigns next_hunk<CR>";
             "[c" = ":Gitsigns prev_hunk<CR>";
           };

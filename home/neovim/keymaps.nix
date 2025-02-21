@@ -79,6 +79,8 @@
               "<leader>s" = ":sort<CR>";
             };
       in
-      config.lib.nixvim.keymaps.mkKeymaps { options.silent = true; } (normal ++ visual);
+      config.lib.nixvim.keymaps.mkKeymaps {
+        options.silent = true;
+      } (normal ++ visual);
   };
 }

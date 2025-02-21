@@ -1,23 +1,18 @@
 {
   programs.nixvim = {
     globals = {
-      # Disable useless providers
       loaded_ruby_provider = 0; # Ruby
       loaded_perl_provider = 0; # Perl
       loaded_python_provider = 0; # Python 2
     };
-
     clipboard = {
       # Use system clipboard
       register = "unnamedplus";
-
       providers.wl-copy.enable = true;
     };
-
     opts = {
       updatetime = 100; # Faster completion
 
-      # Line numbers
       relativenumber = true; # Relative line numbers
       number = true; # Display the absolute line number of the current line
       hidden = true; # Keep closed buffer open in the background

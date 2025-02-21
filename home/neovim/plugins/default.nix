@@ -1,8 +1,10 @@
 {
   imports = [
     ./comments.nix
+    ./cmp.nix
     ./term.nix
     ./lsp
+    ./lint.nix
     ./lualine.nix
     ./neotree.nix
     ./dashboard.nix
@@ -10,6 +12,7 @@
     ./helm.nix
     ./barbar
     ./git
+    ./cmp
     ./chat
     ./which-key.nix
     ./projects.nix
@@ -17,7 +20,6 @@
   ];
 
   programs.nixvim = {
-    colorschemes.gruvbox.enable = true;
 
     plugins = {
       web-devicons.enable = true;
@@ -26,9 +28,19 @@
         enable = true;
         settings.user_default_options.names = false;
       };
-
+      nui.enable = true;
+      noice.enable = true;
       oil.enable = true;
-
+      notify.enable = true;
+      illuminate = {
+        enable = true;
+        underCursor = true;
+        filetypesDenylist = [
+          "Outline"
+          "TelescopePrompt"
+          "reason"
+        ];
+      };
       trim = {
         enable = true;
         settings = {

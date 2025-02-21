@@ -2,14 +2,12 @@
   programs.nixvim.plugins = {
     treesitter = {
       enable = true;
-
       nixvimInjections = true;
-
       settings = {
         highlight.enable = true;
         indent.enable = true;
       };
-      folding = true;
+      folding = false;
     };
 
     treesitter-refactor = {
@@ -20,7 +18,6 @@
         clearOnCursorMove = false;
       };
     };
-
     hmts.enable = true;
   };
 }

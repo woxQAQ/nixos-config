@@ -2,11 +2,11 @@
 {
   imports = [
     ./autocommands.nix
-    ./cmp.nix
     ./keymaps.nix
     ./options.nix
     ./plugins
     ./todo.nix
+    ./color.nix
   ];
 
   home.shellAliases.v = "nvim";

@@ -28,6 +28,7 @@
           ts_ls.enable = true;
           cssls.enable = true;
           html.enable = true;
+          statix.enable = true;
           gopls = {
             enable = true;
             autostart = true;

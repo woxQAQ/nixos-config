@@ -9,10 +9,9 @@
     };
     gitsigns = {
       enable = true;
-      settings.signs = {
-        add.text = "+";
-        change.text = "~";
-      };
+      autoLoad = true;
+      settings.current_line_blame = true;
     };
+    gitblame.enable = true;
   };
 }
