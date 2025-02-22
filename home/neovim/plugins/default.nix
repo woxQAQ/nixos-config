@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   imports = [
     ./comments.nix
@@ -14,13 +15,16 @@
     ./git
     ./cmp
     ./chat
+    ./treesitter
     ./which-key.nix
     ./projects.nix
-    ./treesitter.nix
+    ./trouble.nix
   ];
 
   programs.nixvim = {
-
+    extraPlugins = with pkgs.vimPlugins; [
+      leetcode-nvim
+    ];
     plugins = {
       web-devicons.enable = true;
       nvim-autopairs.enable = true;

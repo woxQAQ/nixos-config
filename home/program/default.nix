@@ -4,6 +4,8 @@
     ./cursor.nix
     ./chromium
     ./nix
+    ./dev
+
     ./common.nix
     ./game.nix
     ./rofi.nix

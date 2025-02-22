@@ -1,7 +1,3 @@
-# XDG stands for "Cross-Desktop Group", with X used to mean "cross".
-# It's a bunch of specifications from freedesktop.org intended to standardize desktops and
-# other GUI applications on various systems (primarily Unix-like) to be interoperable:
-#   https://www.freedesktop.org/wiki/Specifications/
 {
   config,
   pkgs,
@@ -9,7 +5,7 @@
 }:
 {
   home.packages = with pkgs; [
-    xdg-utils # provides cli tools such as `xdg-mime` `xdg-open`
+    xdg-utils
     xdg-user-dirs
   ];
 
@@ -22,16 +18,8 @@
     dataHome = "${config.home.homeDirectory}/.local/share";
     stateHome = "${config.home.homeDirectory}/.local/state";
 
-    # manage $XDG_CONFIG_HOME/mimeapps.list
-    # xdg search all desktop entries from $XDG_DATA_DIRS, check it by command:
-    #  echo $XDG_DATA_DIRS
-    # the system-level desktop entries can be list by command:
-    #   ls -l /run/current-system/sw/share/applications/
-    # the user-level desktop entries can be list by command(user ryan):
-    #  ls /etc/profiles/per-user/ryan/share/applications/
     mimeApps = {
       enable = true;
-      # let `xdg-open` to open the url with the correct application.
       defaultApplications =
         let
           browser = [ "firefox.desktop" ];
@@ -61,16 +49,12 @@
           "application/x-extension-xhtml" = browser;
           "application/x-wine-extension-ini" = editor;
 
-          # define default applications for some url schemes.
           "x-scheme-handler/about" = browser; # open `about:` url with `browser`
           "x-scheme-handler/ftp" = browser; # open `ftp:` url with `browser`
           "x-scheme-handler/http" = browser;
           "x-scheme-handler/https" = browser;
-          # https://github.com/microsoft/vscode/issues/146408
           "x-scheme-handler/vscode" = [ "code-url-handler.desktop" ]; # open `vscode://` url with `code-url-handler.desktop`
           "x-scheme-handler/vscode-insiders" = [ "code-insiders-url-handler.desktop" ]; # open `vscode-insiders://` url with `code-insiders-url-handler.desktop`
-          # all other unknown schemes will be opened by this default application.
-          # "x-scheme-handler/unknown" = editor;
 
           "x-scheme-handler/tg" = [ "org.telegram.desktop.desktop " ];
 
@@ -84,7 +68,6 @@
         };
 
       associations.removed = {
-        # ......
       };
     };
 

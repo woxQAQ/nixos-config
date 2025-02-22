@@ -8,9 +8,7 @@
     nur-ryan4yin.packages.${pkgs.system}.catppuccin-fcitx5
   }/src";
 
-  # Rime 配置文件
   xdg.configFile = {
-    # fcitx5 配置
     "fcitx5/profile" = {
       source = ./profile.conf;
       force = true;

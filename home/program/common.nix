@@ -1,45 +1,33 @@
 { lib, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    gamescope
     repgrep
     frp
-    bitwarden-desktop
-    cargo
     yq-go
-    pavucontrol # 音量控制GUI
-    pamixer # 命令行音量控制
-    pulseaudio # 提供一些命令行工具
-    easyeffects # 音频效果器（可选）
-    putty
-    jellyfin-media-player
-    go
-    remmina
-    node2nix
-    dbeaver-bin
-    dbgate
-    mpv
-    font-manager
-    zulu23
-    tldr
-    qq
-    ripgrep
-    treefmt2
-    wl-clipboard
-    gcc
-    gdb
     duf
+    tldr
     gdu
+
+    pavucontrol
+    pamixer
+    pulseaudio
+    easyeffects
+    jellyfin-media-player
+    mpv
+
+    leetgo
+    bitwarden-desktop
+
+    # ssh desktop client
+    remmina
+
+    beekeeper-studio
+    font-manager
+    qq
+    wl-clipboard
     obs-studio
-    python3
-    nixd
     graphviz
-    xdg-utils
     wineWowPackages.wayland
-    nodejs
-    nodePackages.npm
-    yarn
-    nodePackages.pnpm
   ];
   home.file.".npmrc".text = ''
     prefix=~/.npm-packages

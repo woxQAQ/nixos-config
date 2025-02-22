@@ -9,6 +9,6 @@
 
     keymaps.toggle = "<leader>,";
     keymaps.kill = "<leader>,";
-    shell = "zsh";
+    shell = "nu";
   };
 }
