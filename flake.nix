@@ -14,6 +14,10 @@
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    anyrun = {
+      url = "github:Kirottu/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     neovim-flake = {
       url = "github:gvolpe/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs";

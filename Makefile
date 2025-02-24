@@ -12,3 +12,7 @@ switch:
 .PHONY: fmt
 fmt:
 	treefmt
+
+.PHONY: waybar-restart
+waybar-restart:
+	killall -SIGUSR2 .waybar-wrapped

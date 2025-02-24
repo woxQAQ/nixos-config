@@ -26,7 +26,7 @@
     font = {
       name = "Noto Sans";
       package = pkgs.noto-fonts;
-      size = 13;
+      size = 12;
     };
 
     gtk3.extraConfig = {

@@ -14,6 +14,11 @@
         enable = true;
       };
 
+      colorizer = {
+        enable = true;
+        settings.user_default_options.css = true;
+      };
+
       lsp = {
         enable = true;
         inlayHints = true;
@@ -31,6 +36,7 @@
           cssls.enable = true;
           html.enable = true;
           statix.enable = true;
+          jsonls.enable = true;
           gopls = {
             enable = true;
             autostart = true;

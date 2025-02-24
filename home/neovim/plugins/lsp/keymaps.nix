@@ -56,7 +56,7 @@
           options.desc = "find type definition";
         }
         {
-          action = "<CMD>lspsaga hover_doc<CR>";
+          action = "<CMD>Lspsaga hover_doc<CR>";
           key = "K";
           options.desc = "hover doc";
         }

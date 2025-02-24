@@ -1,132 +1,131 @@
 {
-    "margin-top": 0,
-    "margin-left": 120,
-    "margin-bottom": 0,
-    "margin-right": 120,
-    "height": 60,
-    "layer": "top",
-    "position": "top",
-    "spacing": 15,
-    "modules-left": [
-        "custom/launcher",
-        "custom/powermenu",
-        "hyprland/workspaces",
-        "tray"
-    ],
-    "modules-center": [
-        "hyprland/window"
-    ],
-    "modules-right": [
-        "cpu",
-        "memory",
-        "disk",
-        "pulseaudio",
-        "network",
-        "battery",
-        "clock"
-    ],
-    "clock": {
-        "calendar": {
-            "format": {
-                "today": "<span color='#98971A'><b>{}</b></span>"
-            }
-        },
-        "format": "  {:%H:%M}",
-        "tooltip": "true",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "  {:%d/%m}"
+  "layer": "top",
+  "position": "top",
+  "modules-left": [
+    "custom/launcher",
+    "custom/powermenu",
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "temperature",
+    "cpu",
+    "memory",
+    "disk",
+    "pulseaudio",
+    "network",
+    "tray",
+    "clock"
+  ],
+  "clock": {
+    "calendar": {
+      "format": {
+        "today": "<span color='#98971A'><b>{}</b></span>"
+      }
     },
-    "hyprland/workspaces": {
-        "active-only": false,
-        "disable-scroll": true,
-        "format": "{icon}",
-        "on-click": "activate",
-        "format-icons": {
-            "1": "I",
-            "2": "II",
-            "3": "III",
-            "4": "IV",
-            "5": "V",
-            "6": "VI",
-            "7": "VII",
-            "8": "VIII",
-            "9": "IX",
-            "10": "X",
-            "sort-by-number": true
-        },
-        "persistent-workspaces": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "4": [],
-            "5": []
-        }
-    },
-    "custom/powermenu": {
-        "format": "\uf011",
-        "on-click": "$HOME/.config/hypr/scripts/wlogout.sh",
-        "tooltip": false
-    },
-    "cpu": {
-        "format": "<span foreground='#98971A'> </span> {usage}%",
-        "format-alt": "<span foreground='#98971A'> </span> {avg_frequency} GHz",
-        "interval": 2
-    },
-    "memory": {
-        "format": "<span foreground='#689d6a'>󰟜 </span>{}%",
-        "format-alt": "<span foreground='#689d6a'>󰟜 </span>{used} GiB",
-        "interval": 2
-    },
-    "disk": {
-        "format": "<span foreground='#D65D0e'>󰋊 </span>{percentage_used}%",
-        "interval": 60
-    },
-    "network": {
-        "format-wifi": "<span foreground='#B16286'> </span> {signalStrength}%",
-        "format-ethernet": "<span foreground='#B16286'>󰀂 </span>",
-        "tooltip-format": "Connected to {essid} {ifname} via {gwaddr}",
-        "format-linked": "{ifname} (No IP)",
-        "format-disconnected": "<span foreground='#B16286'>󰖪 </span>"
-    },
-    "tray": {
-        "icon-size": 20,
-        "spacing": 8
-    },
-    "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": "<span foreground='#458588'> </span>",
-        "format-icons": {
-            "default": [
-                "<span foreground='#458588'>  </span>"
-            ]
-        },
-        "scroll-step": 2,
-        "on-click": "pamixer -t"
-    },
-    "battery": {
-        "format": "<span foreground='${yellow}'>{icon}</span> {capacity}%",
-        "format-icons": [
-            " ",
-            " ",
-            " ",
-            " ",
-            " "
-        ],
-        "format-charging": "<span foreground='${yellow}'> </span>{capacity}%",
-        "format-full": "<span foreground='${yellow}'> </span>{capacity}%",
-        "format-warning": "<span foreground='${yellow}'> </span>{capacity}%",
-        "interval": 5,
-        "states": {
-            "warning": 20
-        },
-        "format-time": "{H}h{M}m",
-        "tooltip": true,
-        "tooltip-format": "{time}"
-    },
-    "custom/launcher": {
-        "format": "",
-        "on-click-right": "rofi -show drun",
-        "tooltip": "true",
-        "tooltip-format": "Random Wallpaper"
+    "format": "  {:%H:%M}",
+    "tooltip": "true",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format-alt": "  {:%d/%m}"
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "6": "",
+      "7": "",
+      "8": "",
+      "9": "",
+      "10": "〇",
+      "focused": "",
+      "default": ""
     }
+  },
+  "hyprland/window": {
+    "format": "{title}",
+    "icon": true,
+    "icon-size": 24,
+    "separate-outputs": true
+  },
+  "custom/powermenu": {
+    "format": "\uf011",
+    "on-click": "$HOME/.config/hypr/scripts/wlogout.sh",
+    "tooltip": false
+  },
+  "cpu": {
+    "format": "<span foreground='#98971A'> </span> {usage}%",
+    "format-alt": "<span foreground='#98971A'> </span> {avg_frequency} GHz",
+    "interval": 2
+  },
+  "memory": {
+    "format": "<span foreground='#689d6a'>󰟜 </span>{}%",
+    "format-alt": "<span foreground='#689d6a'>󰟜 </span>{used} GiB",
+    "interval": 2
+  },
+  "disk": {
+    "format": "<span foreground='#D65D0e'>󰋊 </span>{percentage_used}%",
+    "interval": 60
+  },
+  "network": {
+    "format-wifi": "<span foreground='#B16286'> </span> {signalStrength}%",
+    "format-ethernet": "<span foreground='#B16286'>󰀂 </span>",
+    "tooltip-format": "Connected to {essid} {ifname} via {gwaddr}",
+    "format-linked": "{ifname} (No IP)",
+    "format-disconnected": "<span foreground='#B16286'>󰖪 </span>"
+  },
+  "tray": {
+    "icon-size": 15,
+    "spacing": 5,
+    "show-passive-items": true
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": " Mute",
+    "format-source": " {volume}%",
+    "format-source-muted": "",
+    "format-icons": {
+      "default": [
+        "<span foreground='#458588'>  </span>"
+      ],
+      "headphone": ""
+    },
+    "scroll-step": 2,
+    "on-click": "pamixer -t"
+  },
+  "battery": {
+    "format": "<span foreground='${yellow}'>{icon}</span> {capacity}%",
+    "format-icons": [
+      " ",
+      " ",
+      " ",
+      " ",
+      " "
+    ],
+    "format-charging": "<span foreground='${yellow}'> </span>{capacity}%",
+    "format-full": "<span foreground='${yellow}'> </span>{capacity}%",
+    "format-warning": "<span foreground='${yellow}'> </span>{capacity}%",
+    "interval": 5,
+    "states": {
+      "warning": 20
+    },
+    "format-time": "{H}h{M}m",
+    "tooltip": true,
+    "tooltip-format": "{time}"
+  },
+  "temperature": {
+    "format": "\uf2c9 {temperatureC}\u00b0C",
+    "tooltip": false
+  },
+  "custom/launcher": {
+    "format": "",
+    "on-click": "anyrun",
+    "tooltip": "true",
+    "tooltip-format": "Random Wallpaper"
+  }
 }

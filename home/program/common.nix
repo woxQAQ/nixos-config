@@ -12,6 +12,9 @@
     pamixer
     pulseaudio
     easyeffects
+    youtube-tui
+    pot
+    ripgrep
     jellyfin-media-player
     mpv
 

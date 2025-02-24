@@ -25,7 +25,12 @@ nixpkgs.lib.nixosSystem {
 
         home-manager.extraSpecialArgs = {
           inherit inputs username;
-          inherit (specialArgs) stateVersion nur-ryan4yin unstable-pkg;
+          inherit (specialArgs)
+            stateVersion
+            nur-ryan4yin
+            unstable-pkg
+            anyrun
+            ;
 
         };
         home-manager.users.${username}.imports = home-modules;
