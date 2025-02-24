@@ -1,1 +1,1 @@
-# :snowflake: woxQAQ nixos config flake
+# :snowflake: woxQAQ flake
