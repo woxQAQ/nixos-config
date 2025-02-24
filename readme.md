@@ -4,4 +4,5 @@
 
 - [ ] darwin support
 - [ ] more modular
+- [ ] cicd support
 - [ ] ...
