@@ -11,6 +11,7 @@
           luasnip = "[snip]";
           buffer = "[buffer]";
           neorg = "[neorg]";
+          utilsnips = "[utilsnips]";
           nixpkgs_maintainers = "[nixpkgs]";
           friendly-snippets = "[friendly-snippets]";
         };

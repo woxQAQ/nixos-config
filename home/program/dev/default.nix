@@ -7,6 +7,7 @@
     nodePackages.pnpm
 
     python3
+    pyenv
     uv
 
     gdb

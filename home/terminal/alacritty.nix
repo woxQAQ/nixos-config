@@ -27,7 +27,7 @@
       scrolling.history = 10000;
 
       font = {
-        normal.family = "FiraCode Nerd Font";
+        normal.family = "Hack Nerd Font Mono";
         bold = {
           style = "Bold";
         };

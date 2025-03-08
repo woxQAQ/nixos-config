@@ -12,6 +12,7 @@
       "wheel"
       "audio"
       "pipewire"
+      "docker"
     ];
   };
   nix.settings.allowed-users = [ "${username}" ];

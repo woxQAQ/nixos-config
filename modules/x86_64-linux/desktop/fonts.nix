@@ -8,6 +8,7 @@
 
       # normal fonts
       noto-fonts
+      sarasa-gothic
       noto-fonts-cjk-sans
       noto-fonts-emoji
 
@@ -41,7 +42,8 @@
         "Noto Color Emoji"
       ];
       monospace = [
-        "JetBrainsMono Nerd Font"
+        "Hack Nerd Font Mono"
+        # "JetBrainsMono Nerd Font"
         "Noto Color Emoji"
       ];
       emoji = [ "Noto Color Emoji" ];

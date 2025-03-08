@@ -1,4 +1,4 @@
-{ unstable-pkg, ... }:
+{ unstable-pkg, username, ... }:
 let
   inherit (unstable-pkg) nu_scripts;
 in
@@ -8,6 +8,7 @@ in
     package = unstable-pkg.nushell;
     configFile.source = ./config.nu;
     extraConfig = ''
+      $env.PATH = ($env.PATH | prepend '/home/${username}/go/bin')
       # completion
       use ${nu_scripts}/share/nu_scripts/custom-completions/git/git-completions.nu *
       use ${nu_scripts}/share/nu_scripts/custom-completions/tar/tar-completions.nu *

@@ -19,7 +19,11 @@
     mpv
 
     leetgo
+    qbittorrent-enhanced
+    obsidian
+    freetube
     bitwarden-desktop
+    lazydocker
 
     # ssh desktop client
     remmina

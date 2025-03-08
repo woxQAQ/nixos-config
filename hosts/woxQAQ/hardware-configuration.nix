@@ -22,9 +22,12 @@
     "usb_storage"
     "sd_mod"
   ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [
+    "amdgpu"
+  ];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot.extraModulePackages = [
+  ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/e116bee4-c072-437d-bb56-6f444270b169";

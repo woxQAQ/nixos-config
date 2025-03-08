@@ -23,6 +23,7 @@
     pkgs.nixfmt-rfc-style
 
     zip
+    unar
     unzipNLS
     xz
     p7zip
@@ -36,12 +37,12 @@
   ];
   environment.variables.EDITOR = "vim";
   nix.settings.substituters = [
-    "https://mirror.sjtu.edu.cn/nix-channels/store"
     "https://nix-gaming.cachix.org"
+    "https://mirrors.sjtu.edu.cn/nix-channels/store"
   ];
   nix.settings.extra-substituters = [
     "https://nix-community.cachix.org"
-    "https://hyprland.cachix.org"
+    # "https://hyprland.cachix.org"
     "https://anyrun.cachix.org"
   ];
   nix.settings.trusted-public-keys = [
@@ -50,7 +51,7 @@
   nix.settings.extra-trusted-public-keys = [
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
-    "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    # "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
   ];
   nix.settings.experimental-features = [
     "nix-command"
