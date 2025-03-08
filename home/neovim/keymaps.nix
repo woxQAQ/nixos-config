@@ -51,8 +51,8 @@
               H = "^";
 
               # resize with arrows
-              "<C-Up>" = ":resize -2<CR>";
-              "<C-Down>" = ":resize +2<CR>";
+              "<C-Up>" = ":resize +2<CR>";
+              "<C-Down>" = ":resize -2<CR>";
               "<C-Left>" = ":vertical resize +2<CR>";
               "<C-Right>" = ":vertical resize -2<CR>";
 

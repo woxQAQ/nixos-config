@@ -27,7 +27,7 @@
           nil_ls = {
             enable = true;
             settings.formatting.command = [
-              "nixfmt"
+              "alejandra"
             ];
           };
           pylsp.enable = true;

@@ -20,7 +20,8 @@
 
     gnumake
     killall
-    pkgs.nixfmt-rfc-style
+    # pkgs.nixfmt-rfc-style
+    alejandra
 
     zip
     unar
@@ -38,7 +39,8 @@
   environment.variables.EDITOR = "vim";
   nix.settings.substituters = [
     "https://nix-gaming.cachix.org"
-    "https://mirrors.sjtu.edu.cn/nix-channels/store"
+    "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+    "https://cache.nixos.org"
   ];
   nix.settings.extra-substituters = [
     "https://nix-community.cachix.org"

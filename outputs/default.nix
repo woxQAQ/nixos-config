@@ -34,6 +34,7 @@ let
 in
 {
   debug_ = { inherit nixosSystems; };
+  imports = [ ./pre-commit-hooks.nix ];
   nixosConfigurations = lib.attrsets.mergeAttrsList (
     map (it: it.nixosConfigurations or { }) nixosSystemsValues
   );

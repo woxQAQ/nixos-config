@@ -49,7 +49,7 @@
 
 [formatter.nix]
 # Command to execute
-command = "nixfmt"
+command = "alejandra"
 # Command-line arguments for the command
 options = []
 # Glob pattern of files to include

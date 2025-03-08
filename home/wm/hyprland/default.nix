@@ -16,6 +16,7 @@
   ];
 
   home.packages = with pkgs; [
+    eww
     swww
     grim
     slurp

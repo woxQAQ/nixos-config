@@ -15,4 +15,4 @@ fmt:
 
 .PHONY: waybar-restart
 waybar-restart:
-	killall -SIGUSR2 .waybar-wrapped
+	@ killall -SIGUSR2 .waybar-wrapped
