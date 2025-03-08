@@ -3,8 +3,7 @@
   inputs,
   system,
   ...
-}@args:
-let
+} @ args: let
   name = "woxQAQ";
   nixos-modules = [
     ../hosts/${name}
@@ -18,8 +17,7 @@ let
     inherit nixos-modules home-modules;
     username = name;
   };
-in
-{
+in {
   debug_ = {
     a = mylib.mkHost;
     mod = modules_;

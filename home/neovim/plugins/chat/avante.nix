@@ -2,7 +2,6 @@
   programs.nixvim.plugins.avante = {
     enable = true;
     settings = {
-
       provider = "openai";
       openai = {
         endpoint = "https://aihubmix.com/v1";

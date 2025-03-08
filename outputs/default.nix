@@ -2,20 +2,21 @@
   self,
   nixpkgs,
   ...
-}@inputs:
-let
+} @ inputs: let
   system = "x86_64-linux";
   inherit (inputs.nixpkgs) lib;
   stateVersion = "24.11";
-  specialArgs = inputs // {
-    username = "woxQAQ";
-    inherit stateVersion;
-    unstable-pkg = import inputs.nixpkgs-unstable {
-      inherit system;
-      config.allowUnfree = true;
+  specialArgs =
+    inputs
+    // {
+      username = "woxQAQ";
+      inherit stateVersion;
+      unstable-pkg = import inputs.nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
     };
-  };
-  mylib = import ../lib { inherit nixpkgs; };
+  mylib = import ../lib {inherit nixpkgs;};
   args = {
     inherit
       mylib
@@ -26,16 +27,14 @@ let
       ;
   };
   nixosSystems = {
-    woxQAQ = import ./woxQAQ.nix (args);
+    woxQAQ = import ./woxQAQ.nix args;
   };
 
   nixosSystemsValues = builtins.attrValues nixosSystems;
-
-in
-{
-  debug_ = { inherit nixosSystems; };
-  imports = [ ./pre-commit-hooks.nix ];
+in {
+  debug_ = {inherit nixosSystems;};
+  imports = [./pre-commit-hooks.nix];
   nixosConfigurations = lib.attrsets.mergeAttrsList (
-    map (it: it.nixosConfigurations or { }) nixosSystemsValues
+    map (it: it.nixosConfigurations or {}) nixosSystemsValues
   );
 }

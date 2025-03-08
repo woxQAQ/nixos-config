@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   boot.loader.grub.extraEntries = ''
     menuentry "Windows" {
       search --file --no-floppy --set=root /EFI/Microsoft/Boot/bootmgfw.efi

@@ -3,7 +3,7 @@
     lint = {
       enable = true;
       lintersByFt = {
-        go = [ "golangcilint" ];
+        go = ["golangcilint"];
         nix = [
           "nix"
           "statix"

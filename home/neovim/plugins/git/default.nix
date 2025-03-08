@@ -1,5 +1,5 @@
 {
-  imports = [ ./keymap.nix ];
+  imports = [./keymap.nix];
   programs.nixvim.plugins = {
     lazygit = {
       enable = true;

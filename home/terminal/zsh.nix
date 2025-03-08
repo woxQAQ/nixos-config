@@ -2,8 +2,7 @@
   config,
   lib,
   ...
-}:
-{
+}: {
   programs.zsh = {
     enable = false;
     autosuggestion.enable = true;
@@ -78,12 +77,14 @@
       ''}
     '';
 
-    shellAliases = {
-      k = "kubectl";
-      g = "git";
-      grep = "rg --color=always";
-      ip = "ip --color";
-    } // lib.optionalAttrs config.programs.bat.enable { cat = "bat"; };
+    shellAliases =
+      {
+        k = "kubectl";
+        g = "git";
+        grep = "rg --color=always";
+        ip = "ip --color";
+      }
+      // lib.optionalAttrs config.programs.bat.enable {cat = "bat";};
     shellGlobalAliases = {
       eza = "eza --icons --git";
     };

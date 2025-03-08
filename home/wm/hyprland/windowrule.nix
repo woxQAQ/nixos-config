@@ -93,7 +93,6 @@
         "noshadow,class:^()$,title:^()$"
         "noblur,class:^()$,title:^()$"
       ];
-
     };
   };
 }

@@ -1,5 +1,4 @@
-{ nixpkgs, ... }:
-{
+{nixpkgs, ...}: {
   mkHost = import ./mkhost.nix;
-  imports = [ ./scanPath.nix ];
+  imports = [./scanPath.nix];
 }

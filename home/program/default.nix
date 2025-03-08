@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./cursor.nix
     ./chromium

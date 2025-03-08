@@ -1,8 +1,4 @@
-{
-  username,
-  ...
-}:
-{
+{username, ...}: {
   # imports = [ inputs.home-manager.nixosModules.home-manager ];
   users.users.${username} = {
     isNormalUser = true;
@@ -15,5 +11,5 @@
       "docker"
     ];
   };
-  nix.settings.allowed-users = [ "${username}" ];
+  nix.settings.allowed-users = ["${username}"];
 }

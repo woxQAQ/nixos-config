@@ -3,8 +3,7 @@
   username,
   stateVersion,
   ...
-}:
-{
+}: {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
     ./program

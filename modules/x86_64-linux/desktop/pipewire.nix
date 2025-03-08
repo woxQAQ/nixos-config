@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-{
-
+{pkgs, ...}: {
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -10,5 +8,5 @@
     wireplumber.enable = true;
   };
   security.rtkit.enable = true;
-  environment.systemPackages = with pkgs; [ pulseaudioFull ];
+  environment.systemPackages = with pkgs; [pulseaudioFull];
 }

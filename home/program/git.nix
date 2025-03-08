@@ -2,9 +2,8 @@
   config,
   lib,
   ...
-}:
-{
-  home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore [ "checkLinkTargers" ] ''
+}: {
+  home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore ["checkLinkTargers"] ''
     rm -f ${config.home.homeDirectory}/.gitconfig
   '';
   programs.gh = {

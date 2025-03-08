@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{inputs, ...}: {
   unstable-packages = final: _prev: {
     master = import inputs.master {
       inherit (final) system;

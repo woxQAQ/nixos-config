@@ -1,9 +1,7 @@
-{ inputs, ... }:
-let
+{inputs, ...}: let
   inherit (inputs) pkgs;
-in
-{
-  imports = [ inputs.pre-commit-hooks.flakeModule ];
+in {
+  imports = [inputs.pre-commit-hooks.flakeModule];
 
   perSystem = {
     devShells.default = pkgs.mkShell {
@@ -17,7 +15,7 @@ in
     };
   };
   perSystem.pre-commit = {
-    settings.excludes = [ "flake.lock" ];
+    settings.excludes = ["flake.lock"];
 
     settings.hooks = {
       alejandra.enable = true;

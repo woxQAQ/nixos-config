@@ -1,8 +1,4 @@
-{
-  stateVersion,
-  ...
-}:
-{
+{stateVersion, ...}: {
   imports = [
     ./hardware-configuration.nix
     ./boot.specified.nix
