@@ -1,6 +1,9 @@
 // https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
 $fg-color: #{"@theme_fg_color"};
 $bg-color: #{"@theme_bg_color"};
+$accents: #{"@accent_color"};
+
+@use "sass:color";
 
 window.Bar {
   background: transparent;
@@ -9,12 +12,27 @@ window.Bar {
 
   >centerbox {
     background: $bg-color;
-    border-radius: 10px;
-    margin: 8px;
+    border-radius: 0 0 10px 10px;
   }
 
   button {
     border-radius: 8px;
     margin: 2px;
+  }
+
+  .workspace-container {
+    .workspace-button {
+      min-height: 15px;
+      min-width: 8px;
+
+      transition: min-width 0.25s ease-out;
+      border-radius: 10px;
+
+      &.active {
+        min-height: 20px;
+        min-width: 15px;
+        background-color: $accents;
+      }
+    }
   }
 }

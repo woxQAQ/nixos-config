@@ -12,9 +12,7 @@ const WorkspaceButton = ({ ws, ...props }: wsButtonProps) => {
     [bind(hyprland, "focusedWorkspace"), bind(hyprland, "clients")],
     (fws, _) => {
       const classes = ["workspace-button"]
-
       fws.id == ws.id && classes.push("active")
-
       hyprland.get_workspace(ws.id)?.get_clients.length > 0 && classes.push("occupied")
       return classes
     });
