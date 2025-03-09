@@ -2,6 +2,7 @@
   home.packages = with pkgs; [
     nodejs
     nodePackages.npm
+    nodePackages.prettier
     yarn
     nodePackages.pnpm
 

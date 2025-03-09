@@ -19,6 +19,10 @@
         settings.user_default_options.css = true;
       };
 
+      ts-autotag = {
+        enable = true;
+      };
+
       lsp = {
         enable = true;
         inlayHints = true;
@@ -32,8 +36,16 @@
           };
           pylsp.enable = true;
           pyright.enable = true;
-          ts_ls.enable = true;
-          cssls.enable = true;
+          ts_ls = {
+            enable = true;
+            settings.formatting.command = [
+              "prettier"
+            ];
+          };
+          cssls = {
+            enable = true;
+            filetypes = ["css" "scss" "less"];
+          };
           html.enable = true;
           statix.enable = true;
           jsonls.enable = true;

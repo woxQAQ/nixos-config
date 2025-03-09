@@ -9,5 +9,8 @@
   programs.ags = {
     enable = true;
     configDir = ./src;
+    extraPackages = [
+      inputs.ags.packages.${pkgs.system}.hyprland
+    ];
   };
 }
