@@ -34,6 +34,7 @@
     gawk
     jq
   ];
+  programs.nix-ld.enable = true;
   environment.variables.EDITOR = "vim";
   nix.settings.substituters = [
     "https://nix-gaming.cachix.org"

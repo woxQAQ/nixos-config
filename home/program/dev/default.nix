@@ -15,6 +15,7 @@
 
     treefmt2
     cargo
+    rustc
 
     zulu23
 

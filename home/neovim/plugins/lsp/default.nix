@@ -48,6 +48,7 @@
           };
           html.enable = true;
           statix.enable = true;
+          rust_analyzer.enable = true;
           jsonls.enable = true;
           gopls = {
             enable = true;

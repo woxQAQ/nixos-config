@@ -1,39 +1,42 @@
-import { bind, Variable } from "astal";
-import { Gtk } from "astal/gtk4";
-import { ButtonProps } from "astal/gtk4/widget";
-import AstalHyprland from "gi://AstalHyprland?version=0.1";
+import { bind, Variable } from 'astal'
+import { Gtk } from 'astal/gtk4'
+import { ButtonProps } from 'astal/gtk4/widget'
+import AstalHyprland from 'gi://AstalHyprland?version=0.1'
+import { range } from '../../utils/_utils'
 
 type wsButtonProps = ButtonProps & {
-  ws: AstalHyprland.Workspace;
-};
+  ws: AstalHyprland.Workspace
+}
 const WorkspaceButton = ({ ws, ...props }: wsButtonProps) => {
-  const hyprland = AstalHyprland.get_default();
+  const hyprland = AstalHyprland.get_default()
   const classNames = Variable.derive(
-    [bind(hyprland, "focusedWorkspace"), bind(hyprland, "clients")],
+    [bind(hyprland, 'focusedWorkspace'), bind(hyprland, 'clients')],
     (fws, _) => {
-      const classes = ["workspace-button"]
-      fws.id == ws.id && classes.push("active")
-      hyprland.get_workspace(ws.id)?.get_clients.length > 0 && classes.push("occupied")
+      const classes = ['workspace-button']
+      fws.id == ws.id && classes.push('active')
+      hyprland.get_workspace(ws.id)?.get_clients.length > 0 &&
+        classes.push('occupied')
       return classes
-    });
-  return <button
-    cssClasses={classNames()}
-    onDestroy={() => classNames.drop()}
-    valign={Gtk.Align.CENTER}
-    halign={Gtk.Align.CENTER}
-    onClicked={() => ws.focus()}
-    {...props}
-  />
-};
+    },
+  )
+  return (
+    <button
+      cssClasses={classNames()}
+      onDestroy={() => classNames.drop()}
+      valign={Gtk.Align.CENTER}
+      halign={Gtk.Align.CENTER}
+      onClicked={() => ws.focus()}
+      {...props}
+    />
+  )
+}
 
 export default () => {
   return (
-    <box cssClasses={["workspace-container"]} spacing={4}>
-      {Array.from({ length: 6 }, (_, i) => i).map((i) => (
-        <WorkspaceButton
-          ws={AstalHyprland.Workspace.dummy(i + 1, null)}
-        />
+    <box cssClasses={['workspace-container']} spacing={4}>
+      {range(6).map((i) => (
+        <WorkspaceButton ws={AstalHyprland.Workspace.dummy(i + 1, null)} />
       ))}
     </box>
-  );
+  )
 }

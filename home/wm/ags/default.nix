@@ -11,6 +11,7 @@
     configDir = ./src;
     extraPackages = [
       inputs.ags.packages.${pkgs.system}.hyprland
+      inputs.ags.packages.${pkgs.system}.tray
     ];
   };
 }

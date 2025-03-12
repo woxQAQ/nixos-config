@@ -1,5 +1,8 @@
 {
   programs = {
+    librewolf = {
+      enable = true;
+    };
     chromium = {
       enable = true;
       commandLineArgs = [

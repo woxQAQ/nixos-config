@@ -34,7 +34,7 @@
     keymaps = [
       {
         mode = "n";
-        key = "<leader>t";
+        key = "<c-,>";
         action = "<cmd>ToggleTerm<cr>";
         options = {
           desc = "Toggle Terminal Window";
