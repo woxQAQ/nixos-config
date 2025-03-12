@@ -1,12 +1,8 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk4'
-import { Variable } from 'astal'
+import { App, Astal, Gdk } from 'astal/gtk4'
 import Workspaces from './bar/workspaces'
 import Time from './bar/time'
 import Network from './bar/network'
-import { cpuUsage } from './bar/_cpu'
 import Cpu from './bar/cpu'
-
-const time = Variable('').poll(1000, 'date')
 
 const Start = () => {
   return <Workspaces />

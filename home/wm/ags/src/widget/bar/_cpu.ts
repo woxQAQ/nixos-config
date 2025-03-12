@@ -74,7 +74,6 @@ export const initCpuUsage = () => {
 }
 
 const getPercent = (old_: cpuTime, new_: cpuTime) => {
-  console.log(old_,new_)
   return 1 - (new_.idle - old_.idle) / (new_.total - old_.total)
 }
 
