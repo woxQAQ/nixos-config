@@ -2,7 +2,7 @@ import { cpuUsage } from './_cpu'
 
 export default () => {
   return (
-    <button>
+    <menubutton>
       <label
         label={cpuUsage((v) => {
           const fixed = (v.usage * 100).toFixed(1)
@@ -11,11 +11,13 @@ export default () => {
       ></label>
       <popover>
         {cpuUsage((v) => {
-          v.cpuMap.map((v) => {
-            return <label label={v.toString()}></label>
-          })
+          return v.cpuMap
+            .map((v, i) => {
+              return `CPU${i}: ${(v * 100).toFixed(1)}%`
+            })
+            .join('\n')
         })}
       </popover>
-    </button>
+    </menubutton>
   )
 }

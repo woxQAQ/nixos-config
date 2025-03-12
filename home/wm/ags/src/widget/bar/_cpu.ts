@@ -40,7 +40,7 @@ const _calc = (procLine: string): cpuTime => {
   let total = 0
   let idle = 0
   for (let i = 0; i < values.length; i++) {
-    if (i === idleIndex) {
+    if (i === idleIndex || i===iowaitIndex) {
       idle += values[i]
     }
     total += values[i]
@@ -74,6 +74,7 @@ export const initCpuUsage = () => {
 }
 
 const getPercent = (old_: cpuTime, new_: cpuTime) => {
+  console.log(old_,new_)
   return 1 - (new_.idle - old_.idle) / (new_.total - old_.total)
 }
 
@@ -105,6 +106,8 @@ export const cpuUsage = Variable({
   cpuUsages.forEach((v, i) => {
     usage[i] = getPercent(lastCpuUsages[i], v)
   })
+  lastCpuAllUsage = CpuAllUsage
+  lastCpuUsages = cpuUsages
 
   return {
     usage: allUsage,

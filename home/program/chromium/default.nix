@@ -1,8 +1,10 @@
 {
+  pkgs,
+  inputs,
+  system,
+  ...
+}: {
   programs = {
-    librewolf = {
-      enable = true;
-    };
     chromium = {
       enable = true;
       commandLineArgs = [
@@ -12,4 +14,7 @@
       ];
     };
   };
+  # home.packages = with pkgs; [
+  #   inputs.zen-browser.packages.${system}.default
+  # ];
 }

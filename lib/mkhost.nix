@@ -23,7 +23,7 @@ in
           home-manager.backupFileExtension = "hmbak";
 
           home-manager.extraSpecialArgs = {
-            inherit inputs username;
+            inherit inputs username system;
             inherit
               (specialArgs)
               stateVersion
