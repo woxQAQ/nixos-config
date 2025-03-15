@@ -35,7 +35,10 @@
             ];
           };
           pylsp.enable = true;
-          pyright.enable = true;
+          pyright = {
+            enable = true;
+          };
+
           ts_ls = {
             enable = true;
             settings.formatting.command = [

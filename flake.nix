@@ -20,8 +20,8 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    ags = {
-      url = "github:Aylur/ags";
+    astal = {
+      url = "github:Aylur/astal";
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };

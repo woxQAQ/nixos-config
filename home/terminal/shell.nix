@@ -1,4 +1,5 @@
 {
+pkgs,
   unstable-pkg,
   username,
   ...
@@ -11,6 +12,7 @@ in {
     configFile.source = ./config.nu;
     extraConfig = ''
       $env.PATH = ($env.PATH | prepend '/home/${username}/go/bin')
+      $env.LD_LIBRARY_PATH = $env.NIX_LD_LIBRARY_PATH
       # completion
       use ${nu_scripts}/share/nu_scripts/custom-completions/git/git-completions.nu *
       use ${nu_scripts}/share/nu_scripts/custom-completions/tar/tar-completions.nu *
