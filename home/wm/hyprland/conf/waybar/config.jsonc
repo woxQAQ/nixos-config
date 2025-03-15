@@ -86,7 +86,7 @@
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
-    "format-muted": " Mute",
+    "format-muted": " ",
     "format-source": " {volume}%",
     "format-source-muted": "",
     "format-icons": {
