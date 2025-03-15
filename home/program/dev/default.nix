@@ -16,6 +16,7 @@
 
     gdb
     clang
+    dbeaver-bin
 
     treefmt2
     unstable-pkg.rustc
