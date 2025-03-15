@@ -60,3 +60,7 @@ excludes = []
 # Lower the number, the higher the precedence
 # Default is 0
 priority = 0
+
+[formatter.typescript]
+command = "prettier"
+includes = ["*.ts","*.tsx"]

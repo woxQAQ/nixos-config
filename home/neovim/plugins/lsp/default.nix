@@ -35,7 +35,10 @@
             ];
           };
           pylsp.enable = true;
-          pyright.enable = true;
+          pyright = {
+            enable = true;
+          };
+
           ts_ls = {
             enable = true;
             settings.formatting.command = [
@@ -48,6 +51,7 @@
           };
           html.enable = true;
           statix.enable = true;
+          rust_analyzer.enable = true;
           jsonls.enable = true;
           gopls = {
             enable = true;

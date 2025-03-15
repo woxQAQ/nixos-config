@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  unstable-pkg,
+  ...
+}: {
   home.packages = with pkgs; [
     nodejs
     nodePackages.npm
@@ -11,10 +15,14 @@
     uv
 
     gdb
-    gcc
+    clang
 
     treefmt2
-    cargo
+    unstable-pkg.rustc
+    unstable-pkg.rust-analyzer
+    unstable-pkg.cargo
+    unstable-pkg.rustfmt
+    unstable-pkg.clippy
 
     zulu23
 

@@ -1,6 +1,5 @@
 {inputs, ...}: {
   imports = [
     ./hyprland
-    ./ags
   ];
 }

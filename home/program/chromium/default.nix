@@ -1,4 +1,9 @@
 {
+  pkgs,
+  inputs,
+  system,
+  ...
+}: {
   programs = {
     chromium = {
       enable = true;
@@ -9,4 +14,7 @@
       ];
     };
   };
+  # home.packages = with pkgs; [
+  #   inputs.zen-browser.packages.${system}.default
+  # ];
 }

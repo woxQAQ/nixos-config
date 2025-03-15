@@ -14,6 +14,7 @@
     pavucontrol
     pamixer
     pulseaudio
+    go-musicfox
     easyeffects
     youtube-tui
     pot
