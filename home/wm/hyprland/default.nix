@@ -26,7 +26,10 @@
     glib
     weston
     wayland
+    imv
     pamixer
+    flameshot
+    hyprshot
     mako
     wlogout
     swaylock
@@ -51,6 +54,7 @@
         "MOZ_ENABLE_WAYLAND,1" # for firefox to run on wayland
         "MOZ_WEBRENDER,1"
         # misc
+        "USE_WAYLAND_GRIM,1"
         "_JAVA_AWT_WM_NONREPARENTING,1"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "QT_QPA_PLATFORM,wayland"

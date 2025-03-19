@@ -23,6 +23,7 @@
     mpv
 
     leetgo
+    libreoffice-still
     qbittorrent-enhanced
     obsidian
     freetube

@@ -18,8 +18,9 @@
 
       inconsolata
       fira-code
-      roboto-mono
+      maple-mono
       hack-font
+      maple-mono-NF
 
       # nerdfonts
       nerd-fonts.fira-code

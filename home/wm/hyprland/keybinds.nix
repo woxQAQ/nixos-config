@@ -24,23 +24,23 @@
         # "$mainMod, Escape, exec, swaylock"
         # "ALT, Escape, exec, hyprlock"
         # "$mainMod SHIFT, Escape, exec, power-menu"
-        # "$mainMod, P, pseudo,"
+        "$mainMod, P, pseudo,"
         "$mainMod, X, togglesplit,"
+        "CTRL SHIFT, A, exec, XDG_CURRENT_DESKTOP=sway flameshot gui -p ~/Pictures/Screenshots | wl-copy"
         # "$mainMod, T, exec, toggle_oppacity"
         # "$mainMod CTRL, E, exec, nemo"
         # "$mainMod, E, exec, hyprctl dispatch exec '[float; center; size 1111 700] nemo'"
         # "$mainMod SHIFT, E, exec, hyprctl dispatch exec '[float; center; size 1111 700] kitty yazi'"
         # "$mainMod SHIFT, B, exec, toggle_waybar"
         "$mainMod, C ,exec, hyprpicker -a"
-        "$mainMod, W,exec, wallpaper-picker"
+        # "$mainMod, W,exec, wallpaper-picker"
         "$mainMod SHIFT, W,exec, hyprctl dispatch exec '[float; center; size 925 615] waypaper'"
         "$mainMod, N, exec, swaync-client -t -sw"
         # "$mainMod SHIFT, W, exec, vm-start"
 
         # screenshot
-        ",Print, exec, screenshot --copy"
-        "$mainMod, Print, exec, screenshot --save"
-        "$mainMod SHIFT, Print, exec, screenshot --swappy"
+        "CTRL ALT,A, exec, hyprshot -m output -o ~/Pictures/Screenshots -- imv"
+        "$mainMod, Escape, exec, hyprshot -m window -o ~/Pictures/Screenshots -- imv"
 
         # switch focus
         "$mainMod, left, movefocus, l"
