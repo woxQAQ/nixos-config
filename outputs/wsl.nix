@@ -9,7 +9,7 @@
   nixos-modules = [
     nixos-wsl.nixosModules.wsl
     ../hosts/${name}
-    ../modules/${system}
+    ../modules/${system}/base
     ../modules/base.nix
   ];
   modules_ = {
