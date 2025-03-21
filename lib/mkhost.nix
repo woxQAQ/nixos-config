@@ -3,7 +3,7 @@
   lib,
   system ? "x86_64-linux",
   username,
-  home-modules,
+  home-modules ? [],
   nixos-modules,
   specialArgs,
   desktop ? null,

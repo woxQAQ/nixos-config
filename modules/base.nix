@@ -1,8 +1,6 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    git
-    git-lfs
     fastfetch
     lsof
 
@@ -11,7 +9,6 @@
     aria2
     nmap
 
-    gnutar
     which
     tree
     rsync
@@ -19,11 +16,11 @@
 
     gnumake
     killall
-    # pkgs.nixfmt-rfc-style
     alejandra
 
     zip
     unar
+    gnutar
     unzipNLS
     xz
     p7zip
