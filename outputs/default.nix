@@ -28,6 +28,7 @@
   };
   nixosSystems = {
     woxQAQ = import ./woxQAQ.nix args;
+    wsl = import ./wsl.nix args;
   };
 
   nixosSystemsValues = builtins.attrValues nixosSystems;

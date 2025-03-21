@@ -4,26 +4,17 @@
   system,
   ...
 } @ args: let
-  name = "woxQAQ";
+  name = "wsl";
   nixos-modules = [
     ../hosts/${name}
     ../modules/${system}
-    ../modules/${system}/boot
     ../modules/base.nix
   ];
-  home-modules = [
-    ../home
-  ];
   modules_ = {
-    inherit nixos-modules home-modules;
-    username = name;
+    inherit nixos-modules;
+    username = "woxQAQ";
   };
 in {
-  debug_ = {
-    a = mylib.mkHost;
-    mod = modules_;
-    b = args // modules_;
-  };
   nixosConfigurations = {
     "${name}" = mylib.mkHost (args // modules_);
   };
