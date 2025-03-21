@@ -5,7 +5,7 @@
   ...
 } @ args: let
   name = "wsl";
-  inherit nixos-wsl;
+  inherit (inputs) nixos-wsl;
   nixos-modules = [
     nixos-wsl.nixosModules.wsl
     ../hosts/${name}
