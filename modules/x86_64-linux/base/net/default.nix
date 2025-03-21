@@ -10,9 +10,7 @@
     };
 
   };
-  environment.systemPackages = with pkgs; [
-    mihomo-party
-  ];
+
   services.avahi = {
     enable = true;
     nssmdns4 = true;

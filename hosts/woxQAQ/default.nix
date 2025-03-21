@@ -5,6 +5,10 @@
     ./vm.nix
   ];
 
+  environment.systemPackages = with pkgs; [
+    mihomo-party
+  ];
+
   networking = {
     networkmanager.enable = true;
     hostName  = "woxQAQ";
