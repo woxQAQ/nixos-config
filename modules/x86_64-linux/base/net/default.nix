@@ -8,10 +8,7 @@
       enable = true;
       allowPing = false;
     };
-    proxy = {
-      httpProxy = "http://127.0.0.1:7890";
-      httpsProxy = "http://127.0.0.1:7890";
-    };
+
   };
   environment.systemPackages = with pkgs; [
     mihomo-party
