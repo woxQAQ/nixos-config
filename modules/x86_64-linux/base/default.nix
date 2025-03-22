@@ -8,6 +8,5 @@
     ./security.nix
     ./misc.nix
     ./user.nix
-    ./git.nix
   ];
 }
