@@ -8,7 +8,6 @@
     frp
     yq-go
     duf
-    tldr
     gdu
 
     pavucontrol

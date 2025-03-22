@@ -5,6 +5,7 @@
     git-lfs
     fastfetch
     lsof
+    tldr
 
     wget
     curl

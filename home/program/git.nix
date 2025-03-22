@@ -1,4 +1,5 @@
 {
+  username,
   config,
   lib,
   ...

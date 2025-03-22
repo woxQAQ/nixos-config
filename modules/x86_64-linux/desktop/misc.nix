@@ -3,15 +3,7 @@
   unstable-pkg,
   ...
 }: {
-  environment.shells = with pkgs; [
-    bashInteractive
-    unstable-pkg.nushell
-  ];
-  environment.systemPackages = with pkgs; [
-    gnumake
-    ntfs3g
-  ];
-  users.defaultUserShell = pkgs.bashInteractive;
+
   programs = {
     dconf.enable = true;
     localsend.enable = true;

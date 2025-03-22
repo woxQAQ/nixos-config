@@ -1,4 +1,4 @@
-{stateVersion, ...}: {
+{pkgs,stateVersion, ...}: {
   networking.hostName = "wsl"; # Define your hostname.
   system.stateVersion = stateVersion;
   wsl = {
@@ -11,4 +11,11 @@
       allowUnfree = true;
     };
   };
+  environment.systemPackages = with pkgs;[
+    go_1_23
+    treefmt
+    gopls
+    delve
+    go-tools
+  ];
 }
