@@ -9,6 +9,10 @@ test:
 switch:
 	nix-rebuild switch --flake ".#${HOST}"
 
+.PHONY: switch-wsl
+switch-wsl:
+	sudo nix-rebuild switch --flake .#wsl
+
 .PHONY: fmt
 fmt:
 	treefmt
