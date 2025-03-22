@@ -8,7 +8,6 @@
       enable = true;
       allowPing = false;
     };
-
   };
 
   services.avahi = {

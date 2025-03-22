@@ -28,9 +28,11 @@
   };
   nixosSystems = {
     woxQAQ = import ./woxQAQ.nix args;
-    wsl = import ./wsl.nix args // {
-      stateVersion="25.05";
-    };
+    wsl =
+      import ./wsl.nix args
+      // {
+        stateVersion = "25.05";
+      };
   };
 
   nixosSystemsValues = builtins.attrValues nixosSystems;

@@ -1,4 +1,4 @@
-{stateVersion, ...}: {
+{stateVersion,pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
     ./boot.specified.nix
@@ -11,7 +11,7 @@
 
   networking = {
     networkmanager.enable = true;
-    hostName  = "woxQAQ";
+    hostName = "woxQAQ";
     proxy = {
       httpProxy = "http://127.0.0.1:7890";
       httpsProxy = "http://127.0.0.1:7890";

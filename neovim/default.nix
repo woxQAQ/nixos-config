@@ -8,8 +8,6 @@
     ./color.nix
   ];
 
-  home.shellAliases.v = "nvim";
-
   programs.nixvim = {
     enable = true;
     defaultEditor = true;

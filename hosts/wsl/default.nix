@@ -1,9 +1,16 @@
-{pkgs,stateVersion,username, ...}: {
+{
+  pkgs,
+  stateVersion,
+  username,
+  inputs,
+  ...
+}: {
+
   networking.hostName = "wsl"; # Define your hostname.
   system.stateVersion = stateVersion;
   wsl = {
     enable = true;
-    defaultUser=username;
+    defaultUser = username;
     startMenuLaunchers = true;
   };
   nixpkgs = {
@@ -12,10 +19,10 @@
     };
   };
   programs.git.config = {
-    user.name=username;
-    user.gmail="woxqaq@gmail.com";
+    user.name = username;
+    user.gmail = "woxqaq@gmail.com";
   };
-  environment.systemPackages = with pkgs;[
+  environment.systemPackages = with pkgs; [
     go_1_23
     treefmt
     gopls

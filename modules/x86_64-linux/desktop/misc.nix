@@ -3,7 +3,6 @@
   unstable-pkg,
   ...
 }: {
-
   programs = {
     dconf.enable = true;
     localsend.enable = true;
