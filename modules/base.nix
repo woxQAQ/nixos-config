@@ -18,6 +18,7 @@
 
     gnumake
     killall
+    nil
     alejandra
 
     zip
