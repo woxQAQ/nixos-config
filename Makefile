@@ -1,17 +1,17 @@
-HOST = "wox-pc"
+HOST = "woxQAQ"
 UNAME = $(shell uname)
 
-.PHONY: test
-test:
-	nix-rebuild test --flake ".#${HOST}"
+.PHONY: repl
+repl:
+	nix repl
 
 .PHONY: switch
 switch:
-	nix-rebuild switch --flake ".#${HOST}"
+	sudo nixos-rebuild switch --flake ".#${HOST}"
 
 .PHONY: switch-wsl
 switch-wsl:
-	sudo nix-rebuild switch --flake .#wsl
+	sudo nixos-rebuild switch --flake .#wsl
 
 .PHONY: fmt
 fmt:
