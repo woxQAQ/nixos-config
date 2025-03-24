@@ -2,6 +2,7 @@
   pkgs,
   stateVersion,
   username,
+  unstable-pkg,
   inputs,
   ...
 }: {
@@ -11,6 +12,7 @@
     enable = true;
     defaultUser = username;
     startMenuLaunchers = true;
+    docker-desktop.enable = true;
   };
   nixpkgs = {
     config = {
@@ -22,10 +24,14 @@
     user.gmail = "woxqaq@gmail.com";
   };
   environment.systemPackages = with pkgs; [
+    gh
+    golangci-lint
+    kubernetes-helm
     go_1_23
     treefmt
     gopls
     delve
-    go-tools
+    unstable-pkg.go-tools
+    uv
   ];
 }
