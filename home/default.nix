@@ -10,9 +10,8 @@
     ./wm
     ../neovim
     ./neovim
-    ./terminal
-    ./waypaper.nix
     ./fcitx
+    ./public
   ];
   home = {
     inherit username stateVersion;

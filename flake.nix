@@ -1,6 +1,14 @@
 {
   description = "woxQAQ's NixOS flake";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-gaming.cachix.org"
+      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+      "https://cache.nixos.org"
+    ];
+  };
+
   outputs = inputs: import ./outputs inputs;
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -37,14 +45,14 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
+    nix-darwin = {
+      url = "github:lnl7/nix-darwin/nix-darwin-24.11";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
     anyrun = {
       url = "github:Kirottu/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    neovim-flake = {
-      url = "github:gvolpe/neovim-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-schemas.follows = "flake-schemas";
     };
     hypr-binds-flake = {
       url = "github:hyprland-community/hypr-binds";
