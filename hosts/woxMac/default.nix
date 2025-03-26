@@ -3,7 +3,6 @@
   pkgs,
   ...
 }: {
-
   environment.systemPackages = with pkgs; [
     mihomo-party
   ];

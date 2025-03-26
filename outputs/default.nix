@@ -37,10 +37,12 @@
   };
 
   darwinSystems = {
-    woxDarwin = import ./woxDarwin.nix args // {
-      system = "aarch64-darwin";
-      stateVersion = "25.05";
-    };
+    woxDarwin =
+      import ./woxDarwin.nix args
+      // {
+        system = "aarch64-darwin";
+        stateVersion = "25.05";
+      };
   };
 
   nixosSystemsValues = builtins.attrValues nixosSystems;
