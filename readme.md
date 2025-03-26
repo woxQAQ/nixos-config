@@ -2,6 +2,7 @@
 
 ## TODO
 
-- [ ] darwin support
+- [x] darwin support
+- [x] wsl support
 - [ ] more modular
 - [ ] ...
