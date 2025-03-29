@@ -17,7 +17,6 @@
   home.packages = with pkgs; [
     eww
     swww
-    grim
     slurp
     hyprcursor
     wl-clip-persist
@@ -28,7 +27,6 @@
     wayland
     imv
     pamixer
-    flameshot
     hyprshot
     mako
     wlogout
