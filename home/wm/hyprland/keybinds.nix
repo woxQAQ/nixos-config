@@ -26,7 +26,7 @@
         # "$mainMod SHIFT, Escape, exec, power-menu"
         "$mainMod, P, pseudo,"
         "$mainMod, X, togglesplit,"
-        "CTRL SHIFT, A, exec, XDG_CURRENT_DESKTOP=sway flameshot gui -p ~/Pictures/Screenshots | wl-copy"
+        # "CTRL SHIFT, A, exec, XDG_CURRENT_DESKTOP=sway flameshot gui -p ~/Pictures/Screenshots | wl-copy"
         # "$mainMod, T, exec, toggle_oppacity"
         # "$mainMod CTRL, E, exec, nemo"
         # "$mainMod, E, exec, hyprctl dispatch exec '[float; center; size 1111 700] nemo'"
@@ -39,7 +39,8 @@
         # "$mainMod SHIFT, W, exec, vm-start"
 
         # screenshot
-        "CTRL ALT,A, exec, hyprshot -m output -o ~/Pictures/Screenshots -- imv"
+        "CTRL ALT, A, exec, hyprshot -m region -o ~/Pictures/Screenshots -- imv"
+        "CTRL SHIFT,A, exec, hyprshot -m output -o ~/Pictures/Screenshots -- imv"
         "$mainMod, Escape, exec, hyprshot -m window -o ~/Pictures/Screenshots -- imv"
 
         # switch focus
