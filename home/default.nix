@@ -9,7 +9,6 @@
     ./program
     ./wm
     ../neovim
-    ./neovim
     ./fcitx
     ./public
   ];

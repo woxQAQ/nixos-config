@@ -2,6 +2,6 @@
   imports = [
     ./alacritty.nix
     ./shell.nix
-    ./statship.nix
+    ./starship.nix
   ];
 }
