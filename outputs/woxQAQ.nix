@@ -8,6 +8,7 @@
   nixos-modules = [
     ../hosts/${name}
     ../modules/${system}
+    ../modules/${system}/boot
     ../modules/base.nix
   ];
   home-modules = [

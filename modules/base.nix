@@ -5,13 +5,13 @@
     git-lfs
     fastfetch
     lsof
+    tldr
 
     wget
     curl
     aria2
     nmap
 
-    gnutar
     which
     tree
     rsync
@@ -19,11 +19,12 @@
 
     gnumake
     killall
-    # pkgs.nixfmt-rfc-style
+    nil
     alejandra
 
     zip
     unar
+    gnutar
     unzipNLS
     xz
     p7zip

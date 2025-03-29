@@ -29,4 +29,11 @@
 
     go
   ];
+  home.file.".npmrc".text = ''
+    prefix=~/.npm-packages
+  '';
+  home.sessionPath = [
+    "$HOME/go/bin"
+    "$HOME/.npm-packages/bin"
+  ];
 }

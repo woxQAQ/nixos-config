@@ -8,7 +8,6 @@
     frp
     yq-go
     duf
-    tldr
     gdu
 
     pavucontrol
@@ -41,9 +40,7 @@
     graphviz
     wineWowPackages.wayland
   ];
-  home.file.".npmrc".text = ''
-    prefix=~/.npm-packages
-  '';
+
   programs = {
     fzf = {
       enable = true;
@@ -89,8 +86,4 @@
       goPath = "go";
     };
   };
-  home.sessionPath = [
-    "$HOME/go/bin"
-    "$HOME/.npm-packages/bin"
-  ];
 }

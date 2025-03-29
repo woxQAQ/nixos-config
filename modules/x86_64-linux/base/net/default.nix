@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   networking = {
-    networkmanager.enable = true;
     timeServers = [
       "ntp.aliyun.com" # Aliyun NTP Server
       "ntp.tencent.com" # Tencent NTP Server
@@ -9,14 +8,8 @@
       enable = true;
       allowPing = false;
     };
-    proxy = {
-      httpProxy = "http://127.0.0.1:7890";
-      httpsProxy = "http://127.0.0.1:7890";
-    };
   };
-  environment.systemPackages = with pkgs; [
-    mihomo-party
-  ];
+
   services.avahi = {
     enable = true;
     nssmdns4 = true;

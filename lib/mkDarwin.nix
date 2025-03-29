@@ -1,20 +1,24 @@
 {
   inputs,
   lib,
-  system ? "x86_64-linux",
+  system ? "aarch64-darwin",
   username,
   home-modules ? [],
-  nixos-modules,
+  darwin-modules,
   specialArgs,
-  desktop ? null,
   ...
 }: let
-  inherit (inputs) nixpkgs home-manager;
+  inherit (inputs) nix-darwin home-manager nixpkgs-darwin;
 in
-  nixpkgs.lib.nixosSystem {
+  nix-darwin.lib.darwinSystem {
     inherit system specialArgs;
     modules =
-      nixos-modules
+      darwin-modules
+      ++ [
+        ({...}: {
+          nixpkgs.pkgs = import nixpkgs-darwin {inherit system;};
+        })
+      ]
       ++ (lib.optionals ((lib.lists.length home-modules) > 0) [
         home-manager.nixosModules.home-manager
         {
@@ -29,7 +33,6 @@ in
               stateVersion
               nur-ryan4yin
               unstable-pkg
-              anyrun
               ;
           };
           home-manager.users.${username}.imports = home-modules;

@@ -1,7 +1,7 @@
 {...}: {
   imports = [
     ./alacritty.nix
-    ./starship.nix
     ./shell.nix
+    ./statship.nix
   ];
 }
