@@ -32,12 +32,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    astal = {
-      url = "github:Aylur/astal";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
     };
