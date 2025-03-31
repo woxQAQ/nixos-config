@@ -1,6 +1,6 @@
 # :snowflake: woxQAQ flake
 
-It is a nix flake which managed my all nixos host and MacOS host
+It is a nix flake which manages my all nixos host and MacOS host
 
 ## TODO
 
