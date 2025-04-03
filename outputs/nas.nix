@@ -13,8 +13,12 @@
     ../modules/base.nix
     ../modules/${system}/boot
   ];
+  home-modules = [
+    ../home/public
+    ../home/fcitx
+  ];
   modules_ = {
-    inherit nixos-modules;
+    inherit nixos-modules home-modules;
     username = "woxQAQ";
   };
 in {

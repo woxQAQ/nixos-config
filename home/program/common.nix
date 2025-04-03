@@ -27,7 +27,6 @@
     obsidian
     freetube
     bitwarden-desktop
-    lazydocker
 
     # ssh desktop client
     remmina
@@ -37,7 +36,6 @@
     qq
     wl-clipboard
     obs-studio
-    graphviz
     wineWowPackages.wayland
   ];
 

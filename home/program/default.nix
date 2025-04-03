@@ -1,9 +1,7 @@
 {...}: {
   imports = [
     ./cursor.nix
-    ./chromium
-    ./nix
-
+    ./browsers
     ./common.nix
     ./game.nix
     # ./rofi.nix
