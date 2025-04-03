@@ -4,6 +4,7 @@
     ./game
     ./fonts.nix
     ./pipewire.nix
-    ./wm.nix
+    ./dm
+    ./greetd.nix
   ];
 }
