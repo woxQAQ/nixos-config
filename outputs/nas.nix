@@ -10,7 +10,6 @@
     ../neovim
     ../hosts/${name}
     ../modules/${system}/base
-    ../modules/${system}/desktop/greetd.nix
     ../modules/base.nix
     ../modules/${system}/boot
   ];

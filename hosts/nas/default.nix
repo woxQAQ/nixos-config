@@ -15,8 +15,12 @@
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
   system.stateVersion = stateVersion;
   services.xserver = {
+    enable=true;
     xkb.layout="us";
-    desktopManager.xfce.enable=true;
+    desktopManager = {
+      xfce.enable=true;
+      defaultSession = "xfce";
+    };
   };
   nixpkgs = {
     config = {
