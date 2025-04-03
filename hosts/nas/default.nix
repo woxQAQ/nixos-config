@@ -19,6 +19,7 @@
     xkb.layout="us";
     desktopManager = {
       xfce.enable=true;
+      xterm.enable = false;
       defaultSession = "xfce";
     };
   };
