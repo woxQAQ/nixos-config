@@ -20,8 +20,8 @@
     desktopManager = {
       xfce.enable=true;
       xterm.enable = false;
-      defaultSession = "xfce";
     };
+    displayManager.defaultSession = "xfce";
   };
   nixpkgs = {
     config = {
