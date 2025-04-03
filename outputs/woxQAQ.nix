@@ -13,7 +13,6 @@
   ];
   home-modules = [
     ../home
-    inputs.nixvim.homeManagerModules.nixvim
     ../home/program
     ../home/wm
     ../neovim

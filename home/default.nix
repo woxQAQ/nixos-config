@@ -4,6 +4,9 @@
   stateVersion,
   ...
 }: {
+  imports = [
+    inputs.nixvim.homeManagerModules.nixvim
+  ];
   home = {
     inherit username stateVersion;
     homeDirectory = "/home/${username}";
