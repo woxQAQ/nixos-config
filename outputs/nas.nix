@@ -14,6 +14,9 @@
     ../modules/${system}/boot
   ];
   home-modules = [
+    ../home
+    inputs.nixvim.homeManagerModules.nix
+    ../neovim
     ../home/public
     ../home/fcitx
   ];

@@ -13,6 +13,12 @@
   ];
   home-modules = [
     ../home
+    inputs.nixvim.homeManagerModules.nixvim
+    ../home/program
+    ../home/wm
+    ../neovim
+    ../home/fcitx
+    ../home/public
   ];
   modules_ = {
     inherit nixos-modules home-modules;
