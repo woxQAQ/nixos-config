@@ -25,7 +25,7 @@ deploy-darwin:
 	nix build .#darwinConfigurations.woxMac.system \
 	   --extra-experimental-features 'nix-command flakes'
 
-	./result/sw/bin/darwin-rebuild switch --flake .#hostname
+	./result/sw/bin/darwin-rebuild switch --flake .#woxMac
 
 .PHONY: fmt
 fmt:

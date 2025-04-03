@@ -15,12 +15,12 @@ in
     modules =
       darwin-modules
       ++ [
-        ({...}: {
+        ({lib, ...}:{
           nixpkgs.pkgs = import nixpkgs-darwin {inherit system;};
         })
       ]
       ++ (lib.optionals ((lib.lists.length home-modules) > 0) [
-        home-manager.nixosModules.home-manager
+        home-manager.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
