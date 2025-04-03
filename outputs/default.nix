@@ -28,6 +28,7 @@
   };
   nixosSystems = {
     woxQAQ = import ./woxQAQ.nix args // {system = "x86_64-linux";};
+    nas = import ./nas.nix args // {system="x86_64-linux";};
     wsl =
       import ./wsl.nix args
       // {

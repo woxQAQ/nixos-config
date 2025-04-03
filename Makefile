@@ -17,6 +17,10 @@ switch:
 switch-wsl:
 	sudo nixos-rebuild switch --flake .#wsl
 
+.PHONY: switch-nas
+switch-nas:
+		sudo nixos-rebuild switch --flake .#nas
+
 deploy-darwin:
 	nix build .#darwinConfigurations.woxMac.system \
 	   --extra-experimental-features 'nix-command flakes'
