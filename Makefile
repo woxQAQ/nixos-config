@@ -17,11 +17,23 @@ switch:
 switch-wsl:
 	sudo nixos-rebuild switch --flake .#wsl
 
+.PHONY: switch-nas
+switch-nas:
+		sudo nixos-rebuild switch \
+		--flake .#nas \
+		--option substituters "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+
+.PHONY: switch-darwin
+switch-darwin:
+	sudo darwin-rebuild switch \
+  --flake .#woxMac --show-trace \
+  --option substituters "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+
 deploy-darwin:
 	nix build .#darwinConfigurations.woxMac.system \
 	   --extra-experimental-features 'nix-command flakes'
 
-	./result/sw/bin/darwin-rebuild switch --flake .#hostname
+	./result/sw/bin/darwin-rebuild switch --flake .#woxMac
 
 .PHONY: fmt
 fmt:

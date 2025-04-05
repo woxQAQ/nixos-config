@@ -1,12 +1,12 @@
 {
   mylib,
-  inputs,
   system,
   ...
 } @ args: let
   name = "woxMac";
   darwin-modules = [
     ../hosts/${name}
+    ../modules/${system}
   ];
   home-modules = [
   ];

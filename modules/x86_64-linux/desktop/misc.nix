@@ -18,9 +18,6 @@
     dbus = {
       enable = true;
     };
-    gnome.gnome-keyring = {
-      enable = true;
-    };
 
     ollama = {
       enable = false;

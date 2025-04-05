@@ -6,11 +6,6 @@
 }: {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
-    ./program
-    ./wm
-    ../neovim
-    ./fcitx
-    ./public
   ];
   home = {
     inherit username stateVersion;
