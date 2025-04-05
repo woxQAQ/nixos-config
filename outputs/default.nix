@@ -1,7 +1,4 @@
-{
-  nixpkgs,
-  ...
-} @ inputs: let
+{nixpkgs, ...} @ inputs: let
   inherit (inputs.nixpkgs) lib;
   mylib = import ../lib {inherit nixpkgs;};
   args = {
@@ -25,7 +22,7 @@
     woxDarwin = import ./woxDarwin.nix (args
       // {
         system = "aarch64-darwin";
-        stateVersion = "25.05";
+        stateVersion = 5;
       });
   };
 

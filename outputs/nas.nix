@@ -10,8 +10,9 @@
     ../neovim
     ../hosts/${name}
     ../modules/${system}/base
-    ../modules/base.nix
+    ../modules/${system}/base.nix
     ../modules/${system}/boot
+    ../modules/public
   ];
   home-modules = [
     ../home

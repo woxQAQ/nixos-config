@@ -7,12 +7,14 @@
   darwin-modules = [
     ../hosts/${name}
     ../modules/${system}
+    ../modules/public
   ];
   home-modules = [
   ];
   modules_ = {
     inherit darwin-modules home-modules;
-    username = name;
+    username = "shirakami_yuki";
+    hostname = name;
   };
 in {
   darwinConfigurations = {
