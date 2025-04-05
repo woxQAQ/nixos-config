@@ -34,7 +34,6 @@
               cp -r ${theme-path} $out
             '';
           };
-        default = 1;
       };
       efi = {
         canTouchEfiVariables = true;

@@ -12,7 +12,7 @@
   inherit (inputs) nixpkgs home-manager;
   genSpecialArgs = import ./genSpecialArgs.nix;
   specialArgs = genSpecialArgs {
-    inherit system username stateVersion;
+    inherit inputs system username stateVersion;
   };
 in
   nixpkgs.lib.nixosSystem {

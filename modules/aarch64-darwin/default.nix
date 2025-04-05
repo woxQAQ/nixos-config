@@ -5,4 +5,11 @@
     alejandra
     nil
   ];
+  security.pam.enableSudoTouchIdAuth = true;
+  imports = [
+    ./usergroup.nix
+    ./brew.nix
+  ];
+  services.nix-daemon.enable = true;
+  nix.package = pkgs.nix;
 }

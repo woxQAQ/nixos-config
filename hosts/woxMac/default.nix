@@ -1,11 +1,15 @@
 {
   system,
+  stateVersion,
+  hostname,
   ...
 }: {
   networking = {
-    hostName = "woxMac";
+    inherit hostname;
+    computerName = hostname;
   };
-  system.stateVersion = 5;
+  system.defaults.smb.NetBIOSName = hostname;
+  system.stateVersion = stateVersion;
   nixpkgs = {
     hostPlatform = system;
     config = {

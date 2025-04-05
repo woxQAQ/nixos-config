@@ -12,7 +12,8 @@
     nixos-wsl.nixosModules.wsl
     ../hosts/${name}
     ../modules/${system}/base
-    ../modules/base.nix
+    ../modules/${system}/base.nix
+    ../modules/public
   ];
   modules_ = {
     inherit nixos-modules;
