@@ -18,6 +18,7 @@
     ../neovim
     ../home/public
     ../home/fcitx
+    ../home/program/browsers
   ];
   modules_ = {
     inherit nixos-modules home-modules;
