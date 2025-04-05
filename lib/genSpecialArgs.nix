@@ -1,9 +1,10 @@
 {
   system,
   username,
+  inputs,
   stateVersion,
   ...
-} @ inputs: (
+}: (
   inputs
   // {
     inherit system;
