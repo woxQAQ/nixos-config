@@ -20,6 +20,7 @@
     gnumake
     killall
     nil
+    treefmt
     alejandra
 
     zip

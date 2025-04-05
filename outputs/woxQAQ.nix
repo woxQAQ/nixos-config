@@ -9,7 +9,6 @@
     ../hosts/${name}
     ../modules/${system}
     ../modules/${system}/boot
-    ../modules/base.nix
   ];
   home-modules = [
     ../home

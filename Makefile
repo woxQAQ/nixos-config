@@ -23,6 +23,12 @@ switch-nas:
 		--flake .#nas \
 		--option substituters "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
 
+.PHONY: switch-darwin
+switch-darwin:
+	sudo darwin-rebuild switch \
+  --flake .#woxMac \
+  --option substituters "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+
 deploy-darwin:
 	nix build .#darwinConfigurations.woxMac.system \
 	   --extra-experimental-features 'nix-command flakes'

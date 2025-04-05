@@ -23,7 +23,6 @@
 
     lazydocker
     graphviz
-    treefmt2
     unstable-pkg.rustc
     unstable-pkg.rust-analyzer
     unstable-pkg.cargo
