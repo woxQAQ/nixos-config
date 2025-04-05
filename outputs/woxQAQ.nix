@@ -13,7 +13,6 @@
   ];
   home-modules = [
     ../home
-    ../hosts/${name}/home.nix
     ../home/program
     ../home/desktop
     ../neovim
