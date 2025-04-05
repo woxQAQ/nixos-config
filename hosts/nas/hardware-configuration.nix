@@ -12,6 +12,16 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.tmp.cleanOnBoot = true;
+  boot.supportedFilesystems = lib.mkForce [
+    "ext4"
+    "btrfs"
+    "xfs"
+    "ntfs"
+    "fat"
+    "vfat"
+    "exfat"
+  ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/e7779ce0-dfe2-463d-bb88-61f7b1a1d998";
