@@ -13,8 +13,9 @@
   ];
   home-modules = [
     ../home
+    ../hosts/${name}/home.nix
     ../home/program
-    ../home/wm
+    ../home/desktop
     ../neovim
     ../home/fcitx
     ../home/public

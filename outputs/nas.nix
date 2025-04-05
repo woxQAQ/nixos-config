@@ -15,6 +15,7 @@
   ];
   home-modules = [
     ../home
+    ../hosts/${name}/home.nix
     ../neovim
     ../home/public
   ];
