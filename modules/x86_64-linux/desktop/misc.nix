@@ -19,7 +19,6 @@
       enable = true;
     };
 
-
     ollama = {
       enable = false;
       port = 11111;

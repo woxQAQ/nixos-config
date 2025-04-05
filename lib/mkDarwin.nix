@@ -3,19 +3,24 @@
   lib,
   system ? "aarch64-darwin",
   username,
+  stateVersion,
   home-modules ? [],
   darwin-modules,
-  specialArgs,
+  # specialArgs,
   ...
 }: let
   inherit (inputs) nix-darwin home-manager nixpkgs-darwin;
+  genSpecialArgs = import ./genSpecialArgs.nix;
+  specialArgs = genSpecialArgs {
+    inherit system username stateVersion;
+  };
 in
   nix-darwin.lib.darwinSystem {
     inherit system specialArgs;
     modules =
       darwin-modules
       ++ [
-        ({lib, ...}:{
+        ({lib, ...}: {
           nixpkgs.pkgs = import nixpkgs-darwin {inherit system;};
         })
       ]

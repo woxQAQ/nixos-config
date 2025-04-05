@@ -7,7 +7,7 @@
   name = "woxMac";
   darwin-modules = [
     ../hosts/${name}
-    ../modules/${system}
+    ../modules/aarch64-darwin
   ];
   home-modules = [
   ];

@@ -3,10 +3,6 @@
   pkgs,
   ...
 }: {
-  environment.systemPackages = with pkgs; [
-    mihomo-party
-  ];
-
   networking = {
     hostName = "woxMac";
   };

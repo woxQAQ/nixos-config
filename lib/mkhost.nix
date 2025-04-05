@@ -3,13 +3,17 @@
   lib,
   system ? "x86_64-linux",
   username,
+  stateVersion,
   home-modules ? [],
   nixos-modules,
-  specialArgs,
   desktop ? null,
   ...
 }: let
   inherit (inputs) nixpkgs home-manager;
+  genSpecialArgs = import ./genSpecialArgs.nix;
+  specialArgs = genSpecialArgs {
+    inherit system username stateVersion;
+  };
 in
   nixpkgs.lib.nixosSystem {
     inherit system specialArgs;
