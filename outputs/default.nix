@@ -1,28 +1,14 @@
 {
-  self,
   nixpkgs,
   ...
 } @ inputs: let
-  system = "x86_64-linux";
   inherit (inputs.nixpkgs) lib;
-  stateVersion = "24.11";
-  # specialArgs =
-  #   inputs
-  #   // {
-  #     username = "woxQAQ";
-  #     inherit stateVersion;
-  #     unstable-pkg = import inputs.nixpkgs-unstable {
-  #       inherit system;
-  #       config.allowUnfree = true;
-  #     };
-  #   };
   mylib = import ../lib {inherit nixpkgs;};
   args = {
     inherit
       mylib
       inputs
       lib
-      # specialArgs
       ;
   };
   nixosSystems = {

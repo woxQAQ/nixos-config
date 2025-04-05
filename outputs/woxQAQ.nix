@@ -1,6 +1,5 @@
 {
   mylib,
-  inputs,
   system,
   ...
 } @ args: let
