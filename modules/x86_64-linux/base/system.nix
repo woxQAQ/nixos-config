@@ -5,8 +5,10 @@
       dates = lib.mkDefault "weekly";
       options = lib.mkDefault "--delete-older-than 7d";
     };
+    optimise = {
+      automatic = true;
+    };
     settings = {
-      auto-optimise-store = true;
       substituters = [
         "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
         "https://mirrors.sustech.edu.cn/nix-channels/store"

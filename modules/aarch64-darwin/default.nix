@@ -7,8 +7,9 @@
   ];
   security.pam.enableSudoTouchIdAuth = true;
   imports = [
-    ./usergroup.nix
     ./brew.nix
+    ./user.nix
+    ./system.nix
   ];
   services.nix-daemon.enable = true;
   nix.package = pkgs.nix;

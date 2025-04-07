@@ -25,7 +25,7 @@ switch-nas:
 
 .PHONY: switch-darwin
 switch-darwin:
-	sudo darwin-rebuild switch \
+	darwin-rebuild switch \
   --flake .#woxMac --show-trace \
   --option substituters "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
 

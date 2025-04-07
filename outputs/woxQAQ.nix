@@ -8,7 +8,6 @@
     ../hosts/${name}
     ../modules/${system}
     ../modules/${system}/boot
-    ../modules/public
   ];
   home-modules = [
     ../home

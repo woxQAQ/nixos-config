@@ -5,7 +5,7 @@
   ...
 }: {
   networking = {
-    inherit hostname;
+    hostName = hostname;
     computerName = hostname;
   };
   system.defaults.smb.NetBIOSName = hostname;
