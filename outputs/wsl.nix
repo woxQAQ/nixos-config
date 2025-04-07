@@ -13,6 +13,7 @@
     ../hosts/${name}
     ../modules/${system}/base
     ../modules/${system}/base.nix
+    ../modules/public
   ];
   modules_ = {
     inherit nixos-modules;

@@ -29,6 +29,10 @@ switch-darwin:
   --flake .#woxMac --show-trace \
   --option substituters "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
 
+.PHONY: check-store
+	sudo nix-store --repair --verify --check-contents
+
+.PHONY: deploy-darwin
 deploy-darwin:
 	nix build .#darwinConfigurations.woxMac.system \
 	   --extra-experimental-features 'nix-command flakes'

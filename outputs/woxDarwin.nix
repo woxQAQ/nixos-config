@@ -7,6 +7,7 @@
   darwin-modules = [
     ../hosts/${name}
     ../modules/${system}
+    ../modules/public
   ];
   home-modules = [
   ];
