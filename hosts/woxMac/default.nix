@@ -12,8 +12,5 @@
   system.stateVersion = stateVersion;
   nixpkgs = {
     hostPlatform = system;
-    config = {
-      allowUnfree = true;
-    };
   };
 }

@@ -7,7 +7,6 @@
         Hour = 0;
         Minute = 0;
       };
-      user = "root";
       options = lib.mkDefault "--delete-older-than 7d";
     };
   };

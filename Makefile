@@ -1,6 +1,10 @@
 HOST = "woxQAQ"
 UNAME = $(shell uname)
 
+.PHONY: update-flake
+update-flake:
+	nix flake update --flake . --extra-experimental-features "nix-command flakes"
+
 .PHONY: repl
 repl:
 	nix repl --extra-experimental-features "nix-command flakes"
