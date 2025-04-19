@@ -18,9 +18,10 @@
 
       inconsolata
       fira-code
-      maple-mono
+      maple-mono.CN
       hack-font
-      maple-mono-NF
+      maple-mono.NF
+      maple-mono.NF-CN
 
       # nerdfonts
       nerd-fonts.fira-code

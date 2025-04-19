@@ -1,6 +1,6 @@
 {...}: {
   imports = [
     ./system.nix
-    ./user.nix
+    ./programs.nix
   ];
 }

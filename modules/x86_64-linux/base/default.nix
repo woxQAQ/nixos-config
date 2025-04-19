@@ -5,6 +5,7 @@
     ./zram.nix
     ./jupyter.nix
     ./security.nix
+    ./system.nix
     ./misc.nix
     ./user.nix
   ];

@@ -1,25 +1,30 @@
 {
   description = "woxQAQ's NixOS flake";
 
-  nixConfig = {
-    extra-substituters = [
-      "https://anyrun.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
-    ];
-  };
+  # nixConfig = {
+  #   substituters = [
+  #     "https://mirrors.ustc.edu.cn/nix-channels/store"
+  #     "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+  #     "https://mirrors.sustech.edu.cn/nix-channels/store"
+  #     "https://nix-community.cachix.org"
+  #   ];
+  #   trusted-public-keys = [
+  #     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  #   ];
+  # };
 
   outputs = inputs: import ./outputs inputs;
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs = {
+      url = "github:NixOS/nixpkgs/nixos-24.11";
+    };
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-gaming.url = "github:fufexan/nix-gaming";
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     flake-schemas.url = "github:DeterminateSystems/flake-schemas";
@@ -40,9 +45,9 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nix-darwin = {
-      url = "github:lnl7/nix-darwin/nix-darwin-24.11";
+      url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
     anyrun = {
@@ -55,7 +60,7 @@
     };
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
     nur.url = "github:nix-community/NUR";

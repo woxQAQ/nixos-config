@@ -3,7 +3,7 @@
     enable = true;
     settings = {
       window = {
-        decorations = "none";
+        # decorations = "none";
         dynamic_padding = true;
         padding = {
           x = 5;
@@ -14,12 +14,12 @@
 
       terminal = {
         shell = {
-          program = "${pkgs.bash}/bin/bash";
-          args = [
-            "--login"
-            "-c"
-            "nu --login --interactive"
-          ];
+          program = "${pkgs.zsh}/bin/zsh";
+          # args = [
+          #   "--login"
+          #   "-c"
+          #   "nu --login --interactive"
+          # ];
         };
       };
 

@@ -1,5 +1,6 @@
 {
   mylib,
+  inputs,
   system,
   ...
 } @ args: let
@@ -10,10 +11,17 @@
     ../modules/public
   ];
   home-modules = [
+    ../home/darwin
+    ../home/public/nix
+    ../home/public/terminal
+    ../home/public/dev
+    ../home/public/shell
+    ../neovim
+    ../hosts/${name}/home.nix
   ];
   modules_ = {
     inherit darwin-modules home-modules;
-    username = "shirakami_yuki";
+    username = "woxqaq";
     hostname = name;
   };
 in {
