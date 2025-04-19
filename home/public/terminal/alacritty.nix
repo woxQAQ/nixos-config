@@ -30,7 +30,7 @@
         bold = {
           style = "Bold";
         };
-        size = 12;
+        size = 15;
       };
 
       window.opacity = 0.93;
