@@ -1,6 +1,6 @@
 {
   programs.nixvim.plugins.avante = {
-    enable = true;
+    enable = false;
     settings = {
       provider = "openai";
       openai = {

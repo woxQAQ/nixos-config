@@ -49,6 +49,7 @@
             enable = true;
             filetypes = ["css" "scss" "less"];
           };
+          protols.enable = true;
           html.enable = true;
           statix.enable = true;
           rust_analyzer.enable = true;

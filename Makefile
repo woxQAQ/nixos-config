@@ -15,7 +15,8 @@ switch:
 
 .PHONY: switch-wsl
 switch-wsl:
-	sudo nixos-rebuild switch --flake .#wsl
+	sudo nixos-rebuild switch \
+		--flake .#wsl
 
 .PHONY: switch-nas
 switch-nas:
