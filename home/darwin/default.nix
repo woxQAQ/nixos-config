@@ -1,21 +1,21 @@
 {
   inputs,
   username,
-  stateVersion,
   ...
 }: {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
   ];
   home = {
-    inherit username stateVersion;
-    homeDirectory = "/home/${username}";
+    homeDirectory = "/Users/${username}";
+    stateVersion = "25.05";
   };
 
-  programs.home-manager.enable = true;
   nixpkgs = {
     config = {
       allowUnfree = true;
     };
   };
+
+  xdg.enable = true;
 }

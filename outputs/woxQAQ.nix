@@ -11,7 +11,7 @@
     ../modules/public
   ];
   home-modules = [
-    ../home
+    ../home/nixos
     ../home/program
     ../home/desktop
     ../neovim

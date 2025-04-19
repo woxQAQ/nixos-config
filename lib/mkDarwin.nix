@@ -40,7 +40,6 @@ in
             inherit inputs username system;
             inherit
               (specialArgs)
-              stateVersion
               nur-ryan4yin
               unstable-pkg
               ;

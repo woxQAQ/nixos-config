@@ -27,7 +27,7 @@ switch-nas:
 		--flake .#nas \
 
 check-brew:
-	if command -v brew &>/dev/null; then \
+	@if command -v brew &>/dev/null; then \
 		echo "Homebrew installed"; \
 	else \
 		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \

@@ -1,5 +1,6 @@
 {
   mylib,
+  inputs,
   system,
   ...
 } @ args: let
@@ -10,6 +11,8 @@
     ../modules/public
   ];
   home-modules = [
+    ../home/darwin
+    ../neovim
   ];
   modules_ = {
     inherit darwin-modules home-modules;
