@@ -34,7 +34,6 @@ in {
     map (it: it.nixosConfigurations or {}) nixosSystemsValues
   );
 
-
   darwinConfigurations = lib.attrsets.mergeAttrsList (
     map (it: it.darwinConfigurations or {}) darwinSystemsValues
   );

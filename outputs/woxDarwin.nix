@@ -12,6 +12,9 @@
   ];
   home-modules = [
     ../home/darwin
+    ../home/public/nix
+    ../home/public/terminal
+    ../home/public/shell
     ../neovim
   ];
   modules_ = {

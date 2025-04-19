@@ -14,12 +14,12 @@
 
       terminal = {
         shell = {
-          program = "${pkgs.bash}/bin/bash";
-          args = [
-            "--login"
-            "-c"
-            "nu --login --interactive"
-          ];
+          program = "${pkgs.zsh}/bin/zsh";
+          # args = [
+          #   "--login"
+          #   "-c"
+          #   "nu --login --interactive"
+          # ];
         };
       };
 

@@ -1,4 +1,8 @@
-{pkgs,unstable-pkg,...}: {
+{
+  pkgs,
+  unstable-pkg,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
     git
     gnugrep

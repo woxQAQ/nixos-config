@@ -16,7 +16,7 @@
       };
       gcloud = {
         format = "on [$symbol$active(\($region\))]($style) ";
-        symbol = "🅶 ️";
+        symbol = "🅶 ";
       };
     };
   };

@@ -1,6 +1,7 @@
 {...}: {
   imports = [
     ./terminal
+    ./shell
     ./nix
     ./dev
 
