@@ -1,7 +1,7 @@
 {
   programs.nixvim.plugins = {
     cmp = {
-      enable = true;
+      enable = false;
       settings = {
         snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
         completion = {
@@ -52,6 +52,51 @@
           {name = "friendly-snippets";}
         ];
       };
+    };
+    lspkind = {
+      enable = true;
+      cmp = {
+        enable = false;
+        menu = {
+          nvim_lsp = "[lsp]";
+          nvim_lua = "[lua]";
+          path = "[path]";
+          luasnip = "[snip]";
+          buffer = "[buffer]";
+          neorg = "[neorg]";
+          utilsnips = "[utilsnips]";
+          nixpkgs_maintainers = "[nixpkgs]";
+          friendly-snippets = "[friendly-snippets]";
+        };
+      };
+    };
+    luasnip = {
+      enable = true;
+      settings = {
+        enable_autosnippets = true;
+        store_selection_keys = "<Tab>";
+      };
+    };
+    # cmp-nvim-ultisnips = {
+    #   enable = true;
+    # };
+    friendly-snippets.enable = true;
+    cmp-nixpkgs-maintainers.enable = false;
+    cmp-nvim-lsp = {
+      enable = false; # LSP
+    };
+    cmp-nvim-lua.enable = false;
+    cmp-buffer = {
+      enable = false;
+    };
+    cmp-path = {
+      enable = false; # file system paths
+    };
+    cmp_luasnip = {
+      enable = false; # snippets
+    };
+    cmp-cmdline = {
+      enable = false; # autocomplete for cmdline
     };
   };
 }
