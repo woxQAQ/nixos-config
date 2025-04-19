@@ -55,7 +55,7 @@
     };
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
     nur.url = "github:nix-community/NUR";

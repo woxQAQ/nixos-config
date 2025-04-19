@@ -33,7 +33,7 @@
       };
       # nui.enable = true;
       noice.enable = true;
-      oil.enable = true;
+      oil.enable = false;
       notify.enable = true;
       illuminate = {
         enable = true;

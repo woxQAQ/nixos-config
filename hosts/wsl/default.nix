@@ -23,6 +23,14 @@
     user.name = username;
     user.gmail = "woxqaq@gmail.com";
   };
+  programs.zsh = {
+    enable = true;
+    autosuggestions.enable = true;
+    shellAliases = {
+      grep = "rg --color=always";
+      ip = "ip --color";
+    };
+  };
   environment.systemPackages = with pkgs; [
     gh
     golangci-lint
@@ -31,7 +39,20 @@
     treefmt
     gopls
     delve
+    protols
     unstable-pkg.go-tools
+    unstable-pkg.rustc
+    unstable-pkg.rust-analyzer
+    unstable-pkg.cargo
+    unstable-pkg.rustfmt
+    unstable-pkg.clippy
     uv
+    buf
+    ripgrep
+    nodejs
+    nodePackages.npm
+    nodePackages.prettier
+    yarn
+    nodePackages.pnpm
   ];
 }

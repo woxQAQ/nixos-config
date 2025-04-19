@@ -1,8 +1,7 @@
 {
   imports = [
     ./cmp.nix
-    ./lspkind.nix
-    ./source.nix
+    ./blink.nix
   ];
   programs.nixvim = {
     opts.completeopt = [

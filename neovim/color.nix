@@ -6,7 +6,7 @@
         settings = {
           flavour = "mocha";
           integrations = {
-            cmp = true;
+            # cmp = true;
             gitsigns = true;
             neotree = true;
             treesitter = true;
