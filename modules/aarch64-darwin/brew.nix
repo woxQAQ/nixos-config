@@ -20,7 +20,11 @@ in {
       pkgs.zsh
       unstable-pkg.nushell
     ];
-    variables = homebrew_env;
+    variables =
+      homebrew_env
+      // {
+        PATH = "/opt/homebrew/bin:$PATH";
+      };
   };
   homebrew = {
     enable = true;
@@ -29,7 +33,7 @@ in {
       upgrade = true;
     };
     taps = [
-      "mihomo-party-org/mihomo-party"
+      # "mihomo-party-org/mihomo-party"
     ];
     masApps = {
       Wechat = 856500024;
@@ -41,6 +45,10 @@ in {
       "iina"
       "raycast"
       "obsidian"
+      "cursor"
+      "stats"
+      "netease-music"
+      "tencent-lemon"
     ];
   };
 }

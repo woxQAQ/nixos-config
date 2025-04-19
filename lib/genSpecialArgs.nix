@@ -12,5 +12,11 @@
       inherit system;
       config.allowUnfree = true;
     };
+    stable-pkg = import inputs.nixpkgs {
+      inherit system;
+      config = {
+        allowUnfree = true;
+      };
+    };
   }
 )

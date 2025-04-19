@@ -41,6 +41,7 @@ in
             inherit
               (specialArgs)
               nur-ryan4yin
+              stable-pkg
               unstable-pkg
               ;
           };

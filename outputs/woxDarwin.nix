@@ -16,6 +16,7 @@
     ../home/public/terminal
     ../home/public/shell
     ../neovim
+    ../hosts/${name}/home.nix
   ];
   modules_ = {
     inherit darwin-modules home-modules;
