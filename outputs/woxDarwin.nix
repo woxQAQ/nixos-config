@@ -14,6 +14,7 @@
     ../home/darwin
     ../home/public/nix
     ../home/public/terminal
+    ../home/public/dev
     ../home/public/shell
     ../neovim
     ../hosts/${name}/home.nix

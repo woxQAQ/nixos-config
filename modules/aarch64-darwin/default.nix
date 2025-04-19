@@ -3,6 +3,7 @@
     ./brew.nix
     ./user.nix
     ./system.nix
+    ./security.nix
     ./fonts.nix
   ];
   nix.package = pkgs.nix;

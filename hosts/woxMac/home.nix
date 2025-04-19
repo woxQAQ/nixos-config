@@ -6,6 +6,7 @@
   home.packages = with stable-pkg; [
     # mihomo-party
     vscode
-    unstable-pkg.bitwarden-desktop
+    localsend
+    # unstable-pkg.bitwarden-desktop
   ];
 }

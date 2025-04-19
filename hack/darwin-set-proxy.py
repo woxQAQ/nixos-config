@@ -19,7 +19,8 @@ def update_plist():
 def reload_daemon():
     for cmd in (
         f"launchctl unload {NIX_DAEMON_PLIST}",
-        f"launchctl load {NIX_DAEMON_PLIST}"
+        f"launchctl load {NIX_DAEMON_PLIST}",
+        f"launchctl kickstart -k system/{NIX_DAEMON_NAME}",
     ):
         print(cmd)
         subprocess.run(shlex.split(cmd), capture_output=False)
@@ -32,7 +33,11 @@ def set_proxy(proxy):
         "http_proxy": proxy,
         "https_proxy": proxy,
     }
-    PLIST.setdefault(env_key,proxy_dict)
+    if PLIST.get(env_key) is None:
+        PLIST[env_key] = {}
+        PLIST.setdefault(env_key,proxy_dict)
+    else:
+        PLIST[env_key].update(proxy_dict)
     update_plist()
     reload_daemon()
 

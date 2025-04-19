@@ -36,9 +36,13 @@ check-brew:
 	fi
 
 .PHONY: switch-darwin
-switch-darwin: check-brew
+switch-darwin: 
 	darwin-rebuild switch \
   --flake .#woxMac --show-trace \
+
+.PHONY: darwin-set-proxy
+darwin-set-proxy:
+	@sudo python3 hack/darwin-set-proxy.py -s http://127.0.0.1:7890
 
 .PHONY: check-store
 check-store:

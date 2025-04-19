@@ -42,13 +42,15 @@ in {
     };
     casks = [
       "mihomo-party"
-      "iina"
+      # "iina"
       "raycast"
       "obsidian"
       "cursor"
       "stats"
-      "netease-music"
+      "neteasemusic"
       "tencent-lemon"
+      "bitwarden"
+      "arc"
     ];
   };
 }
