@@ -31,7 +31,7 @@
         enable = true;
         settings.user_default_options.names = false;
       };
-      nui.enable = true;
+      # nui.enable = true;
       noice.enable = true;
       oil.enable = true;
       notify.enable = true;

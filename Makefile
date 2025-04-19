@@ -40,6 +40,7 @@ switch-darwin: check-brew
   --flake .#woxMac --show-trace \
 
 .PHONY: check-store
+check-store:
 	sudo nix-store --repair --verify --check-contents
 
 .PHONY: fmt
