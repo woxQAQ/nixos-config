@@ -25,9 +25,9 @@ switch-wsl:
 switch-nas:
 		sudo nixos-rebuild switch \
 		--flake .#nas \
-		--option substituters "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+
 check-brew:
-	@if command -v brew &>/dev/null; then \
+	if command -v brew &>/dev/null; then \
 		echo "Homebrew installed"; \
 	else \
 		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
@@ -41,13 +41,6 @@ switch-darwin: check-brew
 
 .PHONY: check-store
 	sudo nix-store --repair --verify --check-contents
-
-.PHONY: deploy-darwin
-deploy-darwin:
-	nix build .#darwinConfigurations.woxMac.system \
-	   --extra-experimental-features 'nix-command flakes'
-
-	./result/sw/bin/darwin-rebuild switch --flake .#woxMac
 
 .PHONY: fmt
 fmt:
