@@ -3,7 +3,7 @@
     enable = true;
     settings = {
       window = {
-        decorations = "none";
+        # decorations = "none";
         dynamic_padding = true;
         padding = {
           x = 5;
