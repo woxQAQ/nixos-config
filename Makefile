@@ -26,12 +26,18 @@ switch-nas:
 		sudo nixos-rebuild switch \
 		--flake .#nas \
 		--option substituters "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+check-brew:
+	@if command -v brew &>/dev/null; then \
+		echo "Homebrew installed"; \
+	else \
+		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
+		exit 1; \
+	fi
 
 .PHONY: switch-darwin
-switch-darwin:
+switch-darwin: check-brew
 	darwin-rebuild switch \
   --flake .#woxMac --show-trace \
-  --option substituters "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
 
 .PHONY: check-store
 	sudo nix-store --repair --verify --check-contents

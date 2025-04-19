@@ -5,7 +5,6 @@
       autoUpdate = false;
     };
     taps = [
-      "homebrew/services"
     ];
   };
 }

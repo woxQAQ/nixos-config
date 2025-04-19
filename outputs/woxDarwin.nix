@@ -13,7 +13,7 @@
   ];
   modules_ = {
     inherit darwin-modules home-modules;
-    username = "shirakami_yuki";
+    username = "woxqaq";
     hostname = name;
   };
 in {
