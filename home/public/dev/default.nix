@@ -31,7 +31,10 @@
 
     zulu23
 
-    go
+    protols
+    unstable-pkg.go
+    unstable-pkg.gopls
+    unstable-pkg.go-tools
     repgrep
     frp
     yq-go

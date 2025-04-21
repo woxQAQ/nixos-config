@@ -31,6 +31,7 @@
     xz
     p7zip
     zstd
+    ripgrep
 
     gnugrep
     gnused

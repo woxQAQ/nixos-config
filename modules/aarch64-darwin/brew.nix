@@ -34,6 +34,11 @@ in {
     };
     taps = [
       # "mihomo-party-org/mihomo-party"
+      "zackriya-solutions/meetily-backend"
+      "pot-app/homebrew-tap"
+    ];
+    brews = [
+      # "meetily-backend"
     ];
     masApps = {
       Wechat = 856500024;
@@ -51,6 +56,7 @@ in {
       "tencent-lemon"
       "bitwarden"
       "arc"
+      "pot"
     ];
   };
 }
