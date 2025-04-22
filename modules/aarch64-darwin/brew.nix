@@ -47,6 +47,7 @@ in {
     };
     casks = [
       "mihomo-party"
+      "altserver"
       # "iina"
       "raycast"
       "obsidian"

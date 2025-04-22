@@ -67,7 +67,11 @@
           protols.enable = true;
           html.enable = true;
           statix.enable = true;
-          rust_analyzer.enable = true;
+          rust_analyzer = {
+            enable = true;
+            installCargo = false;
+            installRustc = false;
+          };
           jsonls.enable = true;
           gopls = {
             enable = true;
