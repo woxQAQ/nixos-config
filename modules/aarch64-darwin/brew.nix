@@ -48,7 +48,7 @@ in {
     casks = [
       "mihomo-party"
       "altserver"
-      # "iina"
+      "iina"
       "raycast"
       "obsidian"
       "cursor"
