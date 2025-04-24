@@ -7,7 +7,6 @@
     # mihomo-party
     vscode
     localsend
-    kubectl
     buf
     # unstable-pkg.bitwarden-desktop
   ];

@@ -1,15 +1,14 @@
 {
-  pkgs,
+  unstable-pkg,
   config,
   lib,
   ...
 }: {
-  home.packages = with pkgs; [
+  home.packages = with unstable-pkg; [
     kubectl
     kubecm
     kubernetes-helm
     argocd
-    minikube
     kubebuilder
   ];
   programs = {

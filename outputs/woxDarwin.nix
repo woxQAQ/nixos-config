@@ -16,6 +16,7 @@
     ../home/public/terminal
     ../home/public/dev
     ../home/public/shell
+    ../home/public/cloud-native.nix
     ../neovim
     ../hosts/${name}/home.nix
   ];

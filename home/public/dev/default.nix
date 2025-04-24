@@ -88,9 +88,9 @@
       git = true;
       icons = "auto";
     };
-    go = {
-      enable = true;
-      goPath = "go";
-    };
+    # go = {
+    #   enable = true;
+    #   goPath = "go";
+    # };
   };
 }
