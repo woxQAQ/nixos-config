@@ -1,13 +1,10 @@
-{
-  current_dir ? ./.,
-  target_file ? "default.nix",
-}: let
-  contents = builtins.readDir current_dir;
+current_dir: target_file: let
+  inherit (builtins) readDir pathExists filter attrNames;
+  contents = readDir current_dir;
   hasTargetFile = name: type:
-    type == "directory" && builtins.pathExists (current_dir + "/${name}/${target_file}");
-  getDir =
-    builtins.filter
-    (name: hasTargetFile name contents.${name})
-    (builtins.attrNames current_dir);
+    type
+    == "directory"
+    && pathExists (current_dir + "/${name}/${target_file}");
 in
-  getDir
+  filter (name: hasTargetFile name contents.${name})
+  (attrNames contents)

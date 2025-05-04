@@ -5,10 +5,7 @@
   ...
 } @ args: let
   inherit (nixpkgs) lib;
-  pluginsWithKeymap = mylib.getDir {
-    current_dir = ./.;
-    target_file = "keymaps.nix";
-  };
+  pluginsWithKeymap = mylib.getDir ./. "keymaps.nix";
   nvlib = import ../lib;
 
   args = {
@@ -18,6 +15,14 @@
   data = scanPlugins ./. {
     inherit lib pkgs scanPlugins;
   };
+  inherit (lib.attrsets) mergeAttrsList;
+
+  keymaps = lib.debug.traceVal (
+    builtins.concatLists (
+      map (path: import (./. + "/${path}/keymaps.nix"))
+      pluginsWithKeymap
+    )
+  );
 in {
   programs.nixvim = {
     opts.completeopt = [
@@ -30,11 +35,12 @@ in {
     extraPlugins = with pkgs.vimPlugins; [
       leetcode-nvim
     ];
-    keymaps = {
-      # imports = map (x: x + "/keymaps.nix") pluginsWithKeymap;
-    };
-    plugins = lib.attrsets.mergeAttrsList [
-      (lib.attrsets.mergeAttrsList data)
+    inherit keymaps;
+    #   {
+    #   # imports = map (x: x + "/keymaps.nix") pluginsWithKeymap;
+    # };
+    plugins = mergeAttrsList [
+      (mergeAttrsList data)
       {
         web-devicons.enable = true;
         nvim-autopairs.enable = true;

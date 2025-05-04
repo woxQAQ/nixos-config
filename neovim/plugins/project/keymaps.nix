@@ -1,7 +1,7 @@
 [
   {
     mode = "n";
-    options.slient = true;
+    options.silent = true;
     key = "<leader>p";
     action = ":Telescope projects<CR>";
   }

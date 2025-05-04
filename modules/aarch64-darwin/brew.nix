@@ -34,7 +34,7 @@ in {
       cleanup = "zap";
     };
     taps = [
-      # "mihomo-party-org/mihomo-party"
+      "mihomo-party-org/mihomo-party"
       "zackriya-solutions/meetily-backend"
       "nikitabobko/tap"
       "pot-app/homebrew-tap"
