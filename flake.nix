@@ -26,7 +26,7 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    # nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     flake-schemas.url = "github:DeterminateSystems/flake-schemas";
     pre-commit-hooks = {
       url = "github:cachix/git-hooks.nix";

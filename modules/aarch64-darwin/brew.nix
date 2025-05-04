@@ -29,12 +29,14 @@ in {
   homebrew = {
     enable = true;
     onActivation = {
-      autoUpdate = false;
+      autoUpdate = true;
       upgrade = true;
+      cleanup = "zap";
     };
     taps = [
-      # "mihomo-party-org/mihomo-party"
+      "mihomo-party-org/mihomo-party"
       "zackriya-solutions/meetily-backend"
+      "nikitabobko/tap"
       "pot-app/homebrew-tap"
     ];
     brews = [
@@ -49,6 +51,7 @@ in {
       "mihomo-party"
       "altserver"
       "iina"
+      "aerospace"
       "raycast"
       "obsidian"
       "cursor"

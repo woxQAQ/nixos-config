@@ -3,6 +3,7 @@
   lib,
   system ? "x86_64-linux",
   username,
+  mylib,
   stateVersion,
   home-modules ? [],
   nixos-modules,
@@ -12,7 +13,7 @@
   inherit (inputs) nixpkgs home-manager;
   genSpecialArgs = import ./genSpecialArgs.nix;
   specialArgs = genSpecialArgs {
-    inherit inputs system username stateVersion;
+    inherit inputs system username stateVersion mylib;
   };
 in
   nixpkgs.lib.nixosSystem {
@@ -33,6 +34,7 @@ in
               stateVersion
               nur-ryan4yin
               unstable-pkg
+              mylib
               anyrun
               ;
           };

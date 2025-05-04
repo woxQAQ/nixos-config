@@ -1,4 +1,4 @@
-{...}: {
+{mylib, ...}: {
   imports = [
     ./autocommands.nix
     ./keymaps.nix
@@ -19,6 +19,7 @@
           "hmts.nvim"
           "neorg"
           "nvim-treesitter"
+          "blink.cmp"
         ];
       };
       byteCompileLua.enable = true;
@@ -28,5 +29,10 @@
     vimAlias = true;
 
     luaLoader.enable = true;
+
+    dependencies = {
+      chafa.enable = true;
+      imagemagick.enable = true;
+    };
   };
 }

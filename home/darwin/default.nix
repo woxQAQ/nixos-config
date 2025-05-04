@@ -1,10 +1,12 @@
 {
-  inputs,
   username,
+  # inputs,
+  nixvim,
   ...
 }: {
   imports = [
-    inputs.nixvim.homeManagerModules.nixvim
+    nixvim.homeManagerModules.nixvim
+    ./aerospace
   ];
   home = {
     homeDirectory = "/Users/${username}";

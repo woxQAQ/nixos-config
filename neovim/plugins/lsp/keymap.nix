@@ -1,5 +1,5 @@
 {
-  programs.nixvim.plugins.lsp = {
+  lsp = {
     keymaps = {
       silent = true;
       # diagnostic = {
@@ -27,14 +27,6 @@
           key = "<leader>cr";
           options.desc = "rename";
         }
-        # {
-        #   action = "<CMD>Lspsaga diagnostic_jump_next<CR>";
-        #   key = "]e";
-        # }
-        # {
-        #   action = "<CMD>Lspsaga diagnostic_jump_prev<CR>";
-        #   key = "[e";
-        # }
         {
           action = "<CMD>Lspsaga finder<CR>";
           key = "gr";

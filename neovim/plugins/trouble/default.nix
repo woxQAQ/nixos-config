@@ -1,5 +1,5 @@
 {
-  lspsaga = {
+  trouble = {
     enable = true;
   };
 }

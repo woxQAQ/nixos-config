@@ -1,5 +1,5 @@
 {
-  lspsaga = {
+  todo-comments = {
     enable = true;
   };
 }

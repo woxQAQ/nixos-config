@@ -1,3 +1,3 @@
 {
-  programs.nixvim.plugins.helm.enable = true;
+  helm.enable = true;
 }

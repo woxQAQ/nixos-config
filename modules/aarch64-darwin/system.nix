@@ -10,4 +10,26 @@
       options = lib.mkDefault "--delete-older-than 7d";
     };
   };
+  system = {
+    defaults = {
+      dock = {
+        autohide = true;
+        show-recents = true;
+        mru-spaces = false;
+      };
+      loginwindow = {
+        SHOWFULLNAME = true;
+        GuestEnabled = false;
+      };
+      trackpad = {
+        Clicking = true;
+      };
+      finder = {
+        _FXShowPosixPathInTitle = true;
+        AppleShowAllExtensions = true;
+        ShowStatusBar = true;
+        ShowPathbar = true;
+      };
+    };
+  };
 }
