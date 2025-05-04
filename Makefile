@@ -36,9 +36,9 @@ check-brew:
 	fi
 
 .PHONY: switch-darwin
-switch-darwin: 
+switch-darwin:
 	darwin-rebuild switch \
-  --flake .#woxMac --show-trace \
+  --flake .#woxMac \
 
 .PHONY: darwin-set-proxy
 darwin-set-proxy:

@@ -26,7 +26,7 @@
       scrolling.history = 10000;
 
       font = {
-        normal.family = "Hack Nerd Font Mono";
+        normal.family = "Maple Mono NF CN";
         bold = {
           style = "Bold";
         };

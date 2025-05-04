@@ -35,6 +35,7 @@
     unstable-pkg.go
     unstable-pkg.gopls
     unstable-pkg.go-tools
+    unstable-pkg.golangci-lint
     repgrep
     frp
     yq-go

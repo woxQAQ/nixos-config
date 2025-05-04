@@ -1,13 +1,15 @@
-{pkgs, ...}: {
-  imports = [
-    ./keymaps.nix
-    ./lspsaga.nix
-    ./refactor.nix
-    ./fidget.nix
-  ];
-
-  programs.nixvim = {
-    plugins = {
+{
+  pkgs,
+  scanPlugins,
+  lib,
+  ...
+} @ args: let
+  data = scanPlugins ./. args;
+in
+  lib.attrsets.mergeAttrsList [
+    (lib.attrsets.mergeAttrsList
+      data)
+    {
       lsp-format = {
         enable = true;
         lspServersToEnable = "all";
@@ -100,6 +102,5 @@
           };
         };
       };
-    };
-  };
-}
+    }
+  ]

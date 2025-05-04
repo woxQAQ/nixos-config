@@ -1,13 +1,8 @@
 {
-  imports = [
-    ./cmp.nix
-    ./blink.nix
-  ];
-  programs.nixvim = {
-    opts.completeopt = [
-      "menu"
-      "menuone"
-      "noselect"
-    ];
-  };
-}
+  scanPlugins,
+  lib,
+  ...
+} @ args: let
+  data = scanPlugins ./. args;
+in
+  lib.attrsets.mergeAttrsList data

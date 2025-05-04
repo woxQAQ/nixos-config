@@ -1,6 +1,6 @@
 {nixpkgs, ...} @ inputs: let
   inherit (inputs.nixpkgs) lib;
-  mylib = import ../lib {inherit nixpkgs;};
+  mylib = import ../lib {inherit lib;};
   args = {
     inherit
       mylib
@@ -9,7 +9,12 @@
       ;
   };
   nixosSystems = {
-    woxQAQ = import ./woxQAQ.nix (args // {system = "x86_64-linux";});
+    woxQAQ = import ./woxQAQ.nix (
+      args
+      // {
+        system = "x86_64-linux";
+      }
+    );
     wsl = import ./wsl.nix (args
       // {
         system = "x86_64-linux";

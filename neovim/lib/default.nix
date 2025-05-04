@@ -1,0 +1,3 @@
+{
+  scanPlugins = import ./scanPlugin.nix;
+}
