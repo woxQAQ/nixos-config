@@ -16,6 +16,7 @@ in {
     homeDirectory = "/Users/${username}";
     stateVersion = "25.05";
     packages = [
+      pkgs.aerospace
       xterminal
     ];
   };

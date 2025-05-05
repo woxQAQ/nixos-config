@@ -5,8 +5,9 @@
     settings = {
       highlight.enable = true;
       indent.enable = true;
+      autotag.enable = true;
+      folding.enable = true;
     };
-    folding = false;
   };
 
   treesitter-refactor = {

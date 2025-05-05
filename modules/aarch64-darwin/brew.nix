@@ -51,7 +51,7 @@ in {
       "mihomo-party"
       "altserver"
       "iina"
-      "aerospace"
+      # "aerospace"
       "raycast"
       "obsidian"
       "cursor"

@@ -4,7 +4,7 @@
     ./keymaps.nix
     ./options.nix
     ./plugins
-    ./todo.nix
+    # ./todo.nix
     ./color.nix
   ];
 
@@ -20,6 +20,7 @@
           "neorg"
           "nvim-treesitter"
           "blink.cmp"
+          "oil.nvim"
         ];
       };
       byteCompileLua.enable = true;
