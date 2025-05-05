@@ -8,6 +8,8 @@
       "<leader><space>" = "buffers";
       "<leader>fh" = "help_tags";
       "<leader>fd" = "diagnostics";
+      "<leader>fc" = "command_history";
+      "<leader>fk" = "keymaps";
 
       "<C-p>" = "git_files";
       "<leader>/" = "oldfiles";

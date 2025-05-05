@@ -48,9 +48,8 @@ in {
           enable = true;
           settings.user_default_options.names = false;
         };
-        # nui.enable = true;
-        noice.enable = true;
-        oil.enable = false;
+        nui.enable = true;
+        # noice.enable = true;
         notify.enable = true;
         illuminate = {
           enable = true;
