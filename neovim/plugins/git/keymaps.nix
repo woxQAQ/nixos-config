@@ -13,7 +13,7 @@
   }
   {
     mode = "n";
-    key = "<leader>gp";
+    key = "<leader>gg";
     action = ":Gitsigns preview_hunk<CR>";
     options.silent = true;
   }
