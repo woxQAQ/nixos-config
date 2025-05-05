@@ -93,3 +93,5 @@ automatically-unhide-macos-hidden-apps = false
   alt-shift-j = ['join-with down', 'mode main']
   alt-shift-k = ['join-with up', 'mode main']
   alt-shift-l = ['join-with right', 'mode main']
+
+  alt-enter = ['exec-and-forget alacritty','mode main']
