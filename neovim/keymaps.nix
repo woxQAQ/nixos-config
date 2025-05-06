@@ -9,8 +9,7 @@
   normalFunc = keys_.normal;
   visualFunc = keys_.visual;
   actionWithDesc = keys_.actionWithDesc;
-  normalSet =
-    normalFunc {
+  normalSet = normalFunc ({
       "<Space>" = "<NOP>";
 
       # Esc to clear search results
@@ -55,7 +54,7 @@
       "<C-Down>" = actionWithDesc ":resize -2<CR>" "resize smaller horizontal";
       "<C-Left>" = ":vertical resize +2<CR>";
       "<C-Right>" = ":vertical resize -2<CR>";
-    };
+    });
   visualSet = visualFunc {
     ">" = ">gv";
     "<" = "<gv";
