@@ -49,7 +49,7 @@
 
       # "<leader>rp" = ":!remi push<CR>";
     }
-    ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux {
+    // lib.optionals pkgs.stdenv.hostPlatform.isLinux {
       # resize with arrows
       "<C-Up>" = actionWithDesc ":resize +2<CR>" "resize larger horizontal";
       "<C-Down>" = actionWithDesc ":resize -2<CR>" "resize smaller horizontal";

@@ -49,6 +49,7 @@ in {
     };
     casks = [
       "mihomo-party"
+      "koodo-reader"
       "altserver"
       "iina"
       # "aerospace"

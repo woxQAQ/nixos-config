@@ -55,3 +55,7 @@ fmt:
 .PHONY: waybar-restart
 waybar-restart:
 	@ killall -SIGUSR2 .waybar-wrapped
+
+.PHONY: gc
+gc:
+	@ nix-store --gc
