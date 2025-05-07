@@ -25,7 +25,6 @@
     # ssh desktop client
     remmina
 
-    beekeeper-studio
     font-manager
     qq
     wl-clipboard

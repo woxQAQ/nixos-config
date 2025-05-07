@@ -6,7 +6,7 @@
   ...
 }: {
   imports = [
-    anyrun.homeManagerModules.default
+    # anyrun.homeManagerModules.default
     ./config.nix
     ./waybar.nix
     ./windowrule.nix
