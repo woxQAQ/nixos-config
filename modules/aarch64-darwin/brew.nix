@@ -41,6 +41,7 @@ in {
     ];
     brews = [
       # "meetily-backend"
+      "hey"
     ];
     masApps = {
       Wechat = 856500024;

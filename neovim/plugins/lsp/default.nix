@@ -22,9 +22,9 @@ in
         settings.user_default_options.css = true;
       };
 
-      ts-autotag = {
-        enable = true;
-      };
+      # ts-autotag = {
+      #   enable = true;
+      # };
 
       lsp = {
         enable = true;

@@ -9,7 +9,8 @@
   normalFunc = keys_.normal;
   visualFunc = keys_.visual;
   actionWithDesc = keys_.actionWithDesc;
-  normalSet = normalFunc ({
+  normalSet =
+    normalFunc {
       "<Space>" = "<NOP>";
 
       # Esc to clear search results
@@ -48,7 +49,7 @@
 
       # "<leader>rp" = ":!remi push<CR>";
     }
-    // lib.optionals pkgs.stdenv.hostPlatform.isLinux {
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux (normalFunc {
       # resize with arrows
       "<C-Up>" = actionWithDesc ":resize +2<CR>" "resize larger horizontal";
       "<C-Down>" = actionWithDesc ":resize -2<CR>" "resize smaller horizontal";

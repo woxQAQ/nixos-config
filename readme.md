@@ -6,6 +6,8 @@ It is a nix flake which manages my all nixos host and MacOS host
 
 - [x] darwin support
 - [x] wsl support
-- [ ] more modular
-- [x] homelab nas support
-- [ ] ...
+- [x] ~~homelab nas support~~(Since use nix to build a aio nas is so hard)
+
+## Projects which inspire me
+
+[ryan4yin's nix config](https://github.com/ryan4yin/nix-config) has provided a nix flake project layout for me.
