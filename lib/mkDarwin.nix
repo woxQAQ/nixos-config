@@ -37,16 +37,6 @@ in
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "hmbak";
           home-manager.extraSpecialArgs = specialArgs;
-          # home-manager.extraSpecialArgs = {
-          #   inherit inputs username system;
-          #   inherit
-          #     (specialArgs)
-          #     nur-ryan4yin
-          #     stable-pkg
-          #     unstable-pkg
-          #     mylib
-          #     ;
-          # };
           home-manager.users.${username}.imports = home-modules;
         }
       ]);

@@ -1,8 +1,8 @@
 {
   pkgs,
-  inputs,
+  hyprland,
   nur-ryan4yin,
-  anyrun,
+  # anyrun,
   ...
 }: {
   imports = [
@@ -42,7 +42,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     settings = {
       source = "${nur-ryan4yin.packages.${pkgs.system}.catppuccin-hyprland}/themes/mocha.conf";
       env = [

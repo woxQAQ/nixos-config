@@ -32,9 +32,9 @@ in {
     ];
   };
   programs.nixvim = {
-    extraPlugins = with pkgs.vimPlugins; [
-      leetcode-nvim
-    ];
+    # extraPlugins = with pkgs.vimPlugins; [
+    #   leetcode-nvim
+    # ];
     inherit keymaps;
     #   {
     #   # imports = map (x: x + "/keymaps.nix") pluginsWithKeymap;
