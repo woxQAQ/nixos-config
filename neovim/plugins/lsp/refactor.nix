@@ -1,8 +1,6 @@
 {
-  programs.nixvim.plugins = {
-    refactoring = {
-      enable = true;
-      enableTelescope = true;
-    };
+  refactoring = {
+    enable = true;
+    enableTelescope = true;
   };
 }

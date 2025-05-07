@@ -1,5 +1,5 @@
 {
-  programs.nixvim.plugins.lspsaga = {
+  lspsaga = {
     enable = true;
   };
 }

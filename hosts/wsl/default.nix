@@ -36,10 +36,10 @@
     golangci-lint
     kubernetes-helm
     go_1_23
-    treefmt
     gopls
     delve
     protols
+    linuxKernel.packages.linux_xanmod_latest.perf
     unstable-pkg.go-tools
     unstable-pkg.rustc
     unstable-pkg.rust-analyzer
@@ -48,7 +48,6 @@
     unstable-pkg.clippy
     uv
     buf
-    ripgrep
     nodejs
     nodePackages.npm
     nodePackages.prettier

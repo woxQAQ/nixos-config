@@ -5,6 +5,7 @@
   username,
   hostname,
   stateVersion,
+  mylib,
   home-modules ? [],
   darwin-modules,
   # specialArgs,
@@ -14,7 +15,7 @@
   genSpecialArgs = import ./genSpecialArgs.nix;
   specialArgs =
     genSpecialArgs {
-      inherit inputs system username stateVersion;
+      inherit inputs system username stateVersion mylib;
     }
     // {
       inherit hostname;
@@ -35,16 +36,17 @@ in
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "hmbak";
-
-          home-manager.extraSpecialArgs = {
-            inherit inputs username system;
-            inherit
-              (specialArgs)
-              nur-ryan4yin
-              stable-pkg
-              unstable-pkg
-              ;
-          };
+          home-manager.extraSpecialArgs = specialArgs;
+          # home-manager.extraSpecialArgs = {
+          #   inherit inputs username system;
+          #   inherit
+          #     (specialArgs)
+          #     nur-ryan4yin
+          #     stable-pkg
+          #     unstable-pkg
+          #     mylib
+          #     ;
+          # };
           home-manager.users.${username}.imports = home-modules;
         }
       ]);

@@ -1,6 +1,6 @@
 {nixpkgs, ...} @ inputs: let
   inherit (inputs.nixpkgs) lib;
-  mylib = import ../lib {inherit nixpkgs;};
+  mylib = import ../lib {inherit lib;};
   args = {
     inherit
       mylib

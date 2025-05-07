@@ -35,7 +35,7 @@
     };
 
     nix-gaming.url = "github:fufexan/nix-gaming";
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    # nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     flake-schemas.url = "github:DeterminateSystems/flake-schemas";
 
     pre-commit-hooks = {

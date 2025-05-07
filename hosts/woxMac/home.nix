@@ -8,6 +8,7 @@
     vscode
     localsend
     buf
+    hugo
     # unstable-pkg.bitwarden-desktop
   ];
 }

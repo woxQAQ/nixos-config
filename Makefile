@@ -36,9 +36,9 @@ check-brew:
 	fi
 
 .PHONY: switch-darwin
-switch-darwin: 
+switch-darwin:
 	darwin-rebuild switch \
-  --flake .#woxMac --show-trace \
+  --flake .#woxMac \
 
 .PHONY: darwin-set-proxy
 darwin-set-proxy:
@@ -55,3 +55,7 @@ fmt:
 .PHONY: waybar-restart
 waybar-restart:
 	@ killall -SIGUSR2 .waybar-wrapped
+
+.PHONY: gc
+gc:
+	@ nix-store --gc

@@ -1,9 +1,15 @@
 {
-  programs.nixvim.plugins.lualine = {
+  lualine = {
     enable = true;
 
     settings = {
-      options.globalstatus = true;
+      options = {
+        globalstatus = true;
+        extensions = [
+          "fzf"
+          "neo-tree"
+        ];
+      };
     };
   };
 }
