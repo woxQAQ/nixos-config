@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    # ./git.nix
+    ./git.nix
   ];
   home.packages = with pkgs; [
     nodejs
