@@ -15,9 +15,11 @@ in {
   home = {
     homeDirectory = "/Users/${username}";
     stateVersion = "25.05";
-    packages = [
-      pkgs.aerospace
+    packages = with pkgs; [
+      aerospace
       xterminal
+      hidden-bar
+      antlr4_12
     ];
   };
 
