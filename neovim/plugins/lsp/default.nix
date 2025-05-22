@@ -19,6 +19,7 @@
     "rust_analyzer"
     "cssls"
     "protols"
+    "jdtls"
     "statix"
     "html"
   ];
@@ -41,7 +42,7 @@
       installRustc = false;
     };
     gopls.autostart = true;
-    bashls.settings.filetypes=["sh" "zsh"];
+    bashls.settings.filetypes = ["sh" "zsh"];
     yamlls.extraOptions.yaml.schames = {
       kubernetes = "'*.yaml";
       "http://json.schemastore.org/github-workflow" = ".github/workflows/*";

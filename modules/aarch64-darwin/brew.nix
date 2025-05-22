@@ -15,6 +15,9 @@ in {
     systemPackages = with pkgs; [
       git
       gnugrep
+      podman
+      podman-tui
+      podman-compose
     ];
     shells = [
       pkgs.zsh
@@ -63,6 +66,9 @@ in {
       "bitwarden"
       "arc"
       "pot"
+      "trae"
+      "easydict"
+      "folo"
     ];
   };
 }
