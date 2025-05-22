@@ -4,7 +4,7 @@
     ./shell
     ./nix
     ./dev
-    # ./programs.nix
+    ./programs.nix
     # ./cloud-native.nix
   ];
 }
