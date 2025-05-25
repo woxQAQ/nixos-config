@@ -5,6 +5,57 @@
   ...
 } @ args: let
   data = scanPlugins ./. args;
+  installServers = [
+    "clangd"
+    "nil_ls"
+    "bashls"
+    "pylsp"
+    "pyright"
+    "helm_ls"
+    "yamlls"
+    "ts_ls"
+    "gopls"
+    "jsonls"
+    "rust_analyzer"
+    "cssls"
+    "protols"
+    "jdtls"
+    "statix"
+    "html"
+  ];
+  enableServer =
+    builtins.listToAttrs
+    (
+      map (
+        server: {
+          name = "${server}";
+          value = {enable = true;};
+        }
+      )
+      installServers
+    );
+
+  extraSettings = {
+    helm_ls.settings."helm_ls".yamlls.path = "${pkgs.yaml-language-server}/bin/yaml-language-server";
+    rust_analyzer = {
+      installCargo = false;
+      installRustc = false;
+    };
+    gopls.autostart = true;
+    bashls.settings.filetypes = ["sh" "zsh"];
+    yamlls.extraOptions.yaml.schames = {
+      kubernetes = "'*.yaml";
+      "http://json.schemastore.org/github-workflow" = ".github/workflows/*";
+      "http://json.schemastore.org/github-action" = ".github/action.{yml,yaml}";
+      "http://json.schemastore.org/ansible-stable-2.9" = "roles/tasks/*.{yml,yaml}";
+      "http://json.schemastore.org/kustomization" = "kustomization.{yml,yaml}";
+      "http://json.schemastore.org/ansible-playbook" = "*play*.{yml,yaml}";
+      "http://json.schemastore.org/chart" = "Chart.{yml,yaml}";
+      "https://json.schemastore.org/dependabot-v2" = ".github/dependabot.{yml,yaml}";
+      "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json" = "*docker-compose*.{yml,yaml}";
+      "https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json" = "*flow*.{yml,yaml}";
+    };
+  };
 in
   lib.attrsets.mergeAttrsList [
     (lib.attrsets.mergeAttrsList data)
@@ -29,20 +80,11 @@ in
       lsp = {
         enable = true;
         inlayHints = true;
+        servers = enableServer // extraSettings;
         keymaps = {
           silent = true;
-          # diagnostic = {
-          #   # Navigate in diagnostics
-          #   "]e" = "goto_prev";
-          #   "[e" = "goto_next";
-          # };
-
           lspBuf = {
-            # gd = "definition";
             gD = "references";
-            # gt = "type_definition";
-            # K = "hover";
-            # "<F2>" = "rename";
           };
 
           extra = [
@@ -82,77 +124,6 @@ in
               options.desc = "hover doc";
             }
           ];
-        };
-        servers = {
-          clangd.enable = true;
-          nil_ls = {
-            enable = true;
-            settings.formatting.command = [
-              "alejandra"
-            ];
-          };
-          pylsp.enable = true;
-          pyright = {
-            enable = true;
-          };
-
-          helm_ls = {
-            enable = true;
-            extraOptions = {
-              settings = {
-                "helm_ls" = {
-                  yamlls = {
-                    path = "${pkgs.yaml-language-server}/bin/yaml-language-server";
-                  };
-                };
-              };
-            };
-          };
-
-          ts_ls = {
-            enable = true;
-            settings.formatting.command = [
-              "prettier"
-            ];
-          };
-          cssls = {
-            enable = true;
-            filetypes = ["css" "scss" "less"];
-          };
-          protols.enable = true;
-          html.enable = true;
-          statix.enable = true;
-          rust_analyzer = {
-            enable = true;
-            installCargo = false;
-            installRustc = false;
-          };
-          jsonls.enable = true;
-          gopls = {
-            enable = true;
-            autostart = true;
-          };
-          yamlls = {
-            enable = true;
-            extraOptions = {
-              settings = {
-                yaml = {
-                  schemas = {
-                    kubernetes = "'*.yaml";
-                    "http://json.schemastore.org/github-workflow" = ".github/workflows/*";
-                    "http://json.schemastore.org/github-action" = ".github/action.{yml,yaml}";
-                    "http://json.schemastore.org/ansible-stable-2.9" = "roles/tasks/*.{yml,yaml}";
-                    "http://json.schemastore.org/kustomization" = "kustomization.{yml,yaml}";
-                    "http://json.schemastore.org/ansible-playbook" = "*play*.{yml,yaml}";
-                    "http://json.schemastore.org/chart" = "Chart.{yml,yaml}";
-                    "https://json.schemastore.org/dependabot-v2" = ".github/dependabot.{yml,yaml}";
-                    "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json" = "*docker-compose*.{yml,yaml}";
-                    "https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json" = "*flow*.{yml,yaml}";
-                  };
-                };
-              };
-            };
-          };
         };
       };
     }

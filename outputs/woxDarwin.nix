@@ -12,11 +12,7 @@
   ];
   home-modules = [
     ../home/darwin
-    ../home/public/nix
-    ../home/public/terminal
-    ../home/public/dev
-    ../home/public/shell
-    ../home/public/cloud-native.nix
+    ../home/public
     ../neovim
     ../hosts/${name}/home.nix
   ];

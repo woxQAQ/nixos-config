@@ -30,15 +30,19 @@
     unstable-pkg.clippy
 
     zulu23
-
+    maven
+    protobuf
     protols
+    jetbrains.idea-community
     unstable-pkg.go
     unstable-pkg.gopls
     unstable-pkg.go-tools
     unstable-pkg.golangci-lint
+    unstable-pkg.delve
     repgrep
     frp
     yq-go
+    unstable-pkg.gorm-gentool
     duf
     gdu
   ];

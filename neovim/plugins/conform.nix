@@ -3,7 +3,7 @@
     enable = true;
     settings = {
       formatters_by_ft = {
-        nix = ["nixfmt"];
+        nix = ["alejandra"];
         rust = ["rustfmt"];
       };
       notify_on_error = false;

@@ -2,7 +2,7 @@ HOST = "woxQAQ"
 UNAME = $(shell uname)
 
 .PHONY: update-flake
-update-flake:
+update-flake: fmt
 	nix flake update --flake . --extra-experimental-features "nix-command flakes"
 
 .PHONY: repl
@@ -14,16 +14,16 @@ shell:
 	nix shell --extra-experimental-features "nix-command flakes"
 
 .PHONY: switch
-switch:
+switch: fmt
 	sudo nixos-rebuild switch --flake ".#${HOST}"
 
 .PHONY: switch-wsl
-switch-wsl:
+switch-wsl: fmt
 	sudo nixos-rebuild switch \
 		--flake .#wsl
 
 .PHONY: switch-nas
-switch-nas:
+switch-nas: fmt
 		sudo nixos-rebuild switch \
 		--flake .#nas \
 
@@ -36,8 +36,8 @@ check-brew:
 	fi
 
 .PHONY: switch-darwin
-switch-darwin:
-	darwin-rebuild switch \
+switch-darwin: fmt
+	@darwin-rebuild switch \
   --flake .#woxMac \
 
 .PHONY: darwin-set-proxy
@@ -58,4 +58,4 @@ waybar-restart:
 
 .PHONY: gc
 gc:
-	@ nix-store --gc
+	@ sudo nix-store --gc

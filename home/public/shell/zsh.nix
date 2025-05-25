@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   programs.zsh = {
@@ -69,6 +70,8 @@
       function preexec {
           print -n "\e]133;C\e\\"
       }
+
+      ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin builtins.readFile ./darwinsetproxy.zsh}
 
       ${lib.optionalString config.services.gpg-agent.enable ''
         gnupg_path=$(ls $XDG_RUNTIME_DIR/gnupg)

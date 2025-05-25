@@ -1,7 +1,6 @@
-{unstable-pkg, ...}: {
-  programs.nixvim.extraPlugins = [unstable-pkg.vimPlugins.blink-cmp-avante];
-  programs.nixvim.plugins.avante = {
-    enable = false;
+{
+  avante = {
+    enable = true;
     settings = {
       provider = "openai";
       openai = {
