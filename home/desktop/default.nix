@@ -1,4 +1,4 @@
-{pkgs,...}: {
+{pkgs, ...}: {
   imports = [
     ./hyprland
     ./waypaper.nix
@@ -12,7 +12,7 @@
     ./cursor.nix
   ];
 
-  home.packages = with pkgs;[
+  home.packages = with pkgs; [
     mihomo-party
   ];
 }
