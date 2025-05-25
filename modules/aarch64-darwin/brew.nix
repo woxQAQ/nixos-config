@@ -58,6 +58,7 @@ in {
       "iina"
       # "aerospace"
       "raycast"
+      "obs"
       "obsidian"
       "cursor"
       "stats"

@@ -9,6 +9,7 @@
     localsend
     buf
     hugo
+    ollama
     # unstable-pkg.bitwarden-desktop
   ];
 }
