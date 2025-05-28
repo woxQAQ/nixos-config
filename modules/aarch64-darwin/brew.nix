@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   unstable-pkg,
   ...
 }: let
@@ -15,9 +16,6 @@ in {
     systemPackages = with pkgs; [
       git
       gnugrep
-      podman
-      podman-tui
-      podman-compose
     ];
     shells = [
       pkgs.zsh
@@ -26,7 +24,7 @@ in {
     variables =
       homebrew_env
       // {
-        PATH = "/opt/homebrew/bin:$PATH";
+        PATH = "/opt/homebrew/bin:/usr/local/texlive/2025/bin/universal-darwin:$PATH";
       };
   };
   homebrew = {
@@ -45,6 +43,7 @@ in {
     brews = [
       # "meetily-backend"
       "hey"
+      "podman"
     ];
     masApps = {
       Wechat = 856500024;
@@ -70,6 +69,11 @@ in {
       "trae"
       "easydict"
       "folo"
+      "bilibili"
+      "wpsoffice-cn"
+      "maccy"
+      "mactex"
+      "coteditor"
     ];
   };
 }

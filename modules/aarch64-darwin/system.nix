@@ -13,7 +13,7 @@
   system = {
     defaults = {
       dock = {
-        autohide = true;
+        autohide = false;
         show-recents = true;
         mru-spaces = false;
       };

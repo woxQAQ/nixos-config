@@ -50,7 +50,8 @@ check-store:
 
 .PHONY: fmt
 fmt:
-	treefmt
+	@ echo -e "\033[32mbegin to format nixos-config repos\033[0m"
+	@ treefmt
 
 .PHONY: waybar-restart
 waybar-restart:

@@ -10,6 +10,7 @@
     fastfetch
     lsof
     tldr
+    cloc
 
     wget
     curl

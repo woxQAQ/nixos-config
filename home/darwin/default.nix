@@ -7,6 +7,7 @@
   ...
 }: let
   xterminal = pkgs.callPackage ../../pkg/xterminal {};
+  geminicli = pkgs.callPackage ../../pkg/gemini-cli {};
 in {
   imports = [
     nixvim.homeManagerModules.nixvim
@@ -18,6 +19,7 @@ in {
     packages = with pkgs; [
       aerospace
       xterminal
+      geminicli
       hidden-bar
       antlr4_12
     ];

@@ -7,4 +7,7 @@
     ./fonts.nix
   ];
   nix.package = pkgs.nix;
+  environment.systemPackages = with pkgs; [
+    ollama
+  ];
 }
