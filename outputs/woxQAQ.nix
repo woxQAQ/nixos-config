@@ -1,10 +1,12 @@
 {
   mylib,
+  inputs,
   system,
   ...
 } @ args: let
   name = "woxQAQ";
   nixos-modules = [
+    inputs.agenix.nixosModules.default
     ../hosts/${name}
     ../modules/${system}
     ../modules/${system}/boot

@@ -8,5 +8,7 @@
     ./system.nix
     ./misc.nix
     ./user.nix
+    ./agenix.nix
+    ./secrets.nix
   ];
 }

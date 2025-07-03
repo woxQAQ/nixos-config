@@ -44,6 +44,7 @@ in {
       # "meetily-backend"
       "hey"
       "podman"
+      "podman-compose"
     ];
     masApps = {
       Wechat = 856500024;
@@ -53,6 +54,7 @@ in {
     casks = [
       "mihomo-party"
       "koodo-reader"
+      "squirrel-app"
       "altserver"
       "iina"
       # "aerospace"

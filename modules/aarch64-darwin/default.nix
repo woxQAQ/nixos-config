@@ -1,10 +1,11 @@
 {pkgs, ...}: {
   imports = [
-    ./brew.nix
-    ./user.nix
-    ./system.nix
-    ./security.nix
     ./fonts.nix
+    ./security.nix
+    ./system.nix
+    ./user.nix
+    ./brew.nix
+    ./agenix.nix
   ];
   nix.package = pkgs.nix;
   environment.systemPackages = with pkgs; [
