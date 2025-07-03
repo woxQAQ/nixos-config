@@ -1,8 +1,8 @@
 HOST = "woxQAQ"
 UNAME = $(shell uname)
 
-.PHONY: update-flake
-update-flake: fmt
+.PHONY: bump-flake
+bump-flake: fmt
 	nix flake update --flake . --extra-experimental-features "nix-command flakes"
 
 .PHONY: repl
