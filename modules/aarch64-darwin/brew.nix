@@ -57,6 +57,7 @@ in {
       "squirrel-app"
       "altserver"
       "iina"
+      "steam"
       # "aerospace"
       "raycast"
       "obs"

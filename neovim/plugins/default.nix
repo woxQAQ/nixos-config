@@ -18,10 +18,7 @@
   inherit (lib.attrsets) mergeAttrsList;
 
   keymaps = lib.debug.traceVal (
-    builtins.concatLists (
-      map (path: import (./. + "/${path}/keymaps.nix"))
-      pluginsWithKeymap
-    )
+    builtins.concatLists (map (path: import (./. + "/${path}/keymaps.nix")) pluginsWithKeymap)
   );
 in {
   programs.nixvim = {
@@ -50,7 +47,7 @@ in {
         };
         nui.enable = true;
         # noice.enable = true;
-        notify.enable = true;
+        notify.enable = false;
         illuminate = {
           enable = true;
           underCursor = true;

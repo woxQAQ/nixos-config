@@ -4,7 +4,10 @@
   ...
 } @ inputs:
 flake-parts.lib.mkFlake {inherit inputs;} {
-  systems = ["x86_64-linux" "aarch64-darwin"];
+  systems = [
+    "x86_64-linux"
+    "aarch64-darwin"
+  ];
 
   imports = [./pre-commit-hooks.nix];
 
@@ -19,24 +22,30 @@ flake-parts.lib.mkFlake {inherit inputs;} {
         ;
     };
     nixosSystems = {
-      woxQAQ = import ./woxQAQ.nix (args
+      woxQAQ = import ./woxQAQ.nix (
+        args
         // {
           system = "x86_64-linux";
           stateVersion = "25.05";
-        });
-      wsl = import ./wsl.nix (args
+        }
+      );
+      wsl = import ./wsl.nix (
+        args
         // {
           system = "x86_64-linux";
           stateVersion = "25.05";
-        });
+        }
+      );
     };
 
     darwinSystems = {
-      woxDarwin = import ./woxDarwin.nix (args
+      woxDarwin = import ./woxDarwin.nix (
+        args
         // {
           system = "aarch64-darwin";
           stateVersion = 5;
-        });
+        }
+      );
     };
 
     nixosSystemsValues = builtins.attrValues nixosSystems;

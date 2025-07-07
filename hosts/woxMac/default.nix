@@ -1,6 +1,7 @@
 {
   system,
   stateVersion,
+  username,
   hostname,
   ...
 }: {
@@ -10,6 +11,7 @@
   };
   system.defaults.smb.NetBIOSName = hostname;
   system.stateVersion = stateVersion;
+  system.primaryUser = username;
   nixpkgs = {
     hostPlatform = system;
   };

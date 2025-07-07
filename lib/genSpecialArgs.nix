@@ -8,7 +8,12 @@
 }:
 inputs
 // {
-  inherit system username stateVersion mylib;
+  inherit
+    system
+    username
+    stateVersion
+    mylib
+    ;
   unstable-pkg = import inputs.nixpkgs-unstable {
     inherit system;
     config.allowUnfree = true;
