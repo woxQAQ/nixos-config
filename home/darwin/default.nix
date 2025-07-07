@@ -12,7 +12,6 @@ in {
   imports = [
     nixvim.homeManagerModules.nixvim
     ./aerospace
-    ./rime
   ];
   home = {
     homeDirectory = "/Users/${username}";
