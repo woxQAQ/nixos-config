@@ -26,8 +26,16 @@ in
     modules =
       darwin-modules
       ++ [
-        ({lib, ...}: {
-          nixpkgs.pkgs = import nixpkgs-darwin {inherit system;};
+        ({lib, ...}: let
+          overlaysFunctions = import ../overlays {inherit inputs;};
+        in {
+          nixpkgs.pkgs = import nixpkgs-darwin {
+            inherit system;
+            overlays = [
+              overlaysFunctions.unstable-packages
+              overlaysFunctions.modifications
+            ];
+          };
         })
       ]
       ++ (lib.optionals ((lib.lists.length home-modules) > 0) [

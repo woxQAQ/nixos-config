@@ -23,4 +23,10 @@
       ];
     };
   };
+
+  # 自定义包 overlay
+  modifications = final: prev: {
+    git-status = final.callPackage ../pkg/git-status {};
+    gemini-cli = final.callPackage ../pkg/gemini-cli {};
+  };
 }

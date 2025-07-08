@@ -10,5 +10,6 @@
   nix.package = pkgs.nix;
   environment.systemPackages = with pkgs; [
     ollama
+    git-status
   ];
 }

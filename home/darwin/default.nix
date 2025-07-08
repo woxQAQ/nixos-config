@@ -4,6 +4,8 @@
   nixvim,
   mylib,
   pkgs,
+  lib,
+  osConfig,
   ...
 }: let
   xterminal = pkgs.callPackage ../../pkg/xterminal {};
@@ -12,6 +14,10 @@ in {
   imports = [
     nixvim.homeManagerModules.nixvim
     ./aerospace
+    (
+      lib.optionalString (builtins.any (x: x.name == "squirrel-app") osConfig.homebrew.casks)
+      ./rime
+    )
   ];
   home = {
     homeDirectory = "/Users/${username}";

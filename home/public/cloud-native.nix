@@ -5,15 +5,12 @@
   ...
 }: {
   home.packages = with unstable-pkg; [
-    kubectl
-    kubecm
     kubernetes-helm
-    argocd
     kubebuilder
   ];
   programs = {
     k9s = {
-      enable = true;
+      enable = false;
       settings = {
         skin = "catppuccino-mocha";
       };

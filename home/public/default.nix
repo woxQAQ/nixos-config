@@ -5,6 +5,6 @@
     ./nix
     ./dev
     ./programs.nix
-    # ./cloud-native.nix
+    ./cloud-native.nix
   ];
 }
