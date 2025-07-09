@@ -11,7 +11,6 @@ import re
 import sys
 import os
 from dataclasses import dataclass
-from typing import List
 from enum import Enum
 
 # ANSI颜色代码
@@ -137,7 +136,7 @@ class GitStatsAnalyzer:
 
         print(progress_text, end='', flush=True)
 
-    def get_commit_history(self, limit: int = 50) -> List[CommitInfo]:
+    def get_commit_history(self, limit: int = 50) -> list[CommitInfo]:
         """获取git提交历史"""
         # 获取提交历史的基本信息
         cmd = ["git", "log", "--oneline", "--format=%H|%an|%ad|%s", "--date=short", "-n", str(limit)]
@@ -187,7 +186,7 @@ class GitStatsAnalyzer:
                 width += 1
         return width
 
-    def print_table(self, commits: List[CommitInfo]):
+    def print_table(self, commits: list[CommitInfo]):
         """打印统计表格"""
         # 表格标题
         title = "Git 提交历史统计"
@@ -271,7 +270,7 @@ class GitStatsAnalyzer:
 
         print("└" + "─" * total_width + "┘")
 
-    def print_summary(self, commits: List[CommitInfo]):
+    def print_summary(self, commits: list[CommitInfo]):
         """打印汇总信息"""
         total_commits = len(commits)
         total_insertions = sum(c.insertions for c in commits)
