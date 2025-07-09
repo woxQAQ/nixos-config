@@ -12,9 +12,10 @@ import sys
 import os
 from dataclasses import dataclass
 from typing import List
+from enum import Enum
 
 # ANSI颜色代码
-class Colors:
+class Colors(Enum):
     RED = '\033[91m'
     GREEN = '\033[92m'
     YELLOW = '\033[93m'
@@ -47,11 +48,22 @@ class GitStatsAnalyzer:
             os.environ.get('TERM') != 'dumb'
         )
 
-    def colorize(self, text: str, color: str) -> str:
+    def combine_colors(self, *colors: Colors) -> str:
+        """组合多个颜色代码"""
+        return ''.join(color.value for color in colors)
+
+    def colorize(self, text: str, color: Colors) -> str:
         """为文本添加颜色"""
         if not self.use_colors:
             return text
-        return f"{color}{text}{Colors.RESET}"
+        return f"{color.value}{text}{Colors.RESET.value}"
+
+    def colorize_multi(self, text: str, *colors: Colors) -> str:
+        """为文本添加多个颜色"""
+        if not self.use_colors:
+            return text
+        color_codes = self.combine_colors(*colors)
+        return f"{color_codes}{text}{Colors.RESET.value}"
 
     def run_git_command(self, cmd, raise_on_error=True) -> str:
         """执行git命令"""
@@ -179,7 +191,7 @@ class GitStatsAnalyzer:
         """打印统计表格"""
         # 表格标题
         title = "Git 提交历史统计"
-        print(f"\n{self.colorize(title.center(100, '='), Colors.BOLD + Colors.MAGENTA)}\n")
+        print(f"\n{self.colorize_multi(title.center(100, '='), Colors.BOLD, Colors.MAGENTA)}\n")
 
         # 表头
         headers = ["提交哈希", "作者", "日期", "新增", "删除", "文件数", "提交信息"]
@@ -199,7 +211,7 @@ class GitStatsAnalyzer:
             right_pad = padding - left_pad
 
             if self.use_colors:
-                colored_header = self.colorize(header, Colors.BOLD + Colors.CYAN)
+                colored_header = self.colorize_multi(header, Colors.BOLD, Colors.CYAN)
                 header_line += f" {' ' * left_pad}{colored_header}{' ' * right_pad} │"
             else:
                 header_line += f" {' ' * left_pad}{header}{' ' * right_pad} │"
@@ -284,7 +296,7 @@ class GitStatsAnalyzer:
         title_left = title_padding // 2
         title_right = title_padding - title_left
 
-        print(f"\n{'=' * title_left}{self.colorize(summary_title, Colors.BOLD + Colors.GREEN)}{'=' * title_right}")
+        print(f"\n{'=' * title_left}{self.colorize_multi(summary_title, Colors.BOLD, Colors.GREEN)}{'=' * title_right}")
         print("┌" + "─" * (box_width - 2) + "┐")
 
         summary_items = [
@@ -312,7 +324,7 @@ class GitStatsAnalyzer:
     def display_stats(self, limit: int = 50):
         """显示git统计信息"""
         title = "🔍 Git 历史记录分析工具"
-        print(f"\n{self.colorize(title, Colors.BOLD + Colors.GREEN)}\n")
+        print(f"\n{self.colorize_multi(title, Colors.BOLD, Colors.GREEN)}\n")
 
         # 检查是否在git仓库中
         try:
