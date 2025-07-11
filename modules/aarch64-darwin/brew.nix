@@ -42,9 +42,9 @@ in {
     ];
     brews = [
       # "meetily-backend"
-      "hey"
-      "podman"
-      "podman-compose"
+      # "hey"
+      # "podman"
+      # "podman-compose"
     ];
     masApps = {
       Wechat = 856500024;
@@ -56,14 +56,14 @@ in {
       "koodo-reader"
       "squirrel-app"
       "altserver"
-      "iina"
+      # "iina"
       "steam"
       # "aerospace"
       "raycast"
       "obs"
       "obsidian"
-      "cursor"
-      "stats"
+      # "cursor"
+      # "stats"
       "neteasemusic"
       "tencent-lemon"
       "bitwarden"
@@ -74,7 +74,7 @@ in {
       "folo"
       "bilibili"
       "wpsoffice-cn"
-      "maccy"
+      # "maccy"
       "mactex"
       "coteditor"
     ];

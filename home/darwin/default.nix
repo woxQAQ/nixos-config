@@ -14,10 +14,7 @@ in {
   imports = [
     nixvim.homeManagerModules.nixvim
     ./aerospace
-    (
-      lib.optionalString (builtins.any (x: x.name == "squirrel-app") osConfig.homebrew.casks)
-      ./rime
-    )
+    (lib.optionalString (builtins.any (x: x.name == "squirrel-app") osConfig.homebrew.casks) ./rime)
   ];
   home = {
     homeDirectory = "/Users/${username}";
@@ -25,9 +22,13 @@ in {
     packages = with pkgs; [
       aerospace
       xterminal
-      geminicli
+      # geminicli
+      claude-code
       hidden-bar
-      antlr4_12
+      iina
+      code-cursor
+      stats
+      maccy
     ];
   };
 

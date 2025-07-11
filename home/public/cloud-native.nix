@@ -7,6 +7,8 @@
   home.packages = with unstable-pkg; [
     kubernetes-helm
     kubebuilder
+    podman
+    podman-compose
   ];
   programs = {
     k9s = {

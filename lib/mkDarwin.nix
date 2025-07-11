@@ -31,6 +31,9 @@ in
         in {
           nixpkgs.pkgs = import nixpkgs-darwin {
             inherit system;
+            config = {
+              allowUnfree = true;
+            };
             overlays = [
               overlaysFunctions.unstable-packages
               overlaysFunctions.modifications
