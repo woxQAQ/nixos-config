@@ -11,6 +11,8 @@
     lsof
     tldr
     cloc
+    age
+    tmux
 
     wget
     curl
