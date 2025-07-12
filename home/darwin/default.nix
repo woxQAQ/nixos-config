@@ -10,6 +10,7 @@
 }: let
   xterminal = pkgs.callPackage ../../pkg/xterminal {};
   geminicli = pkgs.callPackage ../../pkg/gemini-cli {};
+  claude-code-wrapper = pkgs.callPackage ../../pkg/claude-code-wrapper {};
 in {
   imports = [
     nixvim.homeManagerModules.nixvim
@@ -24,7 +25,7 @@ in {
       wireshark
       xterminal
       # geminicli
-      claude-code
+      claude-code-wrapper
       hidden-bar
       iina
       code-cursor
