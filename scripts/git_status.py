@@ -128,11 +128,17 @@ class GitStatsAnalyzer:
         bar_length = 30
         filled_length = int(bar_length * current / total)
 
-        bar = '█' * filled_length + '-' * (bar_length - filled_length)
-
-        progress_text = f"\r{text} [{bar}] {percent}% ({current}/{total})"
         if self.use_colors:
-            progress_text = f"\r{Colors.CYAN}{text}{Colors.RESET} [{Colors.GREEN}{'█' * filled_length}{Colors.WHITE}{'-' * (bar_length - filled_length)}{Colors.RESET}] {Colors.YELLOW}{percent}%{Colors.RESET} ({current}/{total})"
+            # 使用颜色的进度条
+            colored_text = self.colorize(text, Colors.CYAN)
+            filled_bar = self.colorize('█' * filled_length, Colors.GREEN)
+            empty_bar = self.colorize('-' * (bar_length - filled_length), Colors.WHITE)
+            colored_percent = self.colorize(f"{percent}%", Colors.YELLOW)
+            progress_text = f"\r{colored_text} [{filled_bar}{empty_bar}] {colored_percent} ({current}/{total})"
+        else:
+            # 无颜色的进度条
+            bar = '█' * filled_length + '-' * (bar_length - filled_length)
+            progress_text = f"\r{text} [{bar}] {percent}% ({current}/{total})"
 
         print(progress_text, end='', flush=True)
 
