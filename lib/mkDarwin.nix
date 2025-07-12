@@ -11,7 +11,7 @@
   # specialArgs,
   ...
 }: let
-  inherit (inputs) nix-darwin home-manager nixpkgs-darwin;
+  inherit (inputs) nix-darwin home-manager;
   genSpecialArgs = import ./genSpecialArgs.nix;
   specialArgs =
     genSpecialArgs {
@@ -29,15 +29,10 @@ in
         ({lib, ...}: let
           overlaysFunctions = import ../overlays {inherit inputs;};
         in {
-          nixpkgs.pkgs = import nixpkgs-darwin {
-            inherit system;
-            config = {
-              allowUnfree = true;
-            };
-            overlays = [
-              overlaysFunctions.unstable-packages
-              overlaysFunctions.modifications
-            ];
+          nixpkgs = {
+            hostPlatform = system;
+            config.allowUnfree = true;
+            overlays = builtins.attrValues overlaysFunctions;
           };
         })
       ]

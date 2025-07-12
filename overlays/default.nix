@@ -1,30 +1,18 @@
-{inputs, ...}: {
+{inputs, ...}: let
+  # Common nixpkgs configuration to reduce duplication
+  mkNixpkgs = pkgs: system:
+    import pkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
+in {
+  # Combined overlay that provides both master and unstable package sets
   unstable-packages = final: _prev: {
-    master = import inputs.master {
-      inherit (final) system;
-      config.allowUnfree = true;
-      overlays = [
-        (_final: _prev: {
-          # example = prev.example.overrideAttrs (oldAttrs: rec {
-          # ...
-          # });
-        })
-      ];
-    };
-    unstable = import inputs.unstable {
-      inherit (final) system;
-      config.allowUnfree = true;
-      overlays = [
-        (_final: _prev: {
-          # example = prev.example.overrideAttrs (oldAttrs: rec {
-          # ...
-          # });
-        })
-      ];
-    };
+    master = mkNixpkgs inputs.master final.system;
+    unstable = mkNixpkgs inputs.unstable final.system;
   };
 
-  # 自定义包 overlay
+  # Custom package overlay
   modifications = final: prev: {
     git-status = final.callPackage ../pkg/git-status {};
     gemini-cli = final.callPackage ../pkg/gemini-cli {};
