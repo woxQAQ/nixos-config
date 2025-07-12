@@ -1,29 +1,54 @@
-{lib, ...}: let
-  key_ = mode_:
-    lib.mapAttrsToList (key: action_:
-      if builtins.isString action_
-      then {
-        mode = mode_;
-        action = action_;
-        inherit key;
-      }
-      else if !builtins.hasAttr "action" action_
-      then throw "bad action when define a keymap"
-      else if builtins.hasAttr "desc" action_
-      then {
-        mode = mode_;
-        action = action_.action;
-        inherit key;
-        options.desc = action_.desc;
-      }
-      else {
-        mode = mode_;
-        action = action_.action;
-        inherit key;
-      });
-in {
-  normal = key_ "n";
-  visual = key_ "v";
+{lib}: rec {
+  # Simple keymap creation functions
+  n = key: action: {
+    mode = "n";
+    inherit key action;
+  };
+
+  v = key: action: {
+    mode = "v";
+    inherit key action;
+  };
+
+  i = key: action: {
+    mode = "i";
+    inherit key action;
+  };
+
+  t = key: action: {
+    mode = "t";
+    inherit key action;
+  };
+
+  # Helper for adding descriptions
+  desc = description: {options.desc = description;};
+
+  # Helper for silent keymaps
+  silent = {options.silent = true;};
+
+  # Backward compatibility functions
+  normal = lib.mapAttrsToList (key: action:
+    if builtins.isString action
+    then n key action
+    else
+      n key action.action
+      // (
+        if builtins.hasAttr "desc" action
+        then desc action.desc
+        else {}
+      ));
+
+  visual = lib.mapAttrsToList (key: action:
+    if builtins.isString action
+    then v key action
+    else
+      v key action.action
+      // (
+        if builtins.hasAttr "desc" action
+        then desc action.desc
+        else {}
+      ));
+
   actionWithDesc = action: desc: {
     inherit action desc;
   };

@@ -44,7 +44,21 @@
     gopls.autostart = true;
     bashls.settings.filetypes = ["sh" "zsh"];
     yamlls.extraOptions.yaml.schames = {
-      kubernetes = "'*.yaml";
+      kubernetes = [
+        "k8s/**/*.{yml,yaml}"
+        "kubernetes/**/*.{yml,yaml}"
+        "manifests/**/*.{yml,yaml}"
+        "**/k8s/**/*.{yml,yaml}"
+        "**/kubernetes/**/*.{yml,yaml}"
+        "**/manifests/**/*.{yml,yaml}"
+        "*deployment*.{yml,yaml}"
+        "*service*.{yml,yaml}"
+        "*configmap*.{yml,yaml}"
+        "*secret*.{yml,yaml}"
+        "*ingress*.{yml,yaml}"
+        "*pod*.{yml,yaml}"
+        "*namespace*.{yml,yaml}"
+      ];
       "http://json.schemastore.org/github-workflow" = ".github/workflows/*";
       "http://json.schemastore.org/github-action" = ".github/action.{yml,yaml}";
       "http://json.schemastore.org/ansible-stable-2.9" = "roles/tasks/*.{yml,yaml}";

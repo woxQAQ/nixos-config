@@ -1,4 +1,4 @@
 {
   scanPlugins = import ./scanPlugin.nix;
-  keys = import ./getKeymapKeyAction.nix;
+  keys = args: import ./getKeymapKeyAction.nix args;
 }

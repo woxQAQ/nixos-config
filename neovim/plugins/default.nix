@@ -5,72 +5,67 @@
   ...
 } @ args: let
   inherit (nixpkgs) lib;
-  pluginsWithKeymap = mylib.getDir ./. "keymaps.nix";
   nvlib = import ../lib;
 
-  args = {
-    inherit lib mylib pkgs;
-  };
-  scanPlugins = nvlib.scanPlugins args;
-  data = scanPlugins ./. {
+  # Create scanPlugins function for plugin compatibility
+  scanPlugins = nvlib.scanPlugins {inherit mylib;};
+
+  # Plugin arguments to pass to subdirectories
+  pluginArgs = {
     inherit lib pkgs scanPlugins;
   };
-  inherit (lib.attrsets) mergeAttrsList;
 
-  keymaps = lib.debug.traceVal (
-    builtins.concatLists (map (path: import (./. + "/${path}/keymaps.nix")) pluginsWithKeymap)
-  );
+  # Load all plugins with proper arguments
+  plugins = scanPlugins ./. pluginArgs;
+
+  # Simplified keymap loading
+  pluginsWithKeymap = mylib.getDir ./. "keymaps.nix";
+  keymaps = builtins.concatLists (map (path: import (./. + "/${path}/keymaps.nix")) pluginsWithKeymap);
+
+  # Base plugin configurations
+  basePlugins = {
+    web-devicons.enable = true;
+    nvim-autopairs.enable = true;
+    colorizer = {
+      enable = true;
+      settings.user_default_options.names = false;
+    };
+    nui.enable = true;
+    notify.enable = false;
+    illuminate = {
+      enable = true;
+      underCursor = true;
+      filetypesDenylist = [
+        "Outline"
+        "TelescopePrompt"
+        "reason"
+      ];
+    };
+    trim = {
+      enable = true;
+      settings = {
+        highlight = true;
+        ft_blocklist = [
+          "checkhealth"
+          "floaterm"
+          "lspinfo"
+          "neo-tree"
+          "TelescopePrompt"
+        ];
+      };
+    };
+  };
+
+  inherit (lib.attrsets) mergeAttrsList;
 in {
   programs.nixvim = {
+    keymaps = keymaps;
     opts.completeopt = [
       "menu"
       "menuone"
       "noselect"
     ];
-  };
-  programs.nixvim = {
-    # extraPlugins = with pkgs.vimPlugins; [
-    #   leetcode-nvim
-    # ];
-    inherit keymaps;
-    #   {
-    #   # imports = map (x: x + "/keymaps.nix") pluginsWithKeymap;
-    # };
-    plugins = mergeAttrsList [
-      (mergeAttrsList data)
-      {
-        web-devicons.enable = true;
-        nvim-autopairs.enable = true;
-        colorizer = {
-          enable = true;
-          settings.user_default_options.names = false;
-        };
-        nui.enable = true;
-        # noice.enable = true;
-        notify.enable = false;
-        illuminate = {
-          enable = true;
-          underCursor = true;
-          filetypesDenylist = [
-            "Outline"
-            "TelescopePrompt"
-            "reason"
-          ];
-        };
-        trim = {
-          enable = true;
-          settings = {
-            highlight = true;
-            ft_blocklist = [
-              "checkhealth"
-              "floaterm"
-              "lspinfo"
-              "neo-tree"
-              "TelescopePrompt"
-            ];
-          };
-        };
-      }
-    ];
+    # Simplified plugin merging - directly merge all plugin configurations
+    plugins = mergeAttrsList (plugins ++ [basePlugins]);
   };
 }
