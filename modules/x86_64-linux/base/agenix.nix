@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # agenix 模块已在系统级别导入
   # agenix CLI 工具将在系统级别安装
 

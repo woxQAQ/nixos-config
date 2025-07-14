@@ -1,4 +1,5 @@
-{mylib, ...}: {
+{ mylib, ... }:
+{
   imports = [
     ./autocommands.nix
     ./keymaps.nix

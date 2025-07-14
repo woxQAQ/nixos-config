@@ -3,7 +3,8 @@
   inputs,
   system,
   ...
-} @ args: let
+}@args:
+let
   name = "woxQAQ";
   nixos-modules = [
     inputs.agenix.nixosModules.default
@@ -24,7 +25,8 @@
     inherit nixos-modules home-modules;
     username = name;
   };
-in {
+in
+{
   nixosConfigurations = {
     "${name}" = mylib.mkHost (args // modules_);
   };

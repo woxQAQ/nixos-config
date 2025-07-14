@@ -2,10 +2,8 @@
   scanPlugins,
   lib,
   ...
-} @ args: let
-  data =
-    scanPlugins
-    ./.
-    args;
+}@args:
+let
+  data = scanPlugins ./. args;
 in
-  lib.attrsets.mergeAttrsList data
+lib.attrsets.mergeAttrsList data

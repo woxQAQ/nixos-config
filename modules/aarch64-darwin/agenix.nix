@@ -3,7 +3,8 @@
   pkgs,
   mysecret,
   ...
-}: {
+}:
+{
   # agenix 模块已在系统级别导入
   # agenix CLI 工具将在系统级别安装
 
@@ -20,24 +21,26 @@
       "/etc/ssh/ssh_host_ed25519_key"
     ];
 
-    secrets = let
-      noaccess = {
-        mode = "0000";
-        owner = "root";
+    secrets =
+      let
+        noaccess = {
+          mode = "0000";
+          owner = "root";
+        };
+        high_security = {
+          mode = "0500";
+          owner = "root";
+        };
+        user_readable = {
+          mode = "0544";
+          owner = "woxqaq";
+        };
+      in
+      {
+        # "google-cloud-project-id" = {
+        #   file = "${mysecret}/google-cloud-project-id.age";
+        # };
       };
-      high_security = {
-        mode = "0500";
-        owner = "root";
-      };
-      user_readable = {
-        mode = "0544";
-        owner = "woxqaq";
-      };
-    in {
-      # "google-cloud-project-id" = {
-      #   file = "${mysecret}/google-cloud-project-id.age";
-      # };
-    };
     # 用户密钥路径（可选）
     # secrets = {
     #   # 示例密钥配置

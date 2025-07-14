@@ -4,7 +4,8 @@
   nur-ryan4yin,
   # anyrun,
   ...
-}: {
+}:
+{
   imports = [
     # anyrun.homeManagerModules.default
     ./config.nix

@@ -2,7 +2,8 @@
   username,
   mylib,
   ...
-}: {
+}:
+{
   # nixpkgs.overlays = import mylib.flakeRoot "overlays";
   nix.settings = {
     experimental-features = [

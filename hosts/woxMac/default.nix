@@ -4,7 +4,8 @@
   username,
   hostname,
   ...
-}: {
+}:
+{
   networking = {
     hostName = hostname;
     computerName = hostname;

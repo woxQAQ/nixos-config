@@ -44,7 +44,7 @@ pkgs.buildNpmPackage rec {
     description = "Gemini CLI - An AI agent for your terminal";
     homepage = "https://github.com/google-gemini/gemini-cli";
     license = licenses.asl20;
-    maintainers = with maintainers; [];
+    maintainers = with maintainers; [ ];
     platforms = platforms.all;
   };
 }

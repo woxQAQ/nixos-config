@@ -2,7 +2,8 @@
   zen-browser,
   system,
   ...
-}: {
+}:
+{
   programs = {
     chromium = {
       enable = true;

@@ -26,7 +26,12 @@ pkgs.stdenv.mkDerivation rec {
 
     # 使用 makeWrapper 确保 python3 可用
     wrapProgram $out/bin/git-stats \
-      --prefix PATH : ${lib.makeBinPath [pkgs.python3 pkgs.git]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          pkgs.python3
+          pkgs.git
+        ]
+      }
 
     runHook postInstall
   '';
@@ -44,7 +49,7 @@ pkgs.stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/your-username/nixos-config";
     license = licenses.mit;
-    maintainers = [];
+    maintainers = [ ];
     platforms = platforms.all;
   };
 }

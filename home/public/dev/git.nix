@@ -4,8 +4,9 @@
   pkgs,
   lib,
   ...
-}: {
-  home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore ["checkLinkTargers"] ''
+}:
+{
+  home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore [ "checkLinkTargers" ] ''
     rm -f ${config.home.homeDirectory}/.gitconfig
   '';
   programs.gh = {
@@ -19,10 +20,7 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
-    userName =
-      if pkgs.stdenv.isLinux
-      then username
-      else "woxQAQ";
+    userName = if pkgs.stdenv.isLinux then username else "woxQAQ";
     userEmail = "woxqaq@gmail.com";
     includes = [
       {

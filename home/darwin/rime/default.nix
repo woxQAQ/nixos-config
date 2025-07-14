@@ -4,7 +4,8 @@
   config,
   osConfig,
   ...
-}: let
+}:
+let
   # 拉取 rime-ice 仓库
   rime-ice = pkgs.fetchFromGitHub {
     owner = "iDvel";
@@ -14,19 +15,21 @@
     fetchSubmodules = false;
   };
 
-  hasBeenInstalled = let
-    files = [
-      "${config.home.homeDirectory}/Library/Rime/installation.yaml"
-    ];
-  in
+  hasBeenInstalled =
+    let
+      files = [
+        "${config.home.homeDirectory}/Library/Rime/installation.yaml"
+      ];
+    in
     builtins.all (file: builtins.pathExists file) files;
-in {
+in
+{
   home.file."Library/Rime" = {
     source = rime-ice;
     recursive = true;
   };
   # 使用 home manager 的激活脚本来处理安装
-  home.activation.installRimeIce = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.installRimeIce = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if [ ! ${lib.boolToString hasBeenInstalled} ]; then
       /Library/Input\ Methods/Squirrel.app/Contents/MacOS/Squirrel --install
     fi
