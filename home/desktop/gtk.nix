@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   home.packages = with pkgs; [
     lxappearance-gtk2
@@ -8,7 +8,6 @@
     gtk4
   ];
 
-  # set dpi for 4k monitor
   xresources.properties = {
     # dpi for Xorg's font
     "Xft.dpi" = 150;
@@ -34,6 +33,8 @@
       gtk-xft-hintstyle = "hintslight";
       gtk-xft-rgba = "rgb";
     };
+
+    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
     gtk2.extraConfig = ''
       gtk-xft-antialias=1
