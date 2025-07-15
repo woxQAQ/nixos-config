@@ -3,12 +3,12 @@
     "nix.serverSettings": {
         "nixd": {
             "formatting": {
-                "command": ["alejandra"]
+                "command": ["nixfmt"]
             }
         },
         "nil":{
             "formatting":{
-                "command": ["alejandra"]
+                "command": ["nixfmt"]
             }
         }
     },

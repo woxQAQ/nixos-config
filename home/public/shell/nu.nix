@@ -3,9 +3,11 @@
   unstable-pkg,
   username,
   ...
-}: let
+}:
+let
   inherit (unstable-pkg) nu_scripts;
-in {
+in
+{
   programs.nushell = {
     enable = true;
     package = unstable-pkg.nushell;

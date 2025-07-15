@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -71,6 +72,7 @@
           print -n "\e]133;C\e\\"
       }
 
+      ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin (builtins.readFile ./darwinsetproxy.zsh)}
 
       ${lib.optionalString config.services.gpg-agent.enable ''
         gnupg_path=$(ls $XDG_RUNTIME_DIR/gnupg)
@@ -78,14 +80,12 @@
       ''}
     '';
 
-    shellAliases =
-      {
-        k = "kubectl";
-        g = "git";
-        grep = "rg --color=always";
-        ip = "ip --color";
-      }
-      // lib.optionalAttrs config.programs.bat.enable {cat = "bat";};
+    shellAliases = {
+      k = "kubectl";
+      g = "git";
+      grep = "rg --color=always";
+      ip = "ip --color";
+    } // lib.optionalAttrs config.programs.bat.enable { cat = "bat"; };
     shellGlobalAliases = {
       eza = "eza --icons --git";
     };

@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   boot = {
     consoleLogLevel = 3;
     loader = {
@@ -6,10 +7,11 @@
         enable = true;
         device = "nodev";
         efiSupport = true;
-        theme = let
-          theme-path = "src/catppuccin-mocha-grub-theme";
-          font-path = "${pkgs.spleen}/share/fonts/misc/spleen-16x32.otf";
-        in
+        theme =
+          let
+            theme-path = "src/catppuccin-mocha-grub-theme";
+            font-path = "${pkgs.spleen}/share/fonts/misc/spleen-16x32.otf";
+          in
           pkgs.stdenv.mkDerivation rec {
             pname = "catppuccin-mocha-grub";
             version = "1.0.0";

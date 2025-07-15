@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs = {
     gamescope = {
       enable = true;
@@ -17,8 +18,8 @@
       dedicatedServer.openFirewall = false;
       gamescopeSession.enable = true;
       package = pkgs.steam.override {
-        extraPkgs = pkgs:
-          with pkgs; [
+        extraPkgs =
+          pkgs: with pkgs; [
             xorg.libXcursor
             xorg.libXi
             xorg.libXinerama
@@ -51,7 +52,7 @@
             wayland # To use the wayland feature
           ];
       };
-      extraCompatPackages = [pkgs.proton-ge-bin];
+      extraCompatPackages = [ pkgs.proton-ge-bin ];
     };
   };
 }

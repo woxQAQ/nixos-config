@@ -2,7 +2,8 @@
   pkgs,
   unstable-pkg,
   ...
-}: {
+}:
+{
   imports = [
     ./git.nix
   ];

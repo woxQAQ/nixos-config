@@ -1,10 +1,10 @@
 {
   programs.nixvim = {
     autoGroups = {
-      highlight_yank = {};
-      vim_enter = {};
-      indentscope = {};
-      restore_cursor = {};
+      highlight_yank = { };
+      vim_enter = { };
+      indentscope = { };
+      restore_cursor = { };
     };
     autoCmd = [
       # Vertically center document when entering insert mode
@@ -14,7 +14,7 @@
       # }
       {
         group = "highlight_yank";
-        event = ["TextYankPost"];
+        event = [ "TextYankPost" ];
         callback = {
           __raw = ''
             function()
@@ -25,7 +25,7 @@
       }
       {
         group = "indentscope";
-        event = ["FileType"];
+        event = [ "FileType" ];
         pattern = [
           "help"
           "Startup"
@@ -67,7 +67,7 @@
       }
       {
         group = "restore_cursor";
-        event = ["BufReadPost"];
+        event = [ "BufReadPost" ];
         pattern = "*";
         callback = {
           __raw = ''

@@ -3,9 +3,10 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   nvlib = import ./lib;
-  keys_ = nvlib.keys {inherit lib;};
+  keys_ = nvlib.keys { inherit lib; };
   normalFunc = keys_.normal;
   visualFunc = keys_.visual;
   actionWithDesc = keys_.actionWithDesc;
@@ -69,7 +70,8 @@
     # sort
     "<leader>s" = ":sort<CR>";
   };
-in {
+in
+{
   programs.nixvim = {
     globals = {
       mapleader = " ";

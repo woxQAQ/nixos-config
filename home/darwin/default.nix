@@ -7,11 +7,13 @@
   lib,
   osConfig,
   ...
-}: let
-  xterminal = pkgs.callPackage ../../pkg/xterminal {};
-  geminicli = pkgs.callPackage ../../pkg/gemini-cli {};
-  claude-code-wrapper = pkgs.callPackage ../../pkg/claude-code-wrapper {};
-in {
+}:
+let
+  xterminal = pkgs.callPackage ../../pkg/xterminal { };
+  geminicli = pkgs.callPackage ../../pkg/gemini-cli { };
+  claude-code-wrapper = pkgs.callPackage ../../pkg/claude-code-wrapper { };
+in
+{
   imports = [
     nixvim.homeManagerModules.nixvim
     ./aerospace
@@ -21,7 +23,7 @@ in {
     homeDirectory = "/Users/${username}";
     stateVersion = "25.05";
     packages = with pkgs; [
-      aerospace
+      # aerospace
       wireshark
       xterminal
       # geminicli

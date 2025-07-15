@@ -64,7 +64,7 @@
           "ripgrep"
           "emoji"
         ];
-        cmdline = [];
+        cmdline = [ ];
         providers = {
           lsp = {
             score_offset = 4;
@@ -90,10 +90,10 @@
               project_root_marker = ".git";
               project_root_fallback = true;
               search_casing = "--ignore-case";
-              additional_rg_options = {};
+              additional_rg_options = { };
               fallback_to_regex_highlighting = true;
-              ignore_paths = {};
-              additional_paths = {};
+              ignore_paths = { };
+              additional_paths = { };
               debug = false;
             };
           };

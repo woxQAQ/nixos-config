@@ -3,7 +3,8 @@
   inputs,
   system,
   ...
-} @ args: let
+}@args:
+let
   name = "woxMac";
   darwin-modules = [
     inputs.agenix.darwinModules.default
@@ -22,7 +23,8 @@
     username = "woxqaq";
     hostname = name;
   };
-in {
+in
+{
   darwinConfigurations = {
     "${name}" = mylib.mkDarwin (args // modules_);
   };

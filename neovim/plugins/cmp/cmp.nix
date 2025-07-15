@@ -33,22 +33,22 @@
         };
       };
       sources = [
-        {name = "path";}
-        {name = "nvim_lsp";}
-        {name = "luasnip";}
+        { name = "path"; }
+        { name = "nvim_lsp"; }
+        { name = "luasnip"; }
         {
           name = "buffer";
           # Words from other open buffers can also be suggested.
           option.get_bufnrs.__raw = "vim.api.nvim_list_bufs";
           keywordLength = 3;
         }
-        {name = "neorg";}
+        { name = "neorg"; }
         {
           name = "luasnip";
           keywordLength = 3;
         }
-        {name = "nixpkgs_maintainers";}
-        {name = "friendly-snippets";}
+        { name = "nixpkgs_maintainers"; }
+        { name = "friendly-snippets"; }
       ];
     };
   };

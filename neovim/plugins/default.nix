@@ -3,12 +3,13 @@
   mylib,
   nixpkgs,
   ...
-} @ args: let
+}@args:
+let
   inherit (nixpkgs) lib;
   nvlib = import ../lib;
 
   # Create scanPlugins function for plugin compatibility
-  scanPlugins = nvlib.scanPlugins {inherit mylib;};
+  scanPlugins = nvlib.scanPlugins { inherit mylib; };
 
   # Plugin arguments to pass to subdirectories
   pluginArgs = {
@@ -20,7 +21,9 @@
 
   # Simplified keymap loading
   pluginsWithKeymap = mylib.getDir ./. "keymaps.nix";
-  keymaps = builtins.concatLists (map (path: import (./. + "/${path}/keymaps.nix")) pluginsWithKeymap);
+  keymaps = builtins.concatLists (
+    map (path: import (./. + "/${path}/keymaps.nix")) pluginsWithKeymap
+  );
 
   # Base plugin configurations
   basePlugins = {
@@ -57,7 +60,8 @@
   };
 
   inherit (lib.attrsets) mergeAttrsList;
-in {
+in
+{
   programs.nixvim = {
     keymaps = keymaps;
     opts.completeopt = [
@@ -66,6 +70,6 @@ in {
       "noselect"
     ];
     # Simplified plugin merging - directly merge all plugin configurations
-    plugins = mergeAttrsList (plugins ++ [basePlugins]);
+    plugins = mergeAttrsList (plugins ++ [ basePlugins ]);
   };
 }

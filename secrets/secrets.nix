@@ -11,17 +11,30 @@ let
   admin-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDPN7z6nJtSK4RlQJB4zFLUZ5h+QT6kEQVn9kOcMZzPK"; # 独立的管理员密钥
 
   # 定义不同的访问级别
-  nixosSystem = [woxQAQ-host woxQAQ-user]; # NixOS 系统访问
-  darwinSystem = [woxMac-host woxMac-user]; # macOS 系统访问
-  allSystems = [woxQAQ-host woxMac-host]; # 只有系统主机密钥
-  allUsers = [woxQAQ-user woxMac-user]; # 所有用户密钥
-  admins = [admin-key]; # 管理员密钥
+  nixosSystem = [
+    woxQAQ-host
+    woxQAQ-user
+  ]; # NixOS 系统访问
+  darwinSystem = [
+    woxMac-host
+    woxMac-user
+  ]; # macOS 系统访问
+  allSystems = [
+    woxQAQ-host
+    woxMac-host
+  ]; # 只有系统主机密钥
+  allUsers = [
+    woxQAQ-user
+    woxMac-user
+  ]; # 所有用户密钥
+  admins = [ admin-key ]; # 管理员密钥
 
   # 组合访问权限
   nixosWithAdmin = nixosSystem ++ admins; # NixOS + 管理员访问
   darwinWithAdmin = darwinSystem ++ admins; # macOS + 管理员访问
   all = allSystems ++ allUsers ++ admins; # 完全访问权限
-in {
+in
+{
   # 系统特定的密钥配置示例
 
   # 仅 NixOS 系统使用的密钥

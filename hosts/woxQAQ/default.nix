@@ -2,7 +2,8 @@
   stateVersion,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ./boot.specified.nix

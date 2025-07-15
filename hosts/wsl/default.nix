@@ -5,7 +5,8 @@
   unstable-pkg,
   inputs,
   ...
-}: {
+}:
+{
   networking.hostName = "wsl"; # Define your hostname.
   system.stateVersion = stateVersion;
   wsl = {

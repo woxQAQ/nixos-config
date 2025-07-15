@@ -3,7 +3,8 @@
   inputs,
   system,
   ...
-} @ args: let
+}@args:
+let
   name = "wsl";
   inherit (inputs) nixos-wsl;
   nixos-modules = [
@@ -19,7 +20,8 @@
     inherit nixos-modules;
     username = "woxQAQ";
   };
-in {
+in
+{
   nixosConfigurations = {
     "${name}" = mylib.mkHost (args // modules_);
   };
