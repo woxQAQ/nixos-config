@@ -12,60 +12,37 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "ahci"
-    "nvme"
-    "usbhid"
-    "usb_storage"
-    "sd_mod"
-  ];
-  boot.initrd.kernelModules = [
-    "amdgpu"
-  ];
+  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
+  boot.initrd.kernelModules = ["amdgpu"];
   boot.kernelModules = ["kvm-intel"];
-  boot.extraModulePackages = [
-  ];
+  boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/e116bee4-c072-437d-bb56-6f444270b169";
+    device = "/dev/disk/by-uuid/4ff5745c-c227-492a-89df-da75e168dac1";
     fsType = "btrfs";
-    options = [
-      "subvol=root"
-      "compress=zstd"
-    ];
-  };
-
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/e116bee4-c072-437d-bb56-6f444270b169";
-    fsType = "btrfs";
-    options = [
-      "subvol=nix"
-      "noatime"
-      "compress=zstd"
-    ];
+    options = ["subvol=root" "compress=zstd"];
   };
 
   fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/e116bee4-c072-437d-bb56-6f444270b169";
+    device = "/dev/disk/by-uuid/4ff5745c-c227-492a-89df-da75e168dac1";
     fsType = "btrfs";
-    options = [
-      "subvol=home"
-      "compress=zstd"
-    ];
+    options = ["subvol=home" "compress=zstd"];
+  };
+
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/4ff5745c-c227-492a-89df-da75e168dac1";
+    fsType = "btrfs";
+    options = ["subvol=nix" "compress=zstd" "noatime"];
   };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/12AE-8021";
     fsType = "vfat";
-    options = [
-      "fmask=0022"
-      "dmask=0022"
-    ];
+    options = ["fmask=0022" "dmask=0022"];
   };
 
   swapDevices = [
-    {device = "/dev/disk/by-uuid/4cb42993-c048-40cb-8348-55e85710afa8";}
+    {device = "/dev/disk/by-uuid/54d1d70a-f9c8-47e2-b804-8663cbce0879";}
   ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
