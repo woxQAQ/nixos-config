@@ -1,10 +1,4 @@
 {
-  zen-browser,
-  system,
-  unstable-pkg,
-  ...
-}:
-{
   programs = {
     chromium = {
       enable = true;

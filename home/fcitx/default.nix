@@ -1,6 +1,5 @@
 {
   pkgs,
-  nur-ryan4yin,
   ...
 }:
 {
