@@ -8,7 +8,7 @@ let
   data = scanPlugins ./. args;
   installServers = [
     "clangd"
-    "nil_ls"
+    "nixd"
     "bashls"
     "pylsp"
     "pyright"

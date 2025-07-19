@@ -1,6 +1,7 @@
 /** ********** Fonts ********** **/
 * {
-  font-family: "JetBrains Mono", "Iosevka Nerd Font", sans-serif;
+  font-family: "Maple Mono NF CN";
+  /* font-family: "JetBrains Mono", "Iosevka Nerd Font", sans-serif; */
   font-size: 14px;
   font-weight: bold;
 }
@@ -42,10 +43,8 @@ button:hover {
 }
 
 #hibernate {
-  background-image: image(
-    url("icons/hibernate.svg"),
-    url("/usr/share/wlogout/icons/hibernate.png")
-  );
+  background-image: image(url("icons/hibernate.svg"),
+      url("/usr/share/wlogout/icons/hibernate.png"));
 }
 
 #shutdown {

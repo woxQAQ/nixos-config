@@ -16,42 +16,53 @@
       source-serif
       source-han-sans
       source-han-serif
+      source-han-mono
 
-      inconsolata
-      fira-code
-      maple-mono.CN
-      hack-font
-      maple-mono.NF
-      maple-mono.NF-CN
+      maple-mono.NF-CN-unhinted
 
       # nerdfonts
+      nerd-fonts.symbols-only
       nerd-fonts.fira-code
       nerd-fonts.jetbrains-mono
       nerd-fonts.hack
+      nerd-fonts.iosevka
+
+      lxgw-wenkai-screen
     ];
     # use fonts specified by user rather than default ones
     enableDefaultPackages = false;
     # user defined fonts
     # the reason there's Noto Color Emoji everywhere is to override DejaVu's
     # B&W emojis that would sometimes show instead of some Color emojis
-    fontconfig.defaultFonts = {
-      serif = [
-        "Noto Serif"
-        "Noto Color Emoji"
-      ];
-      sansSerif = [
-        "Noto Sans"
-        "Noto Color Emoji"
-      ];
-      monospace = [
-        "Hack Nerd Font Mono"
-        # "JetBrainsMono Nerd Font"
-        "Noto Color Emoji"
-      ];
-      emoji = [ "Noto Color Emoji" ];
+    fontconfig = {
+      defaultFonts = {
+        serif = [
+          "Source Sans 3"
+          "Source Han Serif SC"
+          "Source Han Serif TC"
+        ];
+        sansSerif = [
+          "Source Serif 4"
+          "LXGW WenKai Screen"
+          "Source Han Sans SC"
+          "Source Han Sans TC"
+        ];
+        monospace = [
+          "Maple Mono NF CN"
+          "Source Han Mono SC"
+          "Source Han Mono TC"
+          # "JetBrainsMono Nerd Font"
+          "JetBrains Nerd Font"
+        ];
+        emoji = [ "Noto Color Emoji" ];
+      };
+      subpixel.rgba = "rgb";
+      hinting.enable = false;
+      antialias = true;
     };
+
   };
-  services.kmscon = {
+  services.kmscon = with pkgs; {
     # Use kmscon as the virtual console instead of gettys.
     # kmscon is a kms/dri-based userspace virtual terminal implementation.
     # It supports a richer feature set than the standard linux console VT,
@@ -59,8 +70,12 @@
     enable = true;
     fonts = [
       {
-        name = "Source Code Pro";
-        package = pkgs.source-code-pro;
+        name = "Maple Mono NF CN";
+        package = maple-mono.NF-CN-unhinted;
+      }
+      {
+        name = "JetBrainsMono Nerd Font";
+        package = nerd-fonts.jetbrains-mono;
       }
     ];
     extraOptions = "--term xterm-256color";

@@ -11,6 +11,7 @@
       "flakes"
     ];
     builders-use-substitutes = true;
+
     substituters = [
       "https://mirrors.ustc.edu.cn/nix-channels/store"
       # "https://nix-community.cachix.org"

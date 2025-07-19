@@ -3,6 +3,7 @@
   environment.systemPackages = with pkgs; [
     docker-compose
   ];
+  services.flatpak.enable = true;
   virtualisation = {
     waydroid.enable = true;
 
@@ -16,7 +17,7 @@
           "containerd-snapshotter" = true;
         };
         "registry-mirrors" = [
-          "https://docker.m.daocloud.io"
+          "https://dockerproxy.net"
         ];
       };
 

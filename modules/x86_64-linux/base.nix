@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 {
   environment.systemPackages = with pkgs; [
     (writeShellScriptBin "python" ''
@@ -6,6 +6,7 @@
       exec ${python3}/bin/python "$@"
     '')
   ];
+  nix.settings.trusted-users = [ username ];
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [

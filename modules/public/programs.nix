@@ -4,13 +4,12 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     treefmt
     alejandra
-    nil
 
     git
     git-lfs
     fastfetch
     lsof
-    tldr
+    tealdeer
     cloc
     nixfmt-rfc-style
     age
@@ -37,7 +36,8 @@
     p7zip
     zstd
     ripgrep
-    gtop
+
+    btop
 
     gnugrep
     gnused

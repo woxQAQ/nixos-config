@@ -24,7 +24,8 @@
     extraCss =
       let
         font-size = "1rem";
-        font-family = "noto sans, FontAwesome";
+        # font-family = "noto sans, FontAwesome";
+        font-family = "Maple Mono NF CN";
       in
       ''
         @define-color bg-col  rgba(30, 30, 46, 0.7);

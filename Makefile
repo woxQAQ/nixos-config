@@ -22,10 +22,10 @@ switch-wsl: fmt
 	sudo nixos-rebuild switch \
 		--flake .#wsl
 
-.PHONY: switch-nas
+.PHONY: switch
 switch-nas: fmt
 		sudo nixos-rebuild switch \
-		--flake .#nas \
+		--flake .#woxQAQ \
 
 check-brew:
 	@if command -v brew &>/dev/null; then \

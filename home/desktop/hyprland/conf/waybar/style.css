@@ -1,7 +1,7 @@
-@import "theme/default.css";
+@import "default.css";
 
 * {
-  font-family: noto sans, FontAwesome;
+  font-family: "Maple Mono NF CN";
   font-weight: bold;
   font-size: 16px;
   border-radius: 8px;

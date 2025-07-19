@@ -3,6 +3,8 @@
   home.packages = with pkgs; [
     statix
     nixd
-    node2nix
+    hydra-check
+    nix-index
+    nix-tree
   ];
 }

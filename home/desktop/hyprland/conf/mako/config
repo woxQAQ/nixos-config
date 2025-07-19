@@ -9,10 +9,10 @@ on-button-left=dismiss
 on-button-middle=none
 on-button-right=dismiss-all
 on-touch=dismiss
-on-notify=exec mpv /usr/share/sounds/freedesktop/stereo/message.oga
+# on-notify=exec mpv /usr/share/sounds/freedesktop/stereo/message.oga
 
 # STYLE OPTIONS
-font=JetBrains Mono 10
+font=Maple Mono NF CN
 width=300
 height=100
 margin=10
@@ -49,8 +49,3 @@ default-timeout=5000
 border-color=#f38ba8
 text-color=#f38ba8
 default-timeout=0
-
-[category=mpd]
-border-color=#f9e2af
-default-timeout=2000
-group-by=category

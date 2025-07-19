@@ -2,7 +2,7 @@
   wayland.windowManager.hyprland = {
     settings = {
       windowrule = [
-        "pseudo,class:^(fcitx)"
+        "pseudo,class:^(fcitx)$"
         "float,class:^(imv)"
         "center,class:^(imv)"
         "size 1200 725,class:^(imv)"
