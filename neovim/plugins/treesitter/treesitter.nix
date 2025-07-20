@@ -19,4 +19,5 @@
     };
   };
   hmts.enable = true;
+  sleuth.enable = true;
 }

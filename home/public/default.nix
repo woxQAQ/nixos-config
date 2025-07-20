@@ -5,7 +5,8 @@
     ./shell
     ./nix
     ./dev
-    ./programs.nix
+    ./yazi.nix
     ./cloud-native.nix
+    ./shell_core.nix
   ];
 }

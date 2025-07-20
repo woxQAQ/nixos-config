@@ -5,7 +5,7 @@ UNAME = $(shell uname)
 bump-flake: fmt
 	nix flake update --flake . --extra-experimental-features "nix-command flakes"
 
-.PHONY: repl
+.PHONY: replw
 repl:
 	nix repl --extra-experimental-features "nix-command flakes"
 
@@ -16,6 +16,9 @@ shell:
 .PHONY: switch
 switch: fmt
 	sudo nixos-rebuild switch --flake ".#${HOST}"
+	@ if [ "$(UNAME)" = "Linux" ]; then \
+		make waybar-restart; \
+	fi
 
 .PHONY: switch-wsl
 switch-wsl: fmt

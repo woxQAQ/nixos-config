@@ -9,6 +9,8 @@
         enabled = true; # Adds a padding-bottom to neovim statusline when set to false for some reason
       };
       lsp = {
+        hover.enabled = false;
+        signature.enabled = false;
         message = {
           enabled = false;
         };

@@ -5,29 +5,52 @@
     "custom/launcher",
     "custom/powermenu",
     "hyprland/workspaces",
-    "hyprland/window"
   ],
-  "modules-center": [],
+  "modules-center": [
+    "custom/playerctl"
+  ],
   "modules-right": [
     "temperature",
     "cpu",
     "memory",
-    "disk",
     "pulseaudio",
     "network",
-    "tray",
-    "clock"
+    "clock",
+    "idle_inhibitor",
+    "tray"
   ],
+  "custom/playerctl": {
+    "format": "{icon}  <span>{}</span>",
+    "return-type": "json",
+    "max-length": 55,
+    "exec": "playerctl -a metadata --format '{\"text\": \"  {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+    "on-click-middle": "playerctl previous",
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "format-icons": {
+      "Paused": "<span foreground='#6dd9d9'></span>",
+      "Playing": "<span foreground='#82db97'></span>",
+    }
+  },
   "clock": {
     "calendar": {
       "format": {
         "today": "<span color='#98971A'><b>{}</b></span>"
       }
     },
-    "format": "  {:%H:%M}",
-    "tooltip": "true",
+    "align": 0,
+    "rotate": 0,
+    "format": " {:%H:%M}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format-alt": "  {:%d/%m}"
+    "format-alt": " {: $a $b %d, %G}"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "\uf06e",
+      "deactivated": "\uf070"
+    },
+    "tooltip": false
   },
   "hyprland/workspaces": {
     "format": "{icon}",
@@ -55,48 +78,62 @@
   },
   "custom/powermenu": {
     "format": "\uf011",
-    "on-click": "$HOME/.config/hypr/scripts/wlogout.sh",
+    "on-click": "wlogout",
     "tooltip": false
   },
   "cpu": {
-    "format": "<span foreground='#98971A'> </span> {usage}%",
-    "format-alt": "<span foreground='#98971A'> </span> {avg_frequency} GHz",
-    "interval": 2
+    "format": "CPU {usage}%",
+    "interval": 1
   },
   "memory": {
-    "format": "<span foreground='#689d6a'>󰟜 </span>{}%",
-    "format-alt": "<span foreground='#689d6a'>󰟜 </span>{used} GiB",
-    "interval": 2
-  },
-  "disk": {
-    "format": "<span foreground='#D65D0e'>󰋊 </span>{percentage_used}%",
-    "interval": 60
+    "format": "MEM {percentage}%",
+    "interval": 1,
+    "states": {
+      "warning": 80,
+      "critical": 90
+    }
   },
   "network": {
-    "format-wifi": "<span foreground='#B16286'> </span> {signalStrength}%",
-    "format-ethernet": "<span foreground='#B16286'>󰀂 </span>",
-    "tooltip-format": "Connected to {essid} {ifname} via {gwaddr}",
-    "format-linked": "{ifname} (No IP)",
-    "format-disconnected": "<span foreground='#B16286'>󰖪 </span>"
+    "interval": 5,
+    "format": "{ifname}",
+    "format-wifi": " {essid} ({signalStrength}%)  Up: {bandwidthUpBits} Down: {bandwidthDownBits}",
+    "format-ethernet": "  {ifname} Up: {bandwidthUpBits} Down: {bandwidthDownBits}",
+    "format-disconnected": "Disconnected ⚠",
+    "tooltip-format": " {ifname} via {gwaddri}",
+    "tooltip-format-wifi": "  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
+    "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50,
+    "on-click-middle": "nm-connection-editor",
+    "on-click-right": "foot nmtui",
   },
   "tray": {
     "icon-size": 15,
-    "spacing": 5,
-    "show-passive-items": true
+    "spacing": 5
+    // "show-passive-items": true
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
-    "format-muted": " ",
+    "format-muted": "  MUTE",
     "format-source": " {volume}%",
     "format-source-muted": "",
     "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
       "default": [
-        "<span foreground='#458588'>  </span>"
+        "",
+        "",
+        ""
       ],
-      "headphone": ""
     },
     "scroll-step": 2,
-    "on-click": "pamixer -t"
+    "on-click": "amixer set Master toggle",
+    "on-click-right": "pavucontrol",
+    "smooth-scrolling-threshold": 1
   },
   "battery": {
     "format": "<span foreground='${yellow}'>{icon}</span> {capacity}%",
@@ -123,9 +160,8 @@
     "tooltip": false
   },
   "custom/launcher": {
-    "format": "",
+    "format": "\uf313 ",
     "on-click": "anyrun",
-    "tooltip": "true",
-    "tooltip-format": "Random Wallpaper"
+    "tooltip": false,
   }
 }

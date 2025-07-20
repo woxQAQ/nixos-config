@@ -16,6 +16,9 @@
   programs.lazygit = {
     enable = true;
   };
+  programs.gitui = {
+    enable = true;
+  };
 
   programs.git = {
     enable = true;
@@ -30,6 +33,9 @@
     extraConfig = {
       push.autoSetupRemote = true;
       init.defaultBranch = "main";
+      trim.bases = "develop,master,main";
+      pull.rebase = true;
+      log.date = "iso";
     };
     delta = {
       enable = true;

@@ -10,8 +10,9 @@ let
     "clangd"
     "nixd"
     "bashls"
-    "pylsp"
     "pyright"
+    "lua_ls"
+    "ruff"
     "helm_ls"
     "yamlls"
     "ts_ls"
@@ -39,11 +40,22 @@ let
       installCargo = false;
       installRustc = false;
     };
+    # nixd.settings = {
+    #   nixpkgs.expr = "import <nixpkgs> {}";
+    #   formattings.command = [ "nixfmt" ];
+    # };
     gopls.autostart = true;
     bashls.settings.filetypes = [
       "sh"
       "zsh"
     ];
+    lua_ls.settings.diagnostics = {
+      disable = [ "miss-name" ];
+      globals = [
+        "vim"
+        "cmp"
+      ];
+    };
     yamlls.extraOptions.yaml.schames = {
       kubernetes = [
         "k8s/**/*.{yml,yaml}"

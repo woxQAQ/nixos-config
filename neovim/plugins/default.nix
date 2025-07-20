@@ -10,10 +10,14 @@ let
 
   # Create scanPlugins function for plugin compatibility
   scanPlugins = nvlib.scanPlugins { inherit mylib; };
-
   # Plugin arguments to pass to subdirectories
   pluginArgs = {
-    inherit lib pkgs scanPlugins;
+    inherit
+      lib
+      pkgs
+      scanPlugins
+      ;
+    inherit (nvlib) icons;
   };
 
   # Load all plugins with proper arguments
@@ -32,6 +36,11 @@ let
     colorizer = {
       enable = true;
       settings.user_default_options.names = false;
+      settings.filetypes = {
+        css = {
+          rgb_fn = true;
+        };
+      };
     };
     nui.enable = true;
     notify.enable = false;

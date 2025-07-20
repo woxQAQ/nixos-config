@@ -3,7 +3,6 @@
   home.packages = with pkgs; [
     lxappearance-gtk2
     # libsForQt5.qt5ct
-    catppuccin
     gtk3
     gtk4
   ];
@@ -46,15 +45,6 @@
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
-    };
-
-    theme = {
-      name = "catppuccin-macchiato-pink-compact";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ "pink" ];
-        size = "compact";
-        variant = "macchiato";
-      };
     };
   };
 }

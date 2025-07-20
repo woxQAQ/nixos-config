@@ -23,7 +23,7 @@
     };
     extraCss =
       let
-        font-size = "1rem";
+        font-size = "1.3rem";
         # font-family = "noto sans, FontAwesome";
         font-family = "Maple Mono NF CN";
       in
@@ -79,7 +79,7 @@
         }
 
         box#main {
-          background: rgba(30, 30, 46, 0.7);
+          background: @bg-col;
           border: 1px solid @border-col;
           border-radius: 15px;
           padding: 5px;

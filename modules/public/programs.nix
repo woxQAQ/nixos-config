@@ -37,8 +37,6 @@
     zstd
     ripgrep
 
-    btop
-
     gnugrep
     gnused
     gawk

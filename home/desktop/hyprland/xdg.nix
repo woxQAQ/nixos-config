@@ -8,6 +8,9 @@
           "gtk"
           "hyprland"
         ];
+        "org.freedesktop.impl.portal.Secret" = [
+          "gnome-keyring"
+        ];
       };
     };
     xdgOpenUsePortal = true;

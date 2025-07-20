@@ -1,34 +1,24 @@
 {
-  unstable-pkg,
-  lib,
+  pkgs,
   ...
 }:
-let
-  # Podman 相关工具包组
-  podmanPackages = with unstable-pkg; [
-    podman
-    podman-compose
-    podman-tui
-  ];
-
-  # 其他云原生工具
-  otherCloudNativePackages = with unstable-pkg; [
+{
+  home.packages = with pkgs; [
     kubernetes-helm
     kubebuilder
+    argocd
+    kubectl
+    lazydocker
   ];
-
-  # 是否启用 podman
-  enablePodman = true; # 可以通过配置控制是否安装 podman 相关工具
-in
-{
-  home.packages = otherCloudNativePackages ++ lib.optionals enablePodman podmanPackages;
 
   programs = {
     k9s = {
-      enable = false;
-      settings = {
-        skin = "catppuccino-mocha";
-      };
+      enable = true;
     };
+  };
+  catppuccin.k9s.transparent = true;
+  programs.kubecolor = {
+    enable = true;
+    enableAlias = true;
   };
 }

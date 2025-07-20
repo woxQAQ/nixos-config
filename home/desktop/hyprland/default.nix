@@ -6,11 +6,7 @@
 }:
 {
   imports = [
-    # anyrun.homeManagerModules.default
-    ./config.nix
     ./waybar.nix
-    ./windowrule.nix
-    ./keybinds.nix
     ./anyrun.nix
     ./xdg.nix
     ./apps.nix
@@ -19,6 +15,12 @@
 
   programs = {
     wlogout.enable = true;
+  };
+
+  catppuccin = {
+    waybar.enable = false;
+    wlogout.enable = false;
+    mako.enable = false;
   };
 
   services = {
@@ -34,7 +36,17 @@
     # package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     package = pkgs.hyprland;
     settings = {
-      source = "${nur-ryan4yin.packages.${pkgs.system}.catppuccin-hyprland}/themes/mocha.conf";
+      source =
+        let
+          configPath = "${config.home.homeDirectory}/.config/hypr/configs";
+        in
+        [
+          "${configPath}/exec.conf"
+          "${configPath}/fcitx5.conf"
+          "${configPath}/keybinds.conf"
+          "${configPath}/settings.conf"
+          "${configPath}/windowrules.conf"
+        ];
       env = [
         # "HYPRCURSOR_THEME,Bibata-Modern-Ice"
         # "HYPRCURSOR_SIZE,16"
@@ -73,9 +85,6 @@
       "waybar".source = mkSymlink ./conf/waybar;
       "wlogout".source = mkSymlink ./conf/wlogout;
       "mako".source = mkSymlink ./conf/mako;
-      "hypr/scripts" = {
-        source = ./scripts;
-        recursive = true;
-      };
+      "hypr/configs".source = mkSymlink ./conf/hypr;
     };
 }

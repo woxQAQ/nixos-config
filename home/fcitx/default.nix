@@ -3,16 +3,11 @@
   ...
 }:
 {
-  # home.file.".local/share/fcitx5/themes".source = "${
-  #   nur-ryan4yin.packages.${pkgs.system}.catppuccin-fcitx5
-  # }/src";
-
   xdg.configFile = {
     "fcitx5/profile" = {
       source = ./profile.conf;
       force = true;
     };
-    # "fcitx5/conf/classicui.conf".source = ./class.conf;
   };
 
   i18n.inputMethod = {

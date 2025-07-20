@@ -1,22 +1,18 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    eww
-    swww
-    slurp
     hyprcursor
-    wl-clip-persist
-    cliphist
+    wl-clipboard
+
     wf-recorder
-    glib
-    weston
     wayland
     imv
-    pamixer
+
     hyprshot
-    swaylock
     swaybg
-    wlr-randr
+    pavucontrol
+    playerctl
+
     alsa-utils
     networkmanagerapplet
   ];

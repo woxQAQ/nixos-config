@@ -5,22 +5,13 @@
   ];
 
   home.packages = with pkgs; [
-    pavucontrol
     pamixer
-    pulseaudio
     go-musicfox
-    easyeffects
     youtube-tui
     pot
-    ripgrep
-    jellyfin-media-player
-    mpv
 
     leetgo
-    libreoffice-still
-    qbittorrent-enhanced
     obsidian
-    freetube
     bitwarden-desktop
 
     # ssh desktop client
@@ -28,7 +19,6 @@
 
     font-manager
     qq
-    wl-clipboard
     obs-studio
     wineWowPackages.wayland
   ];
