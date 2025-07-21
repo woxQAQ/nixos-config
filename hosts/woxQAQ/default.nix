@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     ./boot.specified.nix
     ./vm.nix
+    ./cloud-native.nix
   ];
 
   networking = {
