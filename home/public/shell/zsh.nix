@@ -78,7 +78,12 @@
         gnupg_path=$(ls $XDG_RUNTIME_DIR/gnupg)
         export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/$gnupg_path/S.gpg-agent.ssh"
       ''}
-      source <(kubectl completion zsh)
+      COMPLETION_LIST=(kubectl kind kubebuilder helm)
+      for cmd in "$COMPLETION_LIST[@]"; do
+        if command -v $cmd &> /dev/null; then
+          source <($cmd completion zsh)
+        fi
+      done
     '';
 
     shellAliases = {

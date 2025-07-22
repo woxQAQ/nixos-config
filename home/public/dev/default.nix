@@ -53,7 +53,7 @@
     "$HOME/.npm-packages/bin"
   ];
   programs.direnv = {
-    enable = true;
+    enable = false;
     nix-direnv.enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;

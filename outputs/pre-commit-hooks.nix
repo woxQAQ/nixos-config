@@ -11,7 +11,6 @@
     {
       devShells.default = pkgs.mkShell {
         packages = [
-          pkgs.alejandra
           pkgs.nixfmt-rfc-style
           pkgs.git
           pkgs.nodePackages.prettier
