@@ -1,9 +1,9 @@
 {
   services.k3s = {
-    enable = true;
+    enable = false;
     role = "server";
   };
-  networking = {
-    firewall.allowedTCPPorts = [ 6443 ];
-  };
+  # networking = {
+  #   firewall.allowedTCPPorts = [ 6443 ];
+  # };
 }

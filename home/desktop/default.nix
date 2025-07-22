@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, unstable-pkg, ... }:
 {
   imports = [
     ./hyprland
@@ -15,6 +15,9 @@
 
   home.packages = with pkgs; [
     mihomo-party
+    netease-cloud-music-gtk
+    n8n
+    aichat
   ];
 
   programs.mpv = {

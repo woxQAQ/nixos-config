@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    # ./nu.nix
+    ./nu.nix
     ./starship.nix
     ./zsh.nix
   ];
