@@ -24,8 +24,8 @@ in
     stateVersion = "25.05";
     packages = with pkgs; [
       # aerospace
-      wireshark
       xterminal
+      zotero
       # geminicli
       claude-code-wrapper
       hidden-bar

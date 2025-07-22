@@ -17,6 +17,7 @@
         autohide = false;
         show-recents = true;
         mru-spaces = false;
+        expose-group-apps = true;
       };
       loginwindow = {
         SHOWFULLNAME = true;
@@ -24,13 +25,27 @@
       };
       trackpad = {
         Clicking = true;
+        TrackpadRightClick = true;
       };
       finder = {
         _FXShowPosixPathInTitle = true;
         AppleShowAllExtensions = true;
+        QuitMenuItem = true;
         ShowStatusBar = true;
         ShowPathbar = true;
       };
+    };
+    keyboard = {
+      enableKeyMapping = true;
+      remapCapsLockToControl = false;
+      remapCapsLockToEscape = true;
+      swapLeftCommandAndLeftAlt = false;
+      userKeyMapping = [
+        {
+          HIDKeyboardModifierMappingSrc = 30064771113; # Caps Lock
+          HIDKeyboardModifierMappingDst = 30064771129; # Escape
+        }
+      ];
     };
   };
 }

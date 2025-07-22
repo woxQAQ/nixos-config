@@ -16,7 +16,7 @@
       enable = true;
     };
   };
-  catppuccin.k9s.transparent = true;
+  # catppuccin.k9s.transparent = true;
   programs.kubecolor = {
     enable = true;
     enableAlias = true;

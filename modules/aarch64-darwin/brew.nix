@@ -55,6 +55,7 @@ in
       "mihomo-party"
       "koodo-reader"
       "squirrel-app"
+      "jordanbaird-ice"
       "altserver"
       # "iina"
       "steam"
