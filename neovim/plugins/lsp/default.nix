@@ -9,6 +9,7 @@ let
   installServers = [
     "clangd"
     "nixd"
+    "nushell"
     "bashls"
     "pyright"
     "lua_ls"

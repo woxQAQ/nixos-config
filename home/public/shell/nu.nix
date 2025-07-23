@@ -9,7 +9,7 @@ let
 in
 {
   programs.nushell = {
-    enable = true;
+    enable = pkgs.stdenv.isLinux;
     package = unstable-pkg.nushell;
     configFile.source = ./config.nu;
     extraConfig = # nu

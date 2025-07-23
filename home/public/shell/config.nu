@@ -1,4 +1,11 @@
 $env.config = {
+    history: {
+        file_format: "sqlite"
+        max_size: 5_000_000
+        isolation: true
+    }
+    show_banner: false
+    buffer_editor: ["nvim", "--clean"]
     completions: {
         case_sensitive: false
         quick: true
@@ -6,6 +13,7 @@ $env.config = {
         partial: true
     }
     shell_integration: {
+        use_kitty_protol: false
         osc2: true
         osc7: true
         osc8: true

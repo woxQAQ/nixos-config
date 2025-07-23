@@ -4,7 +4,22 @@
   pkgs,
   ...
 }:
+let
+  homeDir = "${config.home.homeDirectory}";
+  localBin = "${homeDir}/.local/bin";
+  goBin = "${homeDir}/go/bin";
+  npmBin = "${homeDir}/.npm/bin";
+  cargoBin = "${homeDir}/cargo/bin";
+in
 {
+  programs.bash = {
+    enable = true;
+    enableCompletion = true;
+    bashrcExtra = # sh
+      ''
+        export PATH=$PATH:${localBin}:${goBin}:${npmBin}:${cargoBin}
+      '';
+  };
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -78,7 +93,7 @@
         gnupg_path=$(ls $XDG_RUNTIME_DIR/gnupg)
         export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/$gnupg_path/S.gpg-agent.ssh"
       ''}
-      COMPLETION_LIST=(kubectl kind kubebuilder helm)
+      COMPLETION_LIST=(kubectl kind kubebuilder helm docker)
       for cmd in "$COMPLETION_LIST[@]"; do
         if command -v $cmd &> /dev/null; then
           source <($cmd completion zsh)
@@ -91,7 +106,8 @@
       g = "git";
       grep = "rg --color=always";
       ip = "ip --color";
-    } // lib.optionalAttrs config.programs.bat.enable { cat = "bat"; };
+    }
+    // lib.optionalAttrs config.programs.bat.enable { cat = "bat"; };
     shellGlobalAliases = {
       eza = "eza --icons --git";
     };
