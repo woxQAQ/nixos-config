@@ -8,7 +8,7 @@
     ./git.nix
   ];
   home.packages = with pkgs; [
-    nodejs
+    # nodejs
     nodePackages.npm
     pnpm
     prettier
@@ -33,7 +33,6 @@
     maven
     protobuf
     protols
-    jetbrains.idea-community
     unstable-pkg.go
     unstable-pkg.gopls
     unstable-pkg.go-tools
@@ -41,7 +40,6 @@
     unstable-pkg.delve
     frp
     yq-go
-    unstable-pkg.gorm-gentool
     duf
     gdu
   ];
