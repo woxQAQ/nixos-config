@@ -5,12 +5,11 @@
   ...
 }:
 let
-  inherit (unstable-pkg) nu_scripts;
+  inherit (pkgs) nu_scripts;
 in
 {
   programs.nushell = {
-    enable = pkgs.stdenv.isLinux;
-    package = unstable-pkg.nushell;
+    enable = true;
     configFile.source = ./config.nu;
     extraConfig = # nu
       ''
@@ -21,6 +20,7 @@ in
         use custom-completions/rg/rg-completions.nu *
         use custom-completions/pnpm/pnpm-completions.nu *
         use custom-completions/make/make-completions.nu *
+        use custom-completions/npm/npm-completions.nu *
         use custom-completions/man/man-completions.nu *
         use custom-completions/nix/nix-completions.nu *
         # alias

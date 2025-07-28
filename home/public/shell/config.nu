@@ -12,8 +12,8 @@ $env.config = {
         algorithm: "prefix"
         partial: true
     }
+    use_kitty_protocol: false
     shell_integration: {
-        use_kitty_protol: false
         osc2: true
         osc7: true
         osc8: true

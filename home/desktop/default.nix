@@ -6,7 +6,6 @@
     ./gtk.nix
     ./browsers
     ./game.nix
-    ./ide.nix
     # ./qt.nix
     ./xdg.nix
     ./catppuccin.nix

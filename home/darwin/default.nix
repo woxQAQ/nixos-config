@@ -11,7 +11,6 @@
 let
   xterminal = pkgs.callPackage ../../pkg/xterminal { };
   geminicli = pkgs.callPackage ../../pkg/gemini-cli { };
-  claude-code-wrapper = pkgs.callPackage ../../pkg/claude-code-wrapper { };
 in
 {
   imports = [
@@ -27,10 +26,8 @@ in
       xterminal
       zotero
       # geminicli
-      claude-code-wrapper
       hidden-bar
       iina
-      code-cursor
       stats
       maccy
     ];

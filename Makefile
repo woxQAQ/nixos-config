@@ -16,9 +16,6 @@ shell:
 .PHONY: switch
 switch: fmt
 	sudo nixos-rebuild switch --flake ".#${HOST}"
-	@ if [ "$(UNAME)" = "Linux" ]; then \
-		make waybar-restart; \
-	fi
 
 .PHONY: switch-wsl
 switch-wsl: fmt

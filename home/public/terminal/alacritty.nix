@@ -16,12 +16,12 @@
 
       terminal = {
         shell = {
-          program = "${pkgs.zsh}/bin/zsh";
-          # args = [
-          #   "--login"
-          #   "-c"
-          #   "nu --login --interactive"
-          # ];
+          program = "${pkgs.bash}/bin/bash";
+          args = [
+            "--login"
+            "-c"
+            "nu --login --interactive"
+          ];
         };
         osc52 = "CopyPaste";
       };
