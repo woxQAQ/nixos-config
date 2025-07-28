@@ -26,6 +26,8 @@
     file
 
     gnumake
+    gcc
+    libseccomp
     killall
 
     zip
