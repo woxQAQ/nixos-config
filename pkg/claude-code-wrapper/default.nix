@@ -5,7 +5,7 @@
   claude-code,
 }:
 writeShellScriptBin "claude" ''
-  #!/bin/bash
+  #!/usr/bin/env bash
 
   # Function to load environment variables from .env files
   load_env_files() {

@@ -15,6 +15,7 @@
 
   programs = {
     wlogout.enable = true;
+    hyprlock.enable = true;
   };
 
   catppuccin = {
@@ -61,16 +62,7 @@
         "SDL_VIDEODRIVER,wayland"
         "GDK_BACKEND,wayland"
         "XDG_SESSION_TYPE,wayland"
-        # "GDK_SCALE,1.25"
         "ELECTRON_OZONE_PLATFORM_HINT,auto"
-        # "XCURSOR_SIZE,24"
-        # "XDG_CURRENT_DESKTOP,Hyprland"
-        # "XDG_SESSION_DESKTOP,Hyprland"
-        # "GTK_IM_MODULE,fcitx"
-        # "QT_IM_MODULE,fcitx"
-        # "XMODIFIERS,@im=fcitx"
-        # "SDL_IM_MODULE,fcitx"
-        # "GLFW_IM_MODULE,ibus"
       ];
     };
   };

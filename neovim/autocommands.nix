@@ -7,14 +7,10 @@
       restore_cursor = { };
     };
     autoCmd = [
-      # Vertically center document when entering insert mode
-      # {
-      #   event = "InsertEnter";
-      #   command = "norm zz";
-      # }
       {
         group = "highlight_yank";
         event = [ "TextYankPost" ];
+        pattern = "*";
         callback = {
           __raw = ''
             function()

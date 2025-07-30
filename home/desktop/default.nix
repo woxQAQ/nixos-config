@@ -17,6 +17,7 @@
     netease-cloud-music-gtk
     n8n
     aichat
+    clash-nyanpasu
   ];
 
   programs.mpv = {

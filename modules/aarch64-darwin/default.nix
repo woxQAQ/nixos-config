@@ -8,7 +8,7 @@
     ./brew.nix
     ./agenix.nix
   ];
-  nix.package = pkgs.nix;
+  nix.package = pkgs.lix;
   environment.systemPackages = with pkgs; [
     ollama
     git-status

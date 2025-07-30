@@ -8,7 +8,9 @@ in
 {
   home.packages = with pkgs; [
     code-cursor
-    zed-editor
     claude-code-wrapper
   ];
+  programs.zed-editor = {
+    enable = true;
+  };
 }
