@@ -2,6 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     docker-compose
+    dive
   ];
   services.flatpak.enable = true;
   virtualisation = {
@@ -16,9 +17,14 @@
         "features" = {
           "containerd-snapshotter" = true;
         };
-        "registry-mirrors" = [
-          "https://dockerproxy.net"
-        ];
+        # "registry-mirrors" = [
+        #   "https://docker.m.daocloud.io"
+        #   "https://w9cn84cl.mirror.aliyuncs.com"
+        # ];
+        proxies = {
+          "http-proxy" = "http://127.0.0.1:7890";
+          "https-proxy" = "http://127.0.0.1:7890";
+        };
       };
 
       enableOnBoot = true;

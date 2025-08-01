@@ -25,16 +25,6 @@ $env.config = {
 }
 
 # Proxy helper functions
-export-env {
-    $env.HTTP_PROXY = null
-    $env.HTTPS_PROXY = null
-    $env.http_proxy = null
-    $env.https_proxy = null
-    $env.ALL_PROXY = null
-    $env.all_proxy = null
-    $env.NO_PROXY = null
-    $env.no_proxy = null
-}
 
 # Set HTTP and HTTPS proxy
 export def set-proxy [
@@ -42,18 +32,19 @@ export def set-proxy [
     --no-proxy: string  # Comma-separated list of hosts that should not use proxy
 ] {
     let proxy = $proxy_url
-    $env.HTTP_PROXY = $proxy
-    $env.HTTPS_PROXY = $proxy
-    $env.http_proxy = $proxy
-    $env.https_proxy = $proxy
-    $env.ALL_PROXY = $proxy
-    $env.all_proxy = $proxy
-    
-    if $no_proxy != null {
-        $env.NO_PROXY = $no_proxy
-        $env.no_proxy = $no_proxy
+    let env_vars = {
+        HTTP_PROXY: $proxy,
+        HTTPS_PROXY: $proxy,
+        http_proxy: $proxy,
+        https_proxy: $proxy,
+        ALL_PROXY: $proxy,
+        all_proxy: $proxy,
     }
     
+    if $no_proxy != null {
+        $env_vars | merge { NO_PROXY: $no_proxy, no_proxy: $no_proxy }
+    } | load-env
+
     print $"✅ Proxy set to: ($proxy)"
     if $no_proxy != null {
         print $"✅ No proxy exceptions: ($no_proxy)"
@@ -62,15 +53,17 @@ export def set-proxy [
 
 # Unset (clear) proxy settings
 export def unset-proxy [] {
-    $env.HTTP_PROXY = null
-    $env.HTTPS_PROXY = null
-    $env.http_proxy = null
-    $env.https_proxy = null
-    $env.ALL_PROXY = null
-    $env.all_proxy = null
-    $env.NO_PROXY = null
-    $env.no_proxy = null
-    
+    {
+        HTTP_PROXY: null,
+        HTTPS_PROXY: null,
+        http_proxy: null,
+        https_proxy: null,
+        ALL_PROXY: null,
+        all_proxy: null,
+        NO_PROXY: null,
+        no_proxy: null,
+    } | load-env
+
     print "✅ Proxy settings cleared"
 }
 

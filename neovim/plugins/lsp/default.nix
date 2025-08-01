@@ -8,6 +8,7 @@ let
   data = scanPlugins ./. args;
   installServers = [
     "clangd"
+    "dockerls"
     "nixd"
     "nushell"
     "bashls"

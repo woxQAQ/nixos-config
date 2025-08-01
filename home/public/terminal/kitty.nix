@@ -8,8 +8,7 @@
     };
     font = {
       name = "Maple Mono NF CN";
-      size = if pkgs.stdenv.isDarwin then 14 else 13;
-
+      size = if pkgs.stdenv.isDarwin then 13 else 14;
     };
     darwinLaunchOptions = [ "--start-as=maximized" ];
     settings = {
