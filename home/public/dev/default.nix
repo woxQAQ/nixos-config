@@ -19,6 +19,7 @@
     uv
 
     gdb
+    lldb
     clang
     dbeaver-bin
 
@@ -51,7 +52,7 @@
     "$HOME/.npm-packages/bin"
   ];
   programs.direnv = {
-    enable = false;
+    enable = true;
     nix-direnv.enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;

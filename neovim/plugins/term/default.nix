@@ -4,6 +4,7 @@
 
     settings = {
       size = 20;
+      directly = "float";
       float_opts = {
         border = "curved";
         height = 30;

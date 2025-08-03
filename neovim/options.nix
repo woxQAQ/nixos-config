@@ -58,11 +58,6 @@
 
       textwidth = 0; # Maximum width of text that is being inserted.  A longer line will be
       #   broken after white space to get this width.
-
-      # Folding
-      foldmethod = "manual";
-      foldenable = false;
-      foldlevel = 99; # Folds with a level higher than this number will be closed
     };
   };
 }

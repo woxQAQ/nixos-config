@@ -1,7 +1,6 @@
 {
   blink-ripgrep.enable = true;
   blink-emoji.enable = true;
-  luasnip.enable = true;
   blink-cmp = {
     enable = true;
     settings = {

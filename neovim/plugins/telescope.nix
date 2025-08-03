@@ -1,6 +1,6 @@
 {
   telescope = {
-    enable = true;
+    enable = false;
 
     keymaps = {
       "<leader>ff" = "find_files";
