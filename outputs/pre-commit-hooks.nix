@@ -16,6 +16,7 @@
           pkgs.nodePackages.prettier
           pkgs.zsh
           pkgs.prefetch-npm-deps
+          pkgs.deadnix
         ];
         name = "dots";
         DIRENV_LOG_FORMAT = "";

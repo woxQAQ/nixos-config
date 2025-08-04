@@ -20,6 +20,7 @@
 
     gdb
     lldb
+    deadnix
     clang
     dbeaver-bin
 

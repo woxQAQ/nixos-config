@@ -1,6 +1,6 @@
 {
   refactoring = {
     enable = true;
-    enableTelescope = true;
+    # enableTelescope = true;
   };
 }

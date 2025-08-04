@@ -1,11 +1,13 @@
-{ mylib, ... }:
+{ mylib, lib, ... }:
 {
-  imports =
-    with builtins;
-    with lib;
-    map (fn: ./${fn}) (
-      filter (fn: (fn != "default.nix" && !hasSuffix ".md" "${fn}")) (attrNames (readDir ./.))
-    );
+  imports = [
+    ./plugins
+    ./autocommands.nix
+    ./color.nix
+    ./keymaps.nix
+    ./options.nix
+    ./todo.nix
+  ];
 
   programs.nixvim = {
     enable = true;
@@ -22,7 +24,13 @@
           "oil.nvim"
         ];
       };
-      byteCompileLua.enable = true;
+      byteCompileLua = {
+        enable = true;
+        configs = true;
+        luaLib = true;
+        nvimRuntime = true;
+        plugins = true;
+      };
     };
 
     viAlias = true;

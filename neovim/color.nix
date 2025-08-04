@@ -4,10 +4,15 @@
       catppuccin = {
         enable = true;
         settings = {
-          flavour = "mocha";
+          default_integrations = true;
+          flavour = "macchiato";
           integrations = {
             # cmp = true;
             gitsigns = true;
+            indent_blankline = {
+              enable = true;
+              colored_indent_levels = true;
+            };
             neotree = true;
             treesitter = true;
           };
