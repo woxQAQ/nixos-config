@@ -1,7 +1,6 @@
 {
   programs.nixvim = {
     imports = [
-      ./lang/harper-ls.nix
       ./lang/helm.nix
       ./lang/nixd.nix
     ];
