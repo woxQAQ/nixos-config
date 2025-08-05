@@ -2,12 +2,11 @@
   treesitter = {
     enable = true;
     nixvimInjections = true;
-    folding = true;
+    # folding = true;
     settings = {
       highlight.enable = true;
       indent.enable = true;
       autotag.enable = true;
-      folding.enable = true;
       incremental_selection = {
         enable = true;
         keymaps = {
@@ -25,8 +24,25 @@
     enable = true;
     highlightDefinitions = {
       enable = true;
-      # Set to false if you have an `updatetime` of ~100.
-      clearOnCursorMove = false;
+      clearOnCursorMove = true;
+    };
+    smartRename = {
+      enable = true;
+      keymaps = {
+        smartRename = "<leader>cr";
+      };
+    };
+    navigation = {
+      enable = true;
+    };
+  };
+  treesitter-context = {
+    enable = true;
+    settings = {
+      max_lines = 4;
+      min_window_height = 40;
+      multiwindow = true;
+      separator = "-";
     };
   };
   hmts.enable = true;

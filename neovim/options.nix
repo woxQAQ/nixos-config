@@ -29,6 +29,7 @@
       incsearch = true; # Incremental search: show match for partly typed search command
       inccommand = "split"; # Search and replace: preview changes in quickfix list
       ignorecase = true; # When the search query is lower-case, match both lower and upper-case
+      infercase = true;
       #   patterns
       smartcase = true; # Override the 'ignorecase' option if the search pattern contains upper
       #   case characters
@@ -56,6 +57,7 @@
       autoindent = true; # Do clever autoindenting
       copyindent = true;
       preserveindent = true;
+      pumheight = 10;
       breakindent = true;
 
       textwidth = 0; # Maximum width of text that is being inserted.  A longer line will be

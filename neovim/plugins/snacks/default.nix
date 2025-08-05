@@ -1,18 +1,36 @@
 {
+  smartcolumn = {
+    enable = true;
+    lazyLoad.settings.event = "DeferredUIEnter";
+    settings = {
+      colorcolumn = "80";
+      disabled_filetypes = [
+        "dashboard"
+        "snacks_dashboard"
+        "ministarter"
+        "checkhealth"
+        "help"
+        "lspinfo"
+        "markdown"
+        "neo-tree"
+        "noice"
+        "text"
+      ];
+    };
+  };
   snacks = {
     enable = true;
     settings = {
       image.enabled = true;
       indent.enabled = true;
       scroll.enabled = true;
-      statuscolumn = {
-        enabled = true;
-
-        folds = {
-          open = true;
-          git_hl = true;
-        };
-      };
+      # statuscolumn = {
+      #   enabled = true;
+      #   folds = {
+      #     open = true;
+      #     git_hl = true;
+      #   };
+      # };
     };
     settings.lazygit.enabled = true;
     settings.picker = {

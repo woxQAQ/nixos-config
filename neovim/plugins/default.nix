@@ -3,7 +3,7 @@
   mylib,
   nixpkgs,
   ...
-}@args:
+}:
 let
   inherit (nixpkgs) lib;
   nvlib = import ../lib;
