@@ -18,7 +18,6 @@
     n8n
     aichat
     insomnia
-    clash-nyanpasu
   ];
 
   programs.mpv = {

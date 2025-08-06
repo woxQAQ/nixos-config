@@ -6,6 +6,12 @@
   programs = {
     dconf.enable = true;
     localsend.enable = true;
+    clash-verge = {
+      enable = true;
+      autoStart = true;
+      serviceMode = true;
+      tunMode = true;
+    };
     thunar = {
       enable = true;
       plugins = with pkgs.xfce; [

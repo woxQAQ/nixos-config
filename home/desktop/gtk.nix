@@ -35,16 +35,16 @@
 
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
-    gtk2.extraConfig = ''
-      gtk-xft-antialias=1
-      gtk-xft-hinting=1
-      gtk-xft-hintstyle="hintslight"
-      gtk-xft-rgba="rgb"
-    '';
+    # gtk2.extraConfig = ''
+    #   gtk-xft-antialias=1
+    #   gtk-xft-hinting=1
+    #   gtk-xft-hintstyle="hintslight"
+    #   gtk-xft-rgba="rgb"
+    # '';
 
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
+    # iconTheme = {
+    #   name = "Papirus-Dark";
+    #   package = pkgs.papirus-icon-theme;
+    # };
   };
 }

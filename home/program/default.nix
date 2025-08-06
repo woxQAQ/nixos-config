@@ -8,7 +8,6 @@
     pamixer
     go-musicfox
     youtube-tui
-    pot
 
     leetgo
     obsidian
