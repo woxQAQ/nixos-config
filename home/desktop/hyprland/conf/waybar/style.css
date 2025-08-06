@@ -85,10 +85,10 @@ tooltip label {
 }
 
 
-/* #tray menuitem {
+#tray menu {
   padding: 1px;
   color: @text;
-} */
+}
 
 #pulseaudio,
 #cpu,

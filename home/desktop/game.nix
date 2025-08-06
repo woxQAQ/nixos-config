@@ -7,5 +7,6 @@
     hmcl
     winetricks
     prismlauncher
+    ryujinx-greemdev
   ];
 }
