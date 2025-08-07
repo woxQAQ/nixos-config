@@ -30,6 +30,9 @@ in
       iina
       stats
       maccy
+      podman
+      podman-compose
+      podman-desktop
     ];
   };
 

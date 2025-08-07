@@ -27,7 +27,6 @@
 
     gnumake
     gcc
-    libseccomp
     openssl
     killall
 
