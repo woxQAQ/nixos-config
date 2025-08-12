@@ -47,7 +47,7 @@ in
       # "podman-compose"
     ];
     masApps = {
-      Wechat = 856500024;
+      Wechat = 836500024;
       QQ = 451108668;
       TecentMeeting = 1484048379;
     };

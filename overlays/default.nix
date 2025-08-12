@@ -18,6 +18,5 @@ in
   # Custom package overlay
   modifications = final: prev: {
     git-status = final.callPackage ../pkg/git-status { };
-    gemini-cli = final.callPackage ../pkg/gemini-cli { };
   };
 }

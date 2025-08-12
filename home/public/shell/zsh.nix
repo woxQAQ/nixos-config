@@ -106,7 +106,8 @@ in
       g = "git";
       grep = "rg --color=always";
       ip = "ip --color";
-    } // lib.optionalAttrs config.programs.bat.enable { cat = "bat"; };
+    }
+    // lib.optionalAttrs config.programs.bat.enable { cat = "bat"; };
     shellGlobalAliases = {
       eza = "eza --icons --git";
     };

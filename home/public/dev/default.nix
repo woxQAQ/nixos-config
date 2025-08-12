@@ -9,10 +9,10 @@
   ];
   home.packages = with pkgs; [
     # nodejs
-    nodePackages.npm
+    # nodePackages.npm
     pnpm
-    prettier
     yarn
+    nodejs_20
 
     python3
     pyenv

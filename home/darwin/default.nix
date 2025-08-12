@@ -10,7 +10,6 @@
 }:
 let
   xterminal = pkgs.callPackage ../../pkg/xterminal { };
-  geminicli = pkgs.callPackage ../../pkg/gemini-cli { };
 in
 {
   imports = [

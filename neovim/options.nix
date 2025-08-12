@@ -1,3 +1,4 @@
+{ config, pkgs, ... }:
 {
   programs.nixvim = {
     globals = {
@@ -8,7 +9,7 @@
     clipboard = {
       # Use system clipboard
       register = "unnamedplus";
-      providers.wl-copy.enable = true;
+      providers.wl-copy.enable = pkgs.stdenv.isLinux;
     };
     opts = {
       updatetime = 100; # Faster completion
