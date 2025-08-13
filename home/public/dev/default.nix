@@ -19,17 +19,11 @@
     uv
 
     gdb
-    lldb
     deadnix
     clang
     dbeaver-bin
 
     graphviz
-    unstable-pkg.rustc
-    unstable-pkg.rust-analyzer
-    unstable-pkg.cargo
-    unstable-pkg.rustfmt
-    unstable-pkg.clippy
 
     zulu23
     maven

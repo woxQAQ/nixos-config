@@ -24,7 +24,7 @@ in
         use custom-completions/man/man-completions.nu *
         use custom-completions/nix/nix-completions.nu *
         # alias
-        use aliases/git/git-aliases.nu *
+        # use aliases/git/git-aliases.nu *
         use aliases/eza/eza-aliases.nu *
         use aliases/bat/bat-aliases.nu *
 

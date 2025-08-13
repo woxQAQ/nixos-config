@@ -1,3 +1,4 @@
+{ lib, pkgs, ... }:
 {
   conform-nvim = {
     enable = true;
@@ -12,7 +13,13 @@
           "ruff"
         ];
       };
-      formatters.stylua.command = "stylua";
+      formatters = {
+        nixfmt = lib.getExe pkgs.nixfmt-rfc-style;
+        rustfmt = lib.getExe pkgs.rustfmt;
+        stylua = lib.getExe pkgs.stylua;
+        isort = lib.getExe pkgs.isort;
+        ruff = lib.getExe pkgs.ruff;
+      };
       notify_on_error = false;
     };
   };
