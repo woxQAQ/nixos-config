@@ -17,7 +17,6 @@
       openssl
       attr
       libssh
-      l
       libseccomp
       bzip2
       libxml2

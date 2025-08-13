@@ -18,7 +18,7 @@ switch: fmt
 	sudo nixos-rebuild switch --flake ".#${HOST}"
 
 .PHONY: switch-wsl
-switch-wsl: fmt
+switch-wsl:
 	sudo nixos-rebuild switch \
 		--flake .#wsl
 

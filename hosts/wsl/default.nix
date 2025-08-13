@@ -13,8 +13,9 @@
     enable = true;
     defaultUser = username;
     startMenuLaunchers = true;
-    docker-desktop.enable = true;
+    # docker-desktop.enable = true;
   };
+  virtualisation.docker.enable = true;
   nixpkgs = {
     config = {
       allowUnfree = true;
@@ -40,15 +41,10 @@
     gopls
     delve
     protols
+    kind
     linuxKernel.packages.linux_xanmod_latest.perf
     unstable-pkg.go-tools
-    unstable-pkg.rustc
-    unstable-pkg.rust-analyzer
-    unstable-pkg.cargo
-    unstable-pkg.rustfmt
-    unstable-pkg.clippy
     uv
-    buf
     nodejs
     nodePackages.npm
     nodePackages.prettier
