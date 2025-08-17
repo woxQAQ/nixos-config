@@ -64,6 +64,7 @@ in
       "obs"
       "obsidian"
       # "cursor"
+      "feishu"
       # "stats"
       "neteasemusic"
       "tencent-lemon"

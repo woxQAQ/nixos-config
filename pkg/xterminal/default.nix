@@ -5,12 +5,12 @@
   _7zz,
 }:
 let
-  dmgurl = "https://cdn-cn.xterminal.cn/downloads/XTerminal-2.12.9-mac-arm64.dmg";
-  dmghash = "qJP0OL7pgbIacBqkq2SaPwUMSiszFxyWlVvWGfWJh69wwN72oLfTmyCrySZGPRgnaZzRZ0qg5UrlTtIKP3XsTQ==";
+  dmgurl = "https://cdn-office.xterminal.cn/downloads/XTerminal-3.22.2-mac-arm64.dmg";
+  dmghash = "zDuS+6ifCZncEEk2XXv7afVo/FDx1h+O3LdjdLYh79J9swQfJBAlD94mzqbo4BQzCUTDcDdFUinflcxXj34dmA==";
 in
 stdenv.mkDerivation {
   pname = "Xterminal";
-  version = "2.12.9";
+  version = "3.22.2";
   src = fetchurl {
     url = dmgurl;
     curlOptsList = [
