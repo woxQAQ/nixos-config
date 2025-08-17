@@ -5,7 +5,13 @@ $env.config = {
         isolation: true
     }
     show_banner: false
+    recursion_limit: 50
+    edit_mode: "vi"
     buffer_editor: ["nvim", "--clean"]
+    cursor_shape: {
+        vi_insert: "block"
+        vi_normal: "underscore"
+    }
     completions: {
         case_sensitive: false
         quick: true
@@ -40,7 +46,7 @@ export def set-proxy [
         ALL_PROXY: $proxy,
         all_proxy: $proxy,
     }
-    
+
     if $no_proxy != null {
         $env_vars | merge { NO_PROXY: $no_proxy, no_proxy: $no_proxy }
     } | load-env

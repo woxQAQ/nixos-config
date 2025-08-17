@@ -9,7 +9,4 @@
     ./agenix.nix
   ];
   nix.package = pkgs.lix;
-  environment.systemPackages = with pkgs; [
-    ollama
-  ];
 }

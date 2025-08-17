@@ -31,7 +31,7 @@ in
       maccy
       podman
       podman-compose
-      podman-desktop
+      podman-tui
     ];
   };
 

@@ -69,14 +69,10 @@ in
       "tencent-lemon"
       "bitwarden"
       "arc"
-      "pot"
       "trae"
       "easydict"
       "folo"
-      "bilibili"
-      "wpsoffice-cn"
       # "maccy"
-      "mactex"
       "coteditor"
     ];
   };
