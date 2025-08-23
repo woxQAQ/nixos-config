@@ -14,13 +14,17 @@
     yarn
     nodejs_20
 
+    clang
+    clang-tools
+
+    rustfmt
+
     python3
-    pyenv
     uv
+    black
 
     gdb
     deadnix
-    clang
     dbeaver-bin
 
     graphviz
