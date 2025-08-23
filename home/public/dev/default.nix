@@ -42,6 +42,8 @@
     yq-go
     duf
     gdu
+
+    leetgo
   ];
   # home.file.".npmrc".text = ''
   #   prefix=~/.npm-packages
