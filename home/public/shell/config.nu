@@ -85,3 +85,25 @@ export def show-proxy [] {
     print $"NO_PROXY: ($env.NO_PROXY? | default 'Not set')"
     print $"no_proxy: ($env.no_proxy? | default 'Not set')"
 }
+
+export def proxy-daemon [] {
+    let config_dir = "/run/systemd/system/nix-daemon.service.d/"
+    let config_file = $"($config_dir)/override.conf"
+
+    # Create directory if it doesn't exist
+    if not ($config_dir | path exists) {
+        sudo mkdir $config_dir
+    }
+
+    # Create systemd override file
+    let config_content = "[Service]
+Environment=\"https_proxy=http://localhost:7890\""
+
+    $config_content | save $config_file
+
+    # Reload and restart systemd service
+    sudo systemctl daemon-reload
+    sudo systemctl restart nix-daemon
+
+    print "✅ Nix daemon proxy configuration updated"
+}
