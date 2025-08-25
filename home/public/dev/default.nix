@@ -18,6 +18,8 @@
     clang-tools
 
     rustfmt
+    rustc
+    cargo
 
     python3
     uv

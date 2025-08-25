@@ -8,7 +8,7 @@
     localsend.enable = true;
     clash-verge = {
       enable = true;
-      autoStart = true;
+      autoStart = false;
       serviceMode = true;
       tunMode = true;
     };
