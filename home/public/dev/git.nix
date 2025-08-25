@@ -17,7 +17,7 @@
     enable = true;
   };
   programs.gitui = {
-    enable = true;
+    enable = pkgs.stdenv.isLinux;
   };
 
   programs.git = {
