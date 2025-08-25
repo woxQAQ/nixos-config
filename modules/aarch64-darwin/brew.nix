@@ -63,7 +63,7 @@ in
       "raycast"
       "obs"
       "obsidian"
-      # "cursor"
+      "cursor"
       "feishu"
       # "stats"
       "neteasemusic"

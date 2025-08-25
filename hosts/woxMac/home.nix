@@ -6,9 +6,7 @@
 {
   home.packages = with stable-pkg; [
     # mihomo-party
-    vscode
     localsend
     buf
-    hugo
   ];
 }

@@ -4,7 +4,7 @@
     statix
     nixd
     hydra-check
-    nix-index
     nix-tree
+    nix-index
   ];
 }

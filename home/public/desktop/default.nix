@@ -7,7 +7,6 @@ let
 in
 {
   home.packages = with pkgs; [
-    code-cursor
     claude-code-wrapper
   ];
   programs.zed-editor = {
