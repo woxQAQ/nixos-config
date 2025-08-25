@@ -87,7 +87,7 @@ tooltip label {
 
 #tray menu {
   padding: 1px;
-  color: @text;
+  background-color: rgb(26, 24, 38);
 }
 
 #pulseaudio,

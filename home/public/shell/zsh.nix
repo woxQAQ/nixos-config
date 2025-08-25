@@ -32,7 +32,7 @@ in
       pics = "$HOME/Pictures";
       vids = "$HOME/Videos";
     };
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     history = {
       expireDuplicatesFirst = true;
       path = "${config.xdg.dataHome}/zsh_history";
