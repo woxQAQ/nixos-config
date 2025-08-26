@@ -10,7 +10,9 @@
     fastfetch
     lsof
     tealdeer
-    cloc
+    # program that count code lines
+    tokei
+    # nix formatter
     nixfmt-rfc-style
     age
     tmux
@@ -37,11 +39,9 @@
     xz
     p7zip
     zstd
-    ripgrep
 
     gnugrep
     gnused
     gawk
-    jq
   ];
 }

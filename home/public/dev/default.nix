@@ -35,16 +35,30 @@
     maven
     protobuf
     protols
-    unstable-pkg.go
-    unstable-pkg.gopls
-    unstable-pkg.go-tools
-    unstable-pkg.golangci-lint
-    unstable-pkg.delve
+    # golang
+    go
+    # golang lsp
+    gopls
+    # staticcheck for golang
+    go-tools
+    # golang linter
+    golangci-lint
+    delve
+    # reverse proxy tools
     frp
+    # yaml lint and processor
     yq-go
-    duf
-    gdu
 
+    # replace of df
+    duf
+    # replace of du
+    gdu
+    # replace of find
+    fd
+    # rg
+    ripgrep
+
+    # useful leetcode cli
     leetgo
   ];
   # home.file.".npmrc".text = ''

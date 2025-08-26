@@ -17,9 +17,15 @@
         };
       };
     };
-    tmux = {
-      enable = true;
+    home.shellAliases = {
+      tldr = "tealdeer";
     };
+    programs.nushell.shellAliases = {
+      tldr = "tealdeer";
+    };
+    # tmux = {
+    #   enable = true;
+    # };
     bat = {
       enable = true;
       config = {
@@ -35,7 +41,7 @@
     jq.enable = true;
     eza = {
       enable = true;
-      enableNushellIntegration = true;
+      enableNushellIntegration = false;
       git = true;
       icons = "auto";
     };
