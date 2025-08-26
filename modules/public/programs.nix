@@ -15,7 +15,6 @@
     # nix formatter
     nixfmt-rfc-style
     age
-    tmux
 
     wget
     curl

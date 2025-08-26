@@ -2,7 +2,6 @@
 {
   environment.systemPackages = with pkgs; [
     docker-compose
-    dive
   ];
   services.flatpak.enable = true;
   virtualisation = {

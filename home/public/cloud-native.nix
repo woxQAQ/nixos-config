@@ -8,6 +8,9 @@
     kubebuilder
     argocd
     kubectl
+    kubectl-tree
+    kubectl-view-secret
+    dive
     lazydocker
   ];
 
@@ -16,9 +19,9 @@
       enable = true;
     };
   };
-  # catppuccin.k9s.transparent = true;
-  # programs.kubecolor = {
-  #   enable = true;
-  #   enableAlias = true;
-  # };
+  catppuccin.k9s.transparent = true;
+  programs.kubecolor = {
+    enable = true;
+    enableAlias = true;
+  };
 }

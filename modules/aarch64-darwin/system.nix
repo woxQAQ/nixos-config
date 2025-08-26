@@ -1,8 +1,10 @@
 { lib, ... }:
 {
   nix = {
+    enable = false;
+    settings.auto-optimise-store = false;
     gc = {
-      automatic = lib.mkDefault true;
+      automatic = lib.mkDefault false;
       interval = {
         Weekday = 0;
         Hour = 0;
