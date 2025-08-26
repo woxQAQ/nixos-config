@@ -35,9 +35,9 @@ alt-comma = 'layout accordion horizontal vertical'
 alt-enter = '''exec-and-forget osascript -e '
   tell application "kitty"
     do script
-    active
-  end tell
-  ''''
+    activate
+  end tell'
+  '''
 
 alt-h = 'focus left'
 alt-j = 'focus down'
@@ -79,10 +79,10 @@ alt-shift-semicolon = 'mode service'
 alt-r = 'mode resize'
 
 [mode.resize.binding]
-h = 'resize width -50'
+h = 'resize width +50'
 j = 'resize height +50'
 k = 'resize height -50'
-l = 'resize width +50'
+l = 'resize width -50'
 enter = 'mode main'
 esc = 'mode main'
 
@@ -129,6 +129,10 @@ run = 'move-node-to-workspace 8Mail'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
+run = ['layout floating', 'move-node-to-workspace 9File']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
 run = ['layout floating', 'move-node-to-workspace 9File']
 
 [[on-window-detected]]
