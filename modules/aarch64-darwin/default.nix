@@ -6,6 +6,7 @@
     ./system.nix
     ./user.nix
     ./brew.nix
+    ./packages.nix
   ];
   nix.package = pkgs.lix;
 }
