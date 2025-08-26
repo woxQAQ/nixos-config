@@ -59,7 +59,7 @@ in
       "altserver"
       # "iina"
       "steam"
-      # "aerospace"
+      "aerospace"
       "raycast"
       "obs"
       "obsidian"

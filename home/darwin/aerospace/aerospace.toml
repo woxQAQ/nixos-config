@@ -2,10 +2,11 @@ after-login-command = []
 after-startup-command = [
     'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0',
 ]
-start-at-login = false
+start-at-login = true
 
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
+
 accordion-padding = 30
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
@@ -14,84 +15,138 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 automatically-unhide-macos-hidden-apps = false
 
 [key-mapping]
-  preset = 'qwerty'
+preset = 'qwerty'
 [gaps]
-  inner.horizontal = 4
-  inner.vertical =   4
-  outer.left =       4
-  outer.bottom =     4
-  outer.top =        4
-  outer.right =      4
+inner.horizontal = 3
+inner.vertical = 3
+outer.left = 3
+outer.bottom = 3
+outer.top = 3
+outer.right = 3
 [exec]
-  inherit-env-vars = true
+inherit-env-vars = true
 [exec.env-vars]
-  PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
+PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
 
 [mode.main.binding]
-  alt-slash = 'layout tiles horizontal vertical'
-  alt-comma = 'layout accordion horizontal vertical'
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
 
-  alt-h = 'focus left'
-  alt-j = 'focus down'
-  alt-k = 'focus up'
-  alt-l = 'focus right'
+alt-enter = '''exec-and-forget osascript -e '
+  tell application "kitty"
+    do script
+    active
+  end tell
+  ''''
 
-  alt-shift-h = 'move left'
-  alt-shift-j = 'move down'
-  alt-shift-k = 'move up'
-  alt-shift-l = 'move right'
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
 
-  alt-minus = 'resize smart -50'
-  alt-equal = 'resize smart +50'
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
 
-  alt-1 = 'workspace 1'
-  alt-2 = 'workspace 2'
-  alt-3 = 'workspace 3'
-  alt-4 = 'workspace 4'
-  alt-5 = 'workspace 5'
-  alt-6 = 'workspace 6'
-  alt-7 = 'workspace 7'
-  alt-8 = 'workspace 8'
-  alt-9 = 'workspace 9'
+alt-minus = 'resize smart -50'
+alt-equal = 'resize smart +50'
 
-  alt-shift-1 = 'move-node-to-workspace 1'
-  alt-shift-2 = 'move-node-to-workspace 2'
-  alt-shift-3 = 'move-node-to-workspace 3'
-  alt-shift-4 = 'move-node-to-workspace 4'
-  alt-shift-5 = 'move-node-to-workspace 5'
-  alt-shift-6 = 'move-node-to-workspace 6'
-  alt-shift-7 = 'move-node-to-workspace 7'
-  alt-shift-8 = 'move-node-to-workspace 8'
-  alt-shift-9 = 'move-node-to-workspace 9'
-  alt-tab = 'workspace-back-and-forth'
-  alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+alt-1 = 'workspace 1Kitty'
+alt-2 = 'workspace 2Dia'
+alt-3 = 'workspace 3Zed'
+alt-4 = 'workspace 4Work'
+alt-5 = 'workspace 5Folo'
+alt-6 = 'workspace 6Chat'
+alt-7 = 'workspace 7Music'
+alt-8 = 'workspace 8Mail'
+alt-9 = 'workspace 9File'
 
-  # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-  alt-shift-semicolon = 'mode service'
-  alt-r = 'mode resize'
+alt-shift-1 = 'move-node-to-workspace 1Kitty'
+alt-shift-2 = 'move-node-to-workspace 2Dia'
+alt-shift-3 = 'move-node-to-workspace 3Zed'
+alt-shift-4 = 'move-node-to-workspace 4Work'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6Chat'
+alt-shift-7 = 'move-node-to-workspace 7Music'
+alt-shift-8 = 'move-node-to-workspace 8Mail'
+alt-shift-9 = 'move-node-to-workspace 9File'
+alt-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#mode
+alt-shift-semicolon = 'mode service'
+alt-r = 'mode resize'
 
 [mode.resize.binding]
-  h = 'resize width -50'
-  j = 'resize height +50'
-  k = 'resize height -50'
-  l = 'resize width +50'
-  enter = 'mode main'
-  esc = 'mode main'
+h = 'resize width -50'
+j = 'resize height +50'
+k = 'resize height -50'
+l = 'resize width +50'
+enter = 'mode main'
+esc = 'mode main'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
-  esc = ['reload-config', 'mode main']
-  r = ['flatten-workspace-tree', 'mode main'] # reset layout
-  f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
-  backspace = ['close-all-windows-but-current', 'mode main']
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main'] # reset layout
+f = [
+    'layout floating tiling',
+    'mode main',
+] # Toggle between floating and tiling layout
+backspace = ['close-all-windows-but-current', 'mode main']
 
-  # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
-  #s = ['layout sticky tiling', 'mode main']
+# sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
+#s = ['layout sticky tiling', 'mode main']
 
-  alt-shift-h = ['join-with left', 'mode main']
-  alt-shift-j = ['join-with down', 'mode main']
-  alt-shift-k = ['join-with up', 'mode main']
-  alt-shift-l = ['join-with right', 'mode main']
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
 
-  alt-enter = ['exec-and-forget alacritty','mode main']
+alt-enter = ['exec-and-forget alacritty', 'mode main']
+
+[[on-window-detected]]
+if.app-id = 'net.kovidgoyal.kitty'
+run = 'move-node-to-workspace 1Kitty'
+
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.dia'
+run = 'move-node-to-workspace 2Dia'
+
+[[on-window-detected]]
+if.app-id = 'dev.zed.Zed'
+run = 'move-node-to-workspace 3Zed'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = 'move-node-to-workspace 8Mail'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.iCal'
+run = 'move-node-to-workspace 8Mail'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['layout floating', 'move-node-to-workspace 9File']
+
+[[on-window-detected]]
+if.app-id = 'com.netease.163music'
+run = 'move-node-to-workspace 7Music'
+
+[[on-window-detected]]
+if.app-id = 'com.tencent.xinWeChat'
+run = 'move-node-to-workspace 6Chat'
+
+[[on-window-detected]]
+if.app-id = 'com.tencent.qq'
+run = 'move-node-to-workspace 6Chat'
+
+[[on-window-detected]]
+if.app-id = 'com.electron.lark'
+run = 'move-node-to-workspace 4Work'
+
+[[on-window-detected]]
+if.app-id = 'is.follow'
+run = 'move-node-to-workspace 5Folo'
