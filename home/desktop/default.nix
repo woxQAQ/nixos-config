@@ -9,7 +9,7 @@
     # ./qt.nix
     ./xdg.nix
     ./ides.nix
-    ./catppuccin.nix
+    # ./catppuccin.nix
     ./cursor.nix
   ];
 

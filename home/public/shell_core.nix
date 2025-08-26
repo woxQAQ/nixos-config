@@ -1,4 +1,7 @@
 {
+  home.shellAliases = {
+    tldr = "tealdeer";
+  };
   programs = {
     fzf = {
       enable = true;
@@ -17,10 +20,8 @@
         };
       };
     };
-    home.shellAliases = {
-      tldr = "tealdeer";
-    };
-    programs.nushell.shellAliases = {
+
+    nushell.shellAliases = {
       tldr = "tealdeer";
     };
     # tmux = {
