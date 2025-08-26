@@ -29,7 +29,6 @@ let
     withOptions
     flattenKeymaps
     ;
-
   # Core keymaps grouped by functionality
   coreKeymaps = category "core" [
     (normal "<Space>" "<NOP>" "Disable space bar" { silent = true; })

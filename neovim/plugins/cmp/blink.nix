@@ -50,7 +50,11 @@
         menu.border = "rounded";
       };
       keymap = {
-        preset = "super-tab";
+        preset = "enter";
+        "<CR>" = [
+          "accept_and_enter"
+          "fallback"
+        ];
       };
       signature = {
         enabled = true;
