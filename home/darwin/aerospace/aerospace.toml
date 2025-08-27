@@ -32,12 +32,8 @@ PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 
-alt-enter = '''exec-and-forget osascript -e '
-    tell application "kitty"
-        do script
-        activate
-    end tell'
-  '''
+alt-enter = '''exec-and-forget osascript -e 'tell application "kitty" to activate'
+'''
 
 alt-h = 'focus left'
 alt-j = 'focus down'
@@ -105,7 +101,7 @@ alt-shift-j = ['join-with down', 'mode main']
 alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
-alt-enter = ['exec-and-forget alacritty', 'mode main']
+# alt-enter = ['exec-and-forget alacritty', 'mode main']
 
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
@@ -128,11 +124,19 @@ if.app-id = 'com.apple.iCal'
 run = 'move-node-to-workspace 8Mail'
 
 [[on-window-detected]]
+if.app-id = 'com.coteditor.CotEditor'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = ['layout floating', 'move-node-to-workspace 9File']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
+run = ['layout floating', 'move-node-to-workspace 9File']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.freeform'
 run = ['layout floating', 'move-node-to-workspace 9File']
 
 [[on-window-detected]]
