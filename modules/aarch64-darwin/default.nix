@@ -8,5 +8,4 @@
     ./brew.nix
     ./packages.nix
   ];
-  nix.package = pkgs.lix;
 }

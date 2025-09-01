@@ -1,8 +1,11 @@
-{ lib, ... }:
+{ lib, username, ... }:
 {
   nix = {
     enable = false;
-    settings.auto-optimise-store = false;
+    settings = {
+      auto-optimise-store = false;
+      trusted-users = [ username ];
+    };
     gc = {
       automatic = lib.mkDefault false;
       interval = {

@@ -34,7 +34,7 @@ in
       cleanup = "zap";
     };
     taps = [
-      "mihomo-party-org/mihomo-party"
+      # "mihomo-party-org/mihomo-party"
       "zackriya-solutions/meetily-backend"
       "nikitabobko/tap"
       "pot-app/homebrew-tap"
@@ -52,7 +52,7 @@ in
       TecentMeeting = 1484048379;
     };
     casks = [
-      "mihomo-party"
+      "clash-party"
       "koodo-reader"
       "squirrel-app"
       "jordanbaird-ice"
