@@ -3,7 +3,6 @@
   stateVersion,
   username,
   unstable-pkg,
-  inputs,
   ...
 }:
 {

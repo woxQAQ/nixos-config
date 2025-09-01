@@ -1,7 +1,5 @@
 {
   pkgs,
-  unstable-pkg,
-  username,
   ...
 }:
 let

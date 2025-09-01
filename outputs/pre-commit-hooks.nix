@@ -5,7 +5,6 @@
   perSystem =
     {
       pkgs,
-      lib,
       ...
     }:
     {
@@ -29,21 +28,20 @@
         settings.excludes = [ "flake.lock" ];
 
         settings.hooks = {
-          alejandra.enable = true;
-          prettier = {
+          deadnix = {
             enable = true;
-            deadnix = {
-              enable = true;
-              settings = {
-                edit = true;
-              };
+            settings = {
+              edit = true;
             };
-            excludes = [
-              ".js"
-              ".md"
-              ".ts"
-            ];
           };
+          # prettier = {
+          #   enable = true;
+          #   excludes = [
+          #     ".js"
+          #     ".md"
+          #     ".ts"
+          #   ];
+          # };
         };
       };
     };

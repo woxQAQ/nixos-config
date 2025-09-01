@@ -1,6 +1,5 @@
 # a wrapper for claude-code to load local environment variables from .env files
 {
-  stdenv,
   writeShellScriptBin,
   claude-code,
 }:

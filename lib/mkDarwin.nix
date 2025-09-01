@@ -34,7 +34,7 @@ nix-darwin.lib.darwinSystem {
     darwin-modules
     ++ [
       (
-        { lib, ... }:
+        { ... }:
         let
           overlaysFunctions = import ../overlays { inherit inputs; };
         in

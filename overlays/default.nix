@@ -16,6 +16,6 @@ in
   };
 
   # Custom package overlay
-  modifications = final: prev: {
+  modifications = _final: _prev: {
   };
 }

@@ -1,6 +1,5 @@
 {
   stable-pkg,
-  unstable-pkg,
   ...
 }:
 {

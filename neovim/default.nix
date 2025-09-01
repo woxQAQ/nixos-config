@@ -1,4 +1,4 @@
-{ mylib, lib, ... }:
+{ ... }:
 {
   imports = [
     ./plugins

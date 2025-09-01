@@ -61,6 +61,13 @@ excludes = []
 # Default is 0
 priority = 0
 
+# [formatter.css]
+# command = "prettier"
+# options = ["--parser", "css"]
+# includes = ["*.css"]
+# excludes = []
+# priority = 0
+
 #[formatter.typescript]
 #command = "prettier"
 #includes = ["*.ts","*.tsx"]

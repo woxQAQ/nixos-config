@@ -19,15 +19,10 @@ let
   inherit (keys)
     normal
     visual
-    insert
-    terminal
     nv
     ni
     nvi
-    all
     category
-    withOptions
-    flattenKeymaps
     ;
   # Core keymaps grouped by functionality
   coreKeymaps = category "core" [

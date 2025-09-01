@@ -31,7 +31,12 @@ switch-darwin: fmt
 	@sudo darwin-rebuild switch \
   --flake .#woxMac
 
-.PHONY: build build-nixos build-darwin
+
+.PHONY: check check-darwin check-linux
+check:
+	nix flake check --extra-experimental-features "nix-command flakes" --keep-going
+
+
 
 .PHONY: darwin-set-proxy
 darwin-set-proxy:

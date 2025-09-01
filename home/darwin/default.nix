@@ -2,7 +2,6 @@
   username,
   # inputs,
   nixvim,
-  mylib,
   pkgs,
   lib,
   osConfig,

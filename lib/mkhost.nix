@@ -7,7 +7,6 @@
   stateVersion,
   home-modules ? [ ],
   nixos-modules,
-  desktop ? null,
   ...
 }:
 let
