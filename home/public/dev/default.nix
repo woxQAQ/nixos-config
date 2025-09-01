@@ -48,6 +48,8 @@
     frp
     # yaml lint and processor
     yq-go
+    nodePackages.jsonlint
+    checkmake
 
     # replace of df
     duf

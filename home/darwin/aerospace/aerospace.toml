@@ -34,6 +34,8 @@ alt-comma = 'layout accordion horizontal vertical'
 
 alt-enter = '''exec-and-forget osascript -e 'tell application "kitty" to activate'
 '''
+alt-n = '''exec-and-forget osascript -e 'tell application "notion" to activate'
+'''
 
 alt-h = 'focus left'
 alt-j = 'focus down'
@@ -56,7 +58,8 @@ alt-5 = 'workspace 5Folo'
 alt-6 = 'workspace 6Chat'
 alt-7 = 'workspace 7Music'
 alt-8 = 'workspace 8Mail'
-alt-9 = 'workspace 9File'
+alt-9 = 'workspace 9Float'
+alt-0 = 'workspace 0Obsidian'
 
 alt-shift-1 = 'move-node-to-workspace 1Kitty'
 alt-shift-2 = 'move-node-to-workspace 2Dia'
@@ -66,7 +69,8 @@ alt-shift-5 = 'move-node-to-workspace 5FOLO'
 alt-shift-6 = 'move-node-to-workspace 6Chat'
 alt-shift-7 = 'move-node-to-workspace 7Music'
 alt-shift-8 = 'move-node-to-workspace 8Mail'
-alt-shift-9 = 'move-node-to-workspace 9File'
+alt-shift-9 = ['layout floating','move-node-to-workspace 9Float']
+alt-shift-0 = 'move-node-to-workspace 0Obsidian'
 alt-tab = 'workspace-back-and-forth'
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
@@ -125,19 +129,19 @@ run = 'move-node-to-workspace 8Mail'
 
 [[on-window-detected]]
 if.app-id = 'com.coteditor.CotEditor'
-run = 'layout floating'
+run = ['layout floating', "move-node-to-workspace 9float"]
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
-run = ['layout floating', 'move-node-to-workspace 9File']
+run = ['layout floating', 'move-node-to-workspace 9Float']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
-run = ['layout floating', 'move-node-to-workspace 9File']
+run = ['layout floating', 'move-node-to-workspace 9Float']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.freeform'
-run = ['layout floating', 'move-node-to-workspace 9File']
+run = ['layout floating', 'move-node-to-workspace 9Float']
 
 [[on-window-detected]]
 if.app-id = 'com.netease.163music'
@@ -158,3 +162,11 @@ run = 'move-node-to-workspace 4Work'
 [[on-window-detected]]
 if.app-id = 'is.follow'
 run = 'move-node-to-workspace 5Folo'
+
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = 'move-node-to-workspace 0Obsidian'
+
+[[on-window-detected]]
+if.app-id= 'com.colliderli.iina'
+run = 'layout floating'

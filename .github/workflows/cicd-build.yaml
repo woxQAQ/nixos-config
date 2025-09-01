@@ -16,6 +16,7 @@ jobs:
         include:
           - system: x86_64-linux
             os: ubuntu-latest
+            flake:
           - system: aarch64-darwin
             os: macos-latest
     steps:

@@ -45,7 +45,6 @@
       spell = false; # Highlight spelling mistakes (local to window)
       wrap = false; # Prevent text from wrapping
       linebreak = true;
-      timeoutlen = 500;
       showmode = false;
 
       # Tab options

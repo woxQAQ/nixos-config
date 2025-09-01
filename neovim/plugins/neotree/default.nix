@@ -20,7 +20,9 @@
         enabled = true;
       };
       filteredItems = {
+        visible = true;
         hideDotfiles = false;
+        hideGitignored = false;
       };
     };
   };

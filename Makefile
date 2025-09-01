@@ -31,6 +31,8 @@ switch-darwin: fmt
 	@sudo darwin-rebuild switch \
   --flake .#woxMac
 
+.PHONY: build build-nixos build-darwin
+
 .PHONY: darwin-set-proxy
 darwin-set-proxy:
 	@sudo python3 hack/darwin-set-proxy.py -s http://127.0.0.1:7890

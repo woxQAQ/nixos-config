@@ -5,7 +5,8 @@
         enable = true;
         settings = {
           default_integrations = true;
-          flavour = "macchiato";
+          flavour = "frappe";
+          accent = "pink";
           integrations = {
             # cmp = true;
             gitsigns = true;

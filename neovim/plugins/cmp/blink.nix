@@ -50,7 +50,7 @@
         menu.border = "rounded";
       };
       keymap = {
-        preset = "enter";
+        preset = "super-tab";
         "<CR>" = [
           "accept_and_enter"
           "fallback"

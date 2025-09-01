@@ -10,6 +10,7 @@
           "isort"
           "ruff"
         ];
+        json = [ "jq" ];
         "_" = [
           "squeeze_blanks"
           "trim_whitespace"

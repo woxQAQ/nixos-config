@@ -45,6 +45,7 @@ in
       # "hey"
       # "podman"
       # "podman-compose"
+      "mgba"
     ];
     masApps = {
       Wechat = 836500024;
@@ -66,6 +67,7 @@ in
       "cursor"
       "feishu"
       # "stats"
+      "notion"
       "neteasemusic"
       "tencent-lemon"
       "bitwarden"

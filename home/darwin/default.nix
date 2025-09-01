@@ -21,11 +21,10 @@ in
     homeDirectory = "/Users/${username}";
     stateVersion = "25.05";
     packages = with pkgs; [
-      # aerospace
       xterminal
       zotero
-      # geminicli
       hidden-bar
+      ups
       iina
       stats
       maccy
