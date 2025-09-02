@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   networking = {
     timeServers = [
       "ntp.aliyun.com" # Aliyun NTP Server

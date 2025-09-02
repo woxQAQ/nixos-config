@@ -9,7 +9,20 @@ flake-parts.lib.mkFlake { inherit inputs; } {
     "aarch64-darwin"
   ];
 
-  imports = [ ./pre-commit-hooks.nix ];
+  imports = [
+    flake-parts.flakeModules.partitions
+  ];
+
+  partitions.dev = {
+    module = ./dev;
+    extraInputsFlake = ./dev;
+  };
+
+  partitionedAttrs = nixpkgs.lib.genAttrs [
+    "checks"
+    "devShells"
+    "formatter"
+  ] (_: "dev");
 
   flake =
     let

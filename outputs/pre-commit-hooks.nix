@@ -9,13 +9,14 @@
     }:
     {
       devShells.default = pkgs.mkShell {
-        packages = [
-          pkgs.nixfmt-rfc-style
-          pkgs.git
-          pkgs.nodePackages.prettier
-          pkgs.zsh
-          pkgs.prefetch-npm-deps
-          pkgs.deadnix
+        packages = with pkgs; [
+          nixfmt-rfc-style
+          git
+          nodePackages.prettier
+          zsh
+          prefetch-npm-deps
+          deadnix
+          ruff
         ];
         name = "dots";
         DIRENV_LOG_FORMAT = "";
@@ -34,6 +35,8 @@
               edit = true;
             };
           };
+          statix.enable = true;
+          actionlint.enable = true;
           # prettier = {
           #   enable = true;
           #   excludes = [

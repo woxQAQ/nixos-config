@@ -72,7 +72,7 @@ let
 in
 {
   programs.nixvim = {
-    keymaps = keymaps;
+    inherit keymaps;
     opts.completeopt = [
       "menu"
       "menuone"

@@ -12,6 +12,7 @@
 
   outputs = inputs: import ./outputs inputs;
   inputs = {
+    # keep-sorted start block=yes newline-separated=yes
     nixpkgs = {
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
@@ -82,6 +83,8 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # keep-sorted end
   };
 
   # outputs = inputs: import ./outputs inputs;

@@ -33,7 +33,7 @@ switch-darwin: fmt
 
 
 .PHONY: check check-darwin check-linux
-check:
+check: fmt
 	nix flake check --extra-experimental-features "nix-command flakes" --keep-going
 
 

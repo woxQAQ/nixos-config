@@ -34,7 +34,7 @@ nix-darwin.lib.darwinSystem {
     darwin-modules
     ++ [
       (
-        { ... }:
+        _:
         let
           overlaysFunctions = import ../overlays { inherit inputs; };
         in
@@ -50,11 +50,13 @@ nix-darwin.lib.darwinSystem {
     ++ (lib.optionals ((lib.lists.length home-modules) > 0) [
       home-manager.darwinModules.home-manager
       {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.backupFileExtension = "hmbak";
-        home-manager.extraSpecialArgs = specialArgs;
-        home-manager.users.${username}.imports = home-modules;
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          backupFileExtension = "hmbak";
+          extraSpecialArgs = specialArgs;
+          users.${username}.imports = home-modules;
+        };
       }
     ]);
 }

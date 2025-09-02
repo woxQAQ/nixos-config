@@ -9,15 +9,9 @@
   home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore [ "checkLinkTargers" ] ''
     rm -f ${config.home.homeDirectory}/.gitconfig
   '';
-  programs.gh = {
-    enable = true;
-  };
-
-  programs.lazygit = {
-    enable = true;
-  };
-  programs.gitui = {
-    enable = pkgs.stdenv.isLinux;
+  programs = {
+    gh.enable = true;
+    lazygit.enable = true;
   };
 
   programs.git = {

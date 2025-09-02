@@ -29,12 +29,14 @@ nixpkgs.lib.nixosSystem {
     ++ (lib.optionals ((lib.lists.length home-modules) > 0) [
       home-manager.nixosModules.home-manager
       {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.backupFileExtension = "hmbak";
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          backupFileExtension = "hmbak";
 
-        home-manager.extraSpecialArgs = specialArgs;
-        home-manager.users.${username}.imports = home-modules;
+          extraSpecialArgs = specialArgs;
+          users.${username}.imports = home-modules;
+        };
       }
     ]);
 }
