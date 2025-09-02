@@ -48,9 +48,10 @@ check-store:
 
 .PHONY: fmt
 fmt:
-	@ echo -e "\033[32mbegin to format nixos-config repos\033[0m"
-	@ treefmt
-	@ nu ./scripts/git-tree-dirty-check.nu
+	nix fmt
+	# @ echo -e "\033[32mbegin to format nixos-config repos\033[0m"
+	# @ treefmt
+	# @ nu ./scripts/git-tree-dirty-check.nu
 
 .PHONY: waybar-restart
 waybar-restart:
