@@ -6,10 +6,10 @@ let
   claude-code-wrapper = pkgs.callPackage ../../../pkg/claude-code-wrapper { };
 in
 {
-  home.packages = with pkgs; [
+  home.packages = [
     claude-code-wrapper
   ];
-  home.file.".claude/settings.json" =
+  home.file.".claude/settings.json".text =
     #json
     ''
       {
