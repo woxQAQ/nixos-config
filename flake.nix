@@ -35,10 +35,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hypr-contrib.url = "github:hyprwm/contrib";
-
-    hyprland.url = "github:hyprwm/Hyprland";
-
     nix-darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
@@ -60,6 +56,8 @@
 
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixvim = {
@@ -67,7 +65,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur-ryan4yin.url = "github:ryan4yin/nur-packages";
+    nur-ryan4yin = {
+      url = "github:ryan4yin/nur-packages";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # keep-sorted end
   };
