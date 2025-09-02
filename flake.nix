@@ -39,11 +39,6 @@
     # nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     flake-schemas.url = "github:DeterminateSystems/flake-schemas";
 
-    pre-commit-hooks = {
-      url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
