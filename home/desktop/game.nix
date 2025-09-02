@@ -8,5 +8,6 @@
     winetricks
     prismlauncher
     ryujinx-greemdev
+    mgba
   ];
 }
