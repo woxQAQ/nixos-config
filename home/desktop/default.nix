@@ -19,6 +19,7 @@
     n8n
     aichat
     insomnia
+    gedit
   ];
 
   programs.mpv = {

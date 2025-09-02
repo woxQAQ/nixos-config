@@ -20,7 +20,7 @@
         name = "dots";
         DIRENV_LOG_FORMAT = "";
         shellHook = ''
-          exec ${pkgs.zsh}/bin/zsh
+          echo "Welcome to dots devshell"
         '';
       };
       pre-commit = {
