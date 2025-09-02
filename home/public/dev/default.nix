@@ -5,6 +5,7 @@
 {
   imports = [
     ./git.nix
+    ./claude-code.nix
   ];
   home.packages = with pkgs; [
     # nodejs

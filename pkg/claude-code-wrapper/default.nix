@@ -3,7 +3,9 @@
   writeShellScriptBin,
   claude-code,
 }:
-writeShellScriptBin "claude" ''
+writeShellScriptBin "claude"
+#sh
+''
   #!/usr/bin/env bash
 
   # Function to load environment variables from .env files

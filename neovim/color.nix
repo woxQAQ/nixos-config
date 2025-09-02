@@ -5,7 +5,11 @@
         enable = true;
         settings = {
           default_integrations = true;
-          flavour = "frappe";
+          # flavour = "mocha";
+          background = {
+            light = "latte";
+            dark = "frappe";
+          };
           accent = "pink";
           integrations = {
             # cmp = true;
