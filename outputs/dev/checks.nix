@@ -9,6 +9,8 @@
       settings.excludes = [ "flake.lock" ];
 
       settings.hooks = {
+        # keep-sorted start block=yes
+        actionlint.enable = true;
         deadnix = {
           enable = true;
           settings = {
@@ -16,7 +18,7 @@
           };
         };
         statix.enable = true;
-        actionlint.enable = true;
+        # keep-sorted end
       };
     };
   };

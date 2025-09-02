@@ -5,26 +5,26 @@
     treefmt = {
       flakeCheck = true;
       flakeFormatter = true;
-      projectRootFile = "flake.nix";
       programs = {
-        deadnix.enable = true;
+        # keep-sorted start block=yes
         actionlint.enable = true;
+        deadnix.enable = true;
         keep-sorted.enable = true;
         nixfmt.enable = true;
         ruff-check.enable = true;
         ruff-format.enable = true;
         statix.enable = true;
+        # keep-sorted end
       };
+      projectRootFile = "flake.nix";
       settings = {
         global.excludes = [
           # keep-sorted start
-
-          ".envrc"
-          "*flake.lock"
           "*.gitignore"
           "*LICENSE"
           "*Makefile"
-
+          "*flake.lock"
+          ".envrc"
           # keep-sorted end
         ];
       };
