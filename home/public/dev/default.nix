@@ -13,6 +13,7 @@
     pnpm
     yarn
     nodejs_20
+    bun
 
     clang
     clang-tools
