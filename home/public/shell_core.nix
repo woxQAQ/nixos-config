@@ -1,7 +1,4 @@
 {
-  home.shellAliases = {
-    tldr = "tealdeer";
-  };
   programs = {
     fzf = {
       enable = true;
@@ -19,10 +16,6 @@
           auto_update_interval_hours = 720;
         };
       };
-    };
-
-    nushell.shellAliases = {
-      tldr = "tealdeer";
     };
     # tmux = {
     #   enable = true;

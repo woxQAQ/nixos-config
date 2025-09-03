@@ -48,7 +48,8 @@ check-store:
 
 .PHONY: fmt
 fmt:
-	nix fmt
+	nix fmt --extra-experimental-features "nix-command flakes"
+
 	# @ echo -e "\033[32mbegin to format nixos-config repos\033[0m"
 	# @ treefmt
 	# @ nu ./scripts/git-tree-dirty-check.nu
