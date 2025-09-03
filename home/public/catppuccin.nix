@@ -8,6 +8,7 @@
     flavor = "mocha";
     accent = "pink";
     zed = {
+      enable = false;
       flavor = "frappe";
       accent = "blue";
       icons.enable = false;

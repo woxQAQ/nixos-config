@@ -14,7 +14,7 @@
   ];
 
   home.packages = with pkgs; [
-    mihomo-party
+    # mihomo-party
     netease-cloud-music-gtk
     n8n
     aichat
