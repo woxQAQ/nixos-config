@@ -1,7 +1,7 @@
 { lib, username, ... }:
 {
   nix = {
-    enable = false;
+    enable = true;
     settings = {
       auto-optimise-store = false;
       trusted-users = [ username ];
