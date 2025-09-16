@@ -17,7 +17,6 @@
     mihomo-party
     netease-cloud-music-gtk
     n8n
-    aichat
     insomnia
     notepad-next
   ];

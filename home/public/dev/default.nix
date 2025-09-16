@@ -21,10 +21,12 @@
     rustfmt
     rustc
     cargo
+    rust-analyzer
 
     python3
     uv
     black
+    ruff
 
     gdb
     deadnix
@@ -63,6 +65,8 @@
 
     # useful leetcode cli
     leetgo
+    # llm cli
+    aichat
   ];
   # home.file.".npmrc".text = ''
   #   prefix=~/.npm-packages

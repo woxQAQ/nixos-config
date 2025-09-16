@@ -32,10 +32,8 @@ PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 
-alt-enter = '''exec-and-forget osascript -e 'tell application "kitty" to activate'
-'''
-alt-n = '''exec-and-forget osascript -e 'tell application "notion" to activate'
-'''
+alt-enter = '''exec-and-forget osascript -e 'tell application "kitty" to activate''''
+alt-n = '''exec-and-forget osascript -e 'tell application "notion" to activate''''
 
 alt-h = 'focus left'
 alt-j = 'focus down'
@@ -47,8 +45,8 @@ alt-shift-j = 'move down'
 alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
-alt-minus = 'resize smart -50'
-alt-equal = 'resize smart +50'
+alt-shift-minus = 'resize smart -50'
+alt-shift-equal = 'resize smart +50'
 
 alt-1 = 'workspace 1Kitty'
 alt-2 = 'workspace 2Dia'
@@ -65,7 +63,7 @@ alt-shift-1 = 'move-node-to-workspace 1Kitty'
 alt-shift-2 = 'move-node-to-workspace 2Dia'
 alt-shift-3 = 'move-node-to-workspace 3Zed'
 alt-shift-4 = 'move-node-to-workspace 4Work'
-alt-shift-5 = 'move-node-to-workspace 5FOLO'
+alt-shift-5 = 'move-node-to-workspace 5Folo'
 alt-shift-6 = 'move-node-to-workspace 6Chat'
 alt-shift-7 = 'move-node-to-workspace 7Music'
 alt-shift-8 = 'move-node-to-workspace 8Mail'
@@ -129,7 +127,7 @@ run = 'move-node-to-workspace 8Mail'
 
 [[on-window-detected]]
 if.app-id = 'com.coteditor.CotEditor'
-run = ['layout floating', "move-node-to-workspace 9float"]
+run = ['layout floating', "move-node-to-workspace 9Float"]
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'

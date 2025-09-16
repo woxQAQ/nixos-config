@@ -107,3 +107,7 @@ Environment=\"https_proxy=http://localhost:7890\""
 
     print "✅ Nix daemon proxy configuration updated"
 }
+
+export def show-claude-mcp [] {
+    open ~/.claude.json | get mcpServers
+}
