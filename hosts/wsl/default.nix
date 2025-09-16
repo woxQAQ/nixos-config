@@ -36,12 +36,12 @@
     gh
     golangci-lint
     kubernetes-helm
-    go_1_23
+    go
     gopls
     delve
     protols
     kind
-    linuxKernel.packages.linux_xanmod_latest.perf
+    perf
     unstable-pkg.go-tools
     uv
     nodejs
