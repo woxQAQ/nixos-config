@@ -6,7 +6,6 @@ _: {
       formatters_by_ft = {
         nix = [ "nixfmt" ];
         python = [
-          "isort"
           "ruff"
         ];
         json = [ "jq" ];
