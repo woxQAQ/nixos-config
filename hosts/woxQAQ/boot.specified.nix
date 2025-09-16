@@ -8,6 +8,9 @@
           search --file --no-floppy --set=root /EFI/Microsoft/Boot/bootmgfw.efi
           chainloader (''${root})/EFI/Microsoft/Boot/bootmgfw.efi
         }
+        menuentry "UEFI Firmware Settings" {
+          fwsetup
+        }
       '';
     };
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
