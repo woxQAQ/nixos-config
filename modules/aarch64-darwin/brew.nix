@@ -44,7 +44,6 @@ in
       # "hey"
       # "podman"
       # "podman-compose"
-      "mgba"
     ];
     masApps = {
       Wechat = 836500024;
@@ -52,30 +51,34 @@ in
       TecentMeeting = 1484048379;
     };
     casks = [
-      "clash-party"
-      "koodo-reader"
-      "squirrel-app"
-      "jordanbaird-ice"
-      "altserver"
-      # "iina"
-      "steam"
+      # keep-sorted start
       "aerospace"
-      "raycast"
-      "obs"
-      "obsidian"
-      "cursor"
-      "feishu"
-      # "stats"
-      "notion"
-      "neteasemusic"
-      "tencent-lemon"
-      "bitwarden"
+      "altserver"
       "arc"
-      "trae"
-      "easydict"
-      "folo"
+      "baidunetdisk"
+      "bitwarden"
+      "clash-party"
       # "maccy"
       "coteditor"
+      "cursor"
+      "easydict"
+      "feishu"
+      "folo"
+      "jordanbaird-ice"
+      "koodo-reader"
+      "mgba"
+      "neteasemusic"
+      # "stats"
+      "notion"
+      "obs"
+      "obsidian"
+      "raycast"
+      "squirrel-app"
+      # "iina"
+      "steam"
+      "tencent-lemon"
+      "trae"
+      # keep-sorted end
     ];
   };
 }
