@@ -73,7 +73,7 @@
   # '';
   home.sessionPath = [
     "$HOME/go/bin"
-    "$HOME/.npm-packages/bin"
+    "$HOME/.npm/bin"
   ];
   programs.direnv = {
     enable = true;
