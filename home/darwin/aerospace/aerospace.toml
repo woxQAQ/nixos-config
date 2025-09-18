@@ -48,9 +48,9 @@ alt-shift-l = 'move right'
 alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
 
-alt-1 = 'workspace 1Kitty'
-alt-2 = 'workspace 2Dia'
-alt-3 = 'workspace 3Zed'
+alt-1 = 'workspace 1Terminal'
+alt-2 = 'workspace 2Browser'
+alt-3 = 'workspace 3Code'
 alt-4 = 'workspace 4Work'
 alt-5 = 'workspace 5Folo'
 alt-6 = 'workspace 6Chat'
@@ -59,9 +59,9 @@ alt-8 = 'workspace 8Mail'
 alt-9 = 'workspace 9Float'
 alt-0 = 'workspace 0Obsidian'
 
-alt-shift-1 = 'move-node-to-workspace 1Kitty'
-alt-shift-2 = 'move-node-to-workspace 2Dia'
-alt-shift-3 = 'move-node-to-workspace 3Zed'
+alt-shift-1 = 'move-node-to-workspace 1Terminal'
+alt-shift-2 = 'move-node-to-workspace 2Browser'
+alt-shift-3 = 'move-node-to-workspace 3Code'
 alt-shift-4 = 'move-node-to-workspace 4Work'
 alt-shift-5 = 'move-node-to-workspace 5Folo'
 alt-shift-6 = 'move-node-to-workspace 6Chat'
@@ -107,15 +107,19 @@ alt-shift-l = ['join-with right', 'mode main']
 
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
-run = 'move-node-to-workspace 1Kitty'
+run = 'move-node-to-workspace 1Terminal'
 
 [[on-window-detected]]
-if.app-id = 'company.thebrowser.dia'
-run = 'move-node-to-workspace 2Dia'
+if.app-id = 'company.thebrowser.Browser'
+run = 'move-node-to-workspace 2Browser'
 
 [[on-window-detected]]
 if.app-id = 'dev.zed.Zed'
-run = 'move-node-to-workspace 3Zed'
+run = 'move-node-to-workspace 3Code'
+
+[[on-window-detected]]
+if.app-id = 'com.todesktop.230313mzl4w4u92'
+run = 'move-node-to-workspace 3Code'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.mail'
