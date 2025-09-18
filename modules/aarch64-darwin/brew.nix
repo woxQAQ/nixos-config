@@ -34,7 +34,6 @@ in
       cleanup = "zap";
     };
     taps = [
-      # "mihomo-party-org/mihomo-party"
       "zackriya-solutions/meetily-backend"
       "nikitabobko/tap"
       "pot-app/homebrew-tap"
@@ -57,7 +56,8 @@ in
       "arc"
       "baidunetdisk"
       "bitwarden"
-      "clash-party"
+      # "clash-party"
+      "clash-verge-rev"
       # "maccy"
       "coteditor"
       "cursor"
