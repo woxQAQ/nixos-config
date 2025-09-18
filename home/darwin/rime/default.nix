@@ -6,11 +6,12 @@
 }:
 let
   # 拉取 rime-ice 仓库
+  version = "2025.04.06";
   rime-ice = pkgs.fetchFromGitHub {
     owner = "iDvel";
     repo = "rime-ice";
-    rev = "7acdee60d09602383b6299d1bdaaba03f0a57869";
-    hash = "sha256-yCVcTc8qitar5JJfVTH4xNJMTPgx/NsRMoTxVm5PVrY=";
+    tag = version;
+    hash = "sha256-s3r8cdEliiPnKWs64Wgi0rC9Ngl1mkIrLnr2tIcyXWw=";
     fetchSubmodules = false;
   };
 
