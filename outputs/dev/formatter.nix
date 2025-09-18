@@ -18,6 +18,12 @@
       };
       projectRootFile = "flake.nix";
       settings = {
+        nixfmt = {
+          options = [
+            "-w"
+            "80"
+          ];
+        };
         global.excludes = [
           # keep-sorted start
           "*.gitignore"

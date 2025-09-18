@@ -9,7 +9,7 @@
           ${config.pre-commit.installationScript}
         '';
         packages = with pkgs; [
-          nixfmt-rfc-style
+          nixfmt
           git
           nodePackages.prettier
           deadnix
