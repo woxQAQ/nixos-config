@@ -1,6 +1,5 @@
 {
   catppuccin,
-  pkgs,
   ...
 }:
 {
@@ -11,7 +10,8 @@
     enable = true;
     flavor = "mocha";
     accent = "pink";
-    starship.enable = pkgs.stdenv.isLinux;
+    # starship.enable = pkgs.stdenv.isLinux;
+    starship.enable = false;
     zed = {
       enable = false;
       flavor = "frappe";
