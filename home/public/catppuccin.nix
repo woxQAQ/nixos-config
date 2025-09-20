@@ -1,4 +1,8 @@
-{ catppuccin, ... }:
+{
+  catppuccin,
+  pkgs,
+  ...
+}:
 {
   imports = [
     catppuccin.homeModules.catppuccin
@@ -7,6 +11,7 @@
     enable = true;
     flavor = "mocha";
     accent = "pink";
+    starship.enable = pkgs.stdenv.isLinux;
     zed = {
       enable = false;
       flavor = "frappe";
