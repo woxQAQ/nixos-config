@@ -12,6 +12,7 @@
     kubectl-view-secret
     dive
     lazydocker
+    helm-ls
   ];
 
   programs = {

@@ -27,6 +27,7 @@
     uv
     black
     ruff
+    python3Packages.pyyaml
 
     gdb
     deadnix
@@ -58,6 +59,7 @@
     duf
     # replace of du
     gdu
+    du-dust
     # replace of find
     fd
     # rg
