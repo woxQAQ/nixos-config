@@ -1,7 +1,7 @@
 { lib, username, ... }:
 {
   nix = {
-    enable = true;
+    enable = false;
     settings = {
       auto-optimise-store = false;
       trusted-users = [ username ];
@@ -18,11 +18,14 @@
   };
   system = {
     defaults = {
+      menuExtraClock.Show24Hour = true;
       dock = {
-        autohide = false;
-        show-recents = true;
-        mru-spaces = false;
+        # keep-sorted start
+        autohide = true;
         expose-group-apps = true;
+        mru-spaces = false;
+        show-recents = false;
+        # keep-sorted end
       };
       loginwindow = {
         SHOWFULLNAME = true;
@@ -31,13 +34,35 @@
       trackpad = {
         Clicking = true;
         TrackpadRightClick = true;
+        TrackpadThreeFingerDrag = true;
       };
       finder = {
         _FXShowPosixPathInTitle = true;
+        FXEnableExtensionChangeWarning = false;
         AppleShowAllExtensions = true;
         QuitMenuItem = true;
         ShowStatusBar = true;
         ShowPathbar = true;
+      };
+      CustomUserPreferences = {
+        ".GlobalPreferences" = {
+          AppleSpacesSwitchOnActivate = true;
+        };
+        NSGlobalDomain = {
+          WebKitDeveloperExtras = true;
+        };
+        "com.apple.finder" = {
+          AppleShowAllFiles = true;
+          ShowExternalHardDrivesOnDesktop = true;
+          ShowHardDrivesOnDesktop = true;
+          ShowMountedServersOnDesktop = true;
+          ShowRemovableMediaOnDesktop = true;
+          _FXSortFoldersFirst = true;
+          FXDefaultSearchScope = "SCcf";
+        };
+        "com.apple.spaces" = {
+          "spans-displays" = true;
+        };
       };
     };
     keyboard = {

@@ -48,7 +48,7 @@ check-store:
 
 .PHONY: fmt
 fmt:
-	nix fmt
+	nix fmt --extra-experimental-features "nix-command flakes"
 
 .PHONY: waybar-restart
 waybar-restart:
@@ -56,5 +56,5 @@ waybar-restart:
 
 .PHONY: gc
 gc:
-	@ sudo nix-store --gc
-	@ nix-collect-garbage -d
+	@ sudo nix-collect-garbage --delete-older-than 7d
+	nix-collect-garbage --delete-older-than 7d

@@ -1,9 +1,8 @@
 { pkgs, ... }:
 {
+  environment.variables.EDITOR = "nvim --clean";
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    treefmt
-    alejandra
 
     git
     git-lfs
@@ -13,7 +12,7 @@
     # program that count code lines
     tokei
     # nix formatter
-    nixfmt-rfc-style
+    nixfmt
     age
 
     wget
