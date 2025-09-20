@@ -1,4 +1,3 @@
-_:
 {
   # services.mihomo = {
   #   enable = true;
