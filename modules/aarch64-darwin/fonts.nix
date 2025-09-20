@@ -7,7 +7,6 @@
 
       noto-fonts-color-emoji
       noto-fonts
-      maple-mono.NF-CN
       maple-mono.NF-CN-unhinted
 
       source-sans

@@ -5,56 +5,46 @@
 {
   imports = [
     ./git.nix
+    ./go.nix
     ./claude-code.nix
   ];
   home.packages = with pkgs; [
-    # nodejs
-    # nodePackages.npm
+    ### NODEJS
     pnpm
     yarn
     nodejs_20
     bun
 
-    clang
-    clang-tools
+    ### C/C++
+    # clang
+    # clang-tools
 
+    ### RUST ###
     rustfmt
     rustc
     cargo
     rust-analyzer
 
-    python3
+    ### PYTHON ###
+    (python3.withPackages (
+      ps: with ps; [
+        pyyaml
+      ]
+    ))
     uv
     black
     ruff
-    python3Packages.pyyaml
 
-    gdb
-    deadnix
-    dbeaver-bin
+    ### JAVA ###
+    # zulu23
+    # maven
 
-    graphviz
-
-    zulu23
-    maven
+    ### PROTOBUF ###
     protobuf
     protols
-    # golang
-    go
-    # golang lsp
-    gopls
-    # staticcheck for golang
-    go-tools
-    # golang linter
-    golangci-lint
-    delve
-    # reverse proxy tools
-    frp
-    # yaml lint and processor
-    yq-go
-    nodePackages.jsonlint
-    checkmake
 
+    ### UTILS ###
+    gdb
     # replace of df
     duf
     # replace of du
@@ -64,11 +54,19 @@
     fd
     # rg
     ripgrep
+    # yaml lint and processor
+    yq
+    nodePackages.jsonlint
+    checkmake
+    shellspec
 
+    ### MISC ###
     # useful leetcode cli
     leetgo
     # llm cli
     aichat
+    # database Management GUI
+    dbeaver-bin
   ];
   # home.file.".npmrc".text = ''
   #   prefix=~/.npm-packages
