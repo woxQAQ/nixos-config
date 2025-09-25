@@ -66,7 +66,7 @@ in
       "folo"
       "jordanbaird-ice"
       "koodo-reader"
-      "mgba"
+      "mgba-app"
       "neteasemusic"
       # "stats"
       "notion"

@@ -16,7 +16,6 @@ let
     ../home/darwin
     ../home/public
     ../neovim
-    ../hosts/${name}/home.nix
   ];
   modules_ = {
     inherit darwin-modules home-modules;
