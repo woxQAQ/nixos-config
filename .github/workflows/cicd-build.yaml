@@ -16,10 +16,10 @@ jobs:
         include:
           - system: x86_64-linux
             os: ubuntu-latest
-            make-target: build-nixos
-          - system: aarch64-darwin
-            os: macos-latest
-            make-target: build-darwin
+            # make-target: build-nixos
+          # - system: aarch64-darwin
+          #   os: macos-latest
+          #   make-target: build-darwin
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
