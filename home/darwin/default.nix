@@ -35,8 +35,6 @@ in
       podman
       podman-compose
       podman-tui
-      # a menu bar util to show computer stats
-      stats
       # a utils for apply & edit UPS patcher
       ups
       xterminal

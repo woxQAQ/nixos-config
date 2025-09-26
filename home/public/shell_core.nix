@@ -3,6 +3,7 @@
     fzf = {
       enable = true;
     };
+    # a tldr alternate
     tealdeer = {
       enable = true;
       enableAutoUpdates = true;

@@ -55,10 +55,6 @@ in
       # NOTE: DROP to use MacOS 26 spotlight
       # "raycast"
 
-      # menubar computer monitor
-      # NOTE: installed by nix
-      # "stats"
-
       # menubar enhanced
       # FIXME: ice broken on MacOS 26, drop it temporary
       # "jordanbaird-ice"
@@ -98,6 +94,8 @@ in
       "obsidian"
       # input method
       "squirrel-app"
+      # menubar computer monitor
+      "stats"
       # "iina"
       "steam"
       # open source MacOS disk cleaner

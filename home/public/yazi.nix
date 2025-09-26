@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  # yazi, a blasting fast tui file manager
   programs.yazi = {
     enable = true;
     package = pkgs.yazi;
