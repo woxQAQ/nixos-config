@@ -172,3 +172,7 @@ run = 'move-node-to-workspace 0Obsidian'
 [[on-window-detected]]
 if.app-id= 'com.colliderli.iina'
 run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id='com.jd.jdmeeting'
+run = 'layout floating'

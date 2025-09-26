@@ -40,7 +40,7 @@ check: fmt
 
 .PHONY: darwin-set-proxy
 darwin-set-proxy:
-	@sudo python3 hack/darwin-set-proxy.py -s http://127.0.0.1:7890
+	@sudo python3 hack/darwin-set-proxy.py -s http://127.0.0.1:7897
 
 .PHONY: check-store
 check-store:
