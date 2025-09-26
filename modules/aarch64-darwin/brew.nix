@@ -51,32 +51,58 @@ in
     };
     casks = [
       # keep-sorted start
+
+      # NOTE: DROP to use MacOS 26 spotlight
+      # "raycast"
+
+      # menubar computer monitor
+      # NOTE: installed by nix
+      # "stats"
+
+      # menubar enhanced
+      # FIXME: ice broken on MacOS 26, drop it temporary
+      # "jordanbaird-ice"
+
+      # a yabai alternative for macos
       "aerospace"
+      # a signing daemon for my IOS apps which not supported by app-store
       "altserver"
+      # browser
       "arc"
+      # baidu netdisk
       "baidunetdisk"
+      # password manager
       "bitwarden"
-      # "clash-party"
+      # proxy client
       "clash-verge-rev"
-      # "maccy"
+      # opensource lightweight text-editor
       "coteditor"
+      # cursor AI IDE
       "cursor"
+      # a easy-to-use translation dictionary
       "easydict"
       "feishu"
+      # opensource rss reader powered by rsshub
       "folo"
-      "jordanbaird-ice"
+      # e-book reader
       "koodo-reader"
+      # a gba emulators to play gba games
       "mgba-app"
+      # netease cloud music
       "neteasemusic"
-      # "stats"
+      # Notion APP
       "notion"
+      # Open broadcast studio
       "obs"
+      # obsidian note
       "obsidian"
-      "raycast"
+      # input method
       "squirrel-app"
       # "iina"
       "steam"
+      # open source MacOS disk cleaner
       "tencent-lemon"
+      # AI IDE by Bytedance
       "trae"
       # keep-sorted end
     ];

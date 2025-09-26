@@ -56,5 +56,5 @@ waybar-restart:
 
 .PHONY: gc
 gc:
-	@ sudo nix-collect-garbage --delete-older-than 7d
+	sudo nix-collect-garbage --delete-older-than 7d
 	nix-collect-garbage --delete-older-than 7d

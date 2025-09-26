@@ -34,6 +34,10 @@ alt-comma = 'layout accordion horizontal vertical'
 
 alt-enter = '''exec-and-forget osascript -e 'tell application "kitty" to activate''''
 alt-n = '''exec-and-forget osascript -e 'tell application "notion" to activate''''
+alt-o = '''exec-and-forget osascript -e 'tell application "obsidian" to activate''''
+alt-z = '''exec-and-forget osascript -e 'tell application "zed" to activate''''
+alt-c = '''exec-and-forget osascript -e 'tell application "cursor" to activate''''
+alt-a = '''exec-and-forget osascript -e 'tell application "arc" to activate''''
 
 alt-h = 'focus left'
 alt-j = 'focus down'
