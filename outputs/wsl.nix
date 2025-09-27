@@ -8,8 +8,8 @@ let
   name = "wsl";
   inherit (inputs) nixos-wsl;
   nixos-modules = [
-    inputs.nixvim.nixosModules.nixvim
-    ../neovim
+    # inputs.nixvim.nixosModules.nixvim
+    # ../neovim
     nixos-wsl.nixosModules.wsl
     ../hosts/${name}
     ../modules/${system}/base

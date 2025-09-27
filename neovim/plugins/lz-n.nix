@@ -1,3 +1,0 @@
-{
-  lz-n.enable = true;
-}
