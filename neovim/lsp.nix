@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   programs.nixvim = {
     imports = [
@@ -31,7 +32,10 @@
         jsonls.enable = true;
         nushell.enable = true;
         marksman.enable = true;
-        lua_ls.enable = true;
+        emmylua_ls = {
+          enable = true;
+          package = pkgs.emmylua-ls;
+        };
         pyright.enable = true;
         ruff.enable = true;
         statix.enable = true;

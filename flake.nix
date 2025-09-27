@@ -13,6 +13,11 @@
   outputs = inputs: import ./outputs inputs;
   inputs = {
     # keep-sorted start block=yes newline_separated=yes
+    # nixvim = {
+    #   url = "github:nix-community/nixvim";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
@@ -60,13 +65,13 @@
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
+    nur-ryan4yin = {
+      url = "github:ryan4yin/nur-packages";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur-ryan4yin = {
-      url = "github:ryan4yin/nur-packages";
+    woxVim = {
+      url = "github:woxQAQ/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

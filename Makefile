@@ -1,15 +1,20 @@
 HOST = "woxQAQ"
 UNAME = $(shell uname)
+NIX_FLAG = --extra-experimental-features "nix-command flakes"
+NIX = nix $(NIX_FLAG)
 
 .PHONY: bump-flake repl shell
 bump-flake: fmt
-	nix flake update --flake . --extra-experimental-features "nix-command flakes"
+	nix flake update --flake . $(NIX_FLAG)
+bump-woxVim: fmt
+	$(NIX) flake lock --update-input "woxVim"
+	make switch-darwin
 
 repl:
-	nix repl --extra-experimental-features "nix-command flakes"
+	nix repl $(NIX_FLAG)
 
 shell:
-	nix shell --extra-experimental-features "nix-command flakes"
+	nix shell $(NIX_FLAG)
 
 .PHONY: switch switch-wsl switch-darwin
 switch: fmt
@@ -31,12 +36,9 @@ switch-darwin: fmt
 	@sudo darwin-rebuild switch \
   --flake .#woxMac
 
-
 .PHONY: check check-darwin check-linux
 check: fmt
-	nix flake check --extra-experimental-features "nix-command flakes" --keep-going
-
-
+	nix flake check $(NIX_FLAG) --keep-going
 
 .PHONY: darwin-set-proxy
 darwin-set-proxy:
@@ -48,7 +50,7 @@ check-store:
 
 .PHONY: fmt
 fmt:
-	nix fmt --extra-experimental-features "nix-command flakes"
+	nix fmt $(NIX_FLAG)
 
 .PHONY: waybar-restart
 waybar-restart:

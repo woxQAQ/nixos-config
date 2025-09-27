@@ -15,7 +15,7 @@ let
   home-modules = [
     ../home/darwin
     ../home/public
-    ../neovim
+    # ../neovim
   ];
   modules_ = {
     inherit darwin-modules home-modules;

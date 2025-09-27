@@ -1,7 +1,7 @@
 {
   username,
   # inputs,
-  nixvim,
+  # nixvim,
   pkgs,
   lib,
   osConfig,
@@ -12,7 +12,7 @@ let
 in
 {
   imports = [
-    nixvim.homeModules.nixvim
+    # nixvim.homeModules.nixvim
     ./aerospace
     # use rime-ice as rime theme and dict
     (lib.optionalString (builtins.any (x: x.name == "squirrel-app") osConfig.homebrew.casks) ./rime)
