@@ -5,16 +5,16 @@ NIX = nix $(NIX_FLAG)
 
 .PHONY: bump-flake repl shell
 bump-flake: fmt
-	nix flake update --flake . $(NIX_FLAG)
+	$(NIX) flake update --flake .
 bump-woxVim: fmt
 	$(NIX) flake lock --update-input "woxVim"
 	make switch-darwin
 
 repl:
-	nix repl $(NIX_FLAG)
+	$(NIX) repl
 
 shell:
-	nix shell $(NIX_FLAG)
+	$(NIX) shell
 
 .PHONY: switch switch-wsl switch-darwin
 switch: fmt
@@ -38,7 +38,7 @@ switch-darwin: fmt
 
 .PHONY: check check-darwin check-linux
 check: fmt
-	nix flake check $(NIX_FLAG) --keep-going
+	$(NIX) flake check --keep-going
 
 .PHONY: darwin-set-proxy
 darwin-set-proxy:
@@ -50,7 +50,7 @@ check-store:
 
 .PHONY: fmt
 fmt:
-	nix fmt $(NIX_FLAG)
+	$(NIX) fmt
 
 .PHONY: waybar-restart
 waybar-restart:
