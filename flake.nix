@@ -13,11 +13,6 @@
   outputs = inputs: import ./outputs inputs;
   inputs = {
     # keep-sorted start block=yes newline_separated=yes
-    # nixvim = {
-    #   url = "github:nix-community/nixvim";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
@@ -29,6 +24,8 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";

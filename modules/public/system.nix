@@ -1,7 +1,4 @@
-{ pkgs, ... }:
 {
-  # nixpkgs.overlays = import mylib.flakeRoot "overlays";
-  nix.package = pkgs.lix;
   nix.settings = {
     experimental-features = [
       "nix-command"
