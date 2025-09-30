@@ -1,5 +1,0 @@
-{
-  fastaction = {
-    enable = true;
-  };
-}

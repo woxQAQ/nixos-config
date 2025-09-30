@@ -1,3 +1,0 @@
-{
-  helm.enable = true;
-}

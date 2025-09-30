@@ -1,5 +1,8 @@
-{ lib, ... }:
+{ lib, determinate, ... }:
 {
+  imports = [
+    determinate.nixosModules.default
+  ];
   nix = {
     gc = {
       automatic = lib.mkDefault true;

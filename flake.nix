@@ -25,6 +25,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -60,13 +62,13 @@
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
+    nur-ryan4yin = {
+      url = "github:ryan4yin/nur-packages";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur-ryan4yin = {
-      url = "github:ryan4yin/nur-packages";
+    woxVim = {
+      url = "github:woxQAQ/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

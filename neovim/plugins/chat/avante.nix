@@ -1,5 +1,0 @@
-{
-  avante = {
-    enable = true;
-  };
-}

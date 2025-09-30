@@ -31,7 +31,10 @@
     killall
 
     zip
+    unrar
     unar
+    lz4
+
     gnutar
     unzipNLS
     xz
