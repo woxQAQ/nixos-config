@@ -4,7 +4,7 @@
     woxVim.packages.${system}.default
   ];
   home.shellAliases = {
-    "vi" = "neovim";
-    "vim" = "neovim";
+    "vi" = "nvim";
+    "vim" = "nvim";
   };
 }
