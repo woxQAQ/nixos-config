@@ -69,6 +69,8 @@ in
       "baidunetdisk"
       # password manager
       "bitwarden"
+      # chatgpt desktop app
+      "chatgpt"
       # proxy client
       "clash-verge-rev"
       # opensource lightweight text-editor
@@ -102,6 +104,7 @@ in
       "tencent-lemon"
       # AI IDE by Bytedance
       "trae"
+      "visual-studio-code"
       # keep-sorted end
     ];
   };
