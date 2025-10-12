@@ -1,14 +1,26 @@
-HOST = "woxQAQ"
-UNAME = $(shell uname)
-NIX_FLAG = --extra-experimental-features "nix-command flakes"
-NIX = nix $(NIX_FLAG)
+NIXOS_HOST = "woxQAQ"
+DARWIN_HOST = "woxMac"
+WOXVIM_FLAKE_INPUT = "woxVim"
+OS = $(shell uname)
+
+ifeq ($(OS),Darwin)
+	NIX_FLAG = --extra-experimental-features "nix-command flakes"
+	NIX = nix $(NIX_FLAG)
+else
+	NIX = nix
+endif
 
 .PHONY: bump-flake repl shell
 bump-flake: fmt
 	$(NIX) flake update --flake .
+
 bump-woxVim: fmt
-	$(NIX) flake lock --update-input "woxVim"
-	make switch-darwin
+	$(NIX) flake lock --update-input ${WOXVIM_FLAKE_INPUT}
+	@ if [ $(OS) = "Darwin" ]; then \
+		$(MAKE) switch-darwin; \
+	else \
+		$(MAKE) switch; \
+	fi
 
 repl:
 	$(NIX) repl
@@ -18,11 +30,10 @@ shell:
 
 .PHONY: switch switch-wsl switch-darwin
 switch: fmt
-	sudo nixos-rebuild switch --flake ".#${HOST}"
+	sudo nixos-rebuild switch --flake ".#${NIXOS_HOST}"
 
 switch-wsl: fmt
-	sudo nixos-rebuild switch \
-		--flake .#wsl
+	sudo nixos-rebuild switch --flake .#wsl
 
 check-brew:
 	@if command -v brew &>/dev/null; then \
@@ -33,8 +44,7 @@ check-brew:
 	fi
 
 switch-darwin: fmt
-	@sudo darwin-rebuild switch \
-  --flake .#woxMac
+	@sudo darwin-rebuild switch --flake ".#${DARWIN_HOST}"
 
 .PHONY: check check-darwin check-linux
 check: fmt
