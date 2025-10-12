@@ -35,7 +35,7 @@ in
       podman
       podman-compose
       podman-tui
-      # a utils for apply & edit UPS patcher
+      # an util for apply & edit UPS patcher
       ups
       xterminal
       # paper collect & manager
