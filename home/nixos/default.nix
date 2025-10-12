@@ -1,14 +1,10 @@
 {
-  nixvim,
   config,
   username,
   stateVersion,
   ...
 }:
 {
-  imports = [
-    nixvim.homeModules.nixvim
-  ];
   home = {
     homeDirectory = "/home/${username}";
     file.".npmrc".text = ''

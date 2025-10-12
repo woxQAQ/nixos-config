@@ -17,7 +17,6 @@ let
     ../home/nixos
     ../home/program
     ../home/desktop
-    # ../neovim
     ../home/fcitx
     ../home/public
   ];
