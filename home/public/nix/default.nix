@@ -3,8 +3,10 @@
   home.packages = with pkgs; [
     statix
     nixd
+    # nix formatter
+    nixfmt
     # nom
-    # nix-output-monitor
+    nix-output-monitor
     # generate nix derivation from url
     nix-init
     hydra-check

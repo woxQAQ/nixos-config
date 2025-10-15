@@ -45,17 +45,6 @@
 
     ### UTILS ###
     gdb
-    # replace of df
-    duf
-    # replace of du
-    gdu
-    du-dust
-    # replace of find
-    fd
-    # rg
-    ripgrep
-    # yaml lint and processor
-    yq
     nodePackages.jsonlint
     checkmake
     shellspec
