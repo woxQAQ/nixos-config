@@ -41,6 +41,7 @@ flake-parts.lib.mkFlake { inherit inputs; } {
           // {
             system = "x86_64-linux";
             stateVersion = "25.05";
+            hostname = "woxQAQ@nixos-x64-i5";
           }
         );
         wsl = import ./wsl.nix (

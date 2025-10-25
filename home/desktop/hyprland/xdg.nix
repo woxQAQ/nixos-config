@@ -3,7 +3,7 @@
   xdg.portal = {
     enable = true;
     config = {
-      common = {
+      hyprland = {
         default = [
           "gtk"
           "hyprland"

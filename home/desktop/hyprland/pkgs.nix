@@ -1,20 +1,20 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    #keep-sorted start
+    alsa-utils
     cava
     hyprcursor
-    wl-clipboard
-
-    wf-recorder
-    wayland
-    imv
-
     hyprshot
-    swaybg
+    imv
+    networkmanagerapplet
     pavucontrol
     playerctl
-
-    alsa-utils
-    networkmanagerapplet
+    swaybg
+    swww
+    wayland
+    wf-recorder
+    wl-clipboard
+    #keep-sorted end
   ];
 }

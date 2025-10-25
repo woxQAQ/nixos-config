@@ -1,6 +1,8 @@
 {
   pkgs,
   config,
+  lib,
+  username,
   ...
 }:
 {
@@ -36,12 +38,22 @@
     # package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     package = pkgs.hyprland;
     settings = {
+      exec-once =
+        let
+          wallpaper = pkgs.callPackage ./scripts/wallpaper.nix {
+            inherit (import ../../../hosts/${username}/values.nix) defaultWallpaper;
+          };
+        in
+        [
+          "${lib.getExe wallpaper}"
+          #sh
+          "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr"
+        ];
       source =
         let
           configPath = "${config.home.homeDirectory}/.config/hypr/configs";
         in
         [
-          "${configPath}/exec.conf"
           "${configPath}/fcitx5.conf"
           "${configPath}/keybinds.conf"
           "${configPath}/settings.conf"
