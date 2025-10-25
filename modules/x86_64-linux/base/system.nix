@@ -1,9 +1,10 @@
-{ lib, determinate, ... }:
+{ lib, pkgs, ... }:
 {
-  imports = [
-    determinate.nixosModules.default
-  ];
+  # imports = [
+  #   determinate.nixosModules.default
+  # ];
   nix = {
+    package = pkgs.nixVersions.latest;
     gc = {
       automatic = lib.mkDefault true;
       dates = lib.mkDefault "weekly";

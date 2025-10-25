@@ -9,8 +9,8 @@
     clash-verge = {
       enable = true;
       autoStart = false;
-      serviceMode = true;
-      tunMode = true;
+      # serviceMode = true;
+      # tunMode = true;
     };
     thunar = {
       enable = true;
