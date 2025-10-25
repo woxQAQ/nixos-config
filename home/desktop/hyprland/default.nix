@@ -12,23 +12,8 @@
     ./xdg.nix
     ./apps.nix
     ./pkgs.nix
+    ./conf
   ];
-
-  programs = {
-    wlogout.enable = true;
-    hyprlock.enable = true;
-  };
-
-  catppuccin = {
-    waybar.enable = false;
-    wlogout.enable = false;
-    mako.enable = false;
-  };
-
-  services = {
-    mako.enable = true;
-    hypridle.enable = true;
-  };
   wayland.windowManager.hyprland = {
     enable = true;
     systemd = {
@@ -46,8 +31,7 @@
         in
         [
           "${lib.getExe wallpaper}"
-          #sh
-          "ln -s $XDG_RUNTIME_DIR/hypr /tmp/hypr"
+          "${lib.getExe' pkgs.clash-nyanpasu "clash-nyanpasu"}"
         ];
       source =
         let
@@ -55,6 +39,7 @@
         in
         [
           "${configPath}/fcitx5.conf"
+          "${configPath}/exec.conf"
           "${configPath}/keybinds.conf"
           "${configPath}/settings.conf"
           "${configPath}/windowrules.conf"
@@ -83,15 +68,5 @@
     source = "${pkgs.hyprland}/bin/Hyprland";
     executable = true;
   };
-  xdg.configFile =
-    let
-      mkSymlink = config.lib.file.mkOutOfStoreSymlink;
-      hyprPath = "${config.home.homeDirectory}/nixos-config/home/desktop/hyprland/conf";
-    in
-    {
-      "waybar".source = mkSymlink "${hyprPath}/waybar";
-      "wlogout".source = mkSymlink "${hyprPath}/wlogout";
-      "mako".source = mkSymlink "${hyprPath}/mako";
-      "hypr/configs".source = mkSymlink "${hyprPath}/hypr";
-    };
+
 }
