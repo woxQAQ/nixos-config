@@ -17,7 +17,12 @@
       plugins = with pkgs.xfce; [
         thunar-archive-plugin
         thunar-volman
+        thunar-media-tags-plugin
       ];
+    };
+    file-poller = {
+      enable = true;
+      package = pkgs.file-poller;
     };
   };
   services = {
