@@ -41,7 +41,7 @@
     delve
     protols
     kind
-    perf
+    # perf
     unstable-pkg.go-tools
     uv
     nodejs
