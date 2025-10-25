@@ -17,32 +17,37 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
-    userName = if pkgs.stdenv.isLinux then username else "woxQAQ";
-    userEmail = "woxqaq@gmail.com";
-    includes = [
-      {
-        path = "${config.home.homeDirectory}/.gnupg/.gitconfig";
-      }
-    ];
-    extraConfig = {
+    settings = {
+
+      user = {
+        name = if pkgs.stdenv.isLinux then username else "woxQAQ";
+        email = "woxqaq@gmail.com";
+      };
       push.autoSetupRemote = true;
       init.defaultBranch = "main";
       trim.bases = "develop,master,main";
       pull.rebase = true;
       log.date = "iso";
-    };
-    delta = {
-      enable = true;
-      options = {
-        diff-so-fancy = true;
-        line-numbers = true;
-        true-color = "always";
+      aliases = {
+        cm = "commit -m"; # commit via `git cm <message>`
+        ca = "commit -am"; # commit all changes via `git ca <message>`
+        amend = "commit --amend -m";
       };
     };
-    aliases = {
-      cm = "commit -m"; # commit via `git cm <message>`
-      ca = "commit -am"; # commit all changes via `git ca <message>`
-      amend = "commit --amend -m";
+    includes = [
+      {
+        path = "${config.home.homeDirectory}/.gnupg/.gitconfig";
+      }
+    ];
+
+  };
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      diff-so-fancy = true;
+      line-numbers = true;
+      true-color = "always";
     };
   };
 }
