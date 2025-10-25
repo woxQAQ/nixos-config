@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    cava
     hyprcursor
     wl-clipboard
 

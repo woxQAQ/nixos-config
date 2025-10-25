@@ -1,140 +1,37 @@
 {
   "layer": "top",
   "position": "top",
+  "height": 35,
+  "margin-top": 10,
+  "margin-left": 10,
+  "margin-right": 10,
+  "margin-bottom": 0,
+  "gtk-layer-shell": true,
+  "ipc": true,
+  "fixed-center": true,
+  "passthrough": false,
+  "mode": "dock",
+  "exclusive":true,
   "modules-left": [
-    "custom/launcher",
+    // "custom/launcher",
     "custom/powermenu",
     "hyprland/workspaces",
+    "cava",
   ],
   "modules-center": [
-    "custom/playerctl"
+    "idle_inhibitor",
+    "clock",
   ],
   "modules-right": [
     "temperature",
     "cpu",
+    "custom/playerctl",
     "memory",
     "pulseaudio",
     "network",
-    "clock",
-    "idle_inhibitor",
     "tray"
   ],
-  "custom/playerctl": {
-    "format": "{icon}  <span>{}</span>",
-    "return-type": "json",
-    "max-length": 55,
-    "exec": "playerctl -a metadata --format '{\"text\": \"  {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
-    "on-click-middle": "playerctl previous",
-    "on-click": "playerctl play-pause",
-    "on-click-right": "playerctl next",
-    "format-icons": {
-      "Paused": "<span foreground='#6dd9d9'></span>",
-      "Playing": "<span foreground='#82db97'></span>",
-    }
-  },
-  "clock": {
-    "calendar": {
-      "format": {
-        "today": "<span color='#98971A'><b>{}</b></span>"
-      }
-    },
-    "align": 0,
-    "rotate": 0,
-    "format": " {:%H:%M}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format-alt": " {: $a $b %d, %G}"
-  },
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": "\uf06e",
-      "deactivated": "\uf070"
-    },
-    "tooltip": false
-  },
-  "hyprland/workspaces": {
-    "format": "{icon}",
-    "on-click": "activate",
-    "format-icons": {
-      "1": "",
-      "2": "",
-      "3": "",
-      "4": "",
-      "5": "",
-      "6": "",
-      "7": "",
-      "8": "",
-      "9": "",
-      "10": "〇",
-      "focused": "",
-      "default": ""
-    }
-  },
-  "hyprland/window": {
-    "format": "{title}",
-    "icon": true,
-    "icon-size": 24,
-    "separate-outputs": true
-  },
-  "custom/powermenu": {
-    "format": "\uf011",
-    "on-click": "wlogout",
-    "tooltip": false
-  },
-  "cpu": {
-    "format": "CPU {usage}%",
-    "interval": 1
-  },
-  "memory": {
-    "format": "MEM {percentage}%",
-    "interval": 1,
-    "states": {
-      "warning": 80,
-      "critical": 90
-    }
-  },
-  "network": {
-    "interval": 5,
-    "format": "{ifname}",
-    "format-wifi": " {essid} ({signalStrength}%)  Up: {bandwidthUpBits} Down: {bandwidthDownBits}",
-    "format-ethernet": "  {ifname} Up: {bandwidthUpBits} Down: {bandwidthDownBits}",
-    "format-disconnected": "Disconnected ⚠",
-    "tooltip-format": " {ifname} via {gwaddri}",
-    "tooltip-format-wifi": "  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
-    "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
-    "tooltip-format-disconnected": "Disconnected",
-    "max-length": 50,
-    "on-click-middle": "nm-connection-editor",
-    "on-click-right": "foot nmtui",
-  },
-  "tray": {
-    "icon-size": 15,
-    "spacing": 5
-    // "show-passive-items": true
-  },
-  "pulseaudio": {
-    "format": "{icon} {volume}%",
-    "format-muted": "  MUTE",
-    "format-source": " {volume}%",
-    "format-source-muted": "",
-    "format-icons": {
-      "headphone": "",
-      "hands-free": "",
-      "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": [
-        "",
-        "",
-        ""
-      ],
-    },
-    "scroll-step": 2,
-    "on-click": "amixer set Master toggle",
-    "on-click-right": "GSK_RENDERER=opengl pavucontrol",
-    "smooth-scrolling-threshold": 1
-  },
+  // keep-sorted start block=yes
   "battery": {
     "format": "<span foreground='${yellow}'>{icon}</span> {capacity}%",
     "format-icons": [
@@ -155,13 +52,144 @@
     "tooltip": true,
     "tooltip-format": "{time}"
   },
-  "temperature": {
-    "format": "\uf2c9 {temperatureC}\u00b0C",
-    "tooltip": false
+  "cava" : {
+    "hide_on_silence" : false,
+    "framerate": 60,
+    "bars": 10,
+    "input_delay":1,
+    "sleep_timer":5,
+    "bar_delimiter":0,
+    "on-click": "playerctl play-pause",
+    "format-icons" : [
+      "▁",
+      "▂",
+      "▃",
+      "▄",
+      "▅",
+      "▆",
+      "▇",
+      "█"
+    ]
+  },
+  "clock": {
+    "calendar": {
+      "format": {
+        "today": "<span color='#98971A'><b>{}</b></span>"
+      }
+    },
+    "align": 0,
+    "rotate": 0,
+    "format": "{:%H:%M}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format-alt": " {: $a $b %d, %G}"
+  },
+  "cpu": {
+    "format": "CPU {usage}%",
+    "format-alt" : "{icon0}{icon1}{icon2}{icon3}",
+    "format-icons" : [
+      "▁",
+      "▂",
+      "▃",
+      "▄",
+      "▅",
+      "▆",
+      "▇",
+      "█"
+    ],
+    "interval": 10
   },
   "custom/launcher": {
     "format": "\uf313 ",
     "on-click": "anyrun",
-    "tooltip": false,
+    "tooltip": false
+  },
+  "custom/playerctl": {
+    "format": "{icon}  <span>{}</span>",
+    "return-type": "json",
+    "max-length": 55,
+    "exec": "playerctl -a metadata --format '{\"text\": \"  {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+    "on-click-middle": "playerctl previous",
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "format-icons": {
+      "Paused": "<span foreground='#6dd9d9'></span>",
+      "Playing": "<span foreground='#82db97'></span>",
+    }
+  },
+  "custom/powermenu": {
+    "format": "\uf011",
+    "on-click": "wlogout",
+    "tooltip": false
+  },
+  "hyprland/window": {
+    "format": "{title}",
+    "icon": true,
+    "icon-size": 24,
+    "separate-outputs": true
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰥔",
+      "deactivated": ""
+    },
+    "tooltip": false
+  },
+  "memory": {
+    "format": "MEM {percentage}%",
+    "format-alt": "MEM {used}GB",
+    "tooltip" : true,
+    "tooltip-format": " {used:.1f}GB/{total:.1f}GB",
+    "interval": 30,
+    "states": {
+      "warning": 80,
+      "critical": 90
+    }
+  },
+  "network": {
+    "interval": 5,
+    "format": "{ifname}",
+    "format-wifi": " {essid}",
+    "format-alt": "  {signalStrength}% ",
+    "format-ethernet" : "󱘖 Wired",
+    "format-disconnected": "⚠ Disconnected ",
+    "tooltip-format": "󱘖 {ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}",
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": " ",
+    "format-source": " {volume}%",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ],
+    },
+    "scroll-step": 2,
+    "on-click": "amixer set Master toggle",
+    "on-click-right": "GSK_RENDERER=opengl pavucontrol",
+    "smooth-scrolling-threshold": 1
+  },
+  "temperature": {
+    "format": "\uf2c9 {temperatureC}\u00b0C",
+    "tooltip": false
+  },
+  "tray": {
+    "icon-size": 15,
+    "spacing": 5
+    // "show-passive-items": true
   }
+  // keep-sorted end
 }
