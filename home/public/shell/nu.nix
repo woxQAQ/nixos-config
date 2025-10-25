@@ -1,10 +1,7 @@
 {
-  pkgs,
+  nu_scripts,
   ...
 }:
-let
-  inherit (pkgs) nu_scripts;
-in
 {
   programs.nushell = {
     enable = true;
@@ -12,7 +9,7 @@ in
     extraConfig = # nu
       ''
         # completion
-        const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}/share/nu_scripts']
+        const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}']
         use custom-completions/git/git-completions.nu *
         use custom-completions/tar/tar-completions.nu *
         use custom-completions/rg/rg-completions.nu *
@@ -28,7 +25,7 @@ in
 
         use modules/argx *
         use modules/lg *
-        use modules/kubernetes *
+        # use modules/kubernetes *
       '';
   };
 }

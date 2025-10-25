@@ -53,7 +53,8 @@
     };
 
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/18dd725c29603f582cf1900e0d25f9f1063dbf11";
+      # url = "github:NixOS/nixpkgs/18dd725c29603f582cf1900e0d25f9f1063dbf11";
+      url = "github:nixos/nixpkgs/nixpkgs-unstable";
       # url = "github:NixOS/nixpkgs/master";
     };
 
@@ -62,6 +63,11 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    nu_scripts = {
+      url = "github:nushell/nu_scripts";
+      flake = false;
+    };
 
     nur-ryan4yin = {
       url = "github:ryan4yin/nur-packages";
