@@ -8,7 +8,7 @@
     ./game.nix
     ./xdg.nix
     ./ides.nix
-    # ./catppuccin.nix
+    ./qt.nix
     ./cursor.nix
   ];
 

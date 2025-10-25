@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
     lxappearance-gtk2
@@ -33,18 +33,19 @@
       gtk-xft-rgba = "rgb";
     };
 
-    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+    gtk2.force = true;
 
-    # gtk2.extraConfig = ''
-    #   gtk-xft-antialias=1
-    #   gtk-xft-hinting=1
-    #   gtk-xft-hintstyle="hintslight"
-    #   gtk-xft-rgba="rgb"
-    # '';
-
+    gtk3.extraConfig = {
+      "gtk-application-prefer-dark-theme" = "1";
+    };
+    gtk4.extraConfig = {
+      "gtk-application-prefer-dark-theme" = "1";
+    };
     # iconTheme = {
-    #   name = "Papirus-Dark";
+    #   # package = pkgs.adwaita-icon-theme;
+    #   # name = "Adwaita";
     #   package = pkgs.papirus-icon-theme;
+    #   name = "Papirus-Dark";
     # };
   };
 }
