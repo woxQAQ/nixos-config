@@ -48,20 +48,22 @@
           "${configPath}/windowrules.conf"
         ];
       env = [
+        # keep-sorted start
+        "ELECTRON_OZONE_PLATFORM_HINT,auto"
+        "GDK_BACKEND,wayland,x11,*"
+        "MOZ_ENABLE_WAYLAND,1" # for firefox to run on wayland
+        "MOZ_WEBRENDER,1"
         # "HYPRCURSOR_THEME,Bibata-Modern-Ice"
         # "HYPRCURSOR_SIZE,16"
         "NIXOS_OZONE_WL,1" # for any ozone-based browser & electron apps to run on wayland
-        "MOZ_ENABLE_WAYLAND,1" # for firefox to run on wayland
-        "MOZ_WEBRENDER,1"
+        "QT_QPA_PLATFORM,wayland"
+        "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+        "SDL_VIDEODRIVER,wayland"
+        "XDG_SESSION_TYPE,wayland"
         # misc
         # "USE_WAYLAND_GRIM,1"
         "_JAVA_AWT_WM_NONREPARENTING,1"
-        "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-        "QT_QPA_PLATFORM,wayland"
-        "SDL_VIDEODRIVER,wayland"
-        "GDK_BACKEND,wayland"
-        "XDG_SESSION_TYPE,wayland"
-        "ELECTRON_OZONE_PLATFORM_HINT,auto"
+        # keep-sorted end
       ];
     };
   };
@@ -72,11 +74,12 @@
   xdg.configFile =
     let
       mkSymlink = config.lib.file.mkOutOfStoreSymlink;
+      hyprPath = "${config.home.homeDirectory}/nixos-config/home/desktop/hyprland/conf";
     in
     {
-      "waybar".source = mkSymlink ./conf/waybar;
-      "wlogout".source = mkSymlink ./conf/wlogout;
-      "mako".source = mkSymlink ./conf/mako;
-      "hypr/configs".source = mkSymlink ./conf/hypr;
+      "waybar".source = mkSymlink "${hyprPath}/waybar";
+      "wlogout".source = mkSymlink "${hyprPath}/wlogout";
+      "mako".source = mkSymlink "${hyprPath}/mako";
+      "hypr/configs".source = mkSymlink "${hyprPath}/hypr";
     };
 }
