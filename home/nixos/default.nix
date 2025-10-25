@@ -5,6 +5,7 @@
   ...
 }:
 {
+  imports = [ ./terminal/cava.nix ];
   home = {
     homeDirectory = "/home/${username}";
     file.".npmrc".text = ''
