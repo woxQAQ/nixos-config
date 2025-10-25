@@ -6,7 +6,6 @@
     ./gtk.nix
     ./browsers
     ./game.nix
-    # ./qt.nix
     ./xdg.nix
     ./ides.nix
     # ./catppuccin.nix
@@ -15,6 +14,7 @@
 
   home.packages = with pkgs; [
     # mihomo-party
+    clash-nyanpasu
     netease-cloud-music-gtk
     n8n
     insomnia

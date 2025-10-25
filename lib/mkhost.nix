@@ -10,7 +10,7 @@
   ...
 }:
 let
-  inherit (inputs) nixpkgs home-manager;
+  inherit (inputs) home-manager nixpkgs;
   genSpecialArgs = import ./genSpecialArgs.nix;
   specialArgs = genSpecialArgs {
     inherit
