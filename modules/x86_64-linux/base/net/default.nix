@@ -21,7 +21,7 @@ _: {
       userServices = true;
     };
   };
-  services.dnscrypt-proxy = {
+  services.dnscrypt-proxy2 = {
     enable = true;
     settings = {
       require_dnssec = true;
