@@ -5,7 +5,10 @@
   ...
 }:
 {
-  imports = [ ./terminal/cava.nix ];
+  imports = [
+    ./terminal/cava.nix
+    ./terminal/mpv.nix
+  ];
   home = {
     homeDirectory = "/home/${username}";
     file.".npmrc".text = ''
