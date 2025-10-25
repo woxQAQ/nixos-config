@@ -13,6 +13,8 @@
   outputs = inputs: import ./outputs inputs;
   inputs = {
     # keep-sorted start block=yes newline_separated=yes
+    # determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
@@ -24,8 +26,6 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -53,7 +53,8 @@
     };
 
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixos-unstable";
+      url = "github:NixOS/nixpkgs/18dd725c29603f582cf1900e0d25f9f1063dbf11";
+      # url = "github:NixOS/nixpkgs/master";
     };
 
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -69,7 +70,7 @@
 
     woxVim = {
       url = "github:woxQAQ/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # keep-sorted end
