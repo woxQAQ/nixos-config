@@ -9,14 +9,7 @@ in
   home.packages = [
     claude-code-wrapper
   ];
-  home.file.".claude/settings.json".text =
-    #json
-    ''
-      {
-        "statusLine": {
-          "type":"command",
-          "command":"npx -y @owloops/claude-powerline@latest --style=powerline"
-        }
-      }
-    '';
+  home.file.".claude/settings.json" = {
+    source = ./claude-code.settings.json;
+  };
 }
