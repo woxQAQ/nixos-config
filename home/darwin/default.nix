@@ -33,7 +33,7 @@ in
       podman-compose
       podman-tui
       # an util for apply & edit UPS patcher
-      ups
+      # ups
       xterminal
       # paper collect & manager
       zotero

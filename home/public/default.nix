@@ -5,6 +5,7 @@
     ./shell
     ./nix
     ./npm.nix
+    ./pkgs.nix
     ./dev
     ./yazi.nix
     ./cloud-native.nix
