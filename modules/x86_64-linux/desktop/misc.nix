@@ -20,9 +20,9 @@
         thunar-media-tags-plugin
       ];
     };
-    file-poller = {
+    file-roller = {
       enable = true;
-      package = pkgs.file-poller;
+      package = pkgs.file-roller;
     };
   };
   services = {
