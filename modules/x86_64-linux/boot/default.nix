@@ -7,6 +7,8 @@
         enable = true;
         device = "nodev";
         efiSupport = true;
+        gfxmodeEfi = "2715x1527"; # for 4k: 3840x2160
+        gfxmodeBios = "2715x1527"; # for 4k: 3840x2160
         theme =
           let
             theme-path = "src/catppuccin-mocha-grub-theme";
