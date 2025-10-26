@@ -51,6 +51,7 @@
       enableBashIntegration = true;
       enableZshIntegration = true;
       enableNushellIntegration = true;
+      daemon.enable = true;
     };
   };
 }
