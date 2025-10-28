@@ -26,11 +26,12 @@
     networkmanagerapplet
     pavucontrol
     playerctl
-    swaybg
+    # swaybg
     swww
     wayland
     wf-recorder
     wl-clipboard
+    wlr-randr
     #keep-sorted end
   ];
 }

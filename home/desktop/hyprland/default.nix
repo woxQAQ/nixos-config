@@ -50,15 +50,16 @@
         "GDK_BACKEND,wayland,x11,*"
         "MOZ_ENABLE_WAYLAND,1" # for firefox to run on wayland
         "MOZ_WEBRENDER,1"
-        # "HYPRCURSOR_THEME,Bibata-Modern-Ice"
-        # "HYPRCURSOR_SIZE,16"
         "NIXOS_OZONE_WL,1" # for any ozone-based browser & electron apps to run on wayland
-        "QT_QPA_PLATFORM,wayland"
+        "QT_AUTO_SCREEN_SCALE_FACTOR,1"
+        "QT_QPA_PLATFORM,wayland;xcb"
+        "QT_QPA_PLATFORMTHEME,qt6ct"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "SDL_VIDEODRIVER,wayland"
+        "XCURSOR,Catppuccin-Mocha-Dark-Cursors"
+        "XCURSOR_SIZE,24"
+        "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_TYPE,wayland"
-        # misc
-        # "USE_WAYLAND_GRIM,1"
         "_JAVA_AWT_WM_NONREPARENTING,1"
         # keep-sorted end
       ];
