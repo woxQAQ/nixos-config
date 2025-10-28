@@ -99,7 +99,7 @@ export def proxy-daemon [] {
     let config_content = "[Service]
 Environment=\"https_proxy=http://localhost:7890\""
 
-    $config_content | save $config_file
+    sudo $config_content | save $config_file
 
     # Reload and restart systemd service
     sudo systemctl daemon-reload
