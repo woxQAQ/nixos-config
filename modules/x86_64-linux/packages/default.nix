@@ -1,0 +1,4 @@
+{ ... }:
+{
+  imports = [ ./trace.nix ];
+}

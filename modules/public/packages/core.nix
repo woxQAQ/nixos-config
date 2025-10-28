@@ -38,15 +38,17 @@
     gnutar
     # ps alternative
     procs
+    # GNU wget, download file via HTTP, HTTPS and FTP
+    wget
 
     # show host info, alternative of neofetch
     fastfetch
-
+    # cmd for URL
     curl
-    wget
+    # download utils
     aria2
-
     pkg-config
+    # log highlighter
     tailspin
 
     # recursive directory listing
