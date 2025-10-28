@@ -7,7 +7,6 @@
   stateVersion,
   home-modules ? [ ],
   nixos-modules,
-  hostname,
   ...
 }:
 let
@@ -19,7 +18,6 @@ let
       system
       username
       stateVersion
-      hostname
       mylib
       ;
   };
