@@ -12,6 +12,11 @@ let
     ../modules/${system}
     ../modules/${system}/boot
     ../modules/public
+  ]
+  ++ [
+    {
+      modules.desktop.game.enable = true;
+    }
   ];
   home-modules = [
     ../home/nixos
@@ -19,6 +24,11 @@ let
     ../home/desktop
     ../home/fcitx
     ../home/public
+  ]
+  ++ [
+    {
+      modules.desktop.game.enable = true;
+    }
   ];
   modules_ = {
     inherit nixos-modules home-modules;
