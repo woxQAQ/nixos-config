@@ -55,6 +55,16 @@
       "noatime"
     ];
   };
+  fileSystems."/mnt/win11" = {
+    device = "/dev/disk/by-uuid/98C2B1F5C2B1D828";
+    fsType = "ntfs-3g";
+    options = [
+      "rw"
+      "uid=1000"
+      "gid=1000"
+      "umask=0022"
+    ];
+  };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/12AE-8021";

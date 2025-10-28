@@ -1,8 +1,14 @@
-{ pkgs, nix-gaming, ... }:
 {
-  # boot.kernel.sysctl = {
-  #   "vm.max_map_count" = 2147483642;
-  # };
+  pkgs,
+  nix-gaming,
+  osConfig,
+  ...
+}:
+{
+  imports = with nix-gaming.nixosModules; [
+    pipewireLowLatency
+    platformOptimizations
+  ];
   programs = {
     gamescope = {
       enable = true;
@@ -28,14 +34,26 @@
   };
 
   services.pipewire.lowLatency.enable = true;
-  imports = with nix-gaming.nixosModules; [
-    pipewireLowLatency
-    platformOptimizations
-  ];
 
   environment.systemPackages = with pkgs; [
     mangohud
-    lutris
   ];
+  programs.lutris = {
+    enable = true;
+    defaultWinePackage = pkgs.proton-ge-bin;
+    steamPackage = osConfig.programs.steam.package;
+    protonPackages = [ pkgs.proton-ge-bin ];
+    winePackages = with pkgs; [
+      wineWow64Packages.full
+      wineWowPackages.stagingFull
+    ];
+    extraPackages = with pkgs; [
+      winetricks
+      gamescope
+      gamemode
+      mangohud
+      umu-launcher
+    ];
+  };
 
 }
