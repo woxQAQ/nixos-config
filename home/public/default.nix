@@ -5,6 +5,7 @@
     ./shell
     ./nix
     ./npm.nix
+    ./cava.nix
     ./pkgs.nix
     ./dev
     ./yazi.nix

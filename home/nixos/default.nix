@@ -6,8 +6,7 @@
 }:
 {
   imports = [
-    ./terminal/cava.nix
-    ./terminal/mpv.nix
+    ./cli/mpv.nix
   ];
   home = {
     homeDirectory = "/home/${username}";

@@ -1,6 +1,7 @@
+{ pkgs, ... }:
 {
   programs.cava = {
-    enable = true;
+    enable = pkgs.stdenv.hostPlatform.isLinux;
     settings = {
       general = {
         framerate = 60;

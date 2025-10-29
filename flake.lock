@@ -560,11 +560,11 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1761463160,
-        "narHash": "sha256-8oVMiMDrglM3sG9mEhvIhrPovMwvyGT2mx9yoAgjRBg=",
+        "lastModified": 1761722711,
+        "narHash": "sha256-5AiyKzSYm9bsLvUarN7qbfCQL9wt1DePmrPvI0KZDXo=",
         "owner": "woxQAQ",
         "repo": "nixvim",
-        "rev": "79c75965a2e27eb4aeaebb45f6f7b4c39be33965",
+        "rev": "ec475f530b5c9ec79c4a08b56a9420a66a9c163f",
         "type": "github"
       },
       "original": {
