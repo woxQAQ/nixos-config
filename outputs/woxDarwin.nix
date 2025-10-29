@@ -15,6 +15,11 @@ let
   home-modules = [
     ../home/darwin
     ../home/public
+  ]
+  ++ [
+    {
+      modules.cloud-native.enable = true;
+    }
   ];
   modules_ = {
     inherit darwin-modules home-modules;
