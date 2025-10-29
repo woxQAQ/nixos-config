@@ -60,5 +60,7 @@
     killall
 
     file
+
+    jq
   ];
 }

@@ -33,7 +33,6 @@
         theme_background = false; # make btop transparent
       };
     };
-    jq.enable = true;
     eza = {
       enable = true;
       enableNushellIntegration = false;
