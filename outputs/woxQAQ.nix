@@ -10,6 +10,7 @@ let
     inputs.agenix.nixosModules.default
     ../hosts/${name}
     ../modules/${system}
+    ../modules/${system}/desktop
     ../modules/${system}/boot
     ../modules/public
   ]
