@@ -37,6 +37,9 @@
     golangci-lint
     kubernetes-helm
     go
+    wslu
+    wsl-open
+    dos2unix
     gopls
     delve
     protols
