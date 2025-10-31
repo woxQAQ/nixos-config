@@ -18,8 +18,10 @@ let
   ]
   ++ [
     {
-      modules.cloud-native.enable = true;
-      modules.desktop.enable = true;
+      modules = {
+        cloud-native.enable = true;
+        desktop.enable = true;
+      };
     }
   ];
   modules_ = {
