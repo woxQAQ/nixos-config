@@ -30,6 +30,7 @@ let
     {
       modules.desktop.game.enable = true;
       modules.cloud-native.enable = true;
+      modules.desktop.enable = true;
     }
   ];
   modules_ = {

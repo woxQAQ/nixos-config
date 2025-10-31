@@ -12,8 +12,12 @@ let
     ../modules/${system}
     ../modules/public
   ];
+  home-modules = [
+    ../home/public
+    ../home/nixos
+  ];
   modules_ = {
-    inherit nixos-modules;
+    inherit nixos-modules home-modules;
     username = "woxQAQ";
   };
 in

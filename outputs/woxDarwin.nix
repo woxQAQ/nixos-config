@@ -19,6 +19,7 @@ let
   ++ [
     {
       modules.cloud-native.enable = true;
+      modules.desktop.enable = true;
     }
   ];
   modules_ = {
