@@ -1,24 +1,28 @@
-{ pkgs, ... }:
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+with lib;
+let
+  cfg = config.modules.desktop;
+in
+{
+  options.modules = {
+    desktop = {
+      hyprland.enable = mkEnableOption "Hyprland";
+    };
+  };
   imports = [
-    ./hyprland
-    ./waypaper.nix
+    ./fcitx
     ./gtk.nix
     ./browsers
     ./game.nix
     ./xdg.nix
-    ./ides.nix
+    # ./ides.nix
     ./qt.nix
     ./cursor.nix
-  ];
-
-  home.packages = with pkgs; [
-    # mihomo-party
-    clash-nyanpasu
-    netease-cloud-music-gtk
-    n8n
-    insomnia
-    notepad-next
-  ];
-
+  ]
+  ++ optional cfg.hyprland.enable ./hyprland;
 }

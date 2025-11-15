@@ -5,7 +5,7 @@
   ...
 }@args:
 let
-  name = "woxQAQ";
+  name = "windows-vm1";
   nixos-modules = [
     inputs.agenix.nixosModules.default
     ../hosts/${name}
@@ -16,29 +16,24 @@ let
   ]
   ++ [
     {
-      modules.desktop.game.enable = true;
+      modules.desktop.game.enable = false;
     }
   ];
   home-modules = [
     ../home/nixos
-    ../hosts/${name}/home.nix
   ]
   ++ [
     ../home/public
-    {
-      modules.public = {
-        cloud-native.enable = true;
-        desktop.enable = true;
-      };
-    }
+    # {
+    #   modules = {
+    #     public.cloud-native.enable = false;
+    #   };
+    # }
   ]
   ++ [
     ../home/desktop
     {
       modules.desktop = {
-        hyprland.enable = true;
-        game.enable = true;
-        browser = "chromium";
         fcitx5.enable = true;
       };
     }

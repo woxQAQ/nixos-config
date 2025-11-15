@@ -1,7 +1,21 @@
+{ lib, config, ... }:
+let
+  cfg = config.modules.desktop.browser;
+in
 {
+  options.modules.desktop.browser = lib.mkOption {
+    type = lib.types.nullOr (
+      lib.types.enum [
+        "chromium"
+        "firefox"
+      ]
+    );
+    default = "firefox";
+  };
   programs = {
+    firefox.enable = (cfg == "firefox");
     chromium = {
-      enable = true;
+      enable = (cfg == "chromium");
       commandLineArgs = [
         "--ozone-platform-hint=auto"
         "--ozone-platform=wayland"

@@ -1,9 +1,9 @@
 { config, lib, ... }:
 let
-  cfg = config.modules.desktop;
+  cfg = config.modules.public.desktop;
 in
 {
-  options.modules.desktop = {
+  options.modules.public.desktop = {
     enable = lib.mkEnableOption "Desktop";
   };
   config = lib.mkIf cfg.enable {

@@ -14,11 +14,11 @@ let
   ];
   home-modules = [
     ../home/darwin
-    ../home/public
   ]
   ++ [
+    ../home/public
     {
-      modules = {
+      modules.public = {
         cloud-native.enable = true;
         desktop.enable = true;
       };

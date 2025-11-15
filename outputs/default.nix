@@ -50,6 +50,13 @@ flake-parts.lib.mkFlake { inherit inputs; } {
             stateVersion = "25.05";
           }
         );
+        windows-vm1 = import ./windows-vm1.nix (
+          args
+          // {
+            system = "x86_64-linux";
+            stateVersion = "25.05";
+          }
+        );
       };
 
       darwinSystems = {

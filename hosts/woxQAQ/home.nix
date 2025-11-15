@@ -1,10 +1,12 @@
 { pkgs, ... }:
 {
-  imports = [
-    # ./rofi.nix
-  ];
-
   home.packages = with pkgs; [
+    clash-nyanpasu
+    netease-cloud-music-gtk
+    n8n
+    insomnia
+    notepad-next
+
     pamixer
     go-musicfox
     youtube-tui
