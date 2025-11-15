@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.modules.cloud-native;
+  cfg = config.modules.public.cloud-native;
 in
 {
-  options.modules.cloud-native = {
+  options.modules.public.cloud-native = {
     enable = lib.mkEnableOption "Cloud-native";
   };
   config = lib.mkIf cfg.enable {

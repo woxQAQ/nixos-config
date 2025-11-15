@@ -5,42 +5,32 @@
   ...
 }@args:
 let
-  name = "woxQAQ";
+  name = "windows-vm1";
   nixos-modules = [
-    inputs.agenix.nixosModules.default
     ../hosts/${name}
-    ../modules/${system}/system
-    ../modules/${system}/desktop
     ../modules/${system}/packages
+    ../modules/${system}/desktop
+    ../modules/${system}/system
     ../modules/${system}/boot
     ../modules/public
   ]
   ++ [
     {
-      modules.desktop.game.enable = true;
+      modules.desktop.game.enable = false;
     }
   ];
   home-modules = [
     ../home/nixos
-    ../hosts/${name}/home.nix
   ]
   ++ [
     ../home/public
-    {
-      modules.public = {
-        cloud-native.enable = true;
-        desktop.enable = true;
-        terminal.neovim.enable = true;
-      };
-    }
   ]
   ++ [
     ../home/desktop
     {
       modules.desktop = {
-        game.enable = true;
-        browser = "chromium";
         fcitx5.enable = true;
+        environment = "gnome";
       };
     }
   ];

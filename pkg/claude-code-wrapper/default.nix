@@ -11,7 +11,7 @@ writeShellScriptBin "claude"
     # Function to load environment variables from .env files
     load_env_files() {
       local current_dir="$(pwd)"
-      local env_files=(".env" ".env.local")
+      local env_files=(".env" ".env.local" ".env.claude")
 
       # Only check current directory, no recursion
       for env_file in "''${env_files[@]}"; do

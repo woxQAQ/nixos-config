@@ -1,4 +1,4 @@
-NIXOS_HOST = "woxQAQ"
+NIXOS_HOST ?= woxQAQ
 DARWIN_HOST = "woxMac"
 WOXVIM_FLAKE_INPUT = "woxVim"
 OS = $(shell uname)
