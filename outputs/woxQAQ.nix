@@ -9,8 +9,9 @@ let
   nixos-modules = [
     inputs.agenix.nixosModules.default
     ../hosts/${name}
-    ../modules/${system}
+    ../modules/${system}/system
     ../modules/${system}/desktop
+    ../modules/${system}/packages
     ../modules/${system}/boot
     ../modules/public
   ]
@@ -37,7 +38,6 @@ let
     ../home/desktop
     {
       modules.desktop = {
-        hyprland.enable = true;
         game.enable = true;
         browser = "chromium";
         fcitx5.enable = true;

@@ -7,10 +7,10 @@
 let
   name = "windows-vm1";
   nixos-modules = [
-    inputs.agenix.nixosModules.default
     ../hosts/${name}
-    ../modules/${system}
+    ../modules/${system}/packages
     ../modules/${system}/desktop
+    ../modules/${system}/system
     ../modules/${system}/boot
     ../modules/public
   ]
@@ -24,17 +24,13 @@ let
   ]
   ++ [
     ../home/public
-    # {
-    #   modules = {
-    #     public.cloud-native.enable = false;
-    #   };
-    # }
   ]
   ++ [
     ../home/desktop
     {
       modules.desktop = {
         fcitx5.enable = true;
+        environment = "gnome";
       };
     }
   ];
