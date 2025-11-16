@@ -7,5 +7,6 @@
     ./pipewire.nix
     ./dm
     ./greetd.nix
+    ./packages.nix
   ];
 }

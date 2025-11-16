@@ -10,7 +10,11 @@
     rm -f ${config.home.homeDirectory}/.gitconfig
   '';
   programs = {
-    gh.enable = true;
+    gh = {
+      enable = true;
+      extensions = with pkgs; [ gh-markdown-preview ];
+      settings.prompt = "enabled";
+    };
     lazygit.enable = true;
   };
 
@@ -18,17 +22,21 @@
     enable = true;
     lfs.enable = true;
     settings = {
-
       user = {
         name = if pkgs.stdenv.isLinux then username else "woxQAQ";
-        email = "woxqaq@gmail.com";
+        email = lib.mkDefault "woxqaq@gmail.com";
       };
       push.autoSetupRemote = true;
       init.defaultBranch = "main";
       trim.bases = "develop,master,main";
       pull.rebase = true;
       log.date = "iso";
+      merge.conflictStyle = "zdiff3";
+      diff.algorithm = "histogram";
+      branch.sort = "committerdate";
       aliases = {
+        p = "pull --ff-only";
+        graph = "log --decorate --oneline --graph";
         cm = "commit -m"; # commit via `git cm <message>`
         ca = "commit -am"; # commit all changes via `git ca <message>`
         amend = "commit --amend -m";

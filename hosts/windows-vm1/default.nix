@@ -8,7 +8,6 @@
   ];
 
   networking = {
-    networkmanager.enable = true;
     hostName = "windows-vm1";
   };
   # hardware.graphics = {

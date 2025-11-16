@@ -11,7 +11,6 @@
   ];
 
   networking = {
-    networkmanager.enable = true;
     hostName = "woxQAQ";
   };
   hardware.graphics = {

@@ -26,6 +26,13 @@ nixpkgs.lib.nixosSystem {
   inherit system specialArgs;
   modules =
     nixos-modules
+    ++ [
+      {
+        _module.args = {
+          inherit inputs;
+        };
+      }
+    ]
     ++ (lib.optionals ((lib.lists.length home-modules) > 0) [
       home-manager.nixosModules.home-manager
       {

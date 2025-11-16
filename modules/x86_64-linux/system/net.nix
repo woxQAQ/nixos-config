@@ -4,6 +4,12 @@
   config,
   ...
 }:
+let
+  commonPort = [
+    22
+    7890
+  ];
+in
 {
   networking = {
     timeServers = [
@@ -13,9 +19,11 @@
     firewall = {
       enable = true;
       allowPing = false;
-      allowedTCPPorts = [ 7890 ];
-      allowedUDPPorts = [ 7890 ];
+      allowedTCPPorts = commonPort;
+      allowedUDPPorts = commonPort;
     };
+    networkmanager.enable = true;
+    nftables.enable = true;
   };
 
   services.avahi = {

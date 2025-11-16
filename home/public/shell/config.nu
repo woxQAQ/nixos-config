@@ -15,7 +15,7 @@ $env.config = {
     completions: {
         case_sensitive: false
         quick: true
-        algorithm: "prefix"
+        algorithm: "fuzzy"
         partial: true
     }
     use_kitty_protocol: false
