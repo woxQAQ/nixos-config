@@ -1,4 +1,10 @@
-_: {
+{
+  mylib,
+  lib,
+  config,
+  ...
+}:
+{
   networking = {
     timeServers = [
       "ntp.aliyun.com" # Aliyun NTP Server
@@ -21,7 +27,7 @@ _: {
       userServices = true;
     };
   };
-  services.dnscrypt-proxy = {
+  services.dnscrypt-proxy = lib.mkIf (!mylib.iswsl config) {
     enable = true;
     settings = {
       require_dnssec = true;
