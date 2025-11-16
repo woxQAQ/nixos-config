@@ -1,12 +1,8 @@
 {
   lib,
-  config,
   ...
 }:
 with lib;
-let
-  cfg = config.modules.desktop;
-in
 {
   options.modules = {
     desktop = {
@@ -31,6 +27,6 @@ in
     # ./ides.nix
     ./qt.nix
     ./cursor.nix
-  ]
-  ++ optional cfg.hyprland.enable ./hyprland;
+    ./hyprland
+  ];
 }

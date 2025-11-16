@@ -1,11 +1,12 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }:
 with lib;
 let
-  cfg = config.modules.desktop;
+  cfg = config.modules.desktop.fcitx5;
 in
 {
   options.modules = {

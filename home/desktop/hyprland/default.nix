@@ -5,6 +5,9 @@
   username,
   ...
 }:
+let
+  cfg = config.modules.desktop.hyprland;
+in
 {
   imports = [
     ./waybar.nix
@@ -14,7 +17,7 @@
     ./pkgs.nix
     ./conf
   ];
-  wayland.windowManager.hyprland = {
+  wayland.windowManager.hyprland = lib.mkIf cfg.enable {
     enable = true;
     systemd = {
       enable = true;
@@ -65,7 +68,7 @@
       ];
     };
   };
-  home.file.".wayland-session" = {
+  home.file.".wayland-session" = lib.mkIf cfg.enable {
     source = "${pkgs.hyprland}/bin/Hyprland";
     executable = true;
   };
