@@ -10,7 +10,7 @@ let
     ../modules/${system}/packages
     ../modules/${system}/desktop
     ../modules/${system}/system
-    ../modules/${system}/boot
+    # ../modules/${system}/boot
     ../modules/public
   ]
   ++ [
@@ -35,7 +35,7 @@ let
   ];
   modules_ = {
     inherit nixos-modules home-modules;
-    username = name;
+    username = "woxQAQ";
   };
 in
 {

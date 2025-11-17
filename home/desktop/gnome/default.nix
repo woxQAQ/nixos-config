@@ -4,20 +4,13 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.gnome;
+  enabled = config.modules.desktop.environment == "gnome";
 in
 {
-  options.modules.desktop.gnome = {
-    enable = lib.mkEnableOption "gnome";
-  };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf enabled {
     services = {
       xserver = {
         enable = true;
-        displayManager.gdm = {
-          enable = true;
-          autoSuspend = false;
-        };
         desktopManager.gnome = {
           enable = true;
         };

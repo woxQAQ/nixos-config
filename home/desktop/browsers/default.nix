@@ -1,17 +1,8 @@
-{ lib, config, ... }:
+{ config, ... }:
 let
   cfg = config.modules.desktop.browser;
 in
 {
-  options.modules.desktop.browser = lib.mkOption {
-    type = lib.types.nullOr (
-      lib.types.enum [
-        "chromium"
-        "firefox"
-      ]
-    );
-    default = "firefox";
-  };
   config = {
     programs = {
       firefox.enable = cfg == "firefox";

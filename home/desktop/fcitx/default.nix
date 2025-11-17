@@ -9,11 +9,6 @@ let
   cfg = config.modules.desktop.fcitx5;
 in
 {
-  options.modules = {
-    desktop = {
-      fcitx5.enable = mkEnableOption "fcitx5 input method";
-    };
-  };
   config = mkIf cfg.enable {
     xdg.configFile = {
       "fcitx5/profile" = {

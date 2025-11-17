@@ -6,18 +6,20 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.hyprland;
+  enabled = config.modules.desktop.environment == "hyprland";
 in
 {
-  imports = [
-    ./waybar.nix
-    ./anyrun.nix
-    ./xdg.nix
-    ./apps.nix
-    ./pkgs.nix
-    ./conf
-  ];
-  wayland.windowManager.hyprland = lib.mkIf cfg.enable {
+  imports =
+    [ ]
+    ++ lib.optionals enabled [
+      ./waybar.nix
+      ./anyrun.nix
+      ./xdg.nix
+      ./apps.nix
+      ./pkgs.nix
+      ./conf
+    ];
+  wayland.windowManager.hyprland = lib.mkIf enabled {
     enable = true;
     systemd = {
       enable = true;
@@ -68,7 +70,7 @@ in
       ];
     };
   };
-  home.file.".wayland-session" = lib.mkIf cfg.enable {
+  home.file.".wayland-session" = lib.mkIf enabled {
     source = "${pkgs.hyprland}/bin/Hyprland";
     executable = true;
   };
