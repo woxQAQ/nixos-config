@@ -519,26 +519,6 @@
         "type": "github"
       }
     },
-    "nur-ryan4yin": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1751086727,
-        "narHash": "sha256-5y9aE/o+KwEg075R5m/13Z1mavtyWv+9DE5uppLdRlo=",
-        "owner": "ryan4yin",
-        "repo": "nur-packages",
-        "rev": "a41be29389c8503f67b9f5cd47fa8b99a5bb3fe5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ryan4yin",
-        "repo": "nur-packages",
-        "type": "github"
-      }
-    },
     "nuschtosSearch": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -577,7 +557,6 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nu_scripts": "nu_scripts",
-        "nur-ryan4yin": "nur-ryan4yin",
         "woxVim": "woxVim"
       }
     },

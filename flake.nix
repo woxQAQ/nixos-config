@@ -69,11 +69,6 @@
       flake = false;
     };
 
-    nur-ryan4yin = {
-      url = "github:ryan4yin/nur-packages";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     woxVim = {
       url = "github:woxQAQ/nixvim";
       # inputs.nixpkgs.follows = "nixpkgs";
