@@ -3,7 +3,7 @@
   home.packages = with pkgs; [
     clash-nyanpasu
     netease-cloud-music-gtk
-    n8n
+    # n8n
     insomnia
     notepad-next
 

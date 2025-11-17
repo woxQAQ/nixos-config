@@ -22,7 +22,7 @@ in
       hmcl
       winetricks
       prismlauncher
-      ryujinx-greemdev
+      ryubing
       mgba
     ];
     programs.lutris = {

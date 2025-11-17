@@ -17,7 +17,7 @@
     # replace of df
     duf
     # replace of du
-    du-dust
+    dust
     # replacement of du interactively
     ncdu
     # replace of find
