@@ -7,20 +7,16 @@
 }@args:
 let
   enabled = config.modules.desktop.environment == "hyprland";
-  imported = [
-    ./waybar.nix
-    ./anyrun.nix
-    ./xdg.nix
-    ./apps.nix
-    ./pkgs.nix
-    ./conf
-  ];
-  _import = path: (import path args);
 in
 {
   config = lib.mkIf enabled (
-    lib.mkMerge (map _import imported)
-    ++ [
+    lib.mkMerge [
+      (import ./waybar.nix)
+      (import ./anyrun.nix args)
+      (import ./xdg.nix args)
+      (import ./apps.nix args)
+      (import ./pkgs.nix args)
+      (import ./conf args)
       {
         home.file.".wayland-session" = {
           source = "${pkgs.hyprland}/bin/Hyprland";
