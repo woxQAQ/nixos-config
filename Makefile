@@ -3,6 +3,9 @@ DARWIN_HOST = "woxMac"
 WOXVIM_FLAKE_INPUT = "woxVim"
 OS = $(shell uname)
 _SWITCH_FLAGS ?=
+SUBSTITUTERS = https://mirror.sjtu.edu.cn/nix-channels/store
+_USE_SUBSTITUTERS = 0
+OPTIONS ?=
 
 TRACE ?= 0
 .DEFAULT_GOAL := switch
@@ -16,6 +19,10 @@ endif
 
 ifeq ($(TRACE),1)
 _SWITCH_FLAGS += --show-trace
+endif
+
+ifeq ($(_USE_SUBSTITUTERS),1)
+OPTIONS += --option $(SUBSTITUTERS)
 endif
 
 
@@ -39,7 +46,8 @@ shell:
 
 .PHONY: switch switch-wsl switch-darwin
 switch: fmt
-	sudo nixos-rebuild switch --flake ".#${NIXOS_HOST}" $(_SWITCH_FLAGS)
+	sudo nixos-rebuild switch --flake ".#${NIXOS_HOST}" \
+	$(_SWITCH_FLAGS) $(OPTIONS)
 
 switch-wsl: fmt
 	sudo nixos-rebuild switch --flake .#wsl $(_SWITCH_FLAGS)

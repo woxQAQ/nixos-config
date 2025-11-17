@@ -2,6 +2,7 @@
 {
   imports = [
     ./game
+    ./gnome
     ./misc.nix
     ./xdg.nix
     ./fonts.nix

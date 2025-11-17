@@ -10,12 +10,14 @@ let
     ../modules/${system}/packages
     ../modules/${system}/desktop
     ../modules/${system}/system
-    ../modules/${system}/boot
+    # ../modules/${system}/boot
     ../modules/public
   ]
   ++ [
     {
-      modules.desktop.game.enable = false;
+      modules.desktop = {
+        environment = "gnome";
+      };
     }
   ];
   home-modules = [

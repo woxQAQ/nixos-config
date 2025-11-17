@@ -39,10 +39,6 @@
             '';
           };
       };
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot";
-      };
     };
     tmp.cleanOnBoot = true;
   };

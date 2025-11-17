@@ -15,7 +15,7 @@
   #   enable32Bit = true;
   # };
   boot.loader = {
-    grub.device = "/dev/sda1";
+    grub.device = "/dev/sda";
   };
   system.stateVersion = stateVersion;
   nixpkgs = {
