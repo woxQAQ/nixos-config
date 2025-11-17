@@ -10,11 +10,6 @@ let
   cfg = config.modules.desktop.game;
 in
 {
-  options.modules.desktop = {
-    game = {
-      enable = mkEnableOption "Gaming";
-    };
-  };
   imports = with nix-gaming.nixosModules; [
     pipewireLowLatency
     platformOptimizations

@@ -1,12 +1,5 @@
-{ pkgs, username, ... }:
+{ pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [
-    (writeShellScriptBin "python" ''
-      export LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH
-      exec ${python3}/bin/python "$@"
-    '')
-  ];
-  nix.settings.trusted-users = [ username ];
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
@@ -28,5 +21,4 @@
       libgcc
     ];
   };
-  environment.variables.EDITOR = "vim";
 }

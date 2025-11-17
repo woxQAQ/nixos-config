@@ -1,4 +1,16 @@
-_: {
+{
+  mylib,
+  lib,
+  config,
+  ...
+}:
+let
+  commonPort = [
+    22
+    7890
+  ];
+in
+{
   networking = {
     timeServers = [
       "ntp.aliyun.com" # Aliyun NTP Server
@@ -7,9 +19,11 @@ _: {
     firewall = {
       enable = true;
       allowPing = false;
-      allowedTCPPorts = [ 7890 ];
-      allowedUDPPorts = [ 7890 ];
+      allowedTCPPorts = commonPort;
+      allowedUDPPorts = commonPort;
     };
+    networkmanager.enable = true;
+    nftables.enable = true;
   };
 
   services.avahi = {
@@ -21,7 +35,7 @@ _: {
       userServices = true;
     };
   };
-  services.dnscrypt-proxy = {
+  services.dnscrypt-proxy = lib.mkIf (!mylib.iswsl config) {
     enable = true;
     settings = {
       require_dnssec = true;

@@ -14,4 +14,10 @@
     );
   getDir = import ./getDir.nix;
   flakeRoot = lib.path.append ../.;
+  iswsl =
+    config:
+    if builtins.hasAttr "wsl" config then
+      (if builtins.hasAttr "enable" config.wsl then config.wsl.enable else false)
+    else
+      false;
 }

@@ -1,24 +1,15 @@
-{ pkgs, ... }:
+{ ... }:
 {
   imports = [
+    ./fcitx
     ./hyprland
-    ./waypaper.nix
-    ./gtk.nix
     ./browsers
+    ./gtk.nix
     ./game.nix
     ./xdg.nix
-    ./ides.nix
+    # ./ides.nix
     ./qt.nix
     ./cursor.nix
+    ./options.nix
   ];
-
-  home.packages = with pkgs; [
-    # mihomo-party
-    clash-nyanpasu
-    netease-cloud-music-gtk
-    n8n
-    insomnia
-    notepad-next
-  ];
-
 }

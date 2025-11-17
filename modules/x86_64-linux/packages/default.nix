@@ -1,4 +1,6 @@
 { ... }:
 {
-  imports = [ ./trace.nix ];
+  imports = [
+    ./trace.nix
+  ];
 }

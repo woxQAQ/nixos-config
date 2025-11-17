@@ -33,6 +33,13 @@ nix-darwin.lib.darwinSystem {
   modules =
     darwin-modules
     ++ [
+      {
+        _module.args = {
+          inherit inputs;
+        };
+      }
+    ]
+    ++ [
       (
         _:
         let

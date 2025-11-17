@@ -46,7 +46,6 @@
 
     ### UTILS ###
     gdb
-    nodePackages.jsonlint
     checkmake
     shellspec
 

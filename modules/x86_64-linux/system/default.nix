@@ -8,6 +8,8 @@
     ./misc.nix
     ./user.nix
     ./security.nix
+    ./fhs.nix
+    ./environment.nix
     ./optimization.nix
   ];
 }

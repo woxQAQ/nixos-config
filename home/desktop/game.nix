@@ -9,11 +9,6 @@ let
   cfg = config.modules.desktop.game;
 in
 {
-  options.modules.desktop = {
-    game = {
-      enable = mkEnableOption "Gaming";
-    };
-  };
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       # snex9x
@@ -22,7 +17,7 @@ in
       hmcl
       winetricks
       prismlauncher
-      ryujinx-greemdev
+      ryubing
       mgba
     ];
     programs.lutris = {

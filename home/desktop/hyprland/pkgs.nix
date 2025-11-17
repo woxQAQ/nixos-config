@@ -23,7 +23,6 @@
     hyprcursor
     hyprshot
     imv
-    networkmanagerapplet
     pavucontrol
     playerctl
     # swaybg

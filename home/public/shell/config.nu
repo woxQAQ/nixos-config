@@ -15,7 +15,7 @@ $env.config = {
     completions: {
         case_sensitive: false
         quick: true
-        algorithm: "prefix"
+        algorithm: "fuzzy"
         partial: true
     }
     use_kitty_protocol: false
@@ -98,6 +98,10 @@ export def proxy-daemon [] {
     # Create systemd override file
     let config_content = "[Service]
 Environment=\"https_proxy=http://localhost:7890\""
+
+    if not ($config_file | exists) {
+      touch $config_file
+    }
 
     sudo $config_content | save $config_file
 

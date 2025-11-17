@@ -9,7 +9,8 @@ let
   nixos-modules = [
     inputs.nixos-wsl.nixosModules.wsl
     ../hosts/${name}
-    ../modules/${system}
+    ../modules/${system}/system
+    ../modules/${system}/packages
     ../modules/public
   ];
   home-modules = [
