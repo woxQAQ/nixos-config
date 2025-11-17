@@ -2,6 +2,7 @@
 {
   boot = {
     loader.grub = {
+      device = "nodev";
       default = 0;
       extraEntries = ''
         menuentry "Windows" {

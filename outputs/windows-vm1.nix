@@ -10,7 +10,7 @@ let
     ../modules/${system}/packages
     ../modules/${system}/desktop
     ../modules/${system}/system
-    # ../modules/${system}/boot
+    ../modules/${system}/boot
     ../modules/public
   ]
   ++ [

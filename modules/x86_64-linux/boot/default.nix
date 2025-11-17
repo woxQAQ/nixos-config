@@ -5,7 +5,7 @@
     loader = {
       grub = {
         enable = true;
-        device = "nodev";
+        # device = "nodev";
         efiSupport = true;
         gfxmodeEfi = "2715x1527"; # for 4k: 3840x2160
         gfxmodeBios = "2715x1527"; # for 4k: 3840x2160
