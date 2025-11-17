@@ -1,12 +1,13 @@
 { ... }:
 {
   imports = [
-    ./misc.nix
     ./game
+    ./misc.nix
+    ./xdg.nix
     ./fonts.nix
     ./pipewire.nix
-    ./dm
     ./greetd.nix
+    ./options.nix
     ./packages.nix
   ];
 }
