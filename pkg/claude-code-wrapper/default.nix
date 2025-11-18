@@ -2,7 +2,11 @@
 {
   writeShellScriptBin,
   claude-code,
+  jq,
 }:
+let
+  jqbin = "${jq}/bin/jq";
+in
 writeShellScriptBin "claude"
   #sh
   ''
@@ -34,6 +38,9 @@ writeShellScriptBin "claude"
 
     # Load environment variables from .env files
     load_env_files
+
+    # Skip Claude auth 
+    ${jqbin} '.hasCompletedOnboarding=true' $HOME/.claude.json
 
     # Execute the actual claude-code with all arguments
     exec ${claude-code}/bin/claude "$@"

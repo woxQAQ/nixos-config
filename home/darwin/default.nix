@@ -5,9 +5,9 @@
   osConfig,
   ...
 }:
-let
-  xterminal = pkgs.callPackage ../../pkg/xterminal { };
-in
+# let
+#   xterminal = pkgs.callPackage ../../pkg/xterminal { };
+# in
 {
   imports = [
     ./aerospace
@@ -34,7 +34,7 @@ in
       podman-tui
       # an util for apply & edit UPS patcher
       # ups
-      xterminal
+      # xterminal
       # paper collect & manager
       zotero
       #keep-sorted end
