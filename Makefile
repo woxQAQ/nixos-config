@@ -47,7 +47,7 @@ shell:
 .PHONY: switch switch-wsl switch-darwin
 switch: fmt
 	sudo nixos-rebuild switch --flake ".#${NIXOS_HOST}" \
-	$(_SWITCH_FLAGS) $(OPTIONS)
+		$(_SWITCH_FLAGS) $(OPTIONS)
 
 switch-wsl: fmt
 	sudo nixos-rebuild switch --flake .#wsl $(_SWITCH_FLAGS)

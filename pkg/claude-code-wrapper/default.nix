@@ -40,7 +40,9 @@ writeShellScriptBin "claude"
     load_env_files
 
     # Skip Claude auth 
-    ${jqbin} '.hasCompletedOnboarding=true' $HOME/.claude.json
+    ${jqbin} '.hasCompletedOnboarding = true' \
+      $HOME/.claude.json > $HOME/.claude.tmp.json
+    mv $HOME/.claude.tmp.json $HOME/.claude.json
 
     # Execute the actual claude-code with all arguments
     exec ${claude-code}/bin/claude "$@"
