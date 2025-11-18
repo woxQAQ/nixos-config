@@ -2,9 +2,10 @@
 {
   imports = [
     ./terminal
+    ./neovim
+    ./options.nix
     ./shell
     ./nix
-    ./npm.nix
     ./cava.nix
     ./pkgs.nix
     ./dev

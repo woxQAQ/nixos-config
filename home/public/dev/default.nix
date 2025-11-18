@@ -8,6 +8,7 @@
     ./go.nix
     ./claude-code.nix
     ./codex.nix
+    ./npm.nix
   ];
   home.packages = with pkgs; [
     ### NODEJS

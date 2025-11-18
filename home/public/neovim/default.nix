@@ -6,12 +6,9 @@
   ...
 }:
 let
-  cfg = config.modules.public.terminal.neovim;
+  cfg = config.modules.public.neovim;
 in
 {
-  options.modules.public.terminal.neovim = {
-    enable = lib.mkEnableOption "neovim";
-  };
   config = lib.mkIf cfg.enable {
     home.packages = [
       woxVim.packages.${system}.default

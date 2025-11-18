@@ -1,39 +1,49 @@
-{ pkgs, ... }:
 {
-  programs.alacritty = {
-    enable = true;
-    settings = {
-      window = {
-        decorations = "none";
-        opacity = 0.93;
-        dynamic_title = true;
-        padding = {
-          x = 5;
-          y = 5;
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+let
+  cfg = config.modules.public.terminal;
+in
+{
+  config = lib.mkIf (cfg == "alacritty") {
+    programs.alacritty = {
+      enable = true;
+      settings = {
+        window = {
+          decorations = "none";
+          opacity = 0.93;
+          dynamic_title = true;
+          padding = {
+            x = 5;
+            y = 5;
+          };
+          startup_mode = "Maximized";
         };
-        startup_mode = "Maximized";
-      };
 
-      terminal = {
-        shell = {
-          program = "${pkgs.bash}/bin/bash";
-          args = [
-            "--login"
-            "-c"
-            "nu --login --interactive"
-          ];
+        terminal = {
+          shell = {
+            program = "${pkgs.bash}/bin/bash";
+            args = [
+              "--login"
+              "-c"
+              "nu --login --interactive"
+            ];
+          };
+          osc52 = "CopyPaste";
         };
-        osc52 = "CopyPaste";
-      };
 
-      scrolling.history = 10000;
+        scrolling.history = 10000;
 
-      font = {
-        normal.family = "Maple Mono NF CN";
-        bold.family = "Maple Mono NF CN";
-        italic.family = "Maple Mono NF CN";
-        bold_italic.family = "Maple Mono NF CN";
-        size = if pkgs.stdenv.isDarwin then 14 else 13;
+        font = {
+          normal.family = "Maple Mono NF CN";
+          bold.family = "Maple Mono NF CN";
+          italic.family = "Maple Mono NF CN";
+          bold_italic.family = "Maple Mono NF CN";
+          size = if pkgs.stdenv.isDarwin then 14 else 13;
+        };
       };
     };
   };

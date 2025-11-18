@@ -4,6 +4,6 @@
     ./kitty.nix
     ./foot.nix
     ./alacritty.nix
-    ./neovim
   ];
+  programs.bash.enable = true;
 }
