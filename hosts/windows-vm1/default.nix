@@ -1,5 +1,7 @@
 {
   stateVersion,
+  username,
+  pkgs,
   ...
 }:
 {
@@ -20,11 +22,14 @@
   system.stateVersion = stateVersion;
   services.openssh = {
     enable = true;
-    passwordAuthentication = true;
+    settings = {
+      PasswordAuthentication = true;
+    };
   };
   nixpkgs = {
     config = {
       allowUnfree = true;
     };
   };
+  users.users.${username}.shell = pkgs.nushell;
 }
