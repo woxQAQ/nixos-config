@@ -44,11 +44,11 @@ in
       # "podman"
       # "podman-compose"
     ];
-    masApps = {
-      Wechat = 836500024;
-      QQ = 451108668;
-      TecentMeeting = 1484048379;
-    };
+    # masApps = {
+    #   Wechat = 836500024;
+    #   QQ = 451108668;
+    #   TecentMeeting = 1484048379;
+    # };
     casks = [
       # keep-sorted start
 
