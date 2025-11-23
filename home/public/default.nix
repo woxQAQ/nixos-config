@@ -4,6 +4,7 @@
     ./terminal
     ./neovim
     ./options.nix
+    ./helix
     ./shell
     ./nix
     ./cava.nix

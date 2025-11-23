@@ -10,6 +10,9 @@
     neovim = {
       enable = lib.mkEnableOption "neovim";
     };
+    helix = {
+      enable = lib.mkEnableOption "neovim";
+    };
     terminal = lib.mkOption {
       type = lib.types.nullOr (
         lib.types.enum [

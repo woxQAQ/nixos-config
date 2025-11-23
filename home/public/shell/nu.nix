@@ -12,7 +12,7 @@
         const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}']
         use custom-completions/git/git-completions.nu *
         use custom-completions/gh/gh-completions.nu *
-        use custom-completions/tealdeer/tealeer-completions.nu *
+        use custom-completions/tealdeer/tldr-completions.nu *
         use custom-completions/tar/tar-completions.nu *
         use custom-completions/zellij/zellij-completions.nu *
         use custom-completions/docker/docker-completions.nu *
