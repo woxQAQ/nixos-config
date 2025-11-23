@@ -69,6 +69,8 @@
       flake = false;
     };
 
+    vicinae.url = "github:vicinaehq/vicinae"; # tell Nixos where to get Vicinae
+
     woxVim = {
       url = "github:woxQAQ/nixvim";
       # inputs.nixpkgs.follows = "nixpkgs";

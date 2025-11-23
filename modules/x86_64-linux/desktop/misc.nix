@@ -13,10 +13,10 @@
         thunar-media-tags-plugin
       ];
     };
-    file-roller = {
-      enable = true;
-      package = pkgs.file-roller;
-    };
+    # file-roller = {
+    #   enable = true;
+    #   package = pkgs.file-roller;
+    # };
   };
   services = {
     dbus = {
