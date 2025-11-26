@@ -10,12 +10,17 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    home.packages = [
-      woxVim.packages.${system}.default
-    ];
-    home.shellAliases = {
-      "vi" = "nvim";
-      "vim" = "nvim";
+    home = {
+      packages = [
+        woxVim.packages.${system}.default
+      ];
+      shellAliases = {
+        "vi" = "nvim";
+        "vim" = "nvim";
+      };
+      sessionVariables = {
+        EDITOR = "nvim --clean";
+      };
     };
   };
 }

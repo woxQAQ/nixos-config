@@ -22,6 +22,7 @@ let
         cloud-native.enable = true;
         desktop.enable = true;
         neovim.enable = true;
+        helix.enable = true;
       };
     }
   ];
