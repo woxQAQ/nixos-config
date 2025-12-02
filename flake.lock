@@ -665,11 +665,11 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1763647266,
-        "narHash": "sha256-NPmO8YsXlV3wEJV/akig2FhT/1dtD5DUApcvtHp4Bj0=",
+        "lastModified": 1764668492,
+        "narHash": "sha256-2pUi3bzA5qEBRUoNp29u2mwusNpLGiyOMXRA4j69Aws=",
         "owner": "woxQAQ",
         "repo": "nixvim",
-        "rev": "c2ca1e71f33b6843cd3143923aba55a2c30764f4",
+        "rev": "182f3128a8a6516d7633d7e360d7b3aa51a6492b",
         "type": "github"
       },
       "original": {

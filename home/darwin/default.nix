@@ -2,6 +2,7 @@
   username,
   pkgs,
   lib,
+  config,
   osConfig,
   ...
 }:
@@ -40,6 +41,17 @@
       #keep-sorted end
     ];
   };
-
+  programs.mpv = {
+    enable = true;
+    config = {
+      screenshot-format = "webp";
+      screenshot-webp-lossless = true;
+      screenshot-directory = "${config.home.homeDirectory}/Pictures/Screenshots/mpv";
+      screenshot-sw = true;
+    };
+    scripts = with pkgs.mpvScripts; [
+      thumbnail
+    ];
+  };
   xdg.enable = true;
 }

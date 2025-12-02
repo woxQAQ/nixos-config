@@ -8,7 +8,7 @@ let
   cfg = config.modules.public.terminal;
 in
 {
-  config = lib.mkIf (cfg == "kitty") {
+  config = lib.mkIf (cfg.emulator == "kitty") {
     programs.kitty = {
       enable = true;
       keybindings = {
@@ -16,8 +16,8 @@ in
         "ctrl+shift+f" = "show_scrollback";
       };
       font = {
-        name = "Maple Mono NF CN";
-        size = if pkgs.stdenv.isDarwin then 13 else 14;
+        name = cfg.font-family;
+        size = cfg.font-size;
       };
       darwinLaunchOptions = [ "--start-as=maximized" ];
       settings = {

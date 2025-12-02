@@ -8,7 +8,7 @@ let
   cfg = config.modules.public.terminal;
 in
 {
-  config = lib.mkIf (cfg == "alacritty") {
+  config = lib.mkIf (cfg.emulator == "alacritty") {
     programs.alacritty = {
       enable = true;
       settings = {
@@ -38,11 +38,11 @@ in
         scrolling.history = 10000;
 
         font = {
-          normal.family = "Maple Mono NF CN";
-          bold.family = "Maple Mono NF CN";
-          italic.family = "Maple Mono NF CN";
-          bold_italic.family = "Maple Mono NF CN";
-          size = if pkgs.stdenv.isDarwin then 14 else 13;
+          normal.family = cfg.font-family;
+          bold.family = cfg.font-family;
+          italic.family = cfg.font-family;
+          bold_italic.family = cfg.font-family;
+          size = cfg.font-size;
         };
       };
     };

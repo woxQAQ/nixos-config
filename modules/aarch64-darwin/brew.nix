@@ -78,7 +78,7 @@ in
       # cursor AI IDE
       "cursor"
       # a easy-to-use translation dictionary
-      "easydict"
+      # "easydict"
       "feishu"
       # opensource rss reader powered by rsshub
       "folo"
@@ -94,6 +94,7 @@ in
       "obs"
       # obsidian note
       "obsidian"
+      "pot"
       # input method
       "squirrel-app"
       # menubar computer monitor
