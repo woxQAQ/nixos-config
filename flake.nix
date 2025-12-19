@@ -73,7 +73,7 @@
 
     woxVim = {
       url = "github:woxQAQ/nixvim";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # keep-sorted end

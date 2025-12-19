@@ -1,8 +1,12 @@
 {
   nu_scripts,
+  pkgs,
   ...
 }:
 {
+  home.packages = with pkgs.nushellPlugins; [
+    query
+  ];
   programs.nushell = {
     enable = true;
     configFile.source = ./config.nu;
