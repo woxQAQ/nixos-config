@@ -4,7 +4,7 @@
   ...
 }:
 {
-  environment.variables.EDITOR = lib.mkDefault "nvim --clean";
+  environment.variables.EDITOR = lib.mkForce "nvim --clean";
   environment.systemPackages = with pkgs; [
     # morden shell
     nushell

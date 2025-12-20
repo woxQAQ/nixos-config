@@ -1,7 +1,6 @@
 {
   pkgs,
   username,
-  lib,
   ...
 }:
 {
@@ -13,5 +12,5 @@
   ];
   nix.settings.trusted-users = [ username ];
 
-  environment.variables.EDITOR = lib.mkForce "vim";
+  # environment.variables.EDITOR = lib.mkForce "vim";
 }

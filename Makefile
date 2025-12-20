@@ -1,6 +1,7 @@
 NIXOS_HOST ?= woxQAQ
 DARWIN_HOST = "woxMac"
 WOXVIM_FLAKE_INPUT = "woxVim"
+CLAUDE_CODE_FLAKE_INPUT = "nixpkgs-claude-code"
 OS = $(shell uname)
 _SWITCH_FLAGS ?=
 SUBSTITUTERS = https://mirror.sjtu.edu.cn/nix-channels/store
@@ -25,13 +26,20 @@ ifeq ($(_USE_SUBSTITUTERS),1)
 OPTIONS += --option $(SUBSTITUTERS)
 endif
 
-
 .PHONY: bump-flake repl shell
 bump-flake: fmt
 	$(NIX) flake update --flake .
 
 bump-woxVim: fmt
 	$(NIX) flake update ${WOXVIM_FLAKE_INPUT}
+	@ if [ $(OS) = "Darwin" ]; then \
+		$(MAKE) switch-darwin; \
+	else \
+		$(MAKE) switch; \
+	fi
+
+bump-claude-code: fmt
+	$(NIX) flake update ${CLAUDE_CODE_FLAKE_INPUT}
 	@ if [ $(OS) = "Darwin" ]; then \
 		$(MAKE) switch-darwin; \
 	else \

@@ -1,9 +1,9 @@
 {
-  pkgs,
+  claude-code-pkg,
   ...
 }:
 let
-  claude-code-wrapper = pkgs.callPackage ../../../pkg/claude-code-wrapper { };
+  claude-code-wrapper = claude-code-pkg.callPackage ../../../pkg/claude-code-wrapper { };
 in
 {
   home.packages = [

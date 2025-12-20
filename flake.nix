@@ -58,6 +58,10 @@
       # url = "github:NixOS/nixpkgs/master";
     };
 
+    nixpkgs-claude-code = {
+      url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    };
+
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
