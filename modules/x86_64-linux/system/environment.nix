@@ -1,4 +1,9 @@
-{ pkgs, username, ... }:
+{
+  pkgs,
+  username,
+  lib,
+  ...
+}:
 {
   environment.systemPackages = with pkgs; [
     (writeShellScriptBin "python" ''
@@ -8,5 +13,5 @@
   ];
   nix.settings.trusted-users = [ username ];
 
-  environment.variables.EDITOR = "vim";
+  environment.variables.EDITOR = lib.mkForce "vim";
 }
