@@ -6,6 +6,7 @@
 {
   imports = [
     ./cli/mpv.nix
+    ./dev
   ];
   home = {
     homeDirectory = "/home/${username}";

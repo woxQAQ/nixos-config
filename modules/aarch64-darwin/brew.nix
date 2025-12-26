@@ -77,6 +77,7 @@ in
       "coteditor"
       # cursor AI IDE
       "cursor"
+      "dbeaver-community"
       # a easy-to-use translation dictionary
       # "easydict"
       "feishu"

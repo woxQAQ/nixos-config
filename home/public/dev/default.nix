@@ -56,7 +56,6 @@
     # llm cli
     aichat
     # database Management GUI
-    dbeaver-bin
   ];
   # home.file.".npmrc".text = ''
   #   prefix=~/.npm-packages
