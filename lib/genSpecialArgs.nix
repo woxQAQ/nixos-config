@@ -4,8 +4,14 @@
   inputs,
   stateVersion,
   mylib,
+  lib,
   ...
 }:
+let
+  valuesPath = ../hosts/${username}/values.nix;
+  hasValues = builtins.pathExists valuesPath;
+  hostValues = if hasValues then import valuesPath else { };
+in
 inputs
 // {
   inherit
@@ -29,3 +35,4 @@ inputs
     };
   };
 }
+// lib.optionalAttrs hasValues { inherit hostValues; }

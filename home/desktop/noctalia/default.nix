@@ -3,8 +3,12 @@
   config,
   pkgs,
   lib,
+  hostValues,
   ...
 }:
+let
+  inherit (hostValues) defaultWallpaper;
+in
 {
   imports = [
     noctalia.homeModules.default
@@ -17,6 +21,7 @@
   programs.noctalia-shell = {
     enable = true;
   };
+  home.file.".wallpaper/${defaultWallpaper}".source = ../../../assets/${defaultWallpaper};
 
   xdg.configFile =
     let
