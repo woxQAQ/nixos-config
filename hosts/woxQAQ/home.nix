@@ -5,7 +5,7 @@
     netease-cloud-music-gtk
     # n8n
     insomnia
-    notepad-next
+    # notepad-next
 
     pamixer
     go-musicfox

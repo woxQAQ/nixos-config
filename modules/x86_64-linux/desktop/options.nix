@@ -9,6 +9,7 @@ with lib;
           types.enum [
             "hyprland"
             "gnome"
+            "niri"
           ]
         );
         default = "hyprland";
