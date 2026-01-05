@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   home.packages = with pkgs; [
     clash-nyanpasu
@@ -23,4 +23,6 @@
     obs-studio
     wineWowPackages.wayland
   ];
+  xdg.configFile."niri/niri-hardware.kdl".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/hosts/woxQAQ/niri-hardware.kdl";
 }

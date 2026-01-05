@@ -56,6 +56,7 @@ let
         modules.desktop.environment = "niri";
       }
     ];
+    username = name;
   };
   # modules_ = {
   #   inherit nixos-modules home-modules;

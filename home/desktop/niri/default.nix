@@ -3,13 +3,15 @@
   lib,
   config,
   ...
-}:
+}@args:
 let
-  cfg = config.modules.desktop.environment;
+  cfg = config.modules.desktop;
+  enabled = cfg.environment == "niri";
 in
 {
-  config = lib.mkIf cfg.enable (
+  config = lib.mkIf enabled (
     lib.mkMerge [
+      (import ./conf args)
       {
         home.packages = with pkgs; [
           xwayland-satellite

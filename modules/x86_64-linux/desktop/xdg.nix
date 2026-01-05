@@ -1,5 +1,11 @@
 { pkgs, ... }:
 {
+  # xdg = {
+  #   autostart = lib.mkDefault true;
+  #   menus = lib.mkDefault true;
+  #   mine = lib.mkDefault true;
+  #   icons = lib.mkDefault true;
+  # };
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;

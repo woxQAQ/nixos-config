@@ -6,9 +6,10 @@
 }:
 let
   _env = config.modules.desktop.environment;
+  iswayland = _env == "hyprland" || _env == "niri";
 in
 {
-  config = lib.mkIf (_env == "hyprland") {
+  config = lib.mkIf iswayland {
     services = {
       greetd = {
         enable = true;

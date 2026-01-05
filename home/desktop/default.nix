@@ -4,6 +4,9 @@
     ./fcitx
     ./hyprland
     ./browsers
+    ./niri
+    ./noctalia
+
     ./gtk.nix
     ./game.nix
     ./xdg.nix

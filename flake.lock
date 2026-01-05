@@ -535,6 +535,26 @@
         "type": "github"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1767588718,
+        "narHash": "sha256-6ZZyvqJfKXRWSYFPynrwspn9nxcz/nN5qsYUbkIftAs=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "23af430dd883b9590295341ebb44fba186b2c3e8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
     "nu_scripts": {
       "flake": false,
       "locked": {
@@ -589,6 +609,7 @@
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "noctalia": "noctalia",
         "nu_scripts": "nu_scripts",
         "vicinae": "vicinae",
         "woxVim": "woxVim"

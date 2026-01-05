@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  enabled = config.modules.desktop.environment == "gnome";
+  enabled = config.modules.desktop.environment == "niri";
 in
 {
   config = lib.mkIf enabled {
