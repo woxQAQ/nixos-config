@@ -40,7 +40,7 @@ in
     };
 
     Service = {
-      ExecStart = lib.getExe pkgs.noctalia-shell;
+      ExecStart = lib.getExe noctalia.packages.${pkgs.system}.default;
       Restart = "on-failure";
 
       Environment = [
