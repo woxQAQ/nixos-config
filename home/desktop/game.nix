@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  osConfig,
   ...
 }:
 with lib;
@@ -19,12 +20,17 @@ in
       prismlauncher
       ryubing
       mgba
+      bbe
+      umu-launcher
+      protonplus
+      mangohud
     ];
 
     programs.lutris = {
       enable = true;
       defaultWinePackage = pkgs.proton-ge-bin;
       protonPackages = [ pkgs.proton-ge-bin ];
+      steamPackage = osConfig.programs.steam.package;
       winePackages = with pkgs; [
         wineWow64Packages.full
         wineWowPackages.stagingFull

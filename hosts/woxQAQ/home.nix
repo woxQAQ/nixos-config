@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 {
   home.packages = with pkgs; [
-    clash-nyanpasu
+    # clash-nyanpasu
     netease-cloud-music-gtk
     # n8n
     insomnia

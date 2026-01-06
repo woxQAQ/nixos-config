@@ -25,10 +25,10 @@ in
         ];
       };
       gamemode = {
-        enable = pkgs.stdenv.isx86_64;
+        enable = true;
       };
       steam = {
-        enable = pkgs.stdenv.isx86_64;
+        enable = true;
         dedicatedServer.openFirewall = false;
         gamescopeSession.enable = true;
         protontricks.enable = true;
