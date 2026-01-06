@@ -10,5 +10,6 @@
     ./greetd.nix
     ./options.nix
     ./packages.nix
+    ./niri.nix
   ];
 }

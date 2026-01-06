@@ -68,6 +68,11 @@
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nu_scripts = {
       url = "github:nushell/nu_scripts";
       flake = false;
@@ -77,7 +82,7 @@
 
     woxVim = {
       url = "github:woxQAQ/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # keep-sorted end

@@ -7,7 +7,7 @@
     dconf.enable = true;
     thunar = {
       enable = true;
-      plugins = with pkgs.xfce; [
+      plugins = with pkgs; [
         thunar-archive-plugin
         thunar-volman
         thunar-media-tags-plugin
@@ -25,15 +25,14 @@
 
     ollama = {
       enable = false;
+      package = pkgs.ollama-rocm;
       port = 11111;
       loadModels = [
         "nomic-embed-text"
       ];
-      acceleration = "rocm";
       environmentVariables = {
         HCC_AMDGPU_TARGET = "gfx1010";
       };
-      rocmOverrideGfx = "10.1.0";
     };
     keyd = {
       enable = true;

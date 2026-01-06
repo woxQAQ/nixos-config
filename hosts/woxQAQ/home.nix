@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   home.packages = with pkgs; [
     clash-nyanpasu
     netease-cloud-music-gtk
     # n8n
     insomnia
-    notepad-next
+    # notepad-next
 
     pamixer
     go-musicfox
@@ -23,4 +23,6 @@
     obs-studio
     wineWowPackages.wayland
   ];
+  xdg.configFile."niri/niri-hardware.kdl".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/hosts/woxQAQ/niri-hardware.kdl";
 }

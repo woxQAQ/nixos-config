@@ -45,13 +45,26 @@ let
       };
     }
   ];
-  modules_ = {
-    inherit nixos-modules home-modules;
+  niri-modules = {
+    nixos-modules = nixos-modules ++ [
+      {
+        modules.desktop.environment = "niri";
+      }
+    ];
+    home-modules = home-modules ++ [
+      {
+        modules.desktop.environment = "niri";
+      }
+    ];
     username = name;
   };
+  # modules_ = {
+  #   inherit nixos-modules home-modules;
+  #   username = name;
+  # };
 in
 {
   nixosConfigurations = {
-    "${name}" = mylib.mkHost (args // modules_);
+    "${name}" = mylib.mkHost (args // niri-modules);
   };
 }

@@ -18,6 +18,7 @@ with lib;
         type = types.nullOr (
           types.enum [
             "hyprland"
+            "niri"
             "gnome"
           ]
         );

@@ -10,11 +10,9 @@ let
 in
 {
   config = mkIf cfg.enable {
-    xdg.configFile = {
-      "fcitx5/profile" = {
-        source = ./profile.conf;
-        force = true;
-      };
+    home.file.".config/fcitx5/profile" = {
+      source = ./profile.conf;
+      force = true;
     };
     i18n.inputMethod = {
       enable = true;

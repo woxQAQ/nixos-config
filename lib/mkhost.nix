@@ -19,6 +19,7 @@ let
       username
       stateVersion
       mylib
+      lib
       ;
   };
 in
