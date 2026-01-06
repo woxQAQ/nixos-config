@@ -58,6 +58,8 @@
       # url = "github:NixOS/nixpkgs/master";
     };
 
+    # NOTE: use this input to a better claude code version control without affect other apps' version
+    # when use a unified nixpkgs inputs.
     nixpkgs-claude-code = {
       url = "github:nixos/nixpkgs/nixpkgs-unstable";
     };

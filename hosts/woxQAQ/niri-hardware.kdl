@@ -4,3 +4,5 @@ output "DP-3" {
   mode "2560x1440@144"
   position x=0 y=0
 }
+
+spawn-at-startup "clash-nyanpasu"
