@@ -1,6 +1,8 @@
 {
   pkgs,
   username,
+  inputs,
+  system,
   ...
 }:
 {
@@ -9,6 +11,7 @@
       export LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH
       exec ${python3}/bin/python "$@"
     '')
+    inputs.agenix.packages.${system}.default
   ];
   nix.settings.trusted-users = [ username ];
 

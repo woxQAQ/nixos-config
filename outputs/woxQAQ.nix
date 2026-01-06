@@ -8,6 +8,7 @@ let
   name = "woxQAQ";
   nixos-modules = [
     inputs.agenix.nixosModules.default
+    ../secrets
     ../hosts/${name}
     ../modules/${system}/system
     ../modules/${system}/desktop

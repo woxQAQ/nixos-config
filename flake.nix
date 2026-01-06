@@ -17,9 +17,6 @@
 
     agenix = {
       url = "github:ryantm/agenix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
     };
 
     catppuccin = {
@@ -76,7 +73,12 @@
     };
 
     nu_scripts = {
-      url = "github:nushell/nu_scripts";
+      url = "github:nushell/nu_scripts?shallow=1";
+      flake = false;
+    };
+
+    secrets = {
+      url = "git+ssh://git@github.com/woxQAQ/nix-secrets.git?shallow=1";
       flake = false;
     };
 

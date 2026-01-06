@@ -25,6 +25,8 @@
   ];
   xdg.configFile."niri/niri-hardware.kdl".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/hosts/woxQAQ/niri-hardware.kdl";
+
+  programs.ssh.matchBlocks."github.com".identityFile = "${config.home.homeDirectory}/.ssh/id_ed25519";
   systemd.user.services.win11-steamapps-symlink = {
     Unit = {
       Description = "Create symlink to Windows Steam library";
