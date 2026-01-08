@@ -16,6 +16,7 @@
 
         source /etc/agenix/private.nu
         $env.CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1"
+        $env.ENABLE_LSP_TOOL = true
         $env.ANTHROPIC_API_KEY = $env.ZAI_API_KEY_ALT
         $env.ANTHROPIC_BASE_URL = "https://open.bigmodel.cn/api/anthropic"
 
