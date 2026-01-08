@@ -9,7 +9,6 @@
     ./claude-code.nix
     ./codex.nix
     ./npm.nix
-    ./vibe-kanban.nix
   ];
   home.packages = with pkgs; [
     ### NODEJS

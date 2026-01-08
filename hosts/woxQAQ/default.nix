@@ -9,6 +9,9 @@
     ./vm.nix
     ./cloud-native.nix
   ];
+  services.lact = {
+    enable = true;
+  };
 
   networking = {
     hostName = "woxQAQ";

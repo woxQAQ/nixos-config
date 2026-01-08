@@ -35,6 +35,7 @@
   environment.etc = {
     "agenix/private.nu" = {
       source = config.age.secrets."private.nu".path;
+      mode = "0644";
     };
   };
 }

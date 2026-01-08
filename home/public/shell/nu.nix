@@ -14,11 +14,11 @@
       ''
         # completion
 
+        source /etc/agenix/private.nu
         $env.CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1"
         $env.ANTHROPIC_API_KEY = $env.ZAI_API_KEY_ALT
         $env.ANTHROPIC_BASE_URL = "https://open.bigmodel.cn/api/anthropic"
 
-        source /etc/agenix/private.nu
         const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}']
         use custom-completions/git/git-completions.nu *
         use custom-completions/gh/gh-completions.nu *

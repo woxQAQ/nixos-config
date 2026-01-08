@@ -7,7 +7,8 @@
         "enableClipboardHistory": false,
         "iconMode": "native",
         "ignoreMouseInput": false,
-        "pinnedExecs": [],
+        "pinnedExecs": [
+        ],
         "position": "center",
         "screenshotAnnotationTool": "",
         "showCategories": true,
@@ -20,7 +21,8 @@
     "audio": {
         "cavaFrameRate": 30,
         "externalMixer": "pwvucontrol || pavucontrol",
-        "mprisBlacklist": [],
+        "mprisBlacklist": [
+        ],
         "preferredPlayer": "",
         "visualizerType": "linear",
         "volumeOverdrive": false,
@@ -29,12 +31,13 @@
     "bar": {
         "backgroundOpacity": 0.93,
         "capsuleOpacity": 1,
-        "density": "default",
+        "density": "comfortable",
         "exclusive": true,
         "floating": false,
         "marginHorizontal": 0.25,
         "marginVertical": 0.25,
-        "monitors": [],
+        "monitors": [
+        ],
         "outerCorners": true,
         "position": "top",
         "showCapsule": true,
@@ -73,7 +76,7 @@
                     "usePrimaryColor": false
                 },
                 {
-                    "compactMode": false,
+                    "compactMode": true,
                     "diskPath": "/",
                     "id": "SystemMonitor",
                     "showCpuTemp": true,
@@ -81,9 +84,9 @@
                     "showDiskUsage": false,
                     "showGpuTemp": true,
                     "showLoadAverage": false,
-                    "showMemoryAsPercent": false,
+                    "showMemoryAsPercent": true,
                     "showMemoryUsage": true,
-                    "showNetworkStats": true,
+                    "showNetworkStats": false,
                     "useMonospaceFont": true,
                     "usePrimaryColor": false
                 },
@@ -106,8 +109,8 @@
                     "showArtistFirst": true,
                     "showProgressRing": true,
                     "showVisualizer": true,
-                    "useFixedWidth": false,
-                    "visualizerType": "linear"
+                    "useFixedWidth": true,
+                    "visualizerType": "mirrored"
                 }
             ],
             "right": [
@@ -115,12 +118,14 @@
                     "id": "ScreenRecorder"
                 },
                 {
-                    "blacklist": [],
+                    "blacklist": [
+                    ],
                     "colorizeIcons": false,
                     "drawerEnabled": true,
                     "hidePassive": false,
                     "id": "Tray",
-                    "pinned": []
+                    "pinned": [
+                    ]
                 },
                 {
                     "hideWhenZero": false,
@@ -186,9 +191,9 @@
         "generateTemplatesForPredefined": true,
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
-        "matugenSchemeType": "scheme-fruit-salad",
+        "matugenSchemeType": "scheme-content",
         "predefinedScheme": "Catppuccin",
-        "schedulingMode": "off",
+        "schedulingMode": "location",
         "useWallpaperColors": true
     },
     "controlCenter": {
@@ -289,9 +294,11 @@
         "enabled": true,
         "floatingRatio": 1,
         "inactiveIndicators": false,
-        "monitors": [],
+        "monitors": [
+        ],
         "onlySameOutput": true,
-        "pinnedApps": [],
+        "pinnedApps": [
+        ],
         "pinnedStatic": false,
         "size": 1
     },
@@ -306,7 +313,7 @@
         "enableShadows": true,
         "forceBlackScreenCorners": false,
         "iRadiusRatio": 1,
-        "language": "",
+        "language": "zh-CN",
         "lockOnSuspend": true,
         "radiusRatio": 1,
         "scaleRatio": 1,
@@ -316,7 +323,7 @@
         "shadowOffsetY": 3,
         "showChangelogOnStartup": true,
         "showHibernateOnLockScreen": false,
-        "showScreenCorners": false,
+        "showScreenCorners": true,
         "showSessionButtonsOnLockScreen": true
     },
     "hooks": {
@@ -364,7 +371,8 @@
         "enabled": true,
         "location": "top_right",
         "lowUrgencyDuration": 3,
-        "monitors": [],
+        "monitors": [
+        ],
         "normalUrgencyDuration": 8,
         "overlayLayer": true,
         "respectExpireTimeout": false,
@@ -394,7 +402,8 @@
             4
         ],
         "location": "top_right",
-        "monitors": [],
+        "monitors": [
+        ],
         "overlayLayer": true
     },
     "screenRecorder": {
@@ -418,26 +427,38 @@
         "powerOptions": [
             {
                 "action": "lock",
+                "command": "",
+                "countdownEnabled": true,
                 "enabled": true
             },
             {
                 "action": "suspend",
+                "command": "",
+                "countdownEnabled": true,
                 "enabled": true
             },
             {
                 "action": "hibernate",
+                "command": "",
+                "countdownEnabled": true,
                 "enabled": true
             },
             {
                 "action": "reboot",
+                "command": "",
+                "countdownEnabled": true,
                 "enabled": true
             },
             {
                 "action": "logout",
+                "command": "",
+                "countdownEnabled": true,
                 "enabled": true
             },
             {
                 "action": "shutdown",
+                "command": "",
+                "countdownEnabled": true,
                 "enabled": true
             }
         ],
@@ -500,8 +521,8 @@
     "ui": {
         "bluetoothDetailsViewMode": "grid",
         "bluetoothHideUnnamedDevices": false,
-        "boxBorderEnabled": false,
-        "fontDefault": "Maple Mono NF CN",
+        "boxBorderEnabled": true,
+        "fontDefault": "Sarasa Gothic SC",
         "fontDefaultScale": 1,
         "fontFixed": "Maple Mono NF CN",
         "fontFixedScale": 1,
@@ -519,7 +540,8 @@
         "fillColor": "#000000",
         "fillMode": "crop",
         "hideWallpaperFilenames": false,
-        "monitorDirectories": [],
+        "monitorDirectories": [
+        ],
         "overviewEnabled": false,
         "panelPosition": "follow_bar",
         "randomEnabled": false,
