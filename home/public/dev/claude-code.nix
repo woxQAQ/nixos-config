@@ -1,5 +1,4 @@
-_:
-{
+_: {
   # NOTE: do not installed by nix untils it update the version
   # home.packages = with claude-code-pkg; [
   #   claude-code

@@ -1,6 +1,7 @@
 NIXOS_HOST ?= woxQAQ
 DARWIN_HOST = "woxMac"
 WOXVIM_FLAKE_INPUT = "woxVim"
+SECRET_FLAKE_INPUT = "secrets"
 CLAUDE_CODE_FLAKE_INPUT = "nixpkgs-claude-code"
 OS = $(shell uname)
 _SWITCH_FLAGS ?=
@@ -29,6 +30,10 @@ endif
 .PHONY: bump-flake repl shell
 bump-flake: fmt
 	$(NIX) flake update --flake .
+
+.PHONY: bump-flake repl shell
+bump-secrets: fmt
+	$(NIX) flake update ${SECRET_FLAKE_INPUT}
 
 bump-woxVim: fmt
 	$(NIX) flake update ${WOXVIM_FLAKE_INPUT}

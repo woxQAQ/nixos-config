@@ -8,6 +8,7 @@ let
   name = "woxMac";
   darwin-modules = [
     inputs.agenix.darwinModules.default
+    ../secrets
     ../hosts/${name}
     ../modules/${system}
     ../modules/public

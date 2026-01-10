@@ -17,6 +17,7 @@
     };
   };
   system = {
+    primaryUser = username;
     defaults = {
       menuExtraClock.Show24Hour = true;
       dock = {
