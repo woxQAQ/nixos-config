@@ -18,6 +18,9 @@
     #   package = pkgs.file-roller;
     # };
   };
+  environment.systemPackages = with pkgs; [
+    file-roller
+  ];
   security.sudo.keepTerminfo = true;
   services = {
     gvfs.enable = true; # Mount, trash, and other functionalities
