@@ -11,7 +11,7 @@
       enable = lib.mkEnableOption "neovim";
     };
     helix = {
-      enable = lib.mkEnableOption "neovim";
+      enable = lib.mkEnableOption "helix";
     };
     terminal = {
       emulator = lib.mkOption {

@@ -125,6 +125,7 @@
                     "hidePassive": false,
                     "id": "Tray",
                     "pinned": [
+                        "Fcitx"
                     ]
                 },
                 {
@@ -298,6 +299,7 @@
         ],
         "onlySameOutput": true,
         "pinnedApps": [
+            "net.lutris.Lutris"
         ],
         "pinnedStatic": false,
         "size": 1

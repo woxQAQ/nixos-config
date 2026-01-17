@@ -79,7 +79,7 @@
       }
     ];
     extraOptions = "--term xterm-256color";
-    extraConfig = "font-size=12";
+    extraConfig = "font-size=14";
     # Whether to use 3D hardware acceleration to render the console.
     hwRender = true;
   };

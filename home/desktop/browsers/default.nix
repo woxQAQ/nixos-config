@@ -5,7 +5,7 @@ in
 {
   config = {
     programs = {
-      firefox.enable = cfg == "firefox";
+      firefox.enable = true;
       chromium = {
         enable = cfg == "chromium";
         commandLineArgs = [

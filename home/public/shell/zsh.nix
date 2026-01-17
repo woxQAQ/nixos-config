@@ -10,6 +10,7 @@ let
   goBin = "${homeDir}/go/bin";
   npmBin = "${homeDir}/.npm/bin";
   cargoBin = "${homeDir}/cargo/bin";
+  bunBin = "${homeDir}/.cache/.bun/bin";
 in
 {
   programs.bash = {
@@ -17,7 +18,7 @@ in
     enableCompletion = true;
     bashrcExtra = # sh
       ''
-        export PATH=$PATH:${localBin}:${goBin}:${npmBin}:${cargoBin}
+        export PATH=$PATH:${localBin}:${goBin}:${npmBin}:${cargoBin}:${bunBin}
       '';
   };
   programs.zsh = {

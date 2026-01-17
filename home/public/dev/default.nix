@@ -56,6 +56,7 @@
     # llm cli
     aichat
     # database Management GUI
+    nufmt
   ];
   # home.file.".npmrc".text = ''
   #   prefix=~/.npm-packages

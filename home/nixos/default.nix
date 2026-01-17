@@ -6,6 +6,7 @@
 {
   imports = [
     ./cli/mpv.nix
+    ./pkgs.nix
     ./dev
   ];
   home = {

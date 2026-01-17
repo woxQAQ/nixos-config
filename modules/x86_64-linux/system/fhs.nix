@@ -7,6 +7,7 @@
       zstd
       stdenv.cc.cc
       curl
+      glib
       openssl
       attr
       libssh
