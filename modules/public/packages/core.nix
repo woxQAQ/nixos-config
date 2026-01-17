@@ -57,7 +57,7 @@
     # password generator
     pwgen-secure
 
-    killall
+    psmisc
 
     file
 

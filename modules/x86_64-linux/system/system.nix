@@ -13,5 +13,7 @@
     optimise = {
       automatic = true;
     };
+    settings.auto-optimise-store = true;
+    channel.enable = false;
   };
 }

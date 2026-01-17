@@ -9,6 +9,7 @@
     ./user.nix
     ./security.nix
     ./fhs.nix
+    ./ssh.nix
     ./environment.nix
     ./optimization.nix
   ];

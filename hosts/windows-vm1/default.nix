@@ -20,12 +20,7 @@
     grub.device = "/dev/sda";
   };
   system.stateVersion = stateVersion;
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = true;
-    };
-  };
+
   nixpkgs = {
     config = {
       allowUnfree = true;

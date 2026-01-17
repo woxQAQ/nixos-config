@@ -3,6 +3,7 @@
   nix-gaming,
   config,
   lib,
+  aagl,
   ...
 }:
 with lib;
@@ -13,8 +14,14 @@ in
   imports = with nix-gaming.nixosModules; [
     pipewireLowLatency
     platformOptimizations
+    aagl.nixosModules.default
   ];
   config = mkIf cfg.enable {
+    programs.anime-game-launcher = {
+      enable = true;
+      # package = aagl.anime-game-launcher; # for non-flakes
+      # package = inputs.aagl.packages.x86_64-linux.anime-game-launcher; # for flakes
+    };
     programs = {
       gamescope = {
         enable = true;

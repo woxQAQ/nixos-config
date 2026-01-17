@@ -3,14 +3,13 @@
   secrets,
   config,
   pkgs,
-  lib,
   ...
 }:
 {
-  launchd.daemons."activate-agenix".serviceConfig = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
-    StandardErrorPath = "/Library/Logs/org.nixos.activate-agenix.stderr.log";
-    StandardOutPath = "/Library/Logs/org.nixos.activate-agenix.stdout.log";
-  };
+  # launchd.daemons."activate-agenix".serviceConfig = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+  #   StandardErrorPath = "/Library/Logs/org.nixos.activate-agenix.stderr.log";
+  #   StandardOutPath = "/Library/Logs/org.nixos.activate-agenix.stdout.log";
+  # };
   age.identityPaths =
     if pkgs.stdenv.hostPlatform.isLinux then
       [
@@ -38,13 +37,13 @@
       }
       // user_readable;
     };
-  system.activationScripts.postActivation.text = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin ''
-    ${pkgs.nushell}/bin/nu -c '
-    if (ls /etc/agenix/ | length) > 0 {
-      sudo chown ${username} /etc/agenix/*
-    }
-    '
-  '';
+  # system.activationScripts.postActivation.text = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin ''
+  #   ${pkgs.nushell}/bin/nu -c '
+  #   if (ls /etc/agenix/ | length) > 0 {
+  #     sudo chown ${username} /etc/agenix/*
+  #   }
+  #   '
+  # '';
   environment.etc = {
     "agenix/private.nu" =
       if pkgs.stdenv.hostPlatform.isLinux then

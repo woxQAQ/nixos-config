@@ -11,5 +11,6 @@
     ./options.nix
     ./packages.nix
     ./niri.nix
+    ./network.nix
   ];
 }

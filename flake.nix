@@ -15,6 +15,10 @@
     # keep-sorted start block=yes newline_separated=yes
     # determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
+    aagl = {
+      url = "github:ezKEa/aagl-gtk-on-nix";
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
     };

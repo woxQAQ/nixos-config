@@ -10,5 +10,5 @@
   };
   security.rtkit.enable = true;
   services.pulseaudio.enable = false;
-  environment.systemPackages = with pkgs; [ pulseaudioFull ];
+  environment.systemPackages = with pkgs; [ pulseaudio ];
 }
