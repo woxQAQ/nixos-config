@@ -14,10 +14,10 @@
   inputs = {
     # keep-sorted start block=yes newline_separated=yes
     # determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-
-    aagl = {
-      url = "github:ezKEa/aagl-gtk-on-nix";
-    };
+    #
+    # aagl = {
+    #   url = "github:ezKEa/aagl-gtk-on-nix";
+    # };
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -70,6 +70,10 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    nixpkgs-zed = {
+      url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    };
 
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";

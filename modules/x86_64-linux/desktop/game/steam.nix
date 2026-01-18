@@ -3,7 +3,7 @@
   nix-gaming,
   config,
   lib,
-  aagl,
+  # aagl,
   ...
 }:
 with lib;
@@ -14,14 +14,14 @@ in
   imports = with nix-gaming.nixosModules; [
     pipewireLowLatency
     platformOptimizations
-    aagl.nixosModules.default
+    # aagl.nixosModules.default
   ];
   config = mkIf cfg.enable {
-    programs.anime-game-launcher = {
-      enable = true;
-      # package = aagl.anime-game-launcher; # for non-flakes
-      # package = inputs.aagl.packages.x86_64-linux.anime-game-launcher; # for flakes
-    };
+    # programs.anime-game-launcher = {
+    #   enable = true;
+    #   # package = aagl.anime-game-launcher; # for non-flakes
+    #   # package = inputs.aagl.packages.x86_64-linux.anime-game-launcher; # for flakes
+    # };
     programs = {
       gamescope = {
         enable = true;
@@ -51,6 +51,15 @@ in
 
     environment.systemPackages = with pkgs; [
       mangohud
+      gst_all_1.gstreamer
+      (pkgs.makeDesktopItem {
+        name = "stream-hidpi";
+        desktopName = "Steam (HiDPI)";
+        exec = "env GDK_SCALE=\"1.5\" steam %U";
+        categories = [ "Game" ];
+        icon = "steam";
+      })
     ];
+
   };
 }

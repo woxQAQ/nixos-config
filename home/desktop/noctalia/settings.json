@@ -125,7 +125,8 @@
                     "hidePassive": false,
                     "id": "Tray",
                     "pinned": [
-                        "Fcitx"
+                        "Fcitx",
+                        "tray-icon tray app"
                     ]
                 },
                 {

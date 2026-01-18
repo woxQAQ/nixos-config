@@ -28,6 +28,10 @@ inputs
     inherit system;
     config.allowUnfree = true;
   };
+  zed-pkg = import inputs.nixpkgs-zed {
+    inherit system;
+    config.allowUnfree = true;
+  };
   stable-pkg = import inputs.nixpkgs {
     inherit system;
     config = {
