@@ -64,7 +64,7 @@ in
       # a signing daemon for my IOS apps which not supported by app-store
       "altserver"
       # browser
-      "arc"
+      # "arc"
       # baidu netdisk
       "baidunetdisk"
       # password manager
@@ -90,7 +90,7 @@ in
       # netease cloud music
       "neteasemusic"
       # Notion APP
-      "notion"
+      # "notion"
       # Open broadcast studio
       "obs"
       # obsidian note
@@ -101,12 +101,12 @@ in
       # menubar computer monitor
       "stats"
       # "iina"
-      "steam"
+      # "steam"
       # open source MacOS disk cleaner
-      "tencent-lemon"
+      # "tencent-lemon"
       # AI IDE by Bytedance
-      "trae"
-      "visual-studio-code"
+      # "trae"
+      # "visual-studio-code"
       # keep-sorted end
     ];
   };
