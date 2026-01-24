@@ -1,9 +1,29 @@
 { pkgs, ... }:
+let
+  _helper = pkgs.callPackage ../../pkg/waydroid-helper { };
+in
 {
   environment.systemPackages = with pkgs; [
     docker-compose
+    bindfs
+    _helper
+    # waydroid-helper.overrideAttrs
+    # (_final: _prev: {
+    #   version = "0.2.9";
+    #
+    #   src = fetchFromGitHub {
+    #     owner = "ayasa520";
+    #     repo = "waydroid-helper";
+    #     tag = "v${version}";
+    #     hash = "sha256-I8DwaPQQz4eSyuTCwkbidhXACfpdOYcmGjP7d03DIU0=";
+    #   };
+    # })
   ];
   services.flatpak.enable = true;
+  systemd = {
+    packages = [ _helper ];
+    services.waydroid-mount.wantedBy = [ "multi-user.target" ];
+  };
 
   programs = {
     virt-manager.enable = true;

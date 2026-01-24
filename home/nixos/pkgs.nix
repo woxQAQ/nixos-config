@@ -1,5 +1,7 @@
-_: {
-  # home.packages = with pkgs; [
-  # koodo-reader
-  # ];
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    # koodo-reader
+    zathura
+  ];
 }

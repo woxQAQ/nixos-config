@@ -1,8 +1,8 @@
 output "DP-3" {
   scale 1.25
   transform "normal"
-  mode "2560x1440@144"
+  mode "2560x1440@179.998"
   position x=0 y=0
 }
 
-spawn-at-startup "clash-nyanpasu"
+// spawn-at-startup "clash-nyanpasu"

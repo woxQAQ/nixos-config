@@ -1,18 +1,20 @@
 { ... }:
 {
   imports = [
-    ./fcitx
-    ./hyprland
+    # keep-sorted start block=yes
     ./browsers
+    ./cursor.nix
+    ./fcitx
+    ./game.nix
+    ./gtk.nix
+    ./hyprland
+    ./ides.nix
     ./niri
     ./noctalia
-
-    ./gtk.nix
-    ./game.nix
-    ./xdg.nix
-    # ./ides.nix
-    ./qt.nix
-    ./cursor.nix
     ./options.nix
+    ./pkgs.nix
+    ./qt.nix
+    ./xdg.nix
+    # keep-sorted end
   ];
 }
