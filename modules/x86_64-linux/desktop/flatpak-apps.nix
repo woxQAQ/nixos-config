@@ -40,6 +40,21 @@ in
       };
     };
 
+    # Configure Flatpak overrides for Chinese apps
+    systemd.services.flatpak-overrides = {
+      description = "Configure Flatpak overrides for Chinese applications";
+      wantedBy = [ "multi-user.target" ];
+      after = [
+        "network.target"
+        "add-flathub.service"
+      ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.flatpak}/bin/flatpak override com.tencent.WeChat --filesystem=home 2>/dev/null || true'";
+        RemainAfterExit = true;
+      };
+    };
+
     # Create a script to install Chinese apps
     environment.systemPackages = with pkgs; [
       (writeShellScriptBin "install-chinese-apps" ''
