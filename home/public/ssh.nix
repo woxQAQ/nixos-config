@@ -15,5 +15,13 @@
       controlPath = "~/.ssh/master-%r@%h:%p";
       controlPersist = "no";
     };
+    matchBlocks = {
+      "github.com" = {
+        hostname = "ssh.github.com";
+        port = 443;
+        user = "git";
+        identitiesOnly = true;
+      };
+    };
   };
 }
