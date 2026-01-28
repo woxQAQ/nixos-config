@@ -19,6 +19,7 @@ let
   ++ [
     {
       modules.desktop.game.enable = true;
+      modules.desktop.flatpak-apps.enable = true;
     }
   ];
   home-modules = [

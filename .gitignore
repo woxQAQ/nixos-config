@@ -5,3 +5,6 @@ result
 .env.claude
 .direnv
 .pre-commit-config.yaml
+
+# oh-my-opencode
+.sisyphus

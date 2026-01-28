@@ -7,6 +7,7 @@
     # n8n
     insomnia
     # notepad-next
+    gui-for-singbox
 
     pamixer
     go-musicfox
@@ -20,7 +21,7 @@
     remmina
 
     font-manager
-    qq
+    # qq - migrated to flatpak
     obs-studio
     wineWowPackages.wayland
   ];
