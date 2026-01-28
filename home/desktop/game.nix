@@ -14,6 +14,7 @@ in
     home.packages = with pkgs; [
       # snex9x
       # sameboy
+      dualsensectl
       gamescope
       hmcl
       winetricks

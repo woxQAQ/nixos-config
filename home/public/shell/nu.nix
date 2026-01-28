@@ -13,12 +13,13 @@
     extraConfig = # nu
       ''
         # completion
-
         source /etc/agenix/private.nu
         $env.CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1"
         $env.ENABLE_LSP_TOOL = true
         $env.ANTHROPIC_API_KEY = $env.ZAI_API_KEY_ALT
         $env.ANTHROPIC_BASE_URL = "https://open.bigmodel.cn/api/anthropic"
+        $env.KIMI_BASE_URL = "https://api.siliconflow.cn/v1"
+        $env.KIMI_MODEL_NAME = "moonshotai/Kimi-K2-Thinking"
 
         const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}']
         use custom-completions/git/git-completions.nu *
