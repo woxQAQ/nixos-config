@@ -7,7 +7,7 @@
     # n8n
     insomnia
     # notepad-next
-    gui-for-singbox
+    # flclash
 
     pamixer
     go-musicfox

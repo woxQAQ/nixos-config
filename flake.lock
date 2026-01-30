@@ -523,11 +523,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767588718,
-        "narHash": "sha256-6ZZyvqJfKXRWSYFPynrwspn9nxcz/nN5qsYUbkIftAs=",
+        "lastModified": 1769661298,
+        "narHash": "sha256-pch3VfwglzG43mdW7+apqN5KhE48E/Y2abZ3rB9wGeg=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "23af430dd883b9590295341ebb44fba186b2c3e8",
+        "rev": "27bee0033d8ff0374c40d7bed7d4c28c88405aaa",
         "type": "github"
       },
       "original": {
@@ -577,10 +577,10 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1769535194,
-        "narHash": "sha256-A2LXgx+5v1Hw/EvJ53n6RK0RZrj6Jlb7+27wTK0BdGw=",
+        "lastModified": 1769675425,
+        "narHash": "sha256-F9yLmnisSOrLB4NZVLMPWYNQ5tcYlXACBovk+WzSxFg=",
         "ref": "refs/heads/main",
-        "rev": "e51540747d6f5692055714ad512a56926e4898d7",
+        "rev": "a3dec549bf6a62185cb5e9370712b23ef504ab4c",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/woxQAQ/nix-secrets.git"
@@ -642,11 +642,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1767587590,
-        "narHash": "sha256-2OVoKCCZ4sCEZJ03LOaNJ9tDVIHCrxyk5/ME/UtqiC0=",
+        "lastModified": 1769549280,
+        "narHash": "sha256-ItsbjW7pIZd/+yx1ZgdCCYL7RpnFFByxrJlBlrB/ETM=",
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "rev": "5ea9b53a5febfc63ee6fc5010500ccaac974a6bf",
+        "rev": "4233336d03d52d1e748e0571ba52b6d0aff2fe8b",
         "type": "github"
       },
       "original": {
