@@ -2,6 +2,13 @@
 {
   home.packages = with pkgs; [
     # koodo-reader
-    zathura
   ];
+
+  programs.zathura = {
+    enable = true;
+    options = {
+      selection-clipboard = "clipboard";
+      window-title-basename = true;
+    };
+  };
 }
