@@ -577,10 +577,10 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1769675425,
-        "narHash": "sha256-F9yLmnisSOrLB4NZVLMPWYNQ5tcYlXACBovk+WzSxFg=",
+        "lastModified": 1769867734,
+        "narHash": "sha256-JMxqbLbRwMXcqeRkQalv8K+2Zrn1ltH8hMbu1fMG9G8=",
         "ref": "refs/heads/main",
-        "rev": "a3dec549bf6a62185cb5e9370712b23ef504ab4c",
+        "rev": "653203ca415ff50e09e009c84c9627d58555246d",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/woxQAQ/nix-secrets.git"

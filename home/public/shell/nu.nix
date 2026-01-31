@@ -25,14 +25,18 @@
         # $env.ANTHROPIC_BASE_URL = "https://open.bigmodel.cn/api/anthropic"
 
         # volcengine
-        $env.ANTHROPIC_API_KEY = $env.ARK_CODE_API_KEY
-        $env.ANTHROPIC_BASE_URL = "https://ark.cn-beijing.volces.com/api/coding"
-        $env.ANTHROPIC_MODEL = "ark-code-latest"
+        # $env.ANTHROPIC_API_KEY = $env.ARK_CODE_API_KEY
+        # $env.ANTHROPIC_BASE_URL = "https://ark.cn-beijing.volces.com/api/coding"
+        # $env.ANTHROPIC_MODEL = "ark-code-latest"
+
+        # Kimi code
+        $env.ANTHROPIC_API_KEY = $env.KIMI_API_KEY
+        $env.ANTHROPIC_BASE_URL = "https://api.kimi.com/coding/"
 
         # kimi cli env
         # $env.KIMI_BASE_URL = "https://api.siliconflow.cn/v1"
-        $env.KIMI_BASE_URL = "https://ark.cn-beijing.volces.com/api/coding"
-        $env.KIMI_MODEL_NAME = "ark-code-latest"
+        # $env.KIMI_BASE_URL = "https://ark.cn-beijing.volces.com/api/coding"
+        # $env.KIMI_MODEL_NAME = "ark-code-latest"
         # $env.KIMI_MODEL_NAME = "moonshotai/Kimi-K2-Thinking"
         $env.KIMI_API_KEY = $env.ANTHROPIC_API_KEY
 
