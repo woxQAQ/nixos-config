@@ -19,6 +19,7 @@ in
       hmcl
       winetricks
       prismlauncher
+      evtest
       ryubing
       mgba
       bbe

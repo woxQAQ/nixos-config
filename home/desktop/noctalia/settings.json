@@ -149,8 +149,10 @@
                     "hidePassive": false,
                     "id": "Tray",
                     "pinned": [
-                        "Fcitx",
-                        "tray-icon tray app"
+                        "tray-icon tray app",
+                        "Weixin",
+                        "chrome_status_icon_1",
+                        "Fcitx"
                     ]
                 },
                 {
@@ -213,7 +215,7 @@
         ]
     },
     "colorSchemes": {
-        "darkMode": false,
+        "darkMode": true,
         "generationMethod": "rainbow",
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
@@ -303,6 +305,16 @@
                         "showBackground": true,
                         "x": 100,
                         "y": 300
+                    },
+                    {
+                        "clockStyle": "digital",
+                        "format": "HH:mm\\nd MMMM yyyy",
+                        "id": "Clock",
+                        "showBackground": true,
+                        "useCustomFont": false,
+                        "usePrimaryColor": false,
+                        "x": 50,
+                        "y": 50
                     }
                 ]
             }
