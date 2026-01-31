@@ -5,7 +5,7 @@ SECRET_FLAKE_INPUT = "secrets"
 CLAUDE_CODE_FLAKE_INPUT = "nixpkgs-claude-code"
 OS = $(shell uname)
 _SWITCH_FLAGS ?=
-SUBSTITUTERS = https://mirror.sjtu.edu.cn/nix-channels/store
+SUBSTITUTERS = https://mirrors.ustc.edu.cn/nix-channels/store
 _USE_SUBSTITUTERS = 0
 OPTIONS ?=
 
@@ -24,7 +24,7 @@ _SWITCH_FLAGS += --show-trace
 endif
 
 ifeq ($(_USE_SUBSTITUTERS),1)
-OPTIONS += --option $(SUBSTITUTERS)
+OPTIONS += --option substituters $(SUBSTITUTERS)
 endif
 
 .PHONY: bump-flake repl shell
