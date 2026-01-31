@@ -30,8 +30,11 @@
         $env.ANTHROPIC_MODEL = "ark-code-latest"
 
         # kimi cli env
-        $env.KIMI_BASE_URL = "https://api.siliconflow.cn/v1"
-        $env.KIMI_MODEL_NAME = "moonshotai/Kimi-K2-Thinking"
+        # $env.KIMI_BASE_URL = "https://api.siliconflow.cn/v1"
+        $env.KIMI_BASE_URL = "https://ark.cn-beijing.volces.com/api/coding"
+        $env.KIMI_MODEL_NAME = "ark-code-latest"
+        # $env.KIMI_MODEL_NAME = "moonshotai/Kimi-K2-Thinking"
+        $env.KIMI_API_KEY = $env.ANTHROPIC_API_KEY
 
         const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}']
         use custom-completions/git/git-completions.nu *
