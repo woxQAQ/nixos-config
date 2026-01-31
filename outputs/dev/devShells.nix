@@ -14,6 +14,8 @@
           nodePackages.prettier
           deadnix
           ruff
+          fzf
+          jq
         ];
       };
     };
