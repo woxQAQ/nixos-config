@@ -5,6 +5,7 @@
     isNormalUser = true;
     description = "${username}";
     extraGroups = [
+      "input"
       "networkmanager"
       "wheel"
       "audio"
