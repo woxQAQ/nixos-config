@@ -20,25 +20,49 @@
 
         $env.ENABLE_LSP_TOOL = true
 
-        # GLM official
-        # $env.ANTHROPIC_API_KEY = $env.ZAI_API_KEY_ALT
-        # $env.ANTHROPIC_BASE_URL = "https://open.bigmodel.cn/api/anthropic"
+        # Provider configurations
+        let providers = {
+          glm: {
+            api_key: $env.ZAI_API_KEY_ALT,
+            base_url: "https://open.bigmodel.cn/api/anthropic",
+            model: null
+          },
+          volcengine: {
+            api_key: $env.ARK_CODE_API_KEY,
+            base_url: "https://ark.cn-beijing.volces.com/api/coding",
+            model: "ark-code-latest"
+          },
+          kimi: {
+            api_key: $env.KIMI_API_KEY,
+            base_url: "https://api.kimi.com/coding",
+            model: null
+          }
+        }
 
-        # volcengine
-        # $env.ANTHROPIC_API_KEY = $env.ARK_CODE_API_KEY
-        # $env.ANTHROPIC_BASE_URL = "https://ark.cn-beijing.volces.com/api/coding"
-        # $env.ANTHROPIC_MODEL = "ark-code-latest"
+        # Function to switch AI provider for Claude Code
+        def --env ai-switch [provider: string@"nu-complete ai-providers"] {
+          let cfg = $providers | get $provider
 
-        # Kimi code
-        $env.ANTHROPIC_API_KEY = $env.KIMI_API_KEY
-        $env.ANTHROPIC_BASE_URL = "https://api.kimi.com/coding"
+          $env.ANTHROPIC_API_KEY = $cfg.api_key
+          $env.ANTHROPIC_BASE_URL = $cfg.base_url
 
-        # kimi cli env
-        # $env.KIMI_BASE_URL = "https://api.siliconflow.cn/v1"
-        # $env.KIMI_BASE_URL = "https://ark.cn-beijing.volces.com/api/coding"
-        # $env.KIMI_MODEL_NAME = "ark-code-latest"
-        # $env.KIMI_MODEL_NAME = "moonshotai/Kimi-K2-Thinking"
-        $env.KIMI_API_KEY = $env.ANTHROPIC_API_KEY
+          if ($cfg.model | is-not-empty) {
+            $env.ANTHROPIC_MODEL = $cfg.model
+          } else {
+            $env.ANTHROPIC_MODEL = null
+          }
+          print $"Switched to ($provider) provider:"
+          print $"  ANTHROPIC_BASE_URL: ($env.ANTHROPIC_BASE_URL)"
+          print $"  ANTHROPIC_MODEL: ($env.ANTHROPIC_MODEL | default '(not set)')"
+        }
+
+        # Completion helper for available providers
+        def "nu-complete ai-providers" [] {
+          [glm, volcengine, kimi]
+        }
+
+        # Set default provider (kimi)
+        ai-switch kimi
 
         const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}']
         use custom-completions/git/git-completions.nu *
