@@ -31,7 +31,7 @@
 
         # Kimi code
         $env.ANTHROPIC_API_KEY = $env.KIMI_API_KEY
-        $env.ANTHROPIC_BASE_URL = "https://api.kimi.com/coding/"
+        $env.ANTHROPIC_BASE_URL = "https://api.kimi.com/coding"
 
         # kimi cli env
         # $env.KIMI_BASE_URL = "https://api.siliconflow.cn/v1"

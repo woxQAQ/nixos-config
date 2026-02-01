@@ -9,14 +9,13 @@
     ./boot.specified.nix
     ./vm.nix
     ./cloud-native.nix
+    ./proxy.nix
   ];
+  # AMD graphics manage
   services.lact = {
     enable = true;
   };
 
-  networking = {
-    hostName = "woxQAQ";
-  };
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -37,7 +36,7 @@
           };
         }
       );
-      autoStart = true;
+      autoStart = false;
       serviceMode = true;
       tunMode = true;
     };
