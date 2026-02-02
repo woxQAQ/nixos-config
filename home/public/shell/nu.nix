@@ -40,7 +40,10 @@
         }
 
         # Function to switch AI provider for Claude Code
-        def --env ai-switch [provider: string@"nu-complete ai-providers"] {
+        def --env ai-switch [
+          provider: string@"nu-complete ai-providers" # ai providers
+          --no-output # not output switch messages
+        ] {
           let cfg = $providers | get $provider
 
           $env.ANTHROPIC_API_KEY = $cfg.api_key
@@ -51,9 +54,11 @@
           } else {
             $env.ANTHROPIC_MODEL = null
           }
-          print $"Switched to ($provider) provider:"
-          print $"  ANTHROPIC_BASE_URL: ($env.ANTHROPIC_BASE_URL)"
-          print $"  ANTHROPIC_MODEL: ($env.ANTHROPIC_MODEL | default '(not set)')"
+          if not $no_output {
+            print $"Switched to ($provider) provider:"
+            print $"  ANTHROPIC_BASE_URL: ($env.ANTHROPIC_BASE_URL)"
+            print $"  ANTHROPIC_MODEL: ($env.ANTHROPIC_MODEL | default '(not set)')"
+          }
         }
 
         # Completion helper for available providers
@@ -62,7 +67,7 @@
         }
 
         # Set default provider (kimi)
-        ai-switch kimi
+        ai-switch kimi --no-output
 
         const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}']
         use custom-completions/git/git-completions.nu *
