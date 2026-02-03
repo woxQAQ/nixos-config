@@ -36,6 +36,7 @@ let
         desktop.enable = true;
         neovim.enable = true;
         helix.enable = true;
+        terminal.emulator = "ghostty";
         terminal.font-size = 15;
       };
     }

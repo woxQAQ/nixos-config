@@ -20,6 +20,7 @@
             "kitty"
             "alacritty"
             "foot"
+            "ghostty"
           ]
         );
         default = "kitty";
