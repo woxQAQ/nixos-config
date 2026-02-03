@@ -29,7 +29,7 @@
     };
 
     dae = {
-      url = "github:daeuniverse/flake.nix";
+      url = "github:woxQAQ/dae-flake.nix/e2e3b0ddd4c6580803568d7127bc2fec18a7f0a7";
     };
 
     flake-parts = {
@@ -52,6 +52,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-openclaw = {
+      url = "github:openclaw/nix-openclaw";
+    };
+
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -70,6 +74,10 @@
     };
 
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+    nixpkgs-openclaw = {
+      url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    };
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 

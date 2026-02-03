@@ -5,7 +5,6 @@
   };
   services.daed = {
     enable = true;
-    package = pkgs.daed;
     assetsPaths = with pkgs; [
       "${v2ray-geoip}/share/v2ray/geoip.dat"
       "${v2ray-domain-list-community}/share/v2ray/geosite.dat"
