@@ -18,6 +18,7 @@ in
         "com.tencent.WeChat" # 微信
         "com.qq.QQ" # QQ
         "cn.feishu.Feishu" # 飞书
+        "com.discordapp.Discord"
       ];
       description = "List of Flatpak applications to install from Flathub";
     };
