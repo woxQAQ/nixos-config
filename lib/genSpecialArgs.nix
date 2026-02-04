@@ -32,6 +32,13 @@ inputs
     inherit system;
     config.allowUnfree = true;
   };
+  openclaw-pkg = import inputs.nixpkgs-openclaw {
+    inherit system;
+    config.allowUnfree = true;
+    overlays = [
+      inputs.nix-openclaw.overlays.default
+    ];
+  };
   stable-pkg = import inputs.nixpkgs {
     inherit system;
     config = {
