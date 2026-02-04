@@ -16,5 +16,7 @@
     nix-index
     # tui for flake.lock
     nix-melt
+
+    nix-prefetch-github
   ];
 }

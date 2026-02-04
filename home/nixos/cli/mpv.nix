@@ -4,6 +4,7 @@
     enable = true;
     defaultProfiles = [ "gpu-hq" ];
     config = {
+      osc = "no";
       screenshot-format = "webp";
       screenshot-webp-lossless = true;
       screenshot-directory = "${config.home.homeDirectory}/Pictures/Screenshots/mpv";

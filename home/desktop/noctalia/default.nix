@@ -41,7 +41,7 @@ in
     };
 
     Service = {
-      ExecStart = lib.getExe noctalia.packages.${pkgs.system}.default;
+      ExecStart = lib.getExe noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
       Restart = "on-failure";
 
       Environment = [

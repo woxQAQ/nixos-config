@@ -1,6 +1,6 @@
 {
   woxVim,
-  system,
+  pkgs,
   config,
   lib,
   ...
@@ -12,7 +12,7 @@ in
   config = lib.mkIf cfg.enable {
     home = {
       packages = [
-        woxVim.packages.${system}.default
+        woxVim.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
       shellAliases = {
         "vi" = "nvim";
