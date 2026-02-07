@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ geoip-pkg, ... }:
 {
   networking = {
     hostName = "woxQAQ";
   };
   services.daed = {
     enable = true;
-    assetsPaths = with pkgs; [
+    assetsPaths = with geoip-pkg; [
       "${v2ray-geoip}/share/v2ray/geoip.dat"
       "${v2ray-domain-list-community}/share/v2ray/geosite.dat"
     ];

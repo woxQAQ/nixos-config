@@ -75,6 +75,10 @@
 
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    nixpkgs-geoip = {
+      url = "github:nixos/nixpkgs/nixos-unstable";
+    };
+
     nixpkgs-openclaw = {
       url = "github:nixos/nixpkgs/nixpkgs-unstable";
     };

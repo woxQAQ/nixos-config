@@ -16,6 +16,7 @@ in
         inherit (cfg) font-size;
         command = "${pkgs.nushell}/bin/nu --login --interactive";
         background-opacity = "0.93";
+        window-colorspace = "display-p3";
         gtk-titlebar = false;
         gtk-single-instance = true;
         confirm-close-surface = false;

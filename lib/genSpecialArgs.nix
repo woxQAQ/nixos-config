@@ -39,6 +39,9 @@ inputs
       inputs.nix-openclaw.overlays.default
     ];
   };
+  geoip-pkg = import inputs.nixpkgs-geoip {
+    inherit system;
+  };
   stable-pkg = import inputs.nixpkgs {
     inherit system;
     config = {

@@ -17,7 +17,7 @@
 
         # claude code specific
         $env.CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1"
-
+        $env.CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = 1
         $env.ENABLE_LSP_TOOL = true
 
         # Provider configurations
@@ -67,7 +67,7 @@
         }
 
         # Set default provider (kimi)
-        ai-switch kimi --no-output
+        ai-switch glm --no-output
 
         const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}']
         use custom-completions/git/git-completions.nu *
