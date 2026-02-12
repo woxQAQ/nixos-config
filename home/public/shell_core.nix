@@ -18,9 +18,10 @@
         };
       };
     };
-    # tmux = {
-    #   enable = true;
-    # };
+    tmux = {
+      enable = true;
+      mouse = true;
+    };
     bat = {
       enable = true;
       config = {
