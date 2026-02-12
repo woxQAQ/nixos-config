@@ -32,13 +32,6 @@ inputs
     inherit system;
     config.allowUnfree = true;
   };
-  openclaw-pkg = import inputs.nixpkgs-openclaw {
-    inherit system;
-    config.allowUnfree = true;
-    overlays = [
-      inputs.nix-openclaw.overlays.default
-    ];
-  };
   geoip-pkg = import inputs.nixpkgs-geoip {
     inherit system;
   };

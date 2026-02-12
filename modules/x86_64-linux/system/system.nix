@@ -1,15 +1,12 @@
 {
   lib,
   pkgs,
-  inputs,
   ...
 }:
 {
   # imports = [
   #   determinate.nixosModules.default
   # ];
-
-  nixpkgs.overlays = [ inputs.nix-openclaw.overlays.default ];
 
   nix = {
     package = pkgs.nixVersions.latest;

@@ -4,7 +4,7 @@
   ...
 }:
 let
-  clash-verge = pkgs.callPackage ../../pkg/clash-verge { };
+  clash-verge = pkgs.callPackage ../../pkg/clash-verge-rev { };
 in
 {
   imports = [

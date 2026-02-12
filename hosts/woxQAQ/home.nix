@@ -1,15 +1,10 @@
 {
   pkgs,
   config,
-  nix-openclaw,
   ...
 }:
 
 {
-  imports = [
-    ../../pkg/openclaw
-    nix-openclaw.homeManagerModules.openclaw
-  ];
   home.packages = with pkgs; [
     # clash-nyanpasu
     netease-cloud-music-gtk

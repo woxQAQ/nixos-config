@@ -527,22 +527,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-openclaw": {
-      "locked": {
-        "lastModified": 1769740369,
-        "narHash": "sha256-xKPyJoMoXfXpDM5DFDZDsi9PHArf2k5BJjvReYXoFpM=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "6308c3b21396534d8aaeac46179c14c439a89b8a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1767051569,
@@ -796,7 +780,6 @@
         "nixpkgs-claude-code": "nixpkgs-claude-code",
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-geoip": "nixpkgs-geoip",
-        "nixpkgs-openclaw": "nixpkgs-openclaw",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixpkgs-zed": "nixpkgs-zed",
