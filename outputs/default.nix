@@ -81,5 +81,12 @@ flake-parts.lib.mkFlake { inherit inputs; } {
       darwinConfigurations = lib.attrsets.mergeAttrsList (
         map (it: it.darwinConfigurations or { }) darwinSystemsValues
       );
+    }
+    // {
+      packages = lib.genAttrs [ "x86_64-linux" ] (system: {
+        clash-verge-rev =
+          inputs.nixpkgs.legacyPackages.${system}.callPackage ../pkg/clash-verge-rev/default.nix
+            { };
+      });
     };
 }
