@@ -13,6 +13,7 @@
           git
           nodePackages.prettier
           deadnix
+          nix-prefetch-git
           ruff
           fzf
           jq
