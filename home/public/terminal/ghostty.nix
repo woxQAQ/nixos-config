@@ -14,7 +14,7 @@ in
       settings = {
         inherit (cfg) font-family;
         inherit (cfg) font-size;
-        command = "${pkgs.nushell}/bin/nu --login --interactive";
+        command = "${pkgs.bash}/bin/bash --login -c 'nu --login --interactive'";
         background-opacity = "0.93";
         window-colorspace = "display-p3";
         gtk-titlebar = false;
