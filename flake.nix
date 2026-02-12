@@ -29,12 +29,17 @@
     };
 
     dae = {
-      url = "github:woxQAQ/dae-flake.nix/e2e3b0ddd4c6580803568d7127bc2fec18a7f0a7";
+      url = "github:woxQAQ/dae-flake.nix/33dd7a66366eba035ab7e9ef1891c88a57afcbe6";
     };
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    geodb = {
+      url = "github:Loyalsoldier/v2ray-rules-dat/release";
+      flake = false;
     };
 
     home-manager = {

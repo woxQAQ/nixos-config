@@ -1,10 +1,15 @@
 { pkgs, ... }:
 {
+  programs.wireshark = {
+    package = pkgs.wireshark;
+    enable = true;
+  };
   environment.systemPackages = with pkgs; [
     # eBPF related
     pwru
     bpftrace
     bpftop
+    bpftools
     bpfmon
 
     # syscall monitor

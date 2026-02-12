@@ -5,6 +5,8 @@
     isNormalUser = true;
     description = "${username}";
     extraGroups = [
+      "wireshark"
+      "samba"
       "input"
       "networkmanager"
       "wheel"

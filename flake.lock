@@ -47,17 +47,17 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1770154669,
-        "narHash": "sha256-5Awyvx5bbu9csAtZxc0yV4chnxxMfEuwDUWUDQ0jCe8=",
+        "lastModified": 1770579287,
+        "narHash": "sha256-zvXzJvrtGbFWD4HmZ0tmN+u6pp5G3Tb2w3zd0hEzosA=",
         "owner": "woxQAQ",
         "repo": "dae-flake.nix",
-        "rev": "e2e3b0ddd4c6580803568d7127bc2fec18a7f0a7",
+        "rev": "33dd7a66366eba035ab7e9ef1891c88a57afcbe6",
         "type": "github"
       },
       "original": {
         "owner": "woxQAQ",
         "repo": "dae-flake.nix",
-        "rev": "e2e3b0ddd4c6580803568d7127bc2fec18a7f0a7",
+        "rev": "33dd7a66366eba035ab7e9ef1891c88a57afcbe6",
         "type": "github"
       }
     },
@@ -213,6 +213,23 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "geodb": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1770416268,
+        "narHash": "sha256-5eTWujWmnSDwugS6l6bzv0CM9ZmHW0gaL7Hs4TMUQEM=",
+        "owner": "Loyalsoldier",
+        "repo": "v2ray-rules-dat",
+        "rev": "1ab6cd6c61c0a6d86f45d6555323756da109546f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Loyalsoldier",
+        "ref": "release",
+        "repo": "v2ray-rules-dat",
         "type": "github"
       }
     },
@@ -575,11 +592,11 @@
     },
     "nixpkgs-zed": {
       "locked": {
-        "lastModified": 1769740369,
-        "narHash": "sha256-xKPyJoMoXfXpDM5DFDZDsi9PHArf2k5BJjvReYXoFpM=",
+        "lastModified": 1770537093,
+        "narHash": "sha256-pF1quXG5wsgtyuPOHcLfYg/ft/QMr8NnX0i6tW2187s=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "6308c3b21396534d8aaeac46179c14c439a89b8a",
+        "rev": "fef9403a3e4d31b0a23f0bacebbec52c248fbb51",
         "type": "github"
       },
       "original": {
@@ -769,6 +786,7 @@
         "catppuccin": "catppuccin",
         "dae": "dae",
         "flake-parts": "flake-parts_2",
+        "geodb": "geodb",
         "home-manager": "home-manager_2",
         "nix-darwin": "nix-darwin",
         "nix-gaming": "nix-gaming",
