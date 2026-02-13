@@ -1,10 +1,11 @@
 {
   stateVersion,
-  pkgs,
+  fastest-pkg,
+  geodb,
   ...
 }:
 let
-  clash-verge = pkgs.callPackage ../../pkg/clash-verge-rev { };
+  clash-verge = fastest-pkg.callPackage ../../pkg/clash-verge-rev { geoip = geodb; };
 in
 {
   imports = [

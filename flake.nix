@@ -72,25 +72,15 @@
       # url = "github:NixOS/nixpkgs/master";
     };
 
-    # NOTE: use this input to a better claude code version control without affect other apps' version
-    # when use a unified nixpkgs inputs.
-    nixpkgs-claude-code = {
-      url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    };
-
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    nixpkgs-geoip = {
-      url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-fast = {
+      url = "github:nixos/nixpkgs/nixpkgs-unstable";
     };
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    nixpkgs-zed = {
-      url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    };
 
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";

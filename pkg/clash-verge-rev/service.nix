@@ -19,6 +19,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postPatch = ''
     # set test socket path
     substituteInPlace src/lib.rs \
+      --replace-fail "/tmp/verge/clash-verge-service.sock" "/run/clash-verge-rev/service.sock" \
       --replace-fail "/tmp/verge/clash-verge-service-test.sock" "$sourceRoot/clash-verge-service-test.sock"
     substituteInPlace tests/test_start_permissions.rs \
       --replace-fail "owner_perm | group_perm | other_perm" "0o0755"

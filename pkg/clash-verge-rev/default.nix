@@ -4,12 +4,14 @@
   callPackage,
   fetchFromGitHub,
   dbip-country-lite,
-  libayatana-appindicator,
+  # libayatana-appindicator,
   stdenv,
   wrapGAppsHook3,
   v2ray-geoip,
   v2ray-domain-list-community,
   libsoup_3,
+
+  geoip,
 }:
 let
   pname = "clash-verge-rev";
@@ -69,11 +71,11 @@ stdenv.mkDerivation {
     wrapGAppsHook3
   ];
 
-  preFixup = ''
-    gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libayatana-appindicator ]}
-    )
-  '';
+  # preFixup = ''
+  #   gappsWrapperArgs+=(
+  #     --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libayatana-appindicator ]}
+  #   )
+  # '';
 
   installPhase = ''
     runHook preInstall
@@ -85,8 +87,10 @@ stdenv.mkDerivation {
     cp ${service}/bin/clash-verge-service $out/bin/clash-verge-service
     ln -s ${mihomo}/bin/mihomo $out/bin/verge-mihomo
     # people who want to use alpha build show override mihomo themselves. The alpha core entry was removed in clash-verge.
-    ln -s ${v2ray-geoip}/share/v2ray/geoip.dat $out/lib/Clash\ Verge/resources/geoip.dat
-    ln -s ${v2ray-domain-list-community}/share/v2ray/geosite.dat $out/lib/Clash\ Verge/resources/geosite.dat
+    # ln -s ${v2ray-geoip}/share/v2ray/geoip.dat $out/lib/Clash\ Verge/resources/geoip.dat
+    # ln -s ${v2ray-domain-list-community}/share/v2ray/geosite.dat $out/lib/Clash\ Verge/resources/geosite.dat
+    ln -s ${geoip}/geoip.dat $out/lib/Clash\ Verge/resources/geoip.dat
+    ln -s ${geoip}/geosite.dat $out/lib/Clash\ Verge/resources/geosite.dat
     ln -s ${dbip-country-lite.mmdb} $out/lib/Clash\ Verge/resources/Country.mmdb
 
     runHook postInstall

@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  zed-pkg,
+  fastest-pkg,
   ...
 }:
 let
@@ -11,7 +11,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.zed-editor = {
       enable = true;
-      package = zed-pkg.zed-editor;
+      package = fastest-pkg.zed-editor;
     };
   };
 }

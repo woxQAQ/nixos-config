@@ -24,16 +24,9 @@ inputs
     inherit system;
     config.allowUnfree = true;
   };
-  claude-code-pkg = import inputs.nixpkgs-claude-code {
+  fastest-pkg = import inputs.nixpkgs-fast {
     inherit system;
     config.allowUnfree = true;
-  };
-  zed-pkg = import inputs.nixpkgs-zed {
-    inherit system;
-    config.allowUnfree = true;
-  };
-  geoip-pkg = import inputs.nixpkgs-geoip {
-    inherit system;
   };
   stable-pkg = import inputs.nixpkgs {
     inherit system;
