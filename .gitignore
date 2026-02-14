@@ -9,3 +9,6 @@ result
 # oh-my-opencode
 .sisyphus
 _repo
+
+# git worktrees
+.worktree
