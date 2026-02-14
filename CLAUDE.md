@@ -201,3 +201,64 @@ Available in `lib/`:
 **Build specific system:**
 - `nix build .#nixosConfigurations.<hostname>.config.system.build.toplevel`
 - For Darwin: `nix build .#darwinConfigurations.<hostname>.system`
+
+## Monitoring
+
+The configuration includes optional system monitoring with Prometheus and Grafana.
+
+**Enable monitoring:**
+
+Set `modules.system.monitoring.enable = true;` in your host's flake output file (e.g., `outputs/<hostname>.nix`).
+
+**Access points:**
+- Prometheus: http://localhost:9090
+- Grafana: http://localhost:3000 (default credentials: admin/admin)
+
+**Included exporters:**
+- node_exporter (port 9100) - System metrics (CPU, memory, disk, network)
+- Pre-configured Prometheus datasource in Grafana
+
+**Firewall ports:**
+- 3000 - Grafana web interface
+- 9090 - Prometheus metrics endpoint
+- 9100 - node_exporter metrics
+
+**Security note:** Change the default Grafana admin password after first login. For production, use agenix to manage secrets.
+
+**Optional: Secure Grafana password with agenix:**
+
+The monitoring module supports an optional `grafanaAdminPasswordFile` option for secure password management via agenix:
+
+1. Create encrypted secret:
+   ```bash
+   openssl rand -base64 32 | nix run github:ryantm/agenix -- --edit secrets/grafana-admin-password.age
+   ```
+
+2. Add secret to host's configuration in `outputs/<hostname>.nix`:
+   ```nix
+   modules.system.monitoring = {
+     enable = true;
+     grafanaAdminPasswordFile = config.age.secrets.grafana-admin-password.path;
+   };
+
+   age.secrets.grafana-admin-password.file = ../secrets/grafana-admin-password.age;
+   ```
+
+3. The monitoring module will automatically use the secure password if `grafanaAdminPasswordFile` is set.
+
+**Verification:**
+
+After enabling monitoring and running `make switch`, verify services are running:
+
+```bash
+# Check service status
+systemctl status prometheus.service
+systemctl status prometheus-node-exporter.service
+systemctl status grafana.service
+
+# Verify Prometheus targets
+curl -s http://localhost:9090/api/v1/targets | jq '.data.activeTargets[] | {job: .labels.job, health: .health}'
+
+# Test Grafana health
+curl -s http://localhost:3000/api/health | jq
+```

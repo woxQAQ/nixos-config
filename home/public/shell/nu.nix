@@ -25,7 +25,7 @@
           glm: {
             api_key: $env.ZAI_API_KEY_ALT,
             base_url: "https://open.bigmodel.cn/api/anthropic",
-            model: "glm-x-preview"
+            model: null
           },
           volcengine: {
             api_key: $env.ARK_CODE_API_KEY,

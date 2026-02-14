@@ -12,5 +12,6 @@
     ./ssh.nix
     ./environment.nix
     ./optimization.nix
+    ./monitoring.nix
   ];
 }
