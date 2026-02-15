@@ -10,7 +10,7 @@ let
     inputs.agenix.nixosModules.default
     inputs.dae.nixosModules.dae
     inputs.dae.nixosModules.daed
-    ../secrets
+    ../secrets/linux.nix
     ../hosts/${name}
     ../modules/${system}/system
     ../modules/${system}/desktop

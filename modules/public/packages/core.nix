@@ -57,8 +57,6 @@
     # password generator
     pwgen-secure
 
-    psmisc
-
     file
 
     jq
