@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    comixcursors
-  ];
+  # home.packages = with pkgs; [
+  #   comixcursors
+  # ];
   home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;

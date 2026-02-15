@@ -753,7 +753,8 @@
         "nu_scripts": "nu_scripts",
         "secrets": "secrets",
         "vicinae": "vicinae",
-        "woxVim": "woxVim"
+        "woxVim": "woxVim",
+        "zen-browser": "zen-browser"
       }
     },
     "secrets": {
@@ -861,16 +862,39 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1770227791,
-        "narHash": "sha256-mEZI0vCdfQPYMjaU14iQaMHZqAMMboNwhd+mzk03rFM=",
+        "lastModified": 1771096993,
+        "narHash": "sha256-QGJ+dSJB7h+j2N+3Nj1NhcBeh4+XVvPrsp78c6sw0o0=",
         "owner": "woxQAQ",
         "repo": "nixvim",
-        "rev": "7e73fccaee00891f75b78b45d95a292b17eca888",
+        "rev": "a50df224c22cd9481dd399696b319f64df6815a8",
         "type": "github"
       },
       "original": {
         "owner": "woxQAQ",
         "repo": "nixvim",
+        "type": "github"
+      }
+    },
+    "zen-browser": {
+      "inputs": {
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771131295,
+        "narHash": "sha256-3Z7RKjuifcB6Hkjrk8gNOXAqEv5+ubc/J9lLoKD7pv4=",
+        "owner": "0xc000022070",
+        "repo": "zen-browser-flake",
+        "rev": "e983cc5e47483742b61e0c53cfe9a9314628086f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "0xc000022070",
+        "repo": "zen-browser-flake",
         "type": "github"
       }
     }

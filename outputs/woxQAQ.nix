@@ -23,11 +23,11 @@ let
       modules = {
         desktop.game.enable = true;
         desktop.flatpak-apps.enable = true;
-        system.monitoring.enable = true;
       };
     }
   ];
   home-modules = [
+    inputs.zen-browser.homeModules.beta
     ../home/nixos
     ../hosts/${name}/home.nix
   ]

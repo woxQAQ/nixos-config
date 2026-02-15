@@ -18,18 +18,11 @@
   };
   home.packages = with pkgs; [
     #keep-sorted start
-    alsa-utils
-    cava
+
     hyprcursor
-    hyprshot
-    imv
-    pavucontrol
-    playerctl
     # swaybg
     swww
     wayland
-    wf-recorder
-    wl-clipboard
     wlr-randr
     #keep-sorted end
   ];

@@ -35,12 +35,12 @@
 
     gtk2.force = true;
 
-    gtk3.extraConfig = {
-      "gtk-application-prefer-dark-theme" = "1";
-    };
-    gtk4.extraConfig = {
-      "gtk-application-prefer-dark-theme" = "1";
-    };
+    # gtk3.extraConfig = {
+    #   "gtk-application-prefer-dark-theme" = "1";
+    # };
+    # gtk4.extraConfig = {
+    #   "gtk-application-prefer-dark-theme" = "1";
+    # };
     # iconTheme = {
     #   # package = pkgs.adwaita-icon-theme;
     #   # name = "Adwaita";
