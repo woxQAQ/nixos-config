@@ -20,6 +20,16 @@
         $env.CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = 1
         $env.ENABLE_LSP_TOOL = true
 
+        # claude code telemetry
+        $env.CLAUDE_CODE_ENABLE_TELEMETRY = 1
+        $env.OTEL_LOG_USER_PROMPTS = 1
+        $env.OTEL_LOGS_EXPORTER = "otlp"
+        $env.OTEL_METRICS_EXPORTER = "otlp"
+        $env.OTEL_EXPORTER_OTLP_PROTOCOL = "http/protobuf"
+        $env.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT = "http://127.0.0.1:8428/opentelemetry/v1/metrics"
+        $env.OTEL_EXPORTER_OTLP_LOGS_ENDPOINT = "http://127.0.0.1:9428/insert/opentelemetry/v1/logs"
+        $env.OTEL_RESOURCE_ATTRIBUTES = "job=claude"
+        $env.OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE = "cumulative"
         # Provider configurations
         let providers = {
           glm: {

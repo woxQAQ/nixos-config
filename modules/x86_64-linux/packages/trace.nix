@@ -14,6 +14,8 @@
 
     # syscall monitor
     strace
+    iotop
+    iotools
     ltrace
     ethtool
     usbutils
