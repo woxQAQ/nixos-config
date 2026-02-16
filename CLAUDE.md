@@ -4,7 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-This is a flake-based NixOS configuration that supports both NixOS (x86_64-linux) and macOS (aarch64-darwin) systems. It uses flake-parts for modular organization and Home Manager for user-level configuration management.
+This is a flake-based NixOS configuration that supports
+both NixOS (x86_64-linux) and macOS (aarch64-darwin) systems.
+It uses flake-parts for modular organization and Home Manager
+for user-level configuration management.
 
 ## Build Commands
 
@@ -17,15 +20,16 @@ The Makefile provides the primary interface for building and switching configura
 - `make check` - Run flake checks (validates all configurations)
 - `make fmt` - Format all Nix files using `nix fmt`
 - `make bump-flake` - Update all flake inputs
-- `make bump-secrets` - Update only the secrets input
-- `make bump-woxVim` - Update the woxVim input and rebuild
-- `make bump-claude-code` - Update the nixpkgs-claude-code input and rebuild
 - `make gc` - Run garbage collection (deletes generations older than 7 days)
 - `make repl` - Open Nix REPL
 - `make waybar-restart` - Restart waybar with SIGUSR2
 
 For debugging builds:
+
 - `make switch TRACE=1` - Run switch with `--show-trace` flag
+
+But, you don't have the privilege to run the `nixos-rebuild switch`, in fact, you SHOULD stop 
+running the command, and ask me to run it. 
 
 ## Architecture
 
@@ -74,17 +78,18 @@ The configuration uses **flake-parts** with partitions:
 2. **main flake outputs** - NixOS and Darwin system configurations
 
 **Key Inputs:**
+
 - Multiple `nixpkgs` channels for different purposes:
   - `nixpkgs` - Main unstable channel
-  - `nixpkgs-stable` - Stable channel (nixos-25.05)
-  - `nixpkgs-darwin` - For nix-darwin
-  - `nixpkgs-zed` - For Zed editor
-  - `nixpkgs-claude-code` - Separate for Claude Code updates
+  - `nixpkgs-stable` - Stable channel
+  - `nixpkgs-unstable` - Unstable channel
+  - `nixpkgs-fast` - For something that requires more
 - `home-manager` - User configuration management
 - `agenix` - Secret management
 - `nix-darwin` - macOS support
 - `nix-gaming` - Gaming-related packages
-- Custom inputs: `woxVim`, `secrets`, `noctalia`, `vicinae`
+- `secrets` - My private-key's repo with age encrypted
+- `noctalia` - Noctalia-shell flake
 
 ### Host Configuration Pattern
 

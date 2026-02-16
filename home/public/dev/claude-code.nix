@@ -3,7 +3,7 @@ _: {
   # home.packages = with claude-code-pkg; [
   #   claude-code
   # ];
-  home.file.".claude/settings.json" = {
-    source = ./claude-code.settings.json;
-  };
+  # home.file.".claude/settings.json" = {
+  #   source = ./claude-code.settings.json;
+  # };
 }

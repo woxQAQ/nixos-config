@@ -1,8 +1,13 @@
 {
   nu_scripts,
   pkgs,
+  config,
   ...
 }:
+let
+  vlogs_endpoint = "http://127.0.0.1:9428/insert/opentelemetry/v1/logs";
+  vmmetrics_endpoint = "http://127.0.0.1:8428/opentelemetry/v1/metrics";
+in
 {
   home.packages = with pkgs.nushellPlugins; [
     query
@@ -12,45 +17,81 @@
     configFile.source = ./config.nu;
     extraConfig = # nu
       ''
-        # completion
         source /etc/agenix/private.nu
-
+        let home = "${config.home.homeDirectory}";
         # claude code specific
-        ${pkgs.jq}/bin/jq '. + {
+        def init_files [] {
+          let arr = [
+            $'($home)/.claude.json'
+            $'($home)/.claude/settings.json'
+            $'($home)/.codex/config.toml'
+          ]
+          for $file in $arr {
+            if not ($file | path exists) {
+              touch $file
+              if ($file | str ends-with "json") {
+                {} | to json o> $file
+              }
+            }
+          }
+        }
+        init_files
+        open $'($home)/.claude.json' | merge {
           hasCompletedOnboarding: true,
           hasCompletedProjectOnboarding: true,
           hasTrustDialogAccepted: true,
           hasTrustDialogHooksAccepted: true,
           bypassPermissionsModeAccepted: true,
-          shiftEnterKeyBindingInstalled: true
-        }' ($env.HOME)/.claude.json o>> ($env.HOME)/.claude.tmp.json
-        mv ($env.HOME)/.claude.tmp.json ($env.HOME)/.claude.json
+          shiftEnterKeyBindingInstalled: true,
+          
+        } | to json o> $'($home)/.claude.json'
+        open $'($home)/.claude/settings.json' | merge {
+          env: {
+            CLAUDE_CODE_ENABLE_TELEMETRY: 1,
+            OTEL_LOG_USER_PROMPTS: 1,
+            OTEL_LOGS_EXPORTER: "otlp",
+            OTEL_METRICS_EXPORTER: "otlp",
+            OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf",
+            OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "${vmmetrics_endpoint}",
+            OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "${vlogs_endpoint}",
+            OTEL_RESOURCE_ATTRIBUTES: "job=claude",
+            CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS: "1",
+            CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: "1",
+            ENABLE_LSP_TOOL: true,
+          }
+          statusLine: {
+            type: "command",
+            command: "npx -y @owloops/claude-powerline@latest --style=powerline"
+          }
+        } | to json o> $'($home)/.claude/settings.json'
 
-        # claude code telemetry
-        # "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
-        # "OTEL_LOG_USER_PROMPTS": "1",
-        # "OTEL_LOGS_EXPORTER": "otlp",
-        # "OTEL_METRICS_EXPORTER": "otlp",
-        # "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
-        # "OTEL_EXPORTER_OTLP_METRICS_ENDPOINT": "http://127.0.0.1:8428/opentelemetry/v1/metrics",
-        # "OTEL_EXPORTER_OTLP_LOGS_ENDPOINT": "http://127.0.0.1:9428/insert/opentelemetry/v1/logs",
-        # "OTEL_RESOURCE_ATTRIBUTES": "job=claude",
-        # "OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE": "cumulative"
-        $env.CLAUDE_CODE_ENABLE_TELEMETRY = 1
-        $env.OTEL_LOG_USER_PROMPTS = 1
-        $env.OTEL_LOGS_EXPORTER = "otlp"
-        $env.OTEL_METRICS_EXPORTER = "otlp"
-        $env.OTEL_EXPORTER_OTLP_PROTOCOL = "http/protobuf"
-        $env.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT = "http://127.0.0.1:8428/opentelemetry/v1/metrics"
-        $env.OTEL_EXPORTER_OTLP_LOGS_ENDPOINT = "http://127.0.0.1:9428/insert/opentelemetry/v1/logs"
-        $env.OTEL_RESOURCE_ATTRIBUTES = "job=claude"
-        $env.OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE = "cumulative"
+        # openAI otlp 
+        open $'($home)/.codex/config.toml' | merge {
+          otel: {
+            log_user_prompt: true,
+            exporter: {
+              otlp-http: {
+                endpoint: "${vlogs_endpoint}",
+                protocol: "binary",
+              },
+            },
+            trace-exporter: {
+              otlp-http: {
+                endpoint: "${vmmetrics_endpoint}"
+                protocol: "binary"
+              }
+            }
+          }
+        } | to toml o> $'($home)/.codex/config.toml'
+
+
+        $env.KIMI_MODEL_NAME = "kimi-for-coding"
         # Provider configurations
         let providers = {
           glm: {
             api_key: $env.ZAI_API_KEY_ALT,
             base_url: "https://open.bigmodel.cn/api/anthropic",
-            model: null
+            model: "glm-5"
           },
           volcengine: {
             api_key: $env.ARK_CODE_API_KEY,
@@ -60,7 +101,7 @@
           kimi: {
             api_key: $env.KIMI_API_KEY,
             base_url: "https://api.kimi.com/coding",
-            model: null
+            model: $env.KIMI_MODEL_NAME
           }
         }
 
@@ -94,6 +135,7 @@
         # Set default provider (kimi)
         ai-switch glm --no-output
 
+        # completion
         const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}']
         use custom-completions/git/git-completions.nu *
         use custom-completions/gh/gh-completions.nu *
