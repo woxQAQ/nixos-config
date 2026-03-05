@@ -5,10 +5,11 @@
     libraries = with pkgs; [
       zlib
       zstd
+      libcap
+      openssl
       stdenv.cc.cc
       curl
       glib
-      openssl
       attr
       libssh
       libseccomp
