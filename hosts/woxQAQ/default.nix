@@ -15,6 +15,7 @@ in
     ./cloud-native.nix
     ./proxy.nix
     ./monitoring.nix
+    ./logid.nix
   ];
   # AMD graphics manage
   services.lact = {
