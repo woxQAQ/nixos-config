@@ -93,6 +93,14 @@
             url = "http://localhost:9428";
             editable = false;
           }
+          {
+            # VictoriaTraces exposes a Jaeger-compatible query API for Grafana.
+            name = "victoriatraces";
+            type = "jaeger";
+            uid = "victoriatraces";
+            url = "http://localhost:10428/select/jaeger";
+            editable = false;
+          }
         ];
         # Note: Dashboard packages may not be available in all nixpkgs versions
         # Dashboards can be imported manually through the Grafana UI

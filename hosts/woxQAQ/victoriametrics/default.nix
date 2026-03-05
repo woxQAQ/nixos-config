@@ -61,10 +61,23 @@ _: {
       enable = true;
       listenAddress = ":9428";
     };
+
+    # victoriatraces - Victoria Traces for distributed tracing with OpenTelemetry support
+    # OpenTelemetry traces endpoint: http://localhost:10428/insert/opentelemetry/v1/traces
+    # Jaeger query endpoint: http://localhost:10428/select/jaeger
+    victoriatraces = {
+      enable = true;
+      listenAddress = ":10428";
+      retentionPeriod = "30d";
+      stateDir = "victoriatraces";
+    };
   };
 
-  users.groups.victoriametrics-data = { };
-  users.groups.victoriametrics-logs = { };
+  users.groups = {
+    victoriametrics-data = { };
+    victoriametrics-logs = { };
+    victoriametrics-traces = { };
+  };
 
   # Workaround for victoriametrics to store data in another place
   # https://www.freedesktop.org/software/systemd/man/latest/tmpfiles.d.html#Type
@@ -74,6 +87,7 @@ _: {
     tmpfiles.rules = [
       "d /data/apps/victoriametrics 0770 root victoriametrics-data - -"
       "d /data/apps/victorialogs 0770 root victoriametrics-logs - -"
+      "d /data/apps/victoriatraces 0770 root victoriametrics-traces - -"
     ];
 
     services = {
@@ -85,6 +99,11 @@ _: {
       victorialogs.serviceConfig = {
         SupplementaryGroups = [ "victoriametrics-logs" ];
         BindPaths = [ "/data/apps/victorialogs:/var/lib/victorialogs:rbind" ];
+      };
+
+      victoriatraces.serviceConfig = {
+        SupplementaryGroups = [ "victoriametrics-traces" ];
+        BindPaths = [ "/data/apps/victoriatraces:/var/lib/victoriatraces:rbind" ];
       };
     };
   };

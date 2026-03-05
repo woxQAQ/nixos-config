@@ -13,5 +13,6 @@
     8429 # vmagent HTTP endpoint
     9100 # node_exporter
     9428 # victorialogs (OpenTelemetry logs endpoint)
+    10428 # victoriatraces (OpenTelemetry traces + Jaeger query endpoint)
   ];
 }
