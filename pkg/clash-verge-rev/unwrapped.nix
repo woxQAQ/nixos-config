@@ -55,12 +55,12 @@ rustPlatform.buildRustPackage {
 
     outputHashes = {
       "clash_verge_logger-0.2.2" = "sha256-2EbXwlYwps6XRm1Crcr6koGWbF4ZRXJ6hUqq04YMARg=";
-      "clash_verge_service_ipc-2.1.1" = "sha256-qU7baSJDro7TZT21lg8cbMj26hwZ8yx1iEgeSYAK9aY=";
+      "clash_verge_service_ipc-2.1.3" = "sha256-L2KttEr0WpPci8D3p1OaXE+kWExL3zbTVEAgSozaDQM=";
       "dark-light-2.0.0" = "sha256-4JPfNSk8MsMMxJPz6M8ju+sMVXlAerct16xwbkEWpYw=";
-      "sysproxy-0.4.3" = "sha256-Eb9iYgnGSg5X6gLmwezEXRGE4jrrJpFvOGZAkwns0YA=";
-      "tao-0.34.5" = "sha256-oY7C1nEhb/vJf8q/sn6zQDlQKYP8zQQ15HrtEb9GEu8=";
-      "tao-macros-0.1.3" = "sha256-oY7C1nEhb/vJf8q/sn6zQDlQKYP8zQQ15HrtEb9GEu8=";
-      "tauri-plugin-mihomo-0.1.3" = "sha256-G/vkUdZs4ug3x8qE7sGU5duooo91yoV7amQ/5vlXTmU=";
+      "sysproxy-0.4.5" = "sha256-aeD3JJlVwiou7kMAuAF5ZEi3bDWJrNFCAYf5ZizgqaI=";
+      "tao-0.34.5" = "sha256-I+LVyg8zJe+Um5sYUk/zH4zQdEOO9Ci6+ExXZV5vIcw=";
+      "tao-macros-0.1.3" = "sha256-I+LVyg8zJe+Um5sYUk/zH4zQdEOO9Ci6+ExXZV5vIcw=";
+      "tauri-plugin-mihomo-0.1.5" = "sha256-eV4tUyjiZBjTdrzQ2dwwxnmrgYhClYjH1MbEZbQZRGs=";
     };
   };
 

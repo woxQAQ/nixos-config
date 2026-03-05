@@ -15,18 +15,18 @@
 }:
 let
   pname = "clash-verge-rev";
-  version = "2.4.5";
+  version = "2.4.6";
 
   src = fetchFromGitHub {
     owner = "clash-verge-rev";
     repo = "clash-verge-rev";
     tag = "v${version}";
-    hash = "sha256-FFo0jy8RF2nnb2lA9mLfW7jhbUCv+Sq0dd0P0iTv2SQ=";
+    hash = "sha256-s/dUy9vYxdUlAahVPkoOHjoF+WCl3xhJOubZtS1PB5o=";
   };
 
   # To update pnpm-hash, set to lib.fakeHash and run nix build
   # cargo git dependencies are handled in unwrapped.nix via cargoLock.outputHashes
-  pnpm-hash = "sha256-SHFMfwqBtmMZutJzCGB4SSPg4T620q58egOfu8d7Jzg=";
+  pnpm-hash = "sha256-ehrZFVc6nugkbCypd9EWt3T6QZNCELCHpA+jPAyp3+A=";
   service = callPackage ./service.nix {
     inherit
       meta
