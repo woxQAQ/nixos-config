@@ -10,12 +10,13 @@ let
   vtrace_endpoint = "http://127.0.0.1:10428/insert/opentelemetry/v1/traces";
 in
 {
-  home.packages = with pkgs.nushellPlugins; [
-    query
-  ];
   programs.nushell = {
     enable = true;
     configFile.source = ./config.nu;
+    plugins = with pkgs.nushellPlugins; [
+      query
+      formats
+    ];
     extraConfig = # nu
       ''
         source /etc/agenix/private.nu
