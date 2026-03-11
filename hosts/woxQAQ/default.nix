@@ -11,6 +11,7 @@ in
   imports = [
     ./hardware-configuration.nix
     ./boot.specified.nix
+    ./rocm.nix
     ./vm.nix
     ./cloud-native.nix
     ./proxy.nix
