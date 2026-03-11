@@ -1,12 +1,10 @@
 {
   stateVersion,
-  fastest-pkg,
-  geodb,
   ...
 }:
-let
-  clash-verge = fastest-pkg.callPackage ../../pkg/clash-verge-rev { geoip = geodb; };
-in
+# let
+#   clash-verge = fastest-pkg.callPackage ../../pkg/clash-verge-rev { geoip = geodb; };
+# in
 {
   imports = [
     ./hardware-configuration.nix
@@ -32,11 +30,11 @@ in
     localsend.enable = true;
     clash-verge = {
       enable = true;
-      package = clash-verge;
       # The overlay in overlays/default.nix provides version 2.4.4
       autoStart = true;
       serviceMode = true;
       tunMode = true;
+      group = "wheel";
     };
   };
   system.stateVersion = stateVersion;
