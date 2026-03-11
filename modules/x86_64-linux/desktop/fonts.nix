@@ -18,7 +18,7 @@
       source-han-serif
       source-han-mono
 
-      maple-mono.NF-CN-unhinted
+      maple-mono.NF-CN
 
       # nerdfonts
       nerd-fonts.symbols-only
@@ -37,15 +37,15 @@
     fontconfig = {
       defaultFonts = {
         serif = [
-          "Source Sans 3"
+          "Source Serif 4"
           "Source Han Serif SC"
           "Source Han Serif TC"
         ];
         sansSerif = [
-          "Source Serif 4"
-          "LXGW WenKai Screen"
+          "Source Sans 3"
           "Source Han Sans SC"
           "Source Han Sans TC"
+          "LXGW WenKai Screen"
         ];
         monospace = [
           "Maple Mono NF CN"
@@ -56,8 +56,11 @@
         ];
         emoji = [ "Noto Color Emoji" ];
       };
-      subpixel.rgba = "rgb";
-      hinting.enable = false;
+      subpixel.rgba = "none";
+      hinting = {
+        enable = true;
+        style = "slight";
+      };
       antialias = true;
     };
 
@@ -71,7 +74,7 @@
     fonts = [
       {
         name = "Maple Mono NF CN";
-        package = maple-mono.NF-CN-unhinted;
+        package = maple-mono.NF-CN;
       }
       {
         name = "JetBrainsMono Nerd Font";

@@ -8,10 +8,9 @@
   ];
 
   xresources.properties = {
-    # dpi for Xorg's font
-    "Xft.dpi" = 150;
-    # or set a generic dpi
-    "*.dpi" = 150;
+    # Align Xft DPI with the primary output's 1.25 scale.
+    "Xft.dpi" = 120;
+    "*.dpi" = 120;
   };
 
   home.sessionVariables = {
@@ -30,7 +29,7 @@
       gtk-xft-antialias = 1;
       gtk-xft-hinting = 1;
       gtk-xft-hintstyle = "hintslight";
-      gtk-xft-rgba = "rgb";
+      gtk-xft-rgba = "none";
     };
 
     gtk2.force = true;

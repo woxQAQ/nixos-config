@@ -7,6 +7,23 @@
 
 let
   cfg = config.modules.desktop.flatpak-apps;
+  flatpakFontFilesystems = [
+    "/etc/fonts:ro"
+    "/nix/store:ro"
+    "/run/current-system/sw/share/X11/fonts:ro"
+    "/run/current-system/sw/share/fonts:ro"
+    "xdg-config/fontconfig:ro"
+    "xdg-data/fonts:ro"
+  ];
+  flatpakFontOverrideArgs = lib.concatMapStringsSep " " (
+    filesystem: "--filesystem=${lib.escapeShellArg filesystem}"
+  ) flatpakFontFilesystems;
+  flatpakOverridesScript = pkgs.writeShellScript "flatpak-overrides" ''
+    set -euo pipefail
+
+    ${pkgs.flatpak}/bin/flatpak override ${flatpakFontOverrideArgs}
+    ${pkgs.flatpak}/bin/flatpak override com.tencent.WeChat --filesystem=home 2>/dev/null || true
+  '';
 in
 {
   options.modules.desktop.flatpak-apps = {
@@ -29,7 +46,6 @@ in
       enable = true;
     };
 
-    # Add Flathub remote
     systemd.services.add-flathub = {
       description = "Add Flathub remote for Flatpak";
       wantedBy = [ "multi-user.target" ];
@@ -41,9 +57,8 @@ in
       };
     };
 
-    # Configure Flatpak overrides for Chinese apps
     systemd.services.flatpak-overrides = {
-      description = "Configure Flatpak overrides for Chinese applications";
+      description = "Configure Flatpak font and app overrides";
       wantedBy = [ "multi-user.target" ];
       after = [
         "network.target"
@@ -51,23 +66,20 @@ in
       ];
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.flatpak}/bin/flatpak override com.tencent.WeChat --filesystem=home 2>/dev/null || true'";
+        ExecStart = flatpakOverridesScript;
         RemainAfterExit = true;
       };
     };
 
-    # Create a script to install Chinese apps
     environment.systemPackages = with pkgs; [
       (writeShellScriptBin "install-chinese-apps" ''
         #!/usr/bin/env bash
         set -euo pipefail
 
-        # Add Flathub if not exists
         echo "Adding Flathub remote..."
         flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-        # Install apps
-        echo "Installing Chinese apps..."
+        echo "Installing apps..."
         ${lib.concatMapStringsSep "\n" (app: ''
           echo "Installing ${app}..."
           flatpak install flathub ${app} --assumeyes || true
