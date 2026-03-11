@@ -1,10 +1,27 @@
-{ pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
+let
+  grafanaDataDir = "/data/apps/grafana";
+  grafanaSecretKeyFile = "${grafanaDataDir}/secret_key";
+in
 {
 
   environment.etc."grafana/dashboards".source = ./dashboards;
+  system.activationScripts.grafana-secret-key.text = ''
+    install -d -m 0750 -o grafana -g grafana ${lib.escapeShellArg grafanaDataDir}
+    if [ ! -s ${lib.escapeShellArg grafanaSecretKeyFile} ]; then
+      umask 0077
+      ${pkgs.openssl}/bin/openssl rand -hex 32 > ${lib.escapeShellArg grafanaSecretKeyFile}
+    fi
+    chown grafana:grafana ${lib.escapeShellArg grafanaSecretKeyFile}
+    chmod 0400 ${lib.escapeShellArg grafanaSecretKeyFile}
+  '';
   services.grafana = {
     enable = true;
-    dataDir = "/data/apps/grafana";
+    dataDir = grafanaDataDir;
     settings = {
       server = {
         http_port = 3000;
@@ -18,6 +35,7 @@
         # IMPORTANT: Change this after first login!
         # TODO: consider put password into secret repos
         admin_password = "admin";
+        secret_key = "$__file{${grafanaSecretKeyFile}}";
       };
       users = {
         allow_sign_up = false;
