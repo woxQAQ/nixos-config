@@ -17,7 +17,7 @@ in
           cursorline = true;
           color-modes = true;
           lsp.display-messages = true;
-          lsp.display-inlay-hints = true;
+          lsp.display-inlay-hints = false;
           cursor-shape = {
             insert = "bar";
             normal = "block";
@@ -36,7 +36,11 @@ in
         }
         {
           name = "python";
-          language-servers = [ "ty" ];
+          language-servers = [
+            {
+              name = "ty";
+            }
+          ];
         }
       ];
     };
