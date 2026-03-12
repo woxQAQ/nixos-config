@@ -7,7 +7,6 @@
 let
   vlogs_endpoint = "http://127.0.0.1:9428/insert/opentelemetry/v1/logs";
   vmmetrics_endpoint = "http://127.0.0.1:8428/opentelemetry/v1/metrics";
-  vtrace_endpoint = "http://127.0.0.1:10428/insert/opentelemetry/v1/traces";
 in
 {
   programs.nushell = {
@@ -26,7 +25,6 @@ in
           let arr = [
             $'($home)/.claude.json'
             $'($home)/.claude/settings.json'
-            $'($home)/.codex/config.toml'
           ]
           for $file in $arr {
             if not ($file | path exists) {
@@ -66,26 +64,6 @@ in
             command: "npx -y @owloops/claude-powerline@latest --style=powerline"
           }
         } | to json o> $'($home)/.claude/settings.json'
-
-        # openAI otlp 
-        open $'($home)/.codex/config.toml' | merge {
-          otel: {
-            log_user_prompt: true,
-            exporter: {
-              otlp-http: {
-                endpoint: "${vlogs_endpoint}",
-                protocol: "binary",
-              },
-            },
-            trace-exporter: {
-              otlp-http: {
-                endpoint: "${vtrace_endpoint}",
-                protocol: "binary",
-              },
-            },
-          }
-        } | to toml o> $'($home)/.codex/config.toml'
-
 
         $env.KIMI_MODEL_NAME = "kimi-for-coding"
         # Provider configurations
