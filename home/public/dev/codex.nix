@@ -99,10 +99,6 @@ let
   '';
 in
 {
-  home.packages = with pkgs; [
-    antigravity-fhs
-  ];
-
   # Reconcile only the Codex OTEL keys at switch time so the file stays mutable.
   home.activation.codexConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     export CODEX_CONFIG_PATH=${lib.escapeShellArg "${config.home.homeDirectory}/.codex/config.toml"}
