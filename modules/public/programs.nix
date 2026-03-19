@@ -4,10 +4,11 @@
   ...
 }:
 {
-  environment.variables.EDITOR = lib.mkForce "nvim --clean";
+  environment.variables.EDITOR = lib.mkForce "vim";
   environment.systemPackages = with pkgs; [
     # morden shell
     nushell
+    vim
 
     age
     # yaml lint and processor

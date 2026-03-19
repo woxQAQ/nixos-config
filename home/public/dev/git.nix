@@ -10,7 +10,6 @@
     rm -f ${config.home.homeDirectory}/.gitconfig
   '';
   home.packages = with pkgs; [
-    gitbutler
   ];
   programs = {
     gh = {

@@ -19,7 +19,7 @@ in
         "vim" = "nvim";
       };
       sessionVariables = {
-        EDITOR = "nvim --clean";
+        EDITOR = lib.mkForce "nvim";
       };
     };
   };
