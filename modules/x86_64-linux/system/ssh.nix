@@ -5,6 +5,7 @@ _: {
       PasswordAuthentication = false;
       X11Forwarding = true;
     };
+
   };
 
   environment.enableAllTerminfo = true;
