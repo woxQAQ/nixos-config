@@ -83,10 +83,8 @@ flake-parts.lib.mkFlake { inherit inputs; } {
       );
     }
     // {
-      packages = lib.genAttrs [ "x86_64-linux" ] (system: {
-        clash-verge-rev =
-          inputs.nixpkgs.legacyPackages.${system}.callPackage ../pkg/clash-verge-rev/default.nix
-            { geoip = inputs.geodb; };
+      packages = lib.genAttrs [ "x86_64-linux" ] (_system: {
+
       });
     };
 }
