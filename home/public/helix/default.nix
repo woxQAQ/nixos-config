@@ -16,6 +16,7 @@ in
           line-number = "relative";
           cursorline = true;
           color-modes = true;
+          default-yank-register = "+";
           lsp.display-messages = true;
           lsp.display-inlay-hints = false;
           cursor-shape = {
