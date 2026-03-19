@@ -26,6 +26,8 @@ let
   ];
   vlogsEndpoint = "http://127.0.0.1:9428/insert/opentelemetry/v1/logs";
   vtraceEndpoint = "http://127.0.0.1:10428/insert/opentelemetry/v1/traces";
+
+  vmmetrics_endpoint = "http://127.0.0.1:8428/opentelemetry/v1/metrics";
   codexConfigActivationScript = pkgs.writeText "codex-config-activation.py" ''
     import os
     from pathlib import Path
@@ -37,6 +39,7 @@ let
     grafana_stack_enabled = os.environ["CODEX_GRAFANA_STACK_ENABLED"] == "1"
     logs_endpoint = os.environ["CODEX_VLOGS_ENDPOINT"]
     traces_endpoint = os.environ["CODEX_VTRACE_ENDPOINT"]
+    vmmetrics_endpoint = os.environ["CODEX_VMMETRICS_ENDPOINT"]
 
     file_existed = config_path.exists()
     store_managed_symlink = config_path.is_symlink() and str(config_path.resolve()).startswith("/nix/store/")
@@ -68,7 +71,15 @@ let
                 }
             }
         )
-        otel["trace-exporter"] = tomlkit.item(
+        otel["metrics_exporter"] = tomlkit.item (
+          {
+            "otlp-http": {
+              "endpoint": vmmetrics_endpoint,
+              "protocol": "binary",
+            }
+          }
+        )
+        otel["trace_exporter"] = tomlkit.item(
             {
                 "otlp-http": {
                     "endpoint": traces_endpoint,
@@ -98,6 +109,7 @@ in
     export CODEX_GRAFANA_STACK_ENABLED=${lib.escapeShellArg (if grafanaStackEnabled then "1" else "0")}
     export CODEX_VLOGS_ENDPOINT=${lib.escapeShellArg vlogsEndpoint}
     export CODEX_VTRACE_ENDPOINT=${lib.escapeShellArg vtraceEndpoint}
+    export CODEX_VMMETRICS_ENDPOINT=${lib.escapeShellArg vmmetrics_endpoint}
     run ${pythonWithTomlkit}/bin/python ${codexConfigActivationScript}
   '';
 }
