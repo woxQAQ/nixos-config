@@ -53,5 +53,16 @@
       thumbnail
     ];
   };
+
+  # macOS 26 登录后不会继承 boot 阶段的 hidutil 映射，
+  # 用用户级 LaunchAgent 在图形会话启动时重新应用一次。
+  services.macos-remap-keys = {
+    enable = pkgs.stdenv.hostPlatform.isDarwin;
+    keyboard = {
+      Capslock = "Escape";
+      Escape = "Capslock";
+    };
+  };
+
   xdg.enable = true;
 }
