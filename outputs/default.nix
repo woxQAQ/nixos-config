@@ -57,6 +57,13 @@ flake-parts.lib.mkFlake { inherit inputs; } {
             stateVersion = "25.05";
           }
         );
+        selfcloud = import ./selfcloud.nix (
+          args
+          // {
+            system = "x86_64-linux";
+            stateVersion = "25.11";
+          }
+        );
       };
 
       darwinSystems = {
