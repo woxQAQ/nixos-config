@@ -6,13 +6,12 @@
   ...
 }:
 {
-  networking.hostName = "wsl"; # Define your hostname.
+  networking.hostName = "wsl";
   system.stateVersion = stateVersion;
   wsl = {
     enable = true;
     defaultUser = username;
     startMenuLaunchers = true;
-    # docker-desktop.enable = true;
   };
   virtualisation.docker.enable = true;
   nixpkgs = {
@@ -22,7 +21,7 @@
   };
   programs.git.config = {
     user.name = username;
-    user.gmail = "woxqaq@gmail.com";
+    user.email = "woxqaq@gmail.com";
   };
   programs.zsh = {
     enable = true;
@@ -44,7 +43,6 @@
     delve
     protols
     kind
-    # perf
     unstable-pkg.go-tools
     uv
     nodejs

@@ -1,21 +1,19 @@
 { inputs, ... }:
 let
-  # Common nixpkgs configuration to reduce duplication
   mkNixpkgs =
-    pkgs: system:
-    import pkgs {
+    nixpkgs: system:
+    import nixpkgs {
       inherit system;
       config.allowUnfree = true;
     };
 in
 {
-  # Combined overlay that provides both master and unstable package sets
-  unstable-packages = final: _prev: {
-    master = mkNixpkgs inputs.master final.system;
-    unstable = mkNixpkgs inputs.unstable final.system;
+  package-sets = final: _prev: {
+    fast = mkNixpkgs inputs.nixpkgs-fast final.system;
+    stable = mkNixpkgs inputs.nixpkgs-stable final.system;
+    unstable = mkNixpkgs inputs.nixpkgs-unstable final.system;
   };
 
-  # Custom package overlay
   modifications = _final: _prev: {
   };
 }

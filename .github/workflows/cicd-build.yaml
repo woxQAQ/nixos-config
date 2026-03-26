@@ -16,10 +16,6 @@ jobs:
         include:
           - system: x86_64-linux
             os: ubuntu-latest
-            # make-target: build-nixos
-          # - system: aarch64-darwin
-          #   os: macos-latest
-          #   make-target: build-darwin
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -37,6 +33,12 @@ jobs:
         with:
           name: woxqaq
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-      - name: check
+      - name: Check flake
         run: |
           nix flake check
+      - name: Evaluate host configurations
+        run: |
+          nix eval .#nixosConfigurations.woxQAQ.config.system.build.toplevel.drvPath
+          nix eval .#nixosConfigurations.wsl.config.system.build.toplevel.drvPath
+          nix eval .#nixosConfigurations.windows-vm1.config.system.build.toplevel.drvPath
+          nix eval .#darwinConfigurations.woxMac.config.system.build.toplevel.drvPath

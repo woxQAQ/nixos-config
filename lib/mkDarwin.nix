@@ -8,26 +8,22 @@
   mylib,
   home-modules ? [ ],
   darwin-modules,
-  # specialArgs,
   ...
 }:
 let
   inherit (inputs) nix-darwin home-manager;
   genSpecialArgs = import ./genSpecialArgs.nix;
-  specialArgs =
-    genSpecialArgs {
-      inherit
-        inputs
-        system
-        username
-        stateVersion
-        mylib
-        lib
-        ;
-    }
-    // {
-      inherit hostname;
-    };
+  overlaysFunctions = import ../overlays { inherit inputs; };
+  specialArgs = genSpecialArgs {
+    inherit
+      inputs
+      system
+      username
+      hostname
+      stateVersion
+      mylib
+      ;
+  };
 in
 nix-darwin.lib.darwinSystem {
   inherit system specialArgs;
@@ -39,21 +35,13 @@ nix-darwin.lib.darwinSystem {
           inherit inputs;
         };
       }
-    ]
-    ++ [
-      (
-        _:
-        let
-          overlaysFunctions = import ../overlays { inherit inputs; };
-        in
-        {
-          nixpkgs = {
-            hostPlatform = system;
-            config.allowUnfree = true;
-            overlays = builtins.attrValues overlaysFunctions;
-          };
-        }
-      )
+      (_: {
+        nixpkgs = {
+          hostPlatform = system;
+          config.allowUnfree = true;
+          overlays = builtins.attrValues overlaysFunctions;
+        };
+      })
     ]
     ++ (lib.optionals ((lib.lists.length home-modules) > 0) [
       home-manager.darwinModules.home-manager

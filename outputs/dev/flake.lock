@@ -520,22 +520,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-claude-code": {
-      "locked": {
-        "lastModified": 1767364772,
-        "narHash": "sha256-fFUnEYMla8b7UKjijLnMe+oVFOz6HjijGGNS1l7dYaQ=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "16c7794d0a28b5a37904d55bcca36003b9109aaa",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-darwin": {
       "locked": {
         "lastModified": 1767364772,
@@ -552,18 +536,18 @@
         "type": "github"
       }
     },
-    "nixpkgs-geoip": {
+    "nixpkgs-fast": {
       "locked": {
-        "lastModified": 1770197578,
-        "narHash": "sha256-AYqlWrX09+HvGs8zM6ebZ1pwUqjkfpnv8mewYwAo+iM=",
+        "lastModified": 1772956932,
+        "narHash": "sha256-M0yS4AafhKxPPmOHGqIV0iKxgNO8bHDWdl1kOwGBwRY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "00c21e4c93d963c50d4c0c89bfa84ed6e0694df2",
+        "rev": "608d0cadfed240589a7eea422407a547ad626a14",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-unstable",
+        "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -595,22 +579,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
-        "type": "github"
-      }
-    },
-    "nixpkgs-openclaw": {
-      "locked": {
-        "lastModified": 1769740369,
-        "narHash": "sha256-xKPyJoMoXfXpDM5DFDZDsi9PHArf2k5BJjvReYXoFpM=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "6308c3b21396534d8aaeac46179c14c439a89b8a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -657,22 +625,6 @@
       "original": {
         "owner": "nixos",
         "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-zed": {
-      "locked": {
-        "lastModified": 1770537093,
-        "narHash": "sha256-pF1quXG5wsgtyuPOHcLfYg/ft/QMr8NnX0i6tW2187s=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "fef9403a3e4d31b0a23f0bacebbec52c248fbb51",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -727,11 +679,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1767364772,
-        "narHash": "sha256-fFUnEYMla8b7UKjijLnMe+oVFOz6HjijGGNS1l7dYaQ=",
+        "lastModified": 1772956932,
+        "narHash": "sha256-M0yS4AafhKxPPmOHGqIV0iKxgNO8bHDWdl1kOwGBwRY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "16c7794d0a28b5a37904d55bcca36003b9109aaa",
+        "rev": "608d0cadfed240589a7eea422407a547ad626a14",
         "type": "github"
       },
       "original": {
@@ -825,11 +777,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770436113,
-        "narHash": "sha256-Ekc6E1uo7OBMROUUZ3pBiTwha7KlHcsNf6jy1g1hCco=",
+        "lastModified": 1771086363,
+        "narHash": "sha256-mFjEGMgnWVJ1zJieI1ydkxXMzy7cXi/Vn3s9uPuljrQ=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "93838353573233b5584b106eb897a37f8a4e63ac",
+        "rev": "d40f54295dea13c29ec81f0aba9407d20ac3996e",
         "type": "github"
       },
       "original": {
@@ -841,11 +793,11 @@
     "nu_scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1766949840,
-        "narHash": "sha256-Cq814VegRIWRR0UfRz3xV3pHm4C1701I5BoPRsEi+ZQ=",
+        "lastModified": 1770900822,
+        "narHash": "sha256-KRZtbZTzkQvizZSkorLnYpqI70lE8y4ERtbPQkb6ALo=",
         "owner": "nushell",
         "repo": "nu_scripts",
-        "rev": "1cb6d6c460949b989b7fb1a6d02456a560521366",
+        "rev": "cc94140f4942116e065a97d73c3ce430a092fef2",
         "type": "github"
       },
       "original": {
@@ -878,18 +830,16 @@
         "nix-openclaw": "nix-openclaw",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_5",
-        "nixpkgs-claude-code": "nixpkgs-claude-code",
         "nixpkgs-darwin": "nixpkgs-darwin",
-        "nixpkgs-geoip": "nixpkgs-geoip",
-        "nixpkgs-openclaw": "nixpkgs-openclaw",
+        "nixpkgs-fast": "nixpkgs-fast",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nixpkgs-zed": "nixpkgs-zed",
         "noctalia": "noctalia",
         "nu_scripts": "nu_scripts",
         "secrets": "secrets",
         "vicinae": "vicinae",
-        "woxVim": "woxVim"
+        "woxVim": "woxVim",
+        "zen-browser": "zen-browser"
       },
       "locked": {
         "path": "../../",
@@ -1027,16 +977,41 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1770227791,
-        "narHash": "sha256-mEZI0vCdfQPYMjaU14iQaMHZqAMMboNwhd+mzk03rFM=",
+        "lastModified": 1771587150,
+        "narHash": "sha256-5wjhNlb8nE2W9RJh9kzprzeDc8cQUb6oBavq4sXa9mw=",
         "owner": "woxQAQ",
         "repo": "nixvim",
-        "rev": "7e73fccaee00891f75b78b45d95a292b17eca888",
+        "rev": "cffb5819b53969d14754b1ca21cd0c087446663f",
         "type": "github"
       },
       "original": {
         "owner": "woxQAQ",
         "repo": "nixvim",
+        "type": "github"
+      }
+    },
+    "zen-browser": {
+      "inputs": {
+        "home-manager": [
+          "root",
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "root",
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771131295,
+        "narHash": "sha256-3Z7RKjuifcB6Hkjrk8gNOXAqEv5+ubc/J9lLoKD7pv4=",
+        "owner": "0xc000022070",
+        "repo": "zen-browser-flake",
+        "rev": "e983cc5e47483742b61e0c53cfe9a9314628086f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "0xc000022070",
+        "repo": "zen-browser-flake",
         "type": "github"
       }
     }

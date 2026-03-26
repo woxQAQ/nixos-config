@@ -12,7 +12,6 @@
     ./ides.nix
     ./niri
     ./noctalia
-    ./options.nix
     ./pkgs.nix
     ./qt.nix
     ./xdg.nix

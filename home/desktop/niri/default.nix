@@ -1,11 +1,11 @@
 {
   pkgs,
   lib,
-  config,
+  osConfig,
   ...
 }@args:
 let
-  cfg = config.modules.desktop;
+  cfg = osConfig.modules.desktop;
   enabled = cfg.environment == "niri";
 in
 {

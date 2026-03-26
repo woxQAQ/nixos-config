@@ -1,29 +1,30 @@
 {
   mylib,
   inputs,
-  system,
   ...
 }@args:
 let
   name = "wsl";
-  nixos-modules = [
-    inputs.nixos-wsl.nixosModules.wsl
-    ../hosts/${name}
-    ../modules/${system}/system
-    ../modules/${system}/packages
-    ../modules/public
-  ];
-  home-modules = [
-    ../home/public
-    ../home/nixos
-  ];
-  modules_ = {
-    inherit nixos-modules home-modules;
-    username = "woxQAQ";
-  };
 in
 {
   nixosConfigurations = {
-    "${name}" = mylib.mkHost (args // modules_);
+    "${name}" = mylib.mkHost (
+      args
+      // {
+        username = "woxQAQ";
+        hostname = name;
+        nixos-modules = [
+          inputs.nixos-wsl.nixosModules.wsl
+          ../hosts/${name}
+          ../modules/x86_64-linux/system
+          ../modules/x86_64-linux/packages
+          ../modules/public
+        ];
+        home-modules = [
+          ../home/public
+          ../home/nixos
+        ];
+      }
+    );
   };
 }

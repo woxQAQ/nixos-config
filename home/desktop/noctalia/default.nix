@@ -3,11 +3,11 @@
   config,
   pkgs,
   lib,
-  hostValues,
+  hostValues ? { },
   ...
 }:
 let
-  inherit (hostValues) defaultWallpaper;
+  defaultWallpaper = lib.attrByPath [ "defaultWallpaper" ] "wallhaven-6ldd9x.png" hostValues;
 in
 {
   imports = [

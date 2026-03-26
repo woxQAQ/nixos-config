@@ -1,6 +1,6 @@
-{ config, ... }:
+{ osConfig, ... }:
 let
-  cfg = config.modules.desktop.browser;
+  cfg = osConfig.modules.desktop.browser;
 in
 {
   config.programs = {

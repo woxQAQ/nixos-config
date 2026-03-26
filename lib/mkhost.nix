@@ -3,6 +3,7 @@
   lib,
   system ? "x86_64-linux",
   username,
+  hostname ? username,
   mylib,
   stateVersion,
   home-modules ? [ ],
@@ -12,14 +13,15 @@
 let
   inherit (inputs) home-manager nixpkgs;
   genSpecialArgs = import ./genSpecialArgs.nix;
+  overlaysFunctions = import ../overlays { inherit inputs; };
   specialArgs = genSpecialArgs {
     inherit
       inputs
       system
       username
+      hostname
       stateVersion
       mylib
-      lib
       ;
   };
 in
@@ -31,6 +33,12 @@ nixpkgs.lib.nixosSystem {
       {
         _module.args = {
           inherit inputs;
+        };
+      }
+      {
+        nixpkgs = {
+          config.allowUnfree = true;
+          overlays = builtins.attrValues overlaysFunctions;
         };
       }
     ]

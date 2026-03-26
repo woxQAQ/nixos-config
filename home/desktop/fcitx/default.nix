@@ -1,12 +1,12 @@
 {
   pkgs,
   lib,
-  config,
+  osConfig,
   ...
 }:
 with lib;
 let
-  cfg = config.modules.desktop.fcitx5;
+  cfg = osConfig.modules.desktop.fcitx5;
 in
 {
   config = mkIf cfg.enable {
@@ -15,7 +15,6 @@ in
       force = true;
     };
 
-    # Rime configuration files
     home.file.".local/share/fcitx5/rime/default.custom.yaml".text =
       #yaml
       ''
@@ -35,7 +34,6 @@ in
             rime-ice
           ];
         })
-        # rime-ice
         fcitx5-fluent
         qt6Packages.fcitx5-configtool
         fcitx5-gtk

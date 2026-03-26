@@ -1,10 +1,4 @@
-{
-  stateVersion,
-  ...
-}:
-# let
-#   clash-verge = fastest-pkg.callPackage ../../pkg/clash-verge-rev { geoip = geodb; };
-# in
+{ stateVersion, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -16,7 +10,9 @@
     ./monitoring.nix
     ./logid.nix
   ];
-  # AMD graphics manage
+
+  networking.hostName = "woxQAQ";
+
   services.lact = {
     enable = true;
   };
@@ -30,13 +26,13 @@
     localsend.enable = true;
     clash-verge = {
       enable = true;
-      # The overlay in overlays/default.nix provides version 2.4.4
       autoStart = true;
       serviceMode = true;
       tunMode = true;
       group = "wheel";
     };
   };
+
   system.stateVersion = stateVersion;
   nixpkgs = {
     config = {

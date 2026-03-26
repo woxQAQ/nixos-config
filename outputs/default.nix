@@ -73,7 +73,6 @@ flake-parts.lib.mkFlake { inherit inputs; } {
       darwinSystemsValues = builtins.attrValues darwinSystems;
     in
     {
-      debug_ = { inherit nixosSystems; };
       nixosConfigurations = lib.attrsets.mergeAttrsList (
         map (it: it.nixosConfigurations or { }) nixosSystemsValues
       );
@@ -81,10 +80,5 @@ flake-parts.lib.mkFlake { inherit inputs; } {
       darwinConfigurations = lib.attrsets.mergeAttrsList (
         map (it: it.darwinConfigurations or { }) darwinSystemsValues
       );
-    }
-    // {
-      packages = lib.genAttrs [ "x86_64-linux" ] (_system: {
-
-      });
     };
 }

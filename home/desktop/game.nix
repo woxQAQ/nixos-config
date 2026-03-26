@@ -1,13 +1,12 @@
 {
   pkgs,
   lib,
-  config,
   osConfig,
   ...
 }:
 with lib;
 let
-  cfg = config.modules.desktop.game;
+  cfg = osConfig.modules.desktop.game;
 in
 {
   config = mkIf cfg.enable {
@@ -44,5 +43,4 @@ in
       ];
     };
   };
-
 }

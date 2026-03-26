@@ -2,11 +2,14 @@
   pkgs,
   config,
   lib,
-  username,
+  osConfig,
+  hostValues ? { },
   ...
 }@args:
 let
-  enabled = config.modules.desktop.environment == "hyprland";
+  cfg = osConfig.modules.desktop;
+  defaultWallpaper = lib.attrByPath [ "defaultWallpaper" ] "wallhaven-6ldd9x.png" hostValues;
+  enabled = cfg.environment == "hyprland";
 in
 {
   config = lib.mkIf enabled (
@@ -28,13 +31,12 @@ in
             enable = true;
             variables = [ "--all" ];
           };
-          # package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
           package = pkgs.hyprland;
           settings = {
             exec-once =
               let
                 wallpaper = pkgs.callPackage ./scripts/wallpaper.nix {
-                  inherit (import ../../../hosts/${username}/values.nix) defaultWallpaper;
+                  inherit defaultWallpaper;
                 };
               in
               [
@@ -56,9 +58,9 @@ in
               # keep-sorted start
               "ELECTRON_OZONE_PLATFORM_HINT,auto"
               "GDK_BACKEND,wayland,x11,*"
-              "MOZ_ENABLE_WAYLAND,1" # for firefox to run on wayland
+              "MOZ_ENABLE_WAYLAND,1"
               "MOZ_WEBRENDER,1"
-              "NIXOS_OZONE_WL,1" # for any ozone-based browser & electron apps to run on wayland
+              "NIXOS_OZONE_WL,1"
               "QT_AUTO_SCREEN_SCALE_FACTOR,1"
               "QT_QPA_PLATFORM,wayland;xcb"
               "QT_QPA_PLATFORMTHEME,qt6ct"
