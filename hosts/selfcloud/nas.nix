@@ -34,30 +34,13 @@
       global = {
         workgroup = "WORKGROUP";
         "server string" = "selfcloud";
-        # 协议优化
+
+        # 局域网读多写少场景下，保留 SMB3 与必要项，避免过度调参
         "server min protocol" = "SMB3";
         "server max protocol" = "SMB3";
         "client min protocol" = "SMB3";
-
-        # Socket 与网络优化
-        "socket options" = "TCP_NODELAY IPTOS_LOWDELAY SO_RCVBUF=1058576 SO_SNDBUF=1058576";
         "use sendfile" = "yes";
-        "max xmit" = "262144";
-        # 异步 I/O（关键性能提升）
-        "aio read size" = "1";
-        "aio write size" = "1";
-        "aio max threads" = "100";
 
-        # 元数据缓存
-        "stat cache" = "yes";
-        "stat cache entries" = "50000";
-        "directory name cache size" = "10000";
-
-        # --- Btrfs 特定优化 ---
-        "strict allocate" = "yes"; # 预分配减少 CoW 碎片
-        "allocation roundup size" = "4096";
-
-        # 禁用不必要属性（小文件性能）
         "store dos attributes" = "no";
         "map archive" = "no";
         "map hidden" = "no";
@@ -65,7 +48,7 @@
 
         "create mask" = "0644";
         "directory mask" = "0755";
-        "force user" = "woxQAQ"; # 修改为你的用户名
+        "force user" = "woxQAQ";
         "force group" = "users";
         "security" = "user";
 
@@ -76,13 +59,9 @@
       "videos" = {
         path = "/mnt/data/1000/videos";
         browseable = "yes";
-        "read only" = "yes"; # 媒体库建议只读，通过下载工具写入
+        "read only" = "yes";
         "valid users" = "woxQAQ";
-
-        "strict sync" = "no";
-        "sync always" = "no";
         "oplocks" = "yes";
-        "level2 oplocks" = "yes";
       };
     };
   };
@@ -90,10 +69,10 @@
   services.jellyfin = {
     enable = true;
     openFirewall = true;
-    # 配置目录（系统盘，保留设置）
+    # 配置目录放系统盘，保留服务设置
     configDir = "/var/lib/jellyfin/config";
-    # 缓存目录（可放数据盘）
-    cacheDir = "/mnt/data/.cache/jellyfin";
+    # 缓存目录放系统 SSD，减少与媒体盘争抢 I/O
+    cacheDir = "/var/cache/jellyfin";
   };
   hardware.graphics = {
     enable = true;
