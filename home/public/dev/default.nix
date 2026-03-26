@@ -16,6 +16,7 @@
     yarn
     nodejs_20
     bun
+    pandoc
 
     ### C/C++
     # clang

@@ -264,6 +264,12 @@
             ],
             "right": [
                 {
+                    "displayMode": "onhover",
+                    "iconColor": "none",
+                    "id": "Network",
+                    "textColor": "none"
+                },
+                {
                     "defaultSettings": {
                         "autoHeight": true,
                         "cheatsheetData": [
@@ -306,7 +312,8 @@
                         "Fcitx",
                         "tray-icon tray app main",
                         "微信",
-                        "Cursor"
+                        "Cursor",
+                        "steam"
                     ]
                 },
                 {
@@ -426,7 +433,7 @@
     },
     "desktopWidgets": {
         "enabled": true,
-        "gridSnap": false,
+        "gridSnap": true,
         "monitorWidgets": [
             {
                 "name": "DP-3",
@@ -440,14 +447,14 @@
                         "showButtons": true,
                         "showVisualizer": true,
                         "visualizerType": "linear",
-                        "x": 100,
-                        "y": 200
+                        "x": 240,
+                        "y": 40
                     },
                     {
                         "id": "Weather",
                         "showBackground": true,
-                        "x": 100,
-                        "y": 300
+                        "x": 640,
+                        "y": 40
                     },
                     {
                         "clockStyle": "digital",
@@ -456,8 +463,28 @@
                         "showBackground": true,
                         "useCustomFont": false,
                         "usePrimaryColor": false,
-                        "x": 50,
-                        "y": 50
+                        "x": 80,
+                        "y": 40
+                    },
+                    {
+                        "diskPath": "/",
+                        "id": "SystemStat",
+                        "layout": "bottom",
+                        "roundedCorners": true,
+                        "showBackground": true,
+                        "statType": "Network",
+                        "x": 480,
+                        "y": 120
+                    },
+                    {
+                        "diskPath": "/",
+                        "id": "SystemStat",
+                        "layout": "bottom",
+                        "roundedCorners": true,
+                        "showBackground": true,
+                        "statType": "CPU",
+                        "x": 240,
+                        "y": 120
                     }
                 ]
             }
@@ -727,7 +754,7 @@
         "fontDefaultScale": 1,
         "fontFixed": "Maple Mono NF CN",
         "fontFixedScale": 1,
-        "networkPanelView": "wifi",
+        "networkPanelView": "ethernet",
         "panelBackgroundOpacity": 0.85,
         "panelsAttachedToBar": true,
         "settingsPanelMode": "attached",
@@ -742,7 +769,7 @@
         "favorites": [
         ],
         "fillColor": "#000000",
-        "fillMode": "crop",
+        "fillMode": "center",
         "hideWallpaperFilenames": false,
         "monitorDirectories": [
         ],

@@ -7,7 +7,6 @@
   #   icons = lib.mkDefault true;
   # };
   xdg.portal = {
-
     enable = true;
     xdgOpenUsePortal = true;
     extraPortals = with pkgs; [
@@ -16,6 +15,7 @@
       xdg-desktop-portal-wlr
     ];
     configPackages = with pkgs; [
+      xdg-desktop-portal-gnome
       xdg-desktop-portal-wlr
       xdg-desktop-portal-gtk
     ];
@@ -28,6 +28,10 @@
           "hyprland"
           "gtk"
         ];
+        "org.freedesktop.impl.portal.Clipboard" = [ "gnome" ];
+      };
+      niri = {
+        "org.freedesktop.impl.portal.Clipboard" = "gnome";
       };
     };
   };

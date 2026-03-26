@@ -72,7 +72,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      (writeShellScriptBin "install-chinese-apps" ''
+      (writeShellScriptBin "install-flatpak-apps" ''
         #!/usr/bin/env bash
         set -euo pipefail
 
@@ -88,7 +88,7 @@ in
         echo "Done! You may need to log out and log back in."
       '')
 
-      (writeShellScriptBin "update-chinese-apps" ''
+      (writeShellScriptBin "update-flatpak-apps" ''
         #!/usr/bin/env bash
         set -euo pipefail
 
@@ -98,7 +98,7 @@ in
         echo "Done!"
       '')
 
-      (writeShellScriptBin "list-chinese-apps" ''
+      (writeShellScriptBin "list-flatpak-apps" ''
         #!/usr/bin/env bash
         echo "Chinese apps installed via Flatpak:"
         echo ""
