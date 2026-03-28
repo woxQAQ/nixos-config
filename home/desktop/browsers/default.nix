@@ -24,7 +24,8 @@ in
         "--enable-wayland-ime"
       ];
     };
-  } // lib.optionalAttrs hasZenBrowser {
+  }
+  // lib.optionalAttrs hasZenBrowser {
     zen-browser = {
       enable = true;
       # profiles."*" = {

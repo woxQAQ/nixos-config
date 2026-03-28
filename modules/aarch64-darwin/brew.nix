@@ -52,9 +52,6 @@ in
     casks = [
       # keep-sorted start
 
-      # NOTE: DROP to use MacOS 26 spotlight
-      # "raycast"
-
       # menubar enhanced
       # FIXME: ice broken on MacOS 26, drop it temporary
       # "jordanbaird-ice"
@@ -96,6 +93,8 @@ in
       # obsidian note
       "obsidian"
       "pot"
+      # NOTE: DROP MacOS 26 spotlight
+      "raycast"
       # input method
       "squirrel-app"
       # menubar computer monitor
