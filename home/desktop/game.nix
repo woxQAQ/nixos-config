@@ -32,7 +32,7 @@ in
       steamPackage = osConfig.programs.steam.package;
       winePackages = with pkgs; [
         wineWow64Packages.full
-        wineWowPackages.stagingFull
+        wineWow64Packages.stagingFull
       ];
       extraPackages = with pkgs; [
         winetricks

@@ -14,6 +14,11 @@ in
     unstable = mkNixpkgs inputs.nixpkgs-unstable final.system;
   };
 
-  modifications = _final: _prev: {
+  modifications = _final: prev: {
+    # Home Manager still references deprecated xorg aliases.
+    xorg = prev.xorg // {
+      inherit (prev) lndir;
+      inherit (prev) xrdb;
+    };
   };
 }

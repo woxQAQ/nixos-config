@@ -27,7 +27,7 @@
     font-manager
     # qq - migrated to flatpak
     obs-studio
-    wineWowPackages.wayland
+    wineWow64Packages.wayland
   ];
   xdg.configFile."niri/niri-hardware.kdl".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/hosts/woxQAQ/niri-hardware.kdl";
