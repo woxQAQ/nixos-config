@@ -71,7 +71,7 @@ in
           glm: {
             api_key: $env.ZAI_API_KEY_ALT,
             base_url: "https://open.bigmodel.cn/api/anthropic",
-            model: "glm-5"
+            model: "glm-5.1"
           },
           volcengine: {
             api_key: $env.ARK_CODE_API_KEY,

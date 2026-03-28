@@ -17,6 +17,7 @@
     nodejs_20
     bun
     pandoc
+    devenv
 
     ### C/C++
     # clang
