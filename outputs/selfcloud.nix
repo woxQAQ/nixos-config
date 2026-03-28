@@ -14,6 +14,7 @@ in
         hostname = name;
         nixos-modules = [
           ../hosts/${name}
+          ../modules/public/users.nix
         ];
       }
     );
