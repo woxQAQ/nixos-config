@@ -13,7 +13,7 @@ let
 in
 {
   config.programs = {
-    firefox.enable = true;
+    firefox.enable = cfg == "firefox";
     chromium = {
       enable = cfg == "chromium";
       commandLineArgs = [
@@ -27,7 +27,7 @@ in
   }
   // lib.optionalAttrs hasZenBrowser {
     zen-browser = {
-      enable = true;
+      enable = cfg == "zen";
       # profiles."*" = {
       # };
     };

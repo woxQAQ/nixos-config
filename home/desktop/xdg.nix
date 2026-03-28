@@ -1,5 +1,7 @@
 {
   config,
+  lib,
+  osConfig,
   pkgs,
   ...
 }:
@@ -29,9 +31,38 @@
       enable = true;
       defaultApplications =
         let
-          browser = [
-            "chromium-browser.desktop"
-            "google-chrome.desktop"
+          browser =
+            if osConfig.modules.desktop.browser == "zen" then
+              [ "zen-beta.desktop" ]
+            else if osConfig.modules.desktop.browser == "firefox" then
+              [ "firefox.desktop" ]
+            else
+              [
+                "chromium-browser.desktop"
+                "google-chrome.desktop"
+              ];
+          archiveManager = [ "org.gnome.FileRoller.desktop" ];
+          archiveMimeTypes = [
+            "application/zip"
+            "application/x-zip"
+            "application/x-zip-compressed"
+            "application/x-7z-compressed"
+            "application/vnd.rar"
+            "application/x-rar"
+            "application/x-rar-compressed"
+            "application/x-tar"
+            "application/x-compressed-tar"
+            "application/x-bzip-compressed-tar"
+            "application/x-xz-compressed-tar"
+            "application/x-zstd-compressed-tar"
+            "application/gzip"
+            "application/x-gzip"
+            "application/x-bzip"
+            "application/x-bzip2"
+            "application/x-xz"
+            "application/zstd"
+            "application/x-archive"
+            "application/x-cpio"
           ];
           editor = [
             "nvim.desktop"
@@ -81,7 +112,8 @@
           "image/webp" = [ "imv-dir.desktop" ];
 
           "inode/directory" = [ "yazi.desktop" ];
-        };
+        }
+        // lib.genAttrs archiveMimeTypes (_: archiveManager);
     };
   };
 }

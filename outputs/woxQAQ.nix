@@ -26,7 +26,7 @@ in
           ../modules/public
           {
             modules.desktop = {
-              browser = "chromium";
+              browser = "zen";
               environment = "niri";
               fcitx5.enable = true;
               game.enable = true;

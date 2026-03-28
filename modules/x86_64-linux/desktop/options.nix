@@ -7,6 +7,7 @@ with lib;
         types.enum [
           "chromium"
           "firefox"
+          "zen"
         ]
       );
       default = "firefox";
