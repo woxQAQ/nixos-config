@@ -17,6 +17,7 @@
 
   networking.hostName = "selfcloud";
   time.timeZone = "Asia/Shanghai";
+  services.openssh.enable = true;
 
   environment.systemPackages = with pkgs; [
     helix
