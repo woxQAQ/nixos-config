@@ -1,4 +1,14 @@
-{ stateVersion, ... }:
+{ pkgs, stateVersion, ... }:
+let
+  dnscryptForwardingRules = pkgs.writeText "dnscrypt-forwarding-rules.txt" ''
+    ##################################
+    #        Forwarding rules        #
+    ##################################
+
+    ## Route the homelab .lan zone to the router DNS server.
+    lan 192.168.31.1
+  '';
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -12,6 +22,8 @@
   ];
 
   networking.hostName = "woxQAQ";
+
+  services.dnscrypt-proxy.settings.forwarding_rules = dnscryptForwardingRules;
 
   services.lact = {
     enable = true;

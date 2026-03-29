@@ -49,6 +49,12 @@ _: {
                   host = "woxQAQ";
                 };
               }
+              {
+                targets = [ "selfcloud.lan:9100" ];
+                labels = {
+                  host = "selfcloud";
+                };
+              }
             ];
           }
         ];
