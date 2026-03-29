@@ -26,6 +26,8 @@
     fastfetch
     pciutils
     git
+    git-lfs
+    gitui
   ];
 
   system.stateVersion = stateVersion;
