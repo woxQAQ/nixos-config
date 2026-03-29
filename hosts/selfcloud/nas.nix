@@ -63,6 +63,13 @@
         "valid users" = "woxQAQ";
         "oplocks" = "yes";
       };
+      "data" = {
+        path = "/mnt/data/1000/data";
+        browseable = "yes";
+        "read only" = "no";
+        "valid users" = "woxQAQ";
+        "oplocks" = "yes";
+      };
     };
   };
 
