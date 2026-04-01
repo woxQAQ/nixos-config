@@ -34,12 +34,10 @@ in
       cleanup = "zap";
     };
     taps = [
-      "zackriya-solutions/meetily-backend"
       "nikitabobko/tap"
       "pot-app/homebrew-tap"
     ];
     brews = [
-      # "meetily-backend"
       # "hey"
       # "podman"
       # "podman-compose"
