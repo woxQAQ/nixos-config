@@ -307,3 +307,4 @@ animations {
     // slowdown 3.0
 }
 include "./noctalia.kdl"
+spawn-at-startup "noctalia-shell"

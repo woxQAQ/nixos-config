@@ -9,6 +9,7 @@
     pavucontrol
     playerctl
     cava
+    featherpad
   ];
   home.sessionVariables = {
     "NIXOS_OZONE_WL" = "1";

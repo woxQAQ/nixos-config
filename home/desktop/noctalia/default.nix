@@ -32,25 +32,4 @@ in
       "noctalia/settings.json".source = mkSymlink "${confPath}/settings.json";
       "qt6ct/qt6ct.conf".source = mkSymlink "${confPath}/qt6ct.conf";
     };
-  systemd.user.services.noctalia-shell = {
-    Unit = {
-      Description = "Noctalia Shell - Wayland desktop shell";
-      Documentation = "https://docs.noctalia.dev/docs";
-      PartOf = [ config.wayland.systemd.target ];
-      After = [ config.wayland.systemd.target ];
-    };
-
-    Service = {
-      ExecStart = lib.getExe noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
-      Restart = "on-failure";
-
-      Environment = [
-        "QT_QPA_PLATFORM=wayland;xcb"
-        "QT_QPA_PLATFORMTHEME=qt6ct"
-        "QT_AUTO_SCREEN_SCALE_FACTOR=1"
-      ];
-    };
-
-    Install.WantedBy = [ config.wayland.systemd.target ];
-  };
 }
