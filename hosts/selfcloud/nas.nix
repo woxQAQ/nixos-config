@@ -71,6 +71,18 @@
         "oplocks" = "yes";
       };
     };
+    samba-wsdd = {
+      enable = true;
+      openFirewall = true;
+    };
+    avahi = {
+      enable = true;
+      openFirewall = true;
+      publish = {
+        enable = true;
+        domain = true;
+      };
+    };
   };
 
   services.jellyfin = {
