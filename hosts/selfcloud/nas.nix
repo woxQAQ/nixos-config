@@ -27,48 +27,50 @@
       ];
     };
   };
-  services.samba = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      global = {
-        workgroup = "WORKGROUP";
-        "server string" = "selfcloud";
+  services = {
+    samba = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        global = {
+          workgroup = "WORKGROUP";
+          "server string" = "selfcloud";
 
-        # 局域网读多写少场景下，保留 SMB3 与必要项，避免过度调参
-        "server min protocol" = "SMB3";
-        "server max protocol" = "SMB3";
-        "client min protocol" = "SMB3";
-        "use sendfile" = "yes";
+          # 局域网读多写少场景下，保留 SMB3 与必要项，避免过度调参
+          "server min protocol" = "SMB3";
+          "server max protocol" = "SMB3";
+          "client min protocol" = "SMB3";
+          "use sendfile" = "yes";
 
-        "store dos attributes" = "no";
-        "map archive" = "no";
-        "map hidden" = "no";
-        "map system" = "no";
+          "store dos attributes" = "no";
+          "map archive" = "no";
+          "map hidden" = "no";
+          "map system" = "no";
 
-        "create mask" = "0644";
-        "directory mask" = "0755";
-        "force user" = "woxQAQ";
-        "force group" = "users";
-        "security" = "user";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "woxQAQ";
+          "force group" = "users";
+          "security" = "user";
 
-        "inherit permissions" = "yes";
-        "map to guest" = "never";
-        "guest account" = "nobody";
-      };
-      "videos" = {
-        path = "/mnt/data/1000/videos";
-        browseable = "yes";
-        "read only" = "yes";
-        "valid users" = "woxQAQ";
-        "oplocks" = "yes";
-      };
-      "data" = {
-        path = "/mnt/data/1000/data";
-        browseable = "yes";
-        "read only" = "no";
-        "valid users" = "woxQAQ";
-        "oplocks" = "yes";
+          "inherit permissions" = "yes";
+          "map to guest" = "never";
+          "guest account" = "nobody";
+        };
+        "videos" = {
+          path = "/mnt/data/1000/videos";
+          browseable = "yes";
+          "read only" = "yes";
+          "valid users" = "woxQAQ";
+          "oplocks" = "yes";
+        };
+        "data" = {
+          path = "/mnt/data/1000/data";
+          browseable = "yes";
+          "read only" = "no";
+          "valid users" = "woxQAQ";
+          "oplocks" = "yes";
+        };
       };
     };
     samba-wsdd = {
