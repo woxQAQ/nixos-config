@@ -3,3 +3,5 @@ root = true
 indent_size = 4
 [logid.cfg]
 indent_size = 4
+[*.kdl]
+indent_size = 4

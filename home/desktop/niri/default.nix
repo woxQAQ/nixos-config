@@ -34,12 +34,14 @@ in
           };
         };
         home.file.".wayland-session" = {
-          source = pkgs.writeScript "init-session" ''
-            # trying to stop a previous niri session
-            systemctl --user is-active niri.service && systemctl --user stop niri.service
-            # and then we start a new one
-            /run/current-system/sw/bin/niri-session
-          '';
+          source =
+            pkgs.writeScript "init-session" # sh
+              ''
+                # trying to stop a previous niri session
+                systemctl --user is-active niri.service && systemctl --user stop niri.service
+                # and then we start a new one
+                /run/current-system/sw/bin/niri-session
+              '';
           executable = true;
         };
       }
