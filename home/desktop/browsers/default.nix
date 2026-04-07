@@ -15,7 +15,7 @@ in
   config.programs = {
     firefox.enable = cfg == "firefox";
     chromium = {
-      enable = cfg == "chromium";
+      enable = true;
       commandLineArgs = [
         "--ozone-platform-hint=auto"
         "--ozone-platform=wayland"

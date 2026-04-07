@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    statix
+    # statix
     nixd
     # nix formatter
     nixfmt
