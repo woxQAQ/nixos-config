@@ -38,6 +38,11 @@
     git
     git-lfs
     gitui
+    unzip
+    unar
+    unrar
+    gnutar
+    gzip
   ];
 
   system.stateVersion = stateVersion;
