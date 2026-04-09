@@ -51,6 +51,14 @@ in
             }
           ];
         }
+        {
+          name = "cpp";
+          language-servers = [
+            {
+              name = "clangd";
+            }
+          ];
+        }
       ];
     };
 
@@ -58,6 +66,8 @@ in
       ty
       nixfmt
       nixd
+      clang
+      cmake
     ];
   };
 }

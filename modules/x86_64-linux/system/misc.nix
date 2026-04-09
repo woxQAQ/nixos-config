@@ -3,5 +3,6 @@
   ...
 }:
 {
-  users.defaultUserShell = pkgs.bashInteractive;
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
 }
