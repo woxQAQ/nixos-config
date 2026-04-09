@@ -24,6 +24,8 @@ in
           ../modules/x86_64-linux/packages
           ../modules/x86_64-linux/boot
           ../modules/public
+          ../modules/sandboxed/nixpaks
+          ../modules/sandboxed/bwraps
           {
             modules.desktop = {
               browser = "zen";

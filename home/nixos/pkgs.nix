@@ -2,6 +2,8 @@
 {
   home.packages = with pkgs; [
     # koodo-reader
+    nixpaks.qq
+    bwraps.wechat
   ];
 
   programs.zathura = {
