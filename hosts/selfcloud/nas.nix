@@ -101,7 +101,11 @@
     "render"
     "users"
   ];
-  systemd.services.jellyfin.serviceConfig.ReadWritePaths = [ "/mnt/data" ];
+  # 确保 jellyfin (users 组) 能访问媒体子目录
+  systemd.tmpfiles.rules = [
+    "d /mnt/data/1000 0755 ${username} users -"
+    "d /mnt/data/1000/videos 0755 ${username} users -"
+  ];
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
