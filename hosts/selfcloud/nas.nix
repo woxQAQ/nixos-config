@@ -115,11 +115,6 @@
     # 文件描述符
     "fs.file-max" = 1048576; # Btrfs 异步写优化
   };
-  users.users.jellyfin.extraGroups = [
-    "video"
-    "render"
-    "users"
-  ];
   # 自定义服务，明确以 woxQAQ 运行
   systemd.services.qbittorrent-nox = {
     description = "qBittorrent-nox";
