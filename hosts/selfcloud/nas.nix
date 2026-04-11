@@ -1,5 +1,6 @@
 {
   pkgs,
+  username,
   ...
 }:
 {
@@ -49,7 +50,7 @@
 
           "create mask" = "0644";
           "directory mask" = "0755";
-          "force user" = "woxQAQ";
+          "force user" = username;
           "force group" = "users";
           "security" = "user";
 
@@ -61,14 +62,14 @@
           path = "/mnt/data/1000/videos";
           browseable = "yes";
           "read only" = "yes";
-          "valid users" = "woxQAQ";
+          "valid users" = username;
           "oplocks" = "yes";
         };
         "data" = {
           path = "/mnt/data/1000/data";
           browseable = "yes";
           "read only" = "no";
-          "valid users" = "woxQAQ";
+          "valid users" = username;
           "oplocks" = "yes";
         };
       };
@@ -90,6 +91,7 @@
   services.jellyfin = {
     enable = true;
     openFirewall = true;
+    user = username;
     # 配置目录放系统盘，保留服务设置
     configDir = "/var/lib/jellyfin/config";
     # 缓存目录放系统 SSD，减少与媒体盘争抢 I/O
@@ -128,7 +130,7 @@
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "simple";
-      User = "woxQAQ";
+      User = username;
       Group = "users";
       ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --profile=/home/woxQAQ/.config/qBittorrent --webui-port=8080";
       Restart = "on-failure";
