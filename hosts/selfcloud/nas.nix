@@ -91,12 +91,17 @@
   services.jellyfin = {
     enable = true;
     openFirewall = true;
-    user = username;
     # 配置目录放系统盘，保留服务设置
     configDir = "/var/lib/jellyfin/config";
     # 缓存目录放系统 SSD，减少与媒体盘争抢 I/O
     cacheDir = "/var/cache/jellyfin";
   };
+  users.users.jellyfin.extraGroups = [
+    "videos"
+    "render"
+    "users"
+  ];
+  systemd.services.jellyfin.serviceConfig.ReadWritePaths = [ "/mnt/data" ];
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
