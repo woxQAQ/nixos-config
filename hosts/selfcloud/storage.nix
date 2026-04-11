@@ -1,5 +1,6 @@
 {
   pkgs,
+  username,
   ...
 }:
 {
@@ -19,7 +20,10 @@
   };
   systemd.tmpfiles.rules = [
     # 类型 路径 模式 用户 组 清理策略
-    "d /mnt/data 0755 woxQAQ users -"
+    "d /mnt/data 0755 ${username} users -"
+    "d /mnt/data/1000 0755 ${username} users -"
+    "d /mnt/data/1000/videos 0755 ${username} users -"
+    "d /mnt/data/1000/data 0755 ${username} users -"
   ];
   fileSystems."/mnt/data" = {
     device = "/dev/disk/by-uuid/4617589b-04c3-4534-8c4a-9c4667116b6c";
