@@ -51,7 +51,7 @@ in
               terminal.font-size = 15;
             };
           }
-          ../home/desktop
+          ../home/nixos/desktop
         ];
       }
     );

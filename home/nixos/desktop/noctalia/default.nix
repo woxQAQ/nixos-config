@@ -21,7 +21,7 @@ in
   programs.noctalia-shell = {
     enable = true;
   };
-  home.file.".wallpaper/${defaultWallpaper}".source = ../../../assets/${defaultWallpaper};
+  home.file.".wallpaper/${defaultWallpaper}".source = ../../../../assets/${defaultWallpaper};
 
   xdg.configFile =
     let

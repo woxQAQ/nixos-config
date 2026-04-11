@@ -4,11 +4,9 @@
   ...
 }:
 {
-  imports = [
-    ./cli/mpv.nix
-    ./pkgs.nix
-    ./dev
-  ];
+  # imports = [
+  #   ./cli/mpv.nix
+  # ];
   home = {
     homeDirectory = "/home/${username}";
     inherit stateVersion;

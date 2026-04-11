@@ -1,19 +1,18 @@
 { ... }:
 {
   imports = [
-    ./terminal
-    ./neovim
-    ./options.nix
+    ./base
     ./helix
+    ./dev
+    ./desktop
     ./shell
     ./nix
-    ./cava.nix
+    ./terminal
+    ./neovim
     ./pkgs.nix
-    ./dev
+    ./options.nix
     ./yazi.nix
-    ./cloud-native.nix
     ./shell_core.nix
     ./catppuccin.nix
-    ./desktop
   ];
 }

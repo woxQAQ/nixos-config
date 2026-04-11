@@ -1,0 +1,4 @@
+{ ... }:
+{
+  imports = [ ./cava.nix ];
+}

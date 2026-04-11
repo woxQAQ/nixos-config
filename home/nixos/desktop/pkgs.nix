@@ -17,7 +17,18 @@ in
 {
   home.packages = with pkgs; [
     wev
+
+    nixpaks.qq
+    bwraps.wechat
   ];
+
+  programs.zathura = {
+    enable = true;
+    options = {
+      selection-clipboard = "clipboard";
+      window-title-basename = true;
+    };
+  };
 
   home.activation.flatpakUserFontOverrides = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if command -v flatpak >/dev/null 2>&1; then

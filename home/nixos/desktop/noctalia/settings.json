@@ -9,7 +9,7 @@
         "density": "default",
         "enableClipPreview": true,
         "enableClipboardChips": true,
-        "enableClipboardHistory": false,
+        "enableClipboardHistory": true,
         "enableClipboardSmartIcons": true,
         "enableSessionSearch": true,
         "enableSettingsSearch": true,
@@ -24,7 +24,7 @@
         "showCategories": true,
         "showIconBackground": true,
         "sortByMostUsed": true,
-        "terminalCommand": "nu -e",
+        "terminalCommand": "",
         "viewMode": "list"
     },
     "audio": {
@@ -33,7 +33,7 @@
         "preferredPlayer": "",
         "spectrumFrameRate": 30,
         "spectrumMirrored": true,
-        "visualizerType": "mirrored",
+        "visualizerType": "linear",
         "volumeFeedback": false,
         "volumeFeedbackSoundFile": "",
         "volumeOverdrive": false,
@@ -329,7 +329,6 @@
                         "tray-icon tray app",
                         "Weixin",
                         "chrome_status_icon_1",
-                        "Fcitx",
                         "tray-icon tray app main",
                         "微信",
                         "Cursor",
@@ -387,7 +386,7 @@
         ]
     },
     "colorSchemes": {
-        "darkMode": true,
+        "darkMode": false,
         "generationMethod": "fruit-salad",
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
@@ -646,7 +645,7 @@
         "firstDayOfWeek": -1,
         "hideWeatherCityName": false,
         "hideWeatherTimezone": false,
-        "name": "Xiamen",
+        "name": "",
         "showCalendarEvents": true,
         "showCalendarWeather": true,
         "showWeekNumberInCalendar": false,

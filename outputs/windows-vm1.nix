@@ -28,7 +28,7 @@ in
         home-modules = [
           ../home/nixos
           ../home/public
-          ../home/desktop
+          ../home/nixos/desktop
         ];
       }
     );

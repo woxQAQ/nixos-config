@@ -9,8 +9,7 @@
   home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore [ "checkLinkTargers" ] ''
     rm -f ${config.home.homeDirectory}/.gitconfig
   '';
-  home.packages = with pkgs; [
-  ];
+
   programs = {
     gh = {
       enable = true;

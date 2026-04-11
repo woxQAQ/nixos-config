@@ -58,10 +58,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-openclaw = {
-      url = "github:openclaw/nix-openclaw";
-    };
-
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";

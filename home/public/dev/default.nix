@@ -4,17 +4,17 @@
 }:
 {
   imports = [
-    ./git.nix
     ./go.nix
     ./claude-code.nix
     ./codex.nix
     ./npm.nix
+    ./cloud-native.nix
   ];
   home.packages = with pkgs; [
     ### NODEJS
     pnpm
     yarn
-    nodejs_20
+    nodejs_22
     bun
     pandoc
     devenv

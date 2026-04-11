@@ -16,6 +16,10 @@ in
           ../hosts/${name}
           ../modules/public/users.nix
         ];
+        home-modules = [
+          ../home/nixos
+          ../home/public
+        ];
       }
     );
   };
