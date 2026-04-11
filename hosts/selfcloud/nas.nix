@@ -103,8 +103,8 @@
   ];
   # 确保 jellyfin (users 组) 能访问媒体子目录
   systemd.tmpfiles.rules = [
-    "d /mnt/data/1000 0755 ${username} users -"
-    "d /mnt/data/1000/videos 0755 ${username} users -"
+    "d /mnt/data/1000 0755 jellyfin users -"
+    "d /mnt/data/1000/videos 0755 jellyfin users -"
   ];
   hardware.graphics = {
     enable = true;
