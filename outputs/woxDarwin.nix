@@ -25,6 +25,7 @@ let
         neovim.enable = true;
         helix.enable = true;
         terminal.font-size = 15;
+        shell.nushell.enableLLM = true;
       };
     }
   ];

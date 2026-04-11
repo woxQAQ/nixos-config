@@ -43,6 +43,7 @@ in
           ../home/public
           {
             modules.public = {
+              shell.nushell.enableLLM = true;
               cloud-native.enable = true;
               desktop.enable = true;
               neovim.enable = true;
