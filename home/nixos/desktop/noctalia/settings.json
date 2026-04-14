@@ -24,7 +24,7 @@
         "showCategories": true,
         "showIconBackground": true,
         "sortByMostUsed": true,
-        "terminalCommand": "",
+        "terminalCommand": "ghostty -e",
         "viewMode": "list"
     },
     "audio": {
@@ -42,11 +42,11 @@
     "bar": {
         "autoHideDelay": 500,
         "autoShowDelay": 150,
-        "backgroundOpacity": 0.93,
+        "backgroundOpacity": 0.55,
         "barType": "simple",
         "capsuleColorKey": "none",
         "capsuleOpacity": 1,
-        "contentPadding": 2,
+        "contentPadding": 0,
         "density": "comfortable",
         "displayMode": "always_visible",
         "enableExclusionZoneInset": true,
@@ -182,7 +182,7 @@
         "showOnWorkspaceSwitch": true,
         "showOutline": false,
         "useSeparateOpacity": true,
-        "widgetSpacing": 6,
+        "widgetSpacing": 5,
         "widgets": {
             "center": [
                 {
@@ -645,7 +645,7 @@
         "firstDayOfWeek": -1,
         "hideWeatherCityName": false,
         "hideWeatherTimezone": false,
-        "name": "",
+        "name": "Xiamen",
         "showCalendarEvents": true,
         "showCalendarWeather": true,
         "showWeekNumberInCalendar": false,
@@ -844,7 +844,7 @@
     },
     "wallpaper": {
         "automationEnabled": false,
-        "directory": "/home/woxQAQ/.wallpaper",
+        "directory": "/home/woxQAQ/Pictures/Wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "favorites": [
