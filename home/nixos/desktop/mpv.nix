@@ -2,8 +2,8 @@
 {
   programs.mpv = {
     enable = true;
-    defaultProfiles = [ "gpu-hq" ];
     config = {
+      hwdec = "auto-safe";
       osc = "no";
       screenshot-format = "webp";
       screenshot-webp-lossless = true;
@@ -14,7 +14,6 @@
     };
     scripts = with pkgs.mpvScripts; [
       mpris
-      thumbnail
     ];
   };
 }

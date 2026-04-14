@@ -10,6 +10,7 @@
     ./gtk.nix
     ./hyprland
     ./ides.nix
+    ./mpv.nix
     ./niri
     ./noctalia
     ./pkgs.nix
