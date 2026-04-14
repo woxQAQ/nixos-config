@@ -1,4 +1,9 @@
-{ pkgs, stateVersion, ... }:
+{
+  pkgs,
+  stateVersion,
+  fastest-pkg,
+  ...
+}:
 let
   dnscryptForwardingRules = pkgs.writeText "dnscrypt-forwarding-rules.txt" ''
     ##################################
@@ -23,6 +28,11 @@ in
 
   networking.hostName = "woxQAQ";
 
+  # Trust all traffic from LAN
+  networking.firewall.extraInputRules = ''
+    ip saddr 192.168.31.0/24 accept
+  '';
+
   services.dnscrypt-proxy.settings.forwarding_rules = dnscryptForwardingRules;
 
   services.lact = {
@@ -37,6 +47,7 @@ in
   programs = {
     localsend.enable = true;
     clash-verge = {
+      package = fastest-pkg.clash-verge-rev;
       enable = true;
       autoStart = true;
       serviceMode = true;
