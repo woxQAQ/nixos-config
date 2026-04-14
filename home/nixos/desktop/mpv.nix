@@ -14,6 +14,10 @@
     };
     scripts = with pkgs.mpvScripts; [
       mpris
+      autoload
+      modernx
+      thumbfast
+      # thumbnail
     ];
   };
 }
