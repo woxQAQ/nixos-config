@@ -1,0 +1,141 @@
+{
+	"agent_servers": {
+		"pi-acp": {
+			"type": "registry",
+		},
+		"kimi": {
+			"type": "registry",
+		},
+	},
+	"inlay_hints": {
+		"enabled": true,
+		// "show_value_hints": true,
+	},
+	"current_line_highlight": "all",
+	"text_rendering_mode": "platform_default",
+	"ui_font_family": ".ZedSans",
+	"terminal": {
+		"shell": {
+			"program": "nu",
+		},
+		"env": {
+			"EDITOR": "zed --wait",
+		},
+	},
+	"file_types": {
+		"Dockerfile": ["Dockerfile", "Dockerfile.*"],
+		"JSON": ["json", "jsonc"],
+	},
+	"git_panel": {
+		"tree_view": true,
+		"dock": "right",
+	},
+	"git": {
+		"inline_blame": {
+			"enabled": true,
+		},
+	},
+	"session": {
+		"trust_all_worktrees": true,
+	},
+	"status_bar": {
+		// "experimental.show": false,
+	},
+	"gutter": {
+		"line_numbers": true,
+	},
+	"cursor_shape": "bar",
+	"cursor_blink": false,
+	"use_system_window_tabs": true,
+	"show_whitespaces": "all",
+	"hard_tabs": true,
+	"project_panel": {
+		"hide_hidden": false,
+		"hide_root": false,
+		"entry_spacing": "comfortable",
+		"auto_fold_dirs": false,
+		"button": true,
+		// "dock": "right",
+		"git_status": true,
+	},
+	"relative_line_numbers": "enabled",
+	"tab_bar": {
+		"show": true,
+	},
+	"scrollbar": {
+		"show": "never",
+	},
+	"tabs": {
+		"show_diagnostics": "errors",
+	},
+	"which_key": {
+		"enabled": true
+	},
+	"indent_guides": {
+		"enabled": true,
+		"coloring": "indent_aware",
+	},
+	"centered_layout": {
+		"left_padding": 0.15,
+		"right_padding": 0.15,
+	},
+	"buffer_line_height": "comfortable",
+	"agent": {
+		"default_model": {
+			"provider": "openai",
+			"model": "kimi-k2-0711-preview",
+		},
+	},
+	"language_models": {
+		"openai": {
+			"api_url": "https://api.moonshot.cn/v1",
+			"available_models": [
+				{
+					"name": "kimi-k2-0711-preview",
+					"max_tokens": 128000,
+				},
+			],
+		},
+	},
+	"icon_theme": "Zed (Default)",
+	"vim_mode": true,
+	"ui_font_size": 16.0,
+	"buffer_font_family": "Maple Mono NF CN",
+	"buffer_font_size": 16,
+	"file_finder": {
+		"modal_max_width": "medium",
+	},
+	"theme": {
+		"mode": "light",
+		"light": "Catppuccin Latte",
+		"dark": "Nord Dark",
+	},
+	"format_on_save": "off",
+	"languages": {
+		"Nix": {
+			"language_servers": ["nixd", "!nil"],
+		},
+		"Python": {
+			"language_servers": ["pyright"],
+			"inlay_hints": {
+				"enabled": false,
+			},
+		},
+	},
+	"lsp": {
+		"nixd": {
+			"settings": {
+				"diagnostic": {
+					"suppress": ["sema-extra-with"],
+				},
+			},
+		},
+	},
+	"auto_install_extensions": {
+		"catppuccin-icons": true,
+	},
+	"telemetry": {
+		"diagnostics": true,
+		"metrics": false,
+	},
+}

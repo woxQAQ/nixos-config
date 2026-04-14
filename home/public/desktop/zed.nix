@@ -13,5 +13,7 @@ in
       enable = true;
       package = fastest-pkg.zed-editor;
     };
+    xdg.configFile."zed/settings.json".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/home/public/desktop/zed.jsonc";
   };
 }
