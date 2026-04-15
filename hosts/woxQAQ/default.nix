@@ -24,14 +24,19 @@ in
     ./proxy.nix
     ./monitoring.nix
     ./logid.nix
+    ./tailscale.nix
   ];
 
   networking.hostName = "woxQAQ";
 
-  # Trust all traffic from LAN
-  networking.firewall.extraInputRules = ''
-    ip saddr 192.168.31.0/24 accept
-  '';
+  networking.firewall = {
+    # Trust all traffic from LAN
+    extraInputRules = ''
+      ip saddr 192.168.31.0/24 accept
+    '';
+    # Trust all traffic from Tailscale
+    trustedInterfaces = [ "tailscale0" ];
+  };
 
   services.dnscrypt-proxy.settings.forwarding_rules = dnscryptForwardingRules;
 
