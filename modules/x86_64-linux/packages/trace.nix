@@ -13,6 +13,7 @@
     bpfmon
 
     # syscall monitor
+    iperf
     strace
     iotop
     iotools
