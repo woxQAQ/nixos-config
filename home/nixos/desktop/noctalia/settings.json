@@ -24,7 +24,7 @@
         "showCategories": true,
         "showIconBackground": true,
         "sortByMostUsed": true,
-        "terminalCommand": "ghostty -e",
+        "terminalCommand": "xterm -e",
         "viewMode": "list"
     },
     "audio": {
@@ -169,9 +169,9 @@
                                 "Weixin",
                                 "chrome_status_icon_1",
                                 "Fcitx",
-                                "tray-icon tray app main",
                                 "微信",
-                                "Cursor"
+                                "Cursor",
+                                "tray-icon tray app main"
                             ]
                         }
                     ]
@@ -470,14 +470,14 @@
                         "showButtons": true,
                         "showVisualizer": true,
                         "visualizerType": "linear",
-                        "x": 240,
-                        "y": 40
+                        "x": 1504,
+                        "y": 736
                     },
                     {
                         "id": "Weather",
                         "showBackground": true,
-                        "x": 640,
-                        "y": 40
+                        "x": 1696,
+                        "y": 416
                     },
                     {
                         "clockStyle": "digital",
@@ -486,8 +486,8 @@
                         "showBackground": true,
                         "useCustomFont": false,
                         "usePrimaryColor": false,
-                        "x": 80,
-                        "y": 40
+                        "x": 1760,
+                        "y": 256
                     },
                     {
                         "diskPath": "/",
@@ -496,8 +496,8 @@
                         "roundedCorners": true,
                         "showBackground": true,
                         "statType": "Network",
-                        "x": 480,
-                        "y": 120
+                        "x": 1184,
+                        "y": 256
                     },
                     {
                         "diskPath": "/",
@@ -506,8 +506,8 @@
                         "roundedCorners": true,
                         "showBackground": true,
                         "statType": "CPU",
-                        "x": 240,
-                        "y": 120
+                        "x": 1696,
+                        "y": 512
                     }
                 ]
             }
@@ -645,7 +645,7 @@
         "firstDayOfWeek": -1,
         "hideWeatherCityName": false,
         "hideWeatherTimezone": false,
-        "name": "Xiamen",
+        "name": "",
         "showCalendarEvents": true,
         "showCalendarWeather": true,
         "showWeekNumberInCalendar": false,

@@ -30,6 +30,10 @@
         name = if pkgs.stdenv.isLinux then username else "woxQAQ";
         email = lib.mkDefault "woxqaq@gmail.com";
       };
+      fetch = {
+        prune = true;
+        pruneTags = true;
+      };
       push.autoSetupRemote = true;
       init.defaultBranch = "main";
       trim.bases = "develop,master,main";

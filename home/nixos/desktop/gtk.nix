@@ -19,6 +19,11 @@
   gtk = {
     enable = true;
 
+    theme = {
+      package = pkgs.flat-remix-gtk;
+      name = "Flat-Remix-GTK-Blue-Dark";
+    };
+
     font = {
       name = "Noto Sans";
       package = pkgs.noto-fonts;
@@ -40,11 +45,9 @@
     # gtk4.extraConfig = {
     #   "gtk-application-prefer-dark-theme" = "1";
     # };
-    # iconTheme = {
-    #   # package = pkgs.adwaita-icon-theme;
-    #   # name = "Adwaita";
-    #   package = pkgs.papirus-icon-theme;
-    #   name = "Papirus-Dark";
-    # };
+    iconTheme = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+    };
   };
 }

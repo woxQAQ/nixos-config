@@ -8,8 +8,13 @@
 		},
 	},
 	"inlay_hints": {
-		"enabled": true,
+		// "enabled": true,
+		"show_type_hints": true,
 		// "show_value_hints": true,
+	},
+	"indent_guides": {
+		"enabled": true,
+		"coloring": "indent_aware",
 	},
 	"current_line_highlight": "all",
 	"text_rendering_mode": "platform_default",
@@ -62,19 +67,14 @@
 	"tab_bar": {
 		"show": true,
 	},
-	"scrollbar": {
-		"show": "never",
-	},
+	"scrollbar": {},
 	"tabs": {
 		"show_diagnostics": "errors",
 	},
 	"which_key": {
-		"enabled": true
-	},
-	"indent_guides": {
 		"enabled": true,
-		"coloring": "indent_aware",
 	},
+
 	"centered_layout": {
 		"left_padding": 0.15,
 		"right_padding": 0.15,
@@ -130,9 +130,6 @@
 				},
 			},
 		},
-	},
-	"auto_install_extensions": {
-		"catppuccin-icons": true,
 	},
 	"telemetry": {
 		"diagnostics": true,

@@ -5,9 +5,9 @@
   # ];
   home.pointerCursor = {
     gtk.enable = true;
-    x11.enable = true;
-    name = "Bibata-Modern-Ice";
+    # x11.enable = true;
+    name = "Bibata-Modern-Classic";
     package = pkgs.bibata-cursors;
-    size = 24;
+    size = 14;
   };
 }
