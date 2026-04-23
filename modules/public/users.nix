@@ -24,6 +24,8 @@ lib.mkMerge [
         "audio"
         "pipewire"
         "docker"
+        "kvm"
+        "libvirtd"
       ];
       openssh.authorizedKeys.keys =
         let
