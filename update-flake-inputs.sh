@@ -6,7 +6,16 @@
 set -e
 
 FLAKE_FILE="$(dirname "$0")/flake.nix"
-NIX_FLAGS="--extra-experimental-features 'nix-command flakes'"
+
+if [ "$(uname -s)" = "Darwin" ]; then
+    NIX_FLAGS=(--extra-experimental-features "nix-command flakes")
+else
+    NIX_FLAGS=()
+fi
+
+nix_cmd() {
+    nix "${NIX_FLAGS[@]}" "$@"
+}
 
 # Colors
 RED='\033[0;31m'
@@ -27,8 +36,8 @@ fi
 get_inputs() {
     # Use nix to get the locked nodes from flake.lock
     if [ -f "$(dirname "$0")/flake.lock" ]; then
-        nix eval --json '.#rootInputs' 2>/dev/null | jq -r 'keys[]' 2>/dev/null || \
-        nix flake metadata --json 2>/dev/null | jq -r '.locks.nodes.root.inputs | keys[]' 2>/dev/null
+        nix_cmd eval --json '.#rootInputs' 2>/dev/null | jq -r 'keys[]' 2>/dev/null || \
+        nix_cmd flake metadata --json 2>/dev/null | jq -r '.locks.nodes.root.inputs | keys[]' 2>/dev/null
     fi
 }
 
@@ -44,9 +53,9 @@ update_input() {
     echo -e "${CYAN}Updating input: ${YELLOW}$input_name${NC}"
 
     if [ -z "$input_name" ] || [ "$input_name" == "[update-all-inputs]" ]; then
-        nix flake update
+        nix_cmd flake update
     else
-        nix flake update "$input_name"
+        nix_cmd flake update "$input_name"
     fi
 }
 
