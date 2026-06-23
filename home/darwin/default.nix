@@ -14,7 +14,7 @@
 
   home = {
     homeDirectory = "/Users/${username}";
-    stateVersion = "25.05";
+    stateVersion = "26.05";
     packages = with pkgs; [
       # keep-sorted start
       buf

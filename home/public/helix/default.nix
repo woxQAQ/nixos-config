@@ -44,6 +44,14 @@ in
           ];
         }
         {
+          name = "rust";
+          language-servers = [
+            {
+              name = "rust-analyzer";
+            }
+          ];
+        }
+        {
           name = "typescript";
           language-servers = [
             {
@@ -58,6 +66,9 @@ in
               name = "clangd";
             }
           ];
+        }
+        {
+          name = "nu";
         }
       ];
     };

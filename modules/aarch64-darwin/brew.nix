@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   unstable-pkg,
   ...
 }:
@@ -33,14 +34,29 @@ in
       upgrade = true;
       cleanup = "zap";
     };
-    taps = [
-      "nikitabobko/tap"
-      "pot-app/homebrew-tap"
-    ];
+    global = {
+      autoUpdate = true;
+      brewfile = true;
+    };
+    taps =
+      lib.map
+        (tap: {
+          name = tap;
+          trusted = true;
+          force_auto_update = true;
+        })
+        [
+          "nikitabobko/tap"
+          "pot-app/homebrew-tap"
+          "nkzw-tech/tap"
+        ];
     brews = [
       # "hey"
       # "podman"
       # "podman-compose"
+      "tailscale"
+      "mole"
+      "trufflehog"
     ];
     # masApps = {
     #   Wechat = 836500024;
@@ -56,7 +72,6 @@ in
 
       # a yabai alternative for macos
       "aerospace"
-      # a signing daemon for my IOS apps which not supported by app-store
       "altserver"
       # browser
       # "arc"
@@ -68,10 +83,11 @@ in
       "chatgpt"
       # proxy client
       "clash-verge-rev"
+      "codiff"
       # opensource lightweight text-editor
       "coteditor"
       # cursor AI IDE
-      "cursor"
+      # "cursor"
       "dbeaver-community"
       # a easy-to-use translation dictionary
       # "easydict"
@@ -97,13 +113,15 @@ in
       "squirrel-app"
       # menubar computer monitor
       "stats"
+      "tailscale"
+      # a signing daemon for my IOS apps which not supported by app-store
       # "iina"
       # "steam"
       # open source MacOS disk cleaner
       # "tencent-lemon"
       # AI IDE by Bytedance
       # "trae"
-      # "visual-studio-code"
+      "visual-studio-code"
       # keep-sorted end
     ];
   };

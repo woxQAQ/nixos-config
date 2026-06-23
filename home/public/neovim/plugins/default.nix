@@ -1,0 +1,41 @@
+{
+  ...
+}:
+{
+  imports = [
+    # keep-sorted start block=yes
+    ./aerial.nix
+    ./blink.nix
+    ./bqf.nix
+    ./bufferline.nix
+    ./codex.nix
+    ./colormenu.nix
+    ./conform.nix
+    ./fastaction.nix
+    ./fugitive.nix
+    ./fzf-lua.nix
+    ./gitsigns.nix
+    ./glance.nix
+    ./illuminate.nix
+    ./increname.nix
+    ./lightbulb.nix
+    ./lint.nix
+    ./lualine.nix
+    ./luasnip.nix
+    ./lz-n.nix
+    ./mini.nix
+    ./navic.nix
+    ./neotree.nix
+    ./nix.nix
+    ./noice.nix
+    ./quicker.nix
+    ./rustaceanvim.nix
+    ./snacks.nix
+    ./statuscol.nix
+    ./treesitter.nix
+    ./trouble.nix
+    ./ufo.nix
+    # ./yanky.nix
+    # keep-sorted end
+  ];
+}

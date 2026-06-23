@@ -60,9 +60,19 @@ in
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
-      enableNushellIntegration = true;
+      enableNushellIntegration = false;
       daemon.enable = true;
     };
+
+    nushell.extraConfig = ''
+      source ${
+        pkgs.runCommand "atuin-nushell-config.nu" { } ''
+          export HOME=$TMPDIR
+          export XDG_CONFIG_HOME=$TMPDIR/.config
+          ${lib.getExe config.programs.atuin.package} init nu > $out
+        ''
+      }
+    '';
   };
 
   launchd.agents.atuin-daemon = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {

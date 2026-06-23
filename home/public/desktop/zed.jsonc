@@ -1,5 +1,36 @@
 {
+	"outline_panel": {
+		"dock": "right",
+	},
+	"collaboration_panel": {
+		"dock": "left",
+	},
+	"project_panel": {
+		"dock": "right",
+		"hide_hidden": false,
+		"hide_root": false,
+		"entry_spacing": "comfortable",
+		"auto_fold_dirs": false,
+		"button": true,
+		// "dock": "right",
+		"git_status": true,
+	},
+	"ssh_connections": [
+		{
+			"host": "192.168.31.105",
+			"username": "woxQAQ",
+			"args": [],
+			"projects": [
+				{
+					"paths": ["/home/woxQAQ/ApeRAG"],
+				},
+			],
+		},
+	],
 	"agent_servers": {
+		"codex-acp": {
+			"type": "registry",
+		},
 		"pi-acp": {
 			"type": "registry",
 		},
@@ -54,15 +85,6 @@
 	"use_system_window_tabs": true,
 	"show_whitespaces": "all",
 	"hard_tabs": true,
-	"project_panel": {
-		"hide_hidden": false,
-		"hide_root": false,
-		"entry_spacing": "comfortable",
-		"auto_fold_dirs": false,
-		"button": true,
-		// "dock": "right",
-		"git_status": true,
-	},
 	"relative_line_numbers": "enabled",
 	"tab_bar": {
 		"show": true,
@@ -81,6 +103,7 @@
 	},
 	"buffer_line_height": "comfortable",
 	"agent": {
+		"dock": "left",
 		"default_model": {
 			"provider": "openai",
 			"model": "kimi-k2-0711-preview",
@@ -97,7 +120,7 @@
 			],
 		},
 	},
-	"icon_theme": "Zed (Default)",
+	"icon_theme": "Material Icon Theme",
 	"vim_mode": true,
 	"ui_font_size": 16.0,
 	"buffer_font_family": "Maple Mono NF CN",
@@ -106,9 +129,9 @@
 		"modal_max_width": "medium",
 	},
 	"theme": {
-		"mode": "light",
-		"light": "Catppuccin Latte",
-		"dark": "Nord Dark",
+		"mode": "dark",
+		"light": "Islands Light",
+		"dark": "One Dark",
 	},
 	"format_on_save": "off",
 	"languages": {
@@ -120,6 +143,9 @@
 			"inlay_hints": {
 				"enabled": false,
 			},
+		},
+		"Go": {
+			"formatter": "language_server",
 		},
 	},
 	"lsp": {

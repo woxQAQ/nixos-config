@@ -13,13 +13,6 @@
   inputs = {
     # keep-sorted start block=yes newline_separated=yes
     # ...
-
-    # determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-    #
-    # aagl = {
-    #   url = "github:ezKEa/aagl-gtk-on-nix";
-    # };
-
     agenix = {
       url = "github:ryantm/agenix";
     };
@@ -49,7 +42,7 @@
     };
 
     nix-darwin = {
-      url = "github:lnl7/nix-darwin";
+      url = "github:stepbrobd/nix-darwin/bundle";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
@@ -83,6 +76,11 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";

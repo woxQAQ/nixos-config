@@ -21,20 +21,6 @@
         show_hidden = true;
         sort_dir_first = true;
       };
-      plugin = {
-        prepend_fetchers = [
-          {
-            id = "git";
-            url = "*";
-            run = "git";
-          }
-          {
-            id = "git";
-            url = "*/";
-            run = "git";
-          }
-        ];
-      };
     };
   };
 }

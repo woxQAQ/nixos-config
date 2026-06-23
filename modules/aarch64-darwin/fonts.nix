@@ -7,6 +7,8 @@
 
       noto-fonts-color-emoji
       noto-fonts
+      noto-fonts-cjk-sans
+
       maple-mono.NF-CN-unhinted
 
       source-sans
