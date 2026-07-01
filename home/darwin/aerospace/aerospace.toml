@@ -36,8 +36,8 @@ alt-enter = '''exec-and-forget osascript -e 'tell application "kitty" to activat
 alt-n = '''exec-and-forget osascript -e 'tell application "notion" to activate''''
 alt-o = '''exec-and-forget osascript -e 'tell application "obsidian" to activate''''
 alt-z = '''exec-and-forget osascript -e 'tell application "zed" to activate''''
-alt-c = '''exec-and-forget osascript -e 'tell application "cursor" to activate''''
-alt-a = '''exec-and-forget osascript -e 'tell application "arc" to activate''''
+alt-c = '''exec-and-forget osascript -e 'tell application "codex" to activate''''
+alt-a = '''exec-and-forget osascript -e 'tell application "dia" to activate''''
 
 alt-h = 'focus left'
 alt-j = 'focus down'
@@ -114,7 +114,7 @@ if.app-id = 'net.kovidgoyal.kitty'
 run = 'move-node-to-workspace 1Terminal'
 
 [[on-window-detected]]
-if.app-id = 'company.thebrowser.Browser'
+if.app-id = 'company.thebrowser.dia'
 run = 'move-node-to-workspace 2Browser'
 
 [[on-window-detected]]
