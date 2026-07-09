@@ -1,8 +1,32 @@
 { mkKeymap, ... }:
 {
+  opts = {
+    foldcolumn = "1";
+    foldlevel = 99;
+    foldlevelstart = 99;
+    foldenable = true;
+  };
+
   plugins.nvim-ufo = {
     enable = true;
+    # lazyLoad.settings.event = "VeryLazy";
     settings = {
+      open_fold_hl_timeout = 0;
+      # provider_selector = /* lua */ ''
+      #   function(bufnr, filetype, buftype)
+      #     if buftype ~= "" then
+      #       return ""
+      #     end
+      #
+      #     local uv = vim.uv or vim.loop
+      #     local ok, stats = pcall(uv.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+      #     if ok and stats and stats.size > 512 * 1024 then
+      #       return ""
+      #     end
+      #
+      #     return { "lsp", "indent" }
+      #   end
+      # '';
       fold_virt_text_handler = /* lua */ ''
         function(virtText, lnum, endLnum, width, truncate)
           local newVirtText = {}

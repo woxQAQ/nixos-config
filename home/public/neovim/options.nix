@@ -46,21 +46,24 @@
     wrap = false;
     linebreak = true;
 
-    foldenable = true;
-    foldcolumn = "1";
-    foldlevel = 99;
+    # foldenable = true;
+    # foldcolumn = "0";
+    # foldlevel = 99;
     # foldmethod = "indent";
+    # foldexpr = "0";
     # foldnestmax = 10;
-    foldlevelstart = 99;
+    # foldlevelstart = 99;
 
     pumheight = 10;
 
     clipboard = "unnamedplus";
 
     startofline = true;
-    smoothscroll = true;
+    # smoothscroll = false;
     title = true;
     titlelen = 20;
-    updatetime = 300;
+    updatetime = 500;
+    # redrawtime = 1500;
+    synmaxcol = 240;
   };
 }

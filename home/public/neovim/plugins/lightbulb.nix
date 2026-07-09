@@ -7,22 +7,22 @@
     settings = {
       autocmd = {
         enabled = true;
-        updatetime = 200;
+        updatetime = -1;
       };
-      line = {
-        enabled = true;
-      };
-      number = {
-        enabled = true;
-      };
-      sign = {
-        enabled = true;
-        text = " 󰌶";
-      };
-      status_text = {
-        enabled = true;
-        text = " 󰌶 ";
-      };
+      # line = {
+      #   enabled = false;
+      # };
+      # number = {
+      #   enabled = false;
+      # };
+      # sign = {
+      #   enabled = true;
+      #   text = " 󰌶";
+      # };
+      # status_text = {
+      #   enabled = true;
+      #   text = " 󰌶 ";
+      # };
     };
   };
 }

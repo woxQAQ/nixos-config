@@ -5,7 +5,7 @@
       enable = true;
       highlight.enable = true;
       indent.enable = true;
-      folding.enable = true;
+      folding.enable = false;
       grammarPackages = with config.plugins.treesitter.package.builtGrammars; [
         # keep-sorted start
         bash

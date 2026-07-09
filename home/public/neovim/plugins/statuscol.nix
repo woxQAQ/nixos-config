@@ -1,3 +1,24 @@
+let
+  foldfunc = {
+    __raw = /* lua */ ''
+      (function()
+        local builtin = require("statuscol.builtin")
+        local ffi = require("statuscol.ffidef")
+        local C = ffi.C
+        local fold_level_limit = 3
+
+        return function(args)
+          local foldinfo = C.fold_info(args.wp, args.lnum)
+          if foldinfo.level > fold_level_limit then
+            return " "
+          end
+
+          return builtin.foldfunc(args)
+        end
+      end)()
+    '';
+  };
+in
 {
   plugins.statuscol = {
     enable = true;
@@ -10,33 +31,19 @@
         }
         {
           text = [
-            {
-              __raw = "require('statuscol.builtin').lnumfunc";
-            }
+            { __raw = "require('statuscol.builtin').lnumfunc"; }
+            " "
           ];
           click = "v:lua.ScLa";
         }
         {
           text = [
-            {
-              __raw = ''
-                function(args)
-                local ffi = require("statuscol.ffidef")
-                local C = ffi.C
-                local foldinfo = C.fold_info(args.wp, args.lnum)
-                if foldinfo.level > 3 then
-                  return " "
-                end
-                return require('statuscol.builtin').foldfunc(args)
-                end
-              '';
-            }
+            foldfunc
+            " "
           ];
           condition = [
             true
-            {
-              __raw = "require('statuscol.builtin').not_empty";
-            }
+            { __raw = "require('statuscol.builtin').not_empty"; }
           ];
           click = "v:lua.ScFa";
         }

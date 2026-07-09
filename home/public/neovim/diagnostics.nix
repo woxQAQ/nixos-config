@@ -8,9 +8,7 @@
       severity.min = "warn";
       source = "if_many";
     };
-    virtual_lines = {
-      current_line = true;
-    };
+    virtual_lines = false;
 
     float = {
       border = "rounded";
