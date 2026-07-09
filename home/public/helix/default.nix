@@ -45,11 +45,7 @@ in
         }
         {
           name = "rust";
-          language-servers = [
-            {
-              name = "rust-analyzer";
-            }
-          ];
+          # config.check.command = "clippy";
         }
         {
           name = "typescript";
@@ -60,25 +56,27 @@ in
           ];
         }
         {
-          name = "cpp";
-          language-servers = [
-            {
-              name = "clangd";
-            }
-          ];
+          name = "nu";
         }
         {
-          name = "nu";
+          name = "toml";
+          formatter.command = "${pkgs.taplo}/bin/taplo";
+          formatter.args = [
+            "format"
+            "-"
+          ];
+          auto-format = true;
         }
       ];
     };
 
     home.packages = with pkgs; [
       ty
+      rust-analyzer
+      clippy
+      taplo
       nixfmt
       nixd
-      clang
-      cmake
     ];
   };
 }
