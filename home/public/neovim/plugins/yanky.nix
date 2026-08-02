@@ -5,24 +5,18 @@ let
     (mkKeymap [ "n" "x" ] "P" "<Plug>(YankyPutBefore)" "put yanked text before cursor")
     (mkKeymap [ "n" "x" ] "y" "<Plug>(YankyYank)" "Yank text")
   ];
-
-  yankyLazyKeys = map (keymap: {
-    __unkeyed-1 = keymap.key;
-
-    __unkeyed-2 = keymap.action;
-    mode = keymap.mode or "n";
-    inherit (keymap.options) desc;
-  }) keymaps;
+  #
+  # yankyLazyKeys = map (keymap: {
+  #   __unkeyed-1 = keymap.key;
+  #
+  #   __unkeyed-2 = keymap.action;
+  #   mode = keymap.mode or "n";
+  #   inherit (keymap.options) desc;
+  # }) keymaps;
 in
 {
   plugins.yanky = {
     enable = true;
-
-    lazyLoad = {
-      settings = {
-        keys = yankyLazyKeys;
-      };
-    };
     settings = {
       preserve_cursor_position = {
         enabled = false;

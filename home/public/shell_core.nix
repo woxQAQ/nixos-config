@@ -12,6 +12,7 @@ in
   programs = {
     fzf = {
       enable = true;
+      historyWidget.command = "";
     };
     # a tldr alternate
     tealdeer = {

@@ -35,7 +35,8 @@
     ./treesitter.nix
     ./trouble.nix
     ./ufo.nix
-    # ./yanky.nix
+    ./whichkey.nix
+    ./yanky.nix
     # keep-sorted end
   ];
 }

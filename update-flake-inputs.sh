@@ -1,137 +1,178 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nu
 
-# TUI script for updating flake inputs
+# TUI script for updating flake inputs.
 # Usage: ./update-flake-inputs.sh
 
-set -e
+const flake_dir = path self .
+const flake_file = path self flake.nix
+const update_all = "[update-all-inputs]"
 
-FLAKE_FILE="$(dirname "$0")/flake.nix"
-
-if [ "$(uname -s)" = "Darwin" ]; then
-    NIX_FLAGS=(--extra-experimental-features "nix-command flakes")
-else
-    NIX_FLAGS=()
-fi
-
-nix_cmd() {
-    nix "${NIX_FLAGS[@]}" "$@"
+def indentation [line: string] {
+  ($line | str length) - ($line | str trim --left | str length)
 }
 
-# Colors
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-NC='\033[0m' # No Color
+# Read inputs already present in flake.lock without requiring jq.
+def get_locked_inputs [] {
+  let lock_file = ($flake_dir | path join "flake.lock")
 
-# Check if fzf is available
-if ! command -v fzf &> /dev/null; then
-    echo -e "${RED}Error: fzf is not installed.${NC}"
-    echo "Please install fzf to use this script."
+  if not ($lock_file | path exists) {
+    return []
+  }
+
+  try {
+    open --raw $lock_file
+    | from json
+    | get nodes.root.inputs
+    | columns
+  } catch {
+    []
+  }
+}
+
+# Extract direct children of the inputs attrset from flake.nix so newly added,
+# not-yet-locked inputs are available too. Supports `name = { ... };` and
+# the shorthand `name.url = "...";`.
+def get_declared_inputs [] {
+  let state = (
+    open --raw $flake_file
+    | lines
+    | reduce --fold {
+        in_inputs: false
+        done: false
+        inputs_indent: 0
+        input_indent: null
+        inputs: []
+      } {|line, state|
+        if $state.done {
+          $state
+        } else {
+          let trimmed = ($line | str trim --left)
+          let line_indent = (indentation $line)
+
+          if not $state.in_inputs {
+            if $line =~ '^\s*inputs\s*=\s*\{' {
+              $state
+              | upsert in_inputs true
+              | upsert inputs_indent $line_indent
+            } else {
+              $state
+            }
+          } else if $line_indent <= $state.inputs_indent and ($trimmed | str starts-with "};") {
+            $state
+            | upsert in_inputs false
+            | upsert done true
+          } else if (
+            ($trimmed =~ '^[a-zA-Z0-9_-]+\s*=\s*\{')
+            or ($trimmed =~ '^[a-zA-Z0-9_-]+[.]url\s*=')
+          ) {
+            let input_indent = if $state.input_indent == null {
+              $line_indent
+            } else {
+              $state.input_indent
+            }
+
+            if $line_indent == $input_indent {
+              let input_name = (
+                $trimmed
+                | str replace --regex '[.]url\s*=.*$' ''
+                | str replace --regex '\s*=.*$' ''
+              )
+
+              $state
+              | upsert input_indent $input_indent
+              | upsert inputs ($state.inputs | append $input_name)
+            } else {
+              $state
+            }
+          } else {
+            $state
+          }
+        }
+      }
+  )
+
+  $state.inputs
+}
+
+def update_input [input_name: string] {
+  let nix_flags = if $nu.os-info.name == "macos" {
+    [--extra-experimental-features "nix-command flakes"]
+  } else {
+    []
+  }
+
+  if $input_name == $update_all {
+    print $"(ansi cyan)Updating all inputs...(ansi reset)"
+    ^nix ...$nix_flags flake update --flake $flake_dir
+  } else {
+    print $"(ansi cyan)Updating input: (ansi yellow)($input_name)(ansi reset)"
+    ^nix ...$nix_flags flake update --flake $flake_dir $input_name
+  }
+
+  if $env.LAST_EXIT_CODE != 0 {
+    exit $env.LAST_EXIT_CODE
+  }
+}
+
+def main [] {
+  print $"(ansi blue)╔══════════════════════════════════╗(ansi reset)"
+  print $"(ansi blue)║     (ansi cyan)Nix Flake Inputs Updater(ansi blue)     ║(ansi reset)"
+  print $"(ansi blue)╚══════════════════════════════════╝(ansi reset)"
+  print ""
+
+  if not ($flake_file | path exists) {
+    print --stderr $"(ansi red)Error: flake.nix not found at ($flake_file)(ansi reset)"
     exit 1
-fi
+  }
 
-# Extract input names from flake using nix
-get_inputs() {
-    # Use nix to get the locked nodes from flake.lock
-    if [ -f "$(dirname "$0")/flake.lock" ]; then
-        nix_cmd eval --json '.#rootInputs' 2>/dev/null | jq -r 'keys[]' 2>/dev/null || \
-        nix_cmd flake metadata --json 2>/dev/null | jq -r '.locks.nodes.root.inputs | keys[]' 2>/dev/null
-    fi
+  print $"(ansi cyan)Parsing flake.nix for inputs...(ansi reset)"
+
+  let inputs = (
+    (get_locked_inputs)
+    | append (get_declared_inputs)
+    | uniq
+    | sort
+  )
+
+  if ($inputs | is-empty) {
+    print --stderr $"(ansi red)No inputs found in flake.nix(ansi reset)"
+    exit 1
+  }
+
+  print ""
+  print $"(ansi cyan)Select an input to update; the first option updates all inputs.(ansi reset)"
+
+  let selected = try {
+    [$update_all]
+    | append $inputs
+    | input list --fuzzy "Select input"
+  } catch {
+    null
+  }
+
+  if $selected == null {
+    print ""
+    print $"(ansi yellow)No input selected. Exiting.(ansi reset)"
+    return
+  }
+
+  print ""
+  if $selected == $update_all {
+    print $"(ansi green)You selected: Update ALL inputs(ansi reset)"
+  } else {
+    print $"(ansi green)You selected input: (ansi cyan)($selected)(ansi reset)"
+  }
+
+  print ""
+  let confirmation = (input --default "y" "Proceed with update? [Y/n]: " | str trim | str lowercase)
+  if $confirmation not-in ["" "y" "yes"] {
+    print $"(ansi yellow)Update cancelled.(ansi reset)"
+    return
+  }
+
+  print ""
+  update_input $selected
+
+  print ""
+  print $"(ansi green)✓ Update complete!(ansi reset)"
 }
-
-# Fallback: extract from flake.nix using grep
-get_inputs_fallback() {
-    grep -E '^\s+[a-zA-Z0-9_-]+\s*=\s*\{' "$(dirname "$0")/flake.nix" | \
-        sed -E 's/^\s+([a-zA-Z0-9_-]+).*/\1/' | grep -v '^inputs$'
-}
-
-# Run nix flake update
-update_input() {
-    local input_name="$1"
-    echo -e "${CYAN}Updating input: ${YELLOW}$input_name${NC}"
-
-    if [ -z "$input_name" ] || [ "$input_name" == "[update-all-inputs]" ]; then
-        nix_cmd flake update
-    else
-        nix_cmd flake update "$input_name"
-    fi
-}
-
-# Main function
-main() {
-    echo -e "${BLUE}╔════════════════════════════════════════════════╗${NC}"
-    echo -e "${BLUE}║     ${CYAN}Nix Flake Inputs Updater${BLUE}                ║${NC}"
-    echo -e "${BLUE}╚════════════════════════════════════════════════╝${NC}"
-    echo ""
-
-    # Check if flake.nix exists
-    if [ ! -f "$FLAKE_FILE" ]; then
-        echo -e "${RED}Error: flake.nix not found at $FLAKE_FILE${NC}"
-        exit 1
-    fi
-
-    echo -e "${CYAN}Parsing flake.nix for inputs...${NC}"
-
-    # Get inputs and add special options
-    local inputs
-    inputs=$(get_inputs 2>/dev/null | sort -u)
-
-    # Fallback if nix method didn't work
-    if [ -z "$inputs" ]; then
-        inputs=$(get_inputs_fallback | sort -u)
-    fi
-
-    if [ -z "$inputs" ]; then
-        echo -e "${RED}No inputs found in flake.nix${NC}"
-        exit 1
-    fi
-
-    # Prepare fzf options
-    local fzf_input="[update-all-inputs]\n$inputs"
-
-    echo ""
-    echo -e "${CYAN}Select an input to update (use arrow keys, Enter to select):${NC}"
-    echo ""
-
-    # Run fzf
-    local selected
-    selected=$(echo -e "$fzf_input" | fzf \
-        --prompt="Select input > " \
-        --height=20 \
-        --border=rounded \
-        --header="Select an input to update | First option updates ALL inputs" \
-        --preview="echo 'Input: {}'" \
-        --preview-window=hidden \
-        --color='header:green:bold,prompt:blue:bold,info:yellow,marker:cyan')
-
-    if [ -z "$selected" ]; then
-        echo ""
-        echo -e "${YELLOW}No input selected. Exiting.${NC}"
-        exit 0
-    fi
-
-    echo ""
-    if [ "$selected" == "[update-all-inputs]" ]; then
-        echo -e "${GREEN}You selected: Update ALL inputs${NC}"
-    else
-        echo -e "${GREEN}You selected input: ${CYAN}$selected${NC}"
-    fi
-
-    # Confirm
-    echo ""
-    read -rp "Proceed with update? [Y/n]: " confirm
-    if [[ ! "$confirm" =~ ^[Yy]$ ]] && [ -n "$confirm" ]; then
-        echo -e "${YELLOW}Update cancelled.${NC}"
-        exit 0
-    fi
-
-    echo ""
-    update_input "$selected"
-
-    echo ""
-    echo -e "${GREEN}✓ Update complete!${NC}"
-}
-
-main "$@"

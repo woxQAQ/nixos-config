@@ -3,9 +3,13 @@
   pkgs,
   config,
   lib,
+  osConfig,
   ...
 }:
 let
+  aerospaceEnabled =
+    pkgs.stdenv.hostPlatform.isDarwin
+    && builtins.any (cask: cask.name == "aerospace") osConfig.homebrew.casks;
   vlogs_endpoint = "http://127.0.0.1:9428/insert/opentelemetry/v1/logs";
   vmmetrics_endpoint = "http://127.0.0.1:8428/opentelemetry/v1/metrics";
 
@@ -16,7 +20,7 @@ let
       # claude code specific
       def init_files [] {
         let arr = [
-          $'($home)/.claude.json'
+          $'($env.home)/.claude.json'
           $'($home)/.claude/settings.json'
         ]
         for $file in $arr {
@@ -39,19 +43,19 @@ let
         
       } | to json o> $'($home)/.claude.json'
       open $'($home)/.claude/settings.json' | merge {
-        env: {
-          CLAUDE_CODE_ENABLE_TELEMETRY: 1,
-          OTEL_LOG_USER_PROMPTS: 1,
-          OTEL_LOGS_EXPORTER: "otlp",
-          OTEL_METRICS_EXPORTER: "otlp",
-          OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf",
-          OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "${vmmetrics_endpoint}",
-          OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "${vlogs_endpoint}",
-          OTEL_RESOURCE_ATTRIBUTES: "job=claude",
-          CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS: "1",
-          CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: "1",
-          ENABLE_LSP_TOOL: true,
-        }
+        # env: {
+        #   CLAUDE_CODE_ENABLE_TELEMETRY: 1,
+        #   OTEL_LOG_USER_PROMPTS: 1,
+        #   OTEL_LOGS_EXPORTER: "otlp",
+        #   OTEL_METRICS_EXPORTER: "otlp",
+        #   OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf",
+        #   OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "${vmmetrics_endpoint}",
+        #   OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "${vlogs_endpoint}",
+        #   OTEL_RESOURCE_ATTRIBUTES: "job=claude",
+        #   CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS: "1",
+        #   CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: "1",
+        #   ENABLE_LSP_TOOL: true,
+        # }
         statusLine: {
           type: "command",
           command: "npx -y @owloops/claude-powerline@latest --style=powerline"
@@ -106,16 +110,17 @@ let
       }
 
       # Set default provider (kimi)
-      ai-switch glm --no-output
+      # ai-switch glm --no-output
     '';
 
   baseConfig = # nu
     ''
       # completion
       const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}']
+      ${lib.optionalString aerospaceEnabled "use custom-completions/aerospace/aerospace-completions.nu *"}
       use custom-completions/git/git-completions.nu *
       use custom-completions/gh/gh-completions.nu *
-      use custom-completions/tealdeer/tldr-completions.nu *
+      use custom-completions/tldr/tldr-completions.nu *
       use custom-completions/tar/tar-completions.nu *
       use custom-completions/zellij/zellij-completions.nu *
       use custom-completions/docker/docker-completions.nu *
@@ -134,7 +139,9 @@ let
       use aliases/eza/eza-aliases.nu *
       use aliases/bat/bat-aliases.nu *
 
-      use modules/argx *
+      # Keep argx namespaced because it exports a `parse` command that would
+      # shadow Nushell's built-in `parse` used by the fzf integration.
+      use modules/argx
       use modules/lg *
       use modules/kubernetes *
     '';

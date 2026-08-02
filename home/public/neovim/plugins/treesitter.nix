@@ -10,6 +10,8 @@
         # keep-sorted start
         bash
         go
+        gomod
+        gosum
         javascript
         json
         lua
@@ -18,7 +20,6 @@
         nix
         nu
         python
-        regex
         rust
         toml
         typescript

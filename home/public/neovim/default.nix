@@ -1,5 +1,6 @@
 {
   nixvim,
+  pkgs,
   ...
 }:
 let
@@ -30,6 +31,7 @@ in
   programs.nixvim = {
     _module.args = { inherit mkKeymap; };
     nixpkgs.config.allowUnfree = true;
+    nixpkgs.source = pkgs.path;
     imports = [
       ./keymaps.nix
       ./options.nix

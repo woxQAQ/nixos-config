@@ -5,6 +5,19 @@
     lazyLoad.settings.cmd = [ "Trouble" ];
     settings = {
       auto_close = true;
+      modes = {
+        preview_split = {
+          # NOTE: can automatically open when diagnostics exist
+          # auto_open = true;
+          mode = "diagnostics";
+          preview = {
+            type = "split";
+            relative = "win";
+            position = "right";
+            size = 0.5;
+          };
+        };
+      };
     };
   };
   keymaps = [

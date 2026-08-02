@@ -27,6 +27,7 @@ in
           indent-guides.render = true;
           bufferline = "always";
         };
+        keys.normal.space."w".r = ":reload";
       };
       languages.language = [
         {
