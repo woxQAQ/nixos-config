@@ -91,6 +91,11 @@
       flake = false;
     };
 
+    nu_scripts_wox = {
+      url = "github:woxQAQ/nu_scripts?shallow=1";
+      flake = false;
+    };
+
     secrets = {
       url = "git+ssh://git@github.com/woxQAQ/nix-secrets.git?shallow=1";
       flake = false;

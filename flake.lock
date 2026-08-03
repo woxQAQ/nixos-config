@@ -772,6 +772,22 @@
         "type": "github"
       }
     },
+    "nu_scripts_wox": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1785662043,
+        "narHash": "sha256-ESsBGINkLRvzcD2Y6XwpAL1CNfN+YFZmbx37yUOI5cg=",
+        "owner": "woxQAQ",
+        "repo": "nu_scripts",
+        "rev": "1edc5357e65c3c55a51eb8b1796de2f6b1eb5e0c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "woxQAQ",
+        "repo": "nu_scripts",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -792,6 +808,7 @@
         "nixvim": "nixvim",
         "noctalia": "noctalia",
         "nu_scripts": "nu_scripts",
+        "nu_scripts_wox": "nu_scripts_wox",
         "secrets": "secrets",
         "vicinae": "vicinae",
         "woxVim": "woxVim",
@@ -801,10 +818,10 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1776708162,
-        "narHash": "sha256-ytUAO1dv0aPpsYRQhFQwoh+SHL+w+HU/PwY83v7uzgg=",
+        "lastModified": 1785685012,
+        "narHash": "sha256-A2tCkFiW5C48J+BnhAV8C9U3jbjfXbSWeDj6xCZbxVQ=",
         "ref": "refs/heads/main",
-        "rev": "35d7e2416ab3c515eb97b3c699869a27ef94a8d7",
+        "rev": "1fa85517e6c3681627973627dfca27531b8de290",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/woxQAQ/nix-secrets.git"
