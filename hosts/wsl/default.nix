@@ -36,7 +36,6 @@
     golangci-lint
     kubernetes-helm
     go
-    wslu
     wsl-open
     dos2unix
     gopls
@@ -46,9 +45,8 @@
     unstable-pkg.go-tools
     uv
     nodejs
-    nodePackages.npm
-    nodePackages.prettier
+    prettier
     yarn
-    nodePackages.pnpm
+    pnpm
   ];
 }

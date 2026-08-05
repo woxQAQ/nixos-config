@@ -17,6 +17,8 @@ in
           cursorline = true;
           color-modes = true;
           default-yank-register = "+";
+          completion-timeout = 50;
+          completion-trigger-len = 1;
           lsp.display-messages = true;
           lsp.display-inlay-hints = false;
           cursor-shape = {

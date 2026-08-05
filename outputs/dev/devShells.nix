@@ -9,6 +9,7 @@
           ${config.pre-commit.installationScript}
         '';
         packages = with pkgs; [
+          just
           nixfmt
           git
           nodePackages.prettier

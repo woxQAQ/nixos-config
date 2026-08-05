@@ -16,13 +16,11 @@
   home.sessionVariables = {
     XCURSOR_SIZE = "16";
   };
+
+  catppuccin.gtk.icon.enable = false;
+
   gtk = {
     enable = true;
-
-    theme = {
-      package = pkgs.flat-remix-gtk;
-      name = "Flat-Remix-GTK-Blue-Dark";
-    };
 
     font = {
       name = "Noto Sans";

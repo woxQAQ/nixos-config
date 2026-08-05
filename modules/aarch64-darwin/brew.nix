@@ -19,8 +19,18 @@ in
 {
   environment = {
     systemPackages = with pkgs; [
+      # aerospace
+      bitwarden-desktop
+      cc-switch
       git
       gnugrep
+      koodo-reader
+      mole-cleaner
+      obsidian
+      stats
+      trufflehog
+      tuicr
+      vscode
     ];
     shells = [
       pkgs.zsh
@@ -42,27 +52,11 @@ in
       autoUpdate = true;
       brewfile = true;
     };
-    taps =
-      lib.map
-        (tap: {
-          name = tap;
-          trusted = true;
-          force_auto_update = true;
-        })
-        [
-          "nikitabobko/tap"
-          "pot-app/homebrew-tap"
-          # "nkzw-tech/tap"
-          "agavra/tap"
-        ];
+    taps = [ ];
     brews = [
       # "hey"
       # "podman"
       # "podman-compose"
-      "tailscale"
-      "mole"
-      "trufflehog"
-      "tuicr"
     ];
     # masApps = {
     #   Wechat = 836500024;
@@ -76,19 +70,6 @@ in
       # FIXME: ice broken on MacOS 26, drop it temporary
       # "jordanbaird-ice"
 
-      # a yabai alternative for macos
-      "aerospace"
-      # "altserver"
-      # browser
-      # "arc"
-      # baidu netdisk
-      # "baidunetdisk"
-      # password manager
-      "bitwarden"
-      # netease cloud music
-      "cc-switch"
-      # chatgpt desktop app
-      # "chatgpt"
       # proxy client
       "clash-verge-rev"
       # opensource lightweight text-editor
@@ -101,8 +82,6 @@ in
       "feishu"
       # opensource rss reader powered by rsshub
       # "folo"
-      # e-book reader
-      "koodo-reader"
       # a gba emulators to play gba games
       "mgba-app"
       # "neteasemusic"
@@ -110,16 +89,17 @@ in
       # "notion"
       # Open broadcast studio
       "obs"
-      # obsidian note
-      "obsidian"
-      # "pot"
-      # NOTE: DROP MacOS 26 spotlight
+      # "altserver"
+      # browser
+      # "arc"
+      # baidu netdisk
+      # "baidunetdisk"
+      # chatgpt desktop app
+      # "chatgpt"
       "raycast"
+      # "pot"
       # input method
       "squirrel-app"
-      # menubar computer monitor
-      "stats"
-      # "tailscale"
       # a signing daemon for my IOS apps which not supported by app-store
       # "iina"
       # "steam"
@@ -127,7 +107,6 @@ in
       # "tencent-lemon"
       # AI IDE by Bytedance
       # "trae"
-      "visual-studio-code"
       # keep-sorted end
     ];
   };

@@ -113,7 +113,6 @@
       inputs = {
         # IMPORTANT: To ensure compatibility with the latest Firefox version, use nixpkgs-unstable.
         nixpkgs.follows = "nixpkgs-unstable";
-        home-manager.follows = "home-manager";
       };
     };
 
