@@ -24,7 +24,10 @@ let
         desktop.enable = true;
         neovim.enable = true;
         helix.enable = true;
-        terminal.font-size = 15;
+        terminal = {
+          font-size = 15;
+          font-family = "IoskeleyMono Nerd Font";
+        };
         shell.nushell.enableLLM = true;
       };
     }

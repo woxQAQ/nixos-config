@@ -55,10 +55,8 @@
     ### MISC ###
     # useful leetcode cli
     leetgo
-    # llm cli
-    aichat
-    # database Management GUI
     nufmt
+    ast-grep
   ];
   # home.file.".npmrc".text = ''
   #   prefix=~/.npm-packages
@@ -66,6 +64,7 @@
   home.sessionPath = [
     "$HOME/go/bin"
     "$HOME/.npm/bin"
+    "$HOME/.kimi-code/bin"
   ];
   programs.direnv = {
     enable = true;
