@@ -15,5 +15,6 @@
     ./ssh.nix
     ./shell_core.nix
     ./catppuccin.nix
+    ./mutable-config.nix
   ];
 }

@@ -51,13 +51,13 @@ Set via `modules.desktop.environment` in host output:
 - `niri` - Scrollable-tiling Wayland
 - `gnome` - GNOME desktop
 
-Desktop configs live in `home/desktop/{environment}/`.
+Desktop configs live in `home/nixos/desktop/{environment}/`.
 
 ### Home Manager Layers
 
 1. Base (`home/nixos/` or `home/darwin/`) - Core shell, terminal, dev tools
 2. Public (`home/public/`) - Cross-platform configs
-3. Desktop (`home/desktop/`) - Desktop environment settings
+3. Desktop (`home/nixos/desktop/`) - Desktop environment settings
 4. Host-specific (`hosts/<hostname>/home.nix`) - Per-machine packages
 
 ### Key Patterns
@@ -66,4 +66,6 @@ Desktop configs live in `home/desktop/{environment}/`.
 
 **Secret management**: Agenix with secrets in separate `secrets` input (private repo).
 
-**Library functions**: `mylib.mkHost` (NixOS), `mylib.mkDarwin` (macOS), `mylib.scanPath`, `mylib.iswsl` in `lib/`.
+**Library functions**: `mylib.mkHost` (NixOS), `mylib.mkDarwin` (macOS), `mylib.scanPath`, `mylib.mkMutable`, `mylib.iswsl` in `lib/`.
+
+**Mutable (app-writable) configs**: For config files the application itself rewrites (e.g. noctalia `settings.json`), link them out-of-store with `mylib.mkMutable dotfilesDir config ./settings.json` (a path literal relative to the calling file) instead of a store path. `dotfilesDir` is a special arg pointing at the repo checkout (default `~/nixos-config`, overridable per host via `dotfilesDir` in `hosts/<hostname>/values.nix`). Pure evaluation cannot see these paths, so `home/public/mutable-config.nix` verifies `dotfilesDir` and all symlinks into it at activation time and fails the switch on breakage.

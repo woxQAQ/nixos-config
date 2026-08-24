@@ -1,14 +1,18 @@
-{ config, ... }:
+{
+  config,
+  mylib,
+  dotfilesDir,
+  ...
+}:
 {
   xdg.configFile =
     let
-      mkSymlink = config.lib.file.mkOutOfStoreSymlink;
-      hyprPath = "${config.home.homeDirectory}/nixos-config/home/desktop/hyprland/conf";
+      mkMutable = mylib.mkMutable dotfilesDir config;
     in
     {
-      "waybar".source = mkSymlink "${hyprPath}/waybar";
-      "wlogout".source = mkSymlink "${hyprPath}/wlogout";
-      "mako".source = mkSymlink "${hyprPath}/mako";
-      "hypr/configs".source = mkSymlink "${hyprPath}/hypr";
+      "waybar".source = mkMutable ./waybar;
+      "wlogout".source = mkMutable ./wlogout;
+      "mako".source = mkMutable ./mako;
+      "hypr/configs".source = mkMutable ./hypr;
     };
 }

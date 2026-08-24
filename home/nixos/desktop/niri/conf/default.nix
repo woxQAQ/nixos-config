@@ -1,15 +1,19 @@
-{ config, ... }:
+{
+  config,
+  mylib,
+  dotfilesDir,
+  ...
+}:
 {
 
   xdg.configFile =
     let
-      mkSymlink = config.lib.file.mkOutOfStoreSymlink;
-      confPath = "${config.home.homeDirectory}/nixos-config/home/nixos/desktop/niri/conf";
+      mkMutable = mylib.mkMutable dotfilesDir config;
     in
     {
-      "niri/config.kdl".source = mkSymlink "${confPath}/config.kdl";
-      "niri/keybind.kdl".source = mkSymlink "${confPath}/keybind.kdl";
-      "niri/noctalia.kdl".source = mkSymlink "${confPath}/noctalia.kdl";
-      "niri/windowrules.kdl".source = mkSymlink "${confPath}/windowrules.kdl";
+      "niri/config.kdl".source = mkMutable ./config.kdl;
+      "niri/keybind.kdl".source = mkMutable ./keybind.kdl;
+      "niri/noctalia.kdl".source = mkMutable ./noctalia.kdl;
+      "niri/windowrules.kdl".source = mkMutable ./windowrules.kdl;
     };
 }

@@ -3,6 +3,8 @@
   config,
   pkgs,
   lib,
+  mylib,
+  dotfilesDir,
   hostValues ? { },
   ...
 }:
@@ -25,11 +27,10 @@ in
 
   xdg.configFile =
     let
-      mkSymlink = config.lib.file.mkOutOfStoreSymlink;
-      confPath = "${config.home.homeDirectory}/nixos-config/home/nixos/desktop/noctalia";
+      mkMutable = mylib.mkMutable dotfilesDir config;
     in
     {
-      "noctalia/settings.json".source = mkSymlink "${confPath}/settings.json";
-      "qt6ct/qt6ct.conf".source = mkSymlink "${confPath}/qt6ct.conf";
+      "noctalia/settings.json".source = mkMutable ./settings.json;
+      "qt6ct/qt6ct.conf".source = mkMutable ./qt6ct.conf;
     };
 }
