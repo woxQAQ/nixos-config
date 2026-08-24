@@ -9,6 +9,7 @@
     ./npm.nix
     ./cloud-native.nix
     ./nix.nix
+    ./agents
   ];
   home.packages = with pkgs; [
     ### NODEJS
