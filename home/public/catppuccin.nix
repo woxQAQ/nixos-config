@@ -9,6 +9,7 @@
   catppuccin = {
     autoEnable = true;
     enable = true;
+    cache.enable = true;
     flavor = "mocha";
     accent = "pink";
     # starship.enable = pkgs.stdenv.hostPlatform.isLinux;

@@ -25,6 +25,7 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
+    signing.format = "openpgp";
     settings = {
       user = {
         name = if pkgs.stdenv.hostPlatform.isLinux then username else "woxQAQ";

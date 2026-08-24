@@ -1,15 +1,14 @@
 { ... }:
 {
   imports = [
-    ./base
     ./helix
     ./dev
     ./desktop
     ./shell
-    ./nix
     ./terminal
     ./neovim
     ./pkgs.nix
+    ./git.nix
     ./options.nix
     ./yazi.nix
     ./ssh.nix

@@ -8,6 +8,7 @@
     ./go.nix
     ./npm.nix
     ./cloud-native.nix
+    ./nix.nix
   ];
   home.packages = with pkgs; [
     ### NODEJS

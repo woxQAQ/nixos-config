@@ -8,7 +8,8 @@
   programs = {
     fzf = {
       enable = true;
-      historyWidget.command = "";
+      historyWidget.command = lib.mkIf config.programs.atuin.enable "";
+      defaultCommand = "${lib.getExe pkgs.fd} --type=f --hidden --exclude=.git";
     };
     # a tldr alternate
     tealdeer = {
@@ -38,7 +39,9 @@
     btop = {
       enable = true;
       settings = {
-        theme_background = false; # make btop transparent
+        theme_background = true;
+        truecolor = true;
+        presets = "cpu:1:default,proc:0:default cpu:0:default,mem:0:default,net:0:default cpu:0:block,net:0:tty";
       };
     };
     eza = {
@@ -46,6 +49,12 @@
       enableNushellIntegration = false;
       git = true;
       icons = "auto";
+      extraOptions = [
+        "--group-directories-first"
+        "--header"
+        "--hyperlink"
+        "--follow-symlinks"
+      ];
     };
     zoxide = {
       enable = true;
@@ -57,18 +66,11 @@
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
-      enableNushellIntegration = false;
+      enableNushellIntegration = true;
       daemon.enable = true;
     };
-
-    nushell.extraConfig = ''
-      source ${
-        pkgs.runCommand "atuin-nushell-config.nu" { } ''
-          export HOME=$TMPDIR
-          export XDG_CONFIG_HOME=$TMPDIR/.config
-          ${lib.getExe config.programs.atuin.package} init nu > $out
-        ''
-      }
-    '';
+  };
+  home.shellAliases = {
+    tree = lib.mkForce "${lib.getExe config.programs.eza.package} --tree --icons=always";
   };
 }
