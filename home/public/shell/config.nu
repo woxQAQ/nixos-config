@@ -29,10 +29,6 @@ $env.config = {
         reset_application_mode: true
     }
 }
-#
-# const NU_PLUGIN_DIRS = [
-#     ($nu.default-config-dir | path join 'plugins') # add <nushell-config-dir>/plugins
-# ]
 
 const NU_LIB_DIRS = [
     ($nu.default-config-dir | path join 'scripts') # add <nushell-config-dir>/scripts
