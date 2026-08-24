@@ -17,7 +17,6 @@
     stateVersion = "26.05";
     packages = with pkgs; [
       # keep-sorted start
-      buf
       iina
       localsend
       maccy

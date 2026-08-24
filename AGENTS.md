@@ -10,18 +10,6 @@ Flake-based NixOS configuration supporting NixOS (x86_64-linux) and macOS (aarch
 
 **You cannot run `nixos-rebuild switch` or `darwin-rebuild switch`.** Ask the user to run these commands instead.
 
-## Build Commands
-
-Run via Makefile:
-
-| Command | Description |
-|---------|-------------|
-| `make check` | Validate all configurations (run before committing) |
-| `make fmt` | Format all Nix files |
-| `make bump-flake` | Update all flake inputs |
-
-For debugging: `make switch TRACE=1`
-
 ## Architecture
 
 ### Host Configuration Pattern

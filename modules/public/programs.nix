@@ -1,13 +1,17 @@
 {
   pkgs,
-  lib,
   ...
 }:
 {
-  environment.variables.EDITOR = lib.mkOverride 900 "vim";
+  environment.variables = {
+    EDITOR = "hx";
+    VISUAL = "hx";
+    SUDO_EDITOR = "nvim --clean";
+  };
   environment.systemPackages = with pkgs; [
     nushell
-    vim
+    neovim
+    helix
 
     age
     yq

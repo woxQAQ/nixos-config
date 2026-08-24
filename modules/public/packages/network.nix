@@ -3,7 +3,6 @@ let
   v2dat = pkgs.callPackage ../../../pkg/v2dat { };
 in
 {
-  # environment.variables.EDITOR = "nvim --clean";
   environment.systemPackages = with pkgs; [
     # list open file-descriptor
     lsof

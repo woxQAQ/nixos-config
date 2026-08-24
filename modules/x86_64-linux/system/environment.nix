@@ -13,6 +13,4 @@
     inputs.agenix.packages.${stdenv.hostPlatform.system}.default
   ];
   nix.settings.trusted-users = [ username ];
-
-  # environment.variables.EDITOR = lib.mkForce "vim";
 }
