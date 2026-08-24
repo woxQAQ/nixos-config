@@ -6,11 +6,35 @@
 }:
 let
   cfg = config.modules.public.terminal;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  # nixpkgs wraps kitty.app's executable with a C binary wrapper (to extend PATH
+  # for kittens). On macOS this breaks LaunchServices' pid binding:
+  # NSRunningApplication.processIdentifier becomes -1 for LaunchServices-launched
+  # instances, making kitty invisible to AeroSpace and other AX-based tools.
+  # Undo the wrapper; its PATH additions are re-injected via `environment` below.
+  kittyPackage =
+    if isDarwin then
+      pkgs.runCommand "kitty-${pkgs.kitty.version}-unwrapped" { meta = pkgs.kitty.meta or { }; } ''
+        cp -RP ${pkgs.kitty} $out
+        chmod -R u+w $out
+        macos="$out/Applications/kitty.app/Contents/MacOS"
+        if [ -e "$macos/.kitty-wrapped" ]; then
+          rm "$macos/kitty"
+          mv "$macos/.kitty-wrapped" "$macos/kitty"
+        fi
+      ''
+    else
+      pkgs.kitty;
 in
 {
   config = lib.mkIf (cfg.emulator == "kitty") {
     programs.kitty = {
       enable = true;
+      package = kittyPackage;
+      environment = lib.mkIf isDarwin {
+        # same PATH suffix the nixpkgs wrapper used to inject
+        PATH = "\${PATH}:${kittyPackage}/bin:${pkgs.imagemagick}/bin:${pkgs.ncurses.dev}/bin";
+      };
       keybindings = {
         "ctrl+shift+m" = "toggle_maximized";
         "ctrl+shift+f" = "show_scrollback";

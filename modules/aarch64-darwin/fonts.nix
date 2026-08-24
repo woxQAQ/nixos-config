@@ -22,6 +22,13 @@ let
   });
 in
 {
+  system = {
+    defaults = {
+      NSGlobalDomain = {
+        AppleFontSmoothing = 1;
+      };
+    };
+  };
   fonts = {
     packages = with pkgs; [
       material-design-icons

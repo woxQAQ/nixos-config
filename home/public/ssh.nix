@@ -22,6 +22,12 @@
         user = "git";
         identitiesOnly = true;
       };
+      "tangled.org" = {
+        hostname = "tangled.org";
+        port = 22;
+        user = "git";
+        identitiesOnly = true;
+      };
     };
   };
 }

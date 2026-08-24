@@ -28,6 +28,8 @@ in
     vim = "nvim";
   };
 
+  home.packages = with pkgs; [ dwt1-shell-color-scripts ];
+
   programs.nixvim = {
     _module.args = { inherit mkKeymap; };
     nixpkgs.config.allowUnfree = true;

@@ -4,6 +4,7 @@
     enable = true;
     lazyLoad.settings.event = "DeferredUIEnter";
     settings.options = {
+      diagnostics = "nvim_lsp";
       mode = "buffers";
       numbers = "none";
       close_command = "bdelete! %d";
@@ -23,7 +24,7 @@
       max_name_length = 18;
       max_prefix_length = 15;
       tab_size = 10;
-      diagnostics = false;
+      # diagnostics = false;
       buffer_close_icon = "";
       modified_icon = "●";
       close_icon = "";

@@ -1,12 +1,11 @@
 {
   pkgs,
+  fastest-pkg,
   ...
 }:
 {
   imports = [
     ./go.nix
-    ./claude-code.nix
-    ./codex.nix
     ./npm.nix
     ./cloud-native.nix
   ];
@@ -17,7 +16,8 @@
     nodejs_22
     bun
     pandoc
-    devenv
+    fastest-pkg.devenv
+    mdbook
 
     ### C/C++
     # clang

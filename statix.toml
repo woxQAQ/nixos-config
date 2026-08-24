@@ -1,1 +1,18 @@
-ignore = ["*hardware-configuration.nix"]
+disabled = [
+  # False positives
+  "bool_comparison",
+  "bool_simplification",
+  # Not actually deprecated
+  "deprecated_is_null",
+  "faster_groupby",
+  "faster_zipattrswith",
+]
+
+ignore = [
+  "*record_screen*",
+  # Local build symlinks point into /nix/store; only the global gitignore knows
+  # about `result-*`, which statix does not read.
+  "result",
+  "result-*",
+  "*hardware-configuration.nix"
+]

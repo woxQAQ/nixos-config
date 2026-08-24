@@ -43,7 +43,10 @@
           "alt-slash" = "layout tiles horizontal vertical";
           "alt-comma" = "layout accordion horizontal vertical";
 
-          "alt-enter" = "exec-and-forget osascript -e 'tell application \"kitty\" to activate'";
+          # Use an explicit app path instead of AppleScript `activate`:
+          # LaunchServices may resolve "kitty" by name to a stale nix-store registration
+          # from a previous generation, which AeroSpace fails to manage.
+          "alt-enter" = "exec-and-forget open \"$HOME/Applications/Home Manager Apps/kitty.app\"";
           "alt-n" = "exec-and-forget osascript -e 'tell application \"notion\" to activate'";
           "alt-o" = "exec-and-forget osascript -e 'tell application \"obsidian\" to activate'";
           "alt-z" = "exec-and-forget osascript -e 'tell application \"zed\" to activate'";

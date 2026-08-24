@@ -8,11 +8,11 @@ lib.mkMerge [
   {
     users.users.${username}.description = username;
   }
-  (lib.mkIf pkgs.stdenv.isDarwin {
+  (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
     users.users.${username}.home = "/Users/${username}";
     nix.settings.trusted-users = [ username ];
   })
-  (lib.mkIf pkgs.stdenv.isLinux {
+  (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     users.users.${username} = {
       isNormalUser = true;
       extraGroups = [

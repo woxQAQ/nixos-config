@@ -11,7 +11,7 @@
     enable = true;
     flavor = "mocha";
     accent = "pink";
-    # starship.enable = pkgs.stdenv.isLinux;
+    # starship.enable = pkgs.stdenv.hostPlatform.isLinux;
     starship.enable = false;
     vscode.profiles.default.enable = false;
     zed = {

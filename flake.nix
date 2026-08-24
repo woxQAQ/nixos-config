@@ -26,6 +26,11 @@
       url = "github:woxQAQ/dae-flake.nix/33dd7a66366eba035ab7e9ef1891c88a57afcbe6";
     };
 
+    fast-nix-gc = {
+      url = "github:Mic92/fast-nix-gc";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";

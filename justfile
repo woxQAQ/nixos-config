@@ -135,11 +135,6 @@ check-brew:
       exit 1
     fi
 
-# Set the macOS system proxy.
-[group('darwin')]
-darwin-set-proxy:
-    sudo python3 hack/darwin-set-proxy.py -s http://127.0.0.1:7897
-
 # Verify and repair the Nix store.
 [group('maintenance')]
 check-store:
@@ -150,8 +145,3 @@ check-store:
 gc:
     sudo nix-collect-garbage --delete-older-than 7d
     nix-collect-garbage --delete-older-than 7d
-
-# Restart Waybar.
-[group('desktop')]
-waybar-restart:
-    killall -SIGUSR2 .waybar-wrapped

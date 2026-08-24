@@ -18,6 +18,7 @@
           ruff
           fzf
           jq
+          statix
         ];
       };
     };

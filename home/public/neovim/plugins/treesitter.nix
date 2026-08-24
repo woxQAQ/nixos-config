@@ -1,19 +1,27 @@
-{ config, mkKeymap, ... }:
+{ config, ... }:
 {
   plugins = {
     treesitter = {
       enable = true;
-      highlight.enable = true;
-      indent.enable = true;
+      settings = {
+        indent.enable = true;
+        highlight.enable = true;
+      };
       folding.enable = false;
+      nixvimInjections = true;
       grammarPackages = with config.plugins.treesitter.package.builtGrammars; [
         # keep-sorted start
         bash
+        gitcommit
+        gitignore
         go
         gomod
         gosum
+        gotmpl
+        gowork
         javascript
         json
+        just
         lua
         make
         markdown
@@ -21,6 +29,7 @@
         nu
         python
         rust
+        sql
         toml
         typescript
         yaml
@@ -33,6 +42,38 @@
         select = {
           enable = true;
           lookahead = true;
+          keymaps = {
+            "aa" = "@parameter.outer";
+            "ia" = "@parameter.inner";
+            "af" = "@function.outer";
+            "if" = "@function.inner";
+            "ac" = "@class.outer";
+            "ic" = "@class.inner";
+            "ii" = "@conditional.inner";
+            "ai" = "@conditional.outer";
+            "il" = "@loop.inner";
+            "al" = "@loop.outer";
+            "at" = "@comment.outer";
+          };
+          move = {
+            enable = true;
+            goto_next_start = {
+              "]m" = "@function.outer";
+              "]]" = "@class.outer";
+            };
+            goto_next_end = {
+              "]M" = "@function.outer";
+              "][" = "@class.outer";
+            };
+            goto_previous_start = {
+              "[m" = "@function.outer";
+              "[[" = "@class.outer";
+            };
+            goto_previous_end = {
+              "[M" = "@function.outer";
+              "[]" = "@class.outer";
+            };
+          };
           selection_modes = {
             "@parameter.outer" = "v";
             "@function.outer" = "V";
@@ -45,16 +86,4 @@
       };
     };
   };
-  keymaps =
-    let
-      fun =
-        select:
-        ''require("nvim-treesitter-textobjects.select").select_textobject("${select}","textobjects")'';
-    in
-    [
-      (mkKeymap [ "x" "o" ] "af" (fun "@function.outer"))
-      (mkKeymap [ "x" "o" ] "if" (fun "@function.inner"))
-      (mkKeymap [ "x" "o" ] "ac" (fun "@class.outer"))
-      (mkKeymap [ "x" "o" ] "if" (fun "@class.inner"))
-    ];
 }

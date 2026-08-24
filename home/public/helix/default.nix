@@ -6,6 +6,27 @@
 }:
 let
   cfg = config.modules.public.helix;
+
+  jsonMacroInjection = # query
+    ''
+      ((macro_invocation
+         macro:
+           [
+             (scoped_identifier name: (_) @_macro_name)
+             (identifier) @_macro_name
+           ]
+         (token_tree
+           (token_tree . "{" "}" .) @injection.content))
+       (#eq? @_macro_name "json")
+       (#set! injection.language "json")
+       (#set! injection.include-children))
+    '';
+
+  rustInjections = builtins.readFile "${pkgs.helix.runtime}/queries/rust/injections.scm";
+  rustInjectionsWithoutJson =
+    assert lib.assertMsg (lib.hasInfix jsonMacroInjection rustInjections)
+      "Helix's Rust JSON macro injection query changed; update home/public/helix/default.nix";
+    lib.replaceStrings [ jsonMacroInjection ] [ "" ] rustInjections;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -72,6 +93,11 @@ in
         }
       ];
     };
+
+    # serde_json::json! accepts Rust expressions as values. Parsing the entire
+    # macro body as JSON leaves everything after the first expression in an
+    # ERROR node and highlights otherwise identical object keys differently.
+    xdg.configFile."helix/runtime/queries/rust/injections.scm".text = rustInjectionsWithoutJson;
 
     home.packages = with pkgs; [
       ty

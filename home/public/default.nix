@@ -12,6 +12,7 @@
     ./pkgs.nix
     ./options.nix
     ./yazi.nix
+    ./ssh.nix
     ./shell_core.nix
     ./catppuccin.nix
   ];

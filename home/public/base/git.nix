@@ -27,7 +27,7 @@
     lfs.enable = true;
     settings = {
       user = {
-        name = if pkgs.stdenv.isLinux then username else "woxQAQ";
+        name = if pkgs.stdenv.hostPlatform.isLinux then username else "woxQAQ";
         email = lib.mkDefault "woxqaq@gmail.com";
       };
       fetch = {

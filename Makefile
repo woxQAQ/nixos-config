@@ -27,6 +27,13 @@ OPTIONS += --option substituters $(SUBSTITUTERS)
 endif
 
 .PHONY: bump-flake bump-secrets bump-woxVim repl shell
+bump: fmt
+	@if command -v nu &>/dev/null; then \
+		nu ./update-flake-inputs.nu; \
+	else \
+		echo "nushell not installed"; \
+		exit 1;\
+	fi
 bump-flake: fmt
 	$(NIX) flake update --flake .
 
@@ -70,10 +77,6 @@ switch-darwin: fmt
 check: fmt
 	$(NIX) flake check --keep-going
 
-.PHONY: darwin-set-proxy
-darwin-set-proxy:
-	@sudo python3 hack/darwin-set-proxy.py -s http://127.0.0.1:7897
-
 .PHONY: check-store
 check-store:
 	sudo nix-store --repair --verify --check-contents
@@ -81,10 +84,6 @@ check-store:
 .PHONY: fmt
 fmt:
 	$(NIX) fmt
-
-.PHONY: waybar-restart
-waybar-restart:
-	@ killall -SIGUSR2 .waybar-wrapped
 
 .PHONY: gc
 gc:

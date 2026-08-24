@@ -4,5 +4,6 @@
     iproute2mac
     coreutils
     inputs.agenix.packages.${stdenv.hostPlatform.system}.default
+    ffmpeg
   ];
 }

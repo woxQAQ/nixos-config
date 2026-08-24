@@ -40,28 +40,28 @@ flake-parts.lib.mkFlake { inherit inputs; } {
           args
           // {
             system = "x86_64-linux";
-            stateVersion = "25.05";
+            stateVersion = "26.05";
           }
         );
         wsl = import ./wsl.nix (
           args
           // {
             system = "x86_64-linux";
-            stateVersion = "25.05";
+            stateVersion = "26.05";
           }
         );
         windows-vm1 = import ./windows-vm1.nix (
           args
           // {
             system = "x86_64-linux";
-            stateVersion = "25.05";
+            stateVersion = "26.05";
           }
         );
         selfcloud = import ./selfcloud.nix (
           args
           // {
             system = "x86_64-linux";
-            stateVersion = "25.11";
+            stateVersion = "26.05";
           }
         );
       };

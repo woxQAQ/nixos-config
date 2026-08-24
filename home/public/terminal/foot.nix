@@ -10,7 +10,7 @@ in
 {
   config = lib.mkIf (cfg.emulator == "foot") {
     programs.foot = {
-      enable = pkgs.stdenv.isLinux;
+      enable = pkgs.stdenv.hostPlatform.isLinux;
       settings = {
         main = {
           term = "foot";

@@ -3,13 +3,11 @@
   nu_scripts_wox,
   pkgs,
   lib,
-  osConfig,
+  config,
   ...
 }:
 let
-  aerospaceEnabled =
-    pkgs.stdenv.hostPlatform.isDarwin
-    && builtins.any (cask: cask.name == "aerospace") osConfig.homebrew.casks;
+  aerospaceEnabled = lib.attrByPath [ "programs" "aerospace" "enable" ] false config;
   baseConfig = # nu
     ''
       # completion

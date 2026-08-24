@@ -13,14 +13,23 @@
           statusline = [
             "startup"
             "alpha"
+            "snacks_dashboard"
           ];
         };
-
-        theme = "catppuccin";
+        extensions = [
+          "fzf"
+          "neo-tree"
+        ];
+        theme = "catppuccin-nvim";
         globalstatus = true;
       };
       sections = {
-        lualine_a = [ "mode" ];
+        lualine_a = [
+          {
+            __unkeyed-1 = "mode";
+            icon = "";
+          }
+        ];
         lualine_b = [
           {
             __unkeyed-1 = "branch";
@@ -32,8 +41,24 @@
             color = {
               gui = "italic,bold";
             };
+            icon = "";
           }
           "diff"
+        ];
+        lualine_c = [
+          {
+            __unkeyed-1 = "navic";
+          }
+          {
+            __unkeyed-1 = "diagnostics";
+            sources = [ "nvim_lsp" ];
+            symbols = {
+              error = " ";
+              warn = " ";
+              info = " ";
+              hint = "󰝶 ";
+            };
+          }
         ];
 
         lualine_x = [
