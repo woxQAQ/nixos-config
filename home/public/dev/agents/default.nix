@@ -8,7 +8,7 @@ let
   mkMutable = mylib.mkMutable dotfilesDir config;
 in
 {
-  imports = [ ./ag-skills.nix ];
+  imports = [ ./skills.nix ];
 
   home.file = {
     ".codex/AGENTS.md".source = mkMutable ./codex/AGENTS.md;
