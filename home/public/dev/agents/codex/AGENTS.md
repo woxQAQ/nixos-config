@@ -10,14 +10,15 @@
 - Represent actionable outcomes as durable states. Give multiple writers one owner and an atomic boundary; make retries idempotent and external waits finite.
 - Persist required state before best-effort side effects. Required side-effect failure fails the operation; otherwise log and reconcile it. Propagate unexpected failures at a recovery boundary.
 - Test causal explanations against alternatives. When attempts stop producing evidence, instrument the fault. Match claim scope to current evidence; missing evidence stays unknown.
-- Each test protects a distinct behavior partition through real logic. Show failure before a reproducible fix and success after it, or report the proof gap.
 - A comment states the non-obvious reason at the owning boundary. Include a constraint or invalidation condition only when a maintainer needs it to know when the rationale or code stops being valid. Do not restate the operation, preserve intermediate attempts, or list speculative future work.
 - Put behavior in code and durable contracts in owning docs. Plans cover requirements, behavior, validation, failure handling, and material open questions.
 - Clean orphans created by the change. Report adjacent drift unless it blocks the fix. Choose the more current or better-tested pattern when local conventions conflict.
 - When the user asks for comment text, return only the comment lines. Do not add a Markdown fence, surrounding code, or explanation.
+- Do not pay for any unknown generality of programs. The situations where code needs to be “reused” are actually less than you think. Considering general applicability doesn’t equate to accurately grasping it. Solve current problems first, complex programs are born from simple one, do not abstract unless necessary.
 
 # Testing
 
+- Each test protects a distinct behavior partition through real logic. Show failure before a reproducible fix and success after it, or report the proof gap.
 - Not allowed to writing any Unit test except for basic data structure and algorithm.
 - Not allowed to writing any tests that are testing implement details.
 - Not allowed to testing for just coverage.
