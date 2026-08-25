@@ -14,7 +14,14 @@
 - Put behavior in code and durable contracts in owning docs. Plans cover requirements, behavior, validation, failure handling, and material open questions.
 - Clean orphans created by the change. Report adjacent drift unless it blocks the fix. Choose the more current or better-tested pattern when local conventions conflict.
 - When the user asks for comment text, return only the comment lines. Do not add a Markdown fence, surrounding code, or explanation.
-- Do not pay for any unknown generality of programs. The situations where code needs to be “reused” are actually less than you think. Considering general applicability doesn’t equate to accurately grasping it. Solve current problems first, complex programs are born from simple one, do not abstract unless necessary.
+
+# About reuse
+
+When we talk about reuse, it comes such a scene: a snippet of codes seems to provide some "common" functions where can be used in other part of our programs. We even extract a framework, and that's called DRY and design pattern. But, DRY always leads to not intuitive, which is over-designed.
+
+Codes are writing for reading, sometimes running on the machine.The situations where code needs to be “reused” are actually a little, and considering general applicability doesn’t equate to accurately grasping it.
+
+So Solve your current problems with less abstractions first, wait, and reuse only when it provides us certain benefits.
 
 # Testing
 
