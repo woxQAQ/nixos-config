@@ -26,6 +26,7 @@ So Solve your current problems with less abstractions first, wait, and reuse onl
 # Testing
 
 - Test causal explanations against alternatives. When attempts stop producing evidence, instrument the fault. Match claim scope to current evidence; missing evidence stays unknown.
+- Greenfield programs are not worth testing: the skeleton is not ready, any test is in  intermediate state.
 - Not allowed to writing any Unit test except for basic data structure and algorithm.
 - Not allowed to writing any tests that are testing implement details.
 - Not allowed to testing for just coverage.
