@@ -16,6 +16,14 @@
 - Clean orphans created by the change. Report adjacent drift unless it blocks the fix. Choose the more current or better-tested pattern when local conventions conflict.
 - When the user asks for comment text, return only the comment lines. Do not add a Markdown fence, surrounding code, or explanation.
 
+# Testing
+
+- Not allowed to writing any Unit test except for basic data structure and algorithm.
+- Not allowed to writing any tests that are testing implement details.
+- Not allowed to testing for just coverage.
+- Avoid to using Mock. Avoid to testing by string compare.
+- Short test case better. A good implement is better than complex testing suites.
+
 # Delegate
 
 - Delegate bounded independent work only when parallelism, isolation, or independent judgment pays for coordination. Keep coupled edits local.
