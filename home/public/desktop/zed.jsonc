@@ -115,7 +115,7 @@
 	"icon_theme": "Material Icon Theme",
 	"vim_mode": true,
 	"ui_font_size": 16.0,
-	"buffer_font_family": "IoskeleyMono Nerd Font",
+	"buffer_font_family": "IoskeleyMonoTerm Nerd Font Mono",
 	"buffer_font_size": 16,
 	"file_finder": {
 		"modal_max_width": "medium",

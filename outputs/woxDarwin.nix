@@ -26,7 +26,7 @@ let
         helix.enable = true;
         terminal = {
           font-size = 15;
-          font-family = "IoskeleyMono Nerd Font";
+          font-family = "IoskeleyMonoTerm Nerd Font Mono";
         };
         shell.nushell.enableLLM = true;
       };
