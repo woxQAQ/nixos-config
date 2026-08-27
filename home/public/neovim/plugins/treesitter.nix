@@ -19,6 +19,7 @@
         gosum
         gotmpl
         gowork
+        java
         javascript
         json
         just
