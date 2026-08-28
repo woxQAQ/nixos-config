@@ -73,11 +73,6 @@ in
         }
         {
           name = "typescript";
-          language-servers = [
-            {
-              name = "typescript-language-server";
-            }
-          ];
         }
         {
           name = "nu";

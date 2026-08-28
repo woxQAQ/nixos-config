@@ -7,6 +7,7 @@
     ./shell
     ./terminal
     ./neovim
+    ./agents
     ./pkgs.nix
     ./git.nix
     ./options.nix
