@@ -17,6 +17,7 @@
     nodejs_22
     bun
     pandoc
+    typst
     fastest-pkg.devenv
     mdbook
 
