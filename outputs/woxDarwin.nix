@@ -28,7 +28,6 @@ let
           font-size = 15;
           font-family = "IoskeleyMonoTerm Nerd Font Mono";
         };
-        shell.nushell.enableLLM = true;
       };
     }
   ];

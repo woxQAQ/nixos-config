@@ -19,9 +19,6 @@ in
         home-modules = [
           ../home/nixos
           ../home/public
-          {
-            modules.public.shell.nushell.enableLLM = false;
-          }
         ];
       }
     );

@@ -1,11 +1,6 @@
 { lib, ... }:
 {
   options.modules.public = {
-    shell = {
-      nushell = {
-        enableLLM = lib.mkEnableOption "LLM provider switching in nushell";
-      };
-    };
     cloud-native = {
       enable = lib.mkEnableOption "Cloud-native";
     };
