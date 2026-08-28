@@ -3,30 +3,30 @@
     enable = true;
 
     enableDefaultConfig = false;
-    matchBlocks."*" = {
-      forwardAgent = false;
-      addKeysToAgent = "yes";
-      compression = true;
-      serverAliveInterval = 0;
-      serverAliveCountMax = 2;
-      hashKnownHosts = false;
-      userKnownHostsFile = "~/.ssh/known_hosts";
-      controlMaster = "no";
-      controlPath = "~/.ssh/master-%r@%h:%p";
-      controlPersist = "no";
+    settings."*" = {
+      ForwardAgent = false;
+      AddKeysToAgent = "yes";
+      Compression = true;
+      ServerAliveInterval = 0;
+      ServerAliveCountMax = 2;
+      HashKnownHosts = false;
+      UserKnownHostsFile = "~/.ssh/known_hosts";
+      ControlMaster = "no";
+      ControlPath = "~/.ssh/master-%r@%h:%p";
+      ControlPersist = "no";
     };
-    matchBlocks = {
+    settings = {
       "github.com" = {
-        hostname = "ssh.github.com";
-        port = 443;
-        user = "git";
-        identitiesOnly = true;
+        HostName = "ssh.github.com";
+        Port = 443;
+        User = "git";
+        IdentitiesOnly = true;
       };
       "tangled.org" = {
-        hostname = "tangled.org";
-        port = 22;
-        user = "git";
-        identitiesOnly = true;
+        HostName = "tangled.org";
+        Port = 22;
+        User = "git";
+        IdentitiesOnly = true;
       };
     };
   };
