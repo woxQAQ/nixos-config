@@ -32,6 +32,7 @@
     which
     # GNU Make
     gnumake
+    cmake
     # GNU Compiler Collection
     gcc
     # GNU tar, create tar archives
