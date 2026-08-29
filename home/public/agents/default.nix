@@ -20,6 +20,11 @@ in
       kimi-code
       pi
       grok
+      # upstream llm-agents bundled the opencode and cursor agent into t3code
+      # by default. Of course they provide the providerPackages override that
+      # can choose the agent we use.
+      #
+      # see https://github.com/numtide/llm-agents.nix/blob/main/packages/t3code/package.nix
       (t3code-desktop.override {
         t3code = t3code.override {
           providerPackages = [
