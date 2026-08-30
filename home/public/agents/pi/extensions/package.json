@@ -17,13 +17,8 @@
     }
   },
   "peerDependencies": {
-    "@earendil-works/pi-ai": "^0.84.1",
-    "@earendil-works/pi-tui": "*",
-    "typebox": "*",
-    "zod": "^3.25.0 || ^4.0.0"
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
   },
-  "type": "module",
-  "devDependencies": {
-    "@earendil-works/pi-coding-agent": "^0.84.3"
-  }
+  "type": "module"
 }
