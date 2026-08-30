@@ -16,10 +16,7 @@
     age
     yq
     nmap
-    lsof
     tealdeer
     tokei
-    rsync
-    openssl
   ];
 }

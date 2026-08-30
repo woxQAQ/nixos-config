@@ -43,7 +43,8 @@
 	"text_rendering_mode": "platform_default",
 	"ui_font_family": ".ZedSans",
 	"terminal": {
-		"shell": {
+		"font_size": 15.0,
+  "shell": {
 			"program": "nu",
 		},
 		"env": {

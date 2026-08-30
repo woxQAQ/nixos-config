@@ -1,6 +1,5 @@
 {
   lib,
-  username,
   config,
   pkgs,
   fast-nix-gc,
@@ -76,8 +75,6 @@ in
         "/usr/lib/libc.dylib"
         "/usr/lib/system/libunc.dylib"
       ];
-      build-users-group = "nixbld";
-
       # buildDotnetModule emits __sandboxProfile on Darwin (mds, ICU,
       # SecurityServer); strict `sandbox = true` refuses such drvs
       # outright. Relaxed still sandboxes everything else.
@@ -92,19 +89,7 @@ in
       min-free = lib.mkForce (20 * 1024 * 1024 * 1024);
       max-free = lib.mkForce (50 * 1024 * 1024 * 1024);
       auto-optimise-store = false;
-      trusted-users = [ username ];
     };
-    gc = lib.mkIf config.nix.enable {
-      automatic = lib.mkForce false;
-      interval = lib.mkDefault gcInterval;
-      options = "--delete-older-than 7d";
-    };
-    optimise = {
-      automatic = lib.mkForce false;
-      interval = lib.map (entry: entry // { Hour = entry.Hour + 1; }) gcInterval;
-    };
-
-    daemonProcessType = "Standard";
   };
 
   # We manage the `nixpkgs` flake registry entry ourselves (pointing at
@@ -118,8 +103,8 @@ in
     setNixPath = false;
   };
 
-  launchd.daemons.fast-nix-gc = {
-    serviceConfig = {
+  launchd.daemons = lib.mkIf config.nix.enable {
+    fast-nix-gc.serviceConfig = {
       ProgramArguments = lib.mkForce [ "${gcWrapper}" ];
       StandardOutPath = nixJobLogPaths.gc.stdout;
       StandardErrorPath = nixJobLogPaths.gc.stderr;
@@ -130,10 +115,8 @@ in
       ProcessType = "Background";
       LowPriorityIO = true;
     };
-  };
 
-  launchd.daemons.fast-nix-optimise = {
-    serviceConfig = {
+    fast-nix-optimise.serviceConfig = {
       ProgramArguments = lib.mkForce [ "${optimiseWrapper}" ];
       StandardOutPath = nixJobLogPaths.optimise.stdout;
       StandardErrorPath = nixJobLogPaths.optimise.stderr;
@@ -145,20 +128,19 @@ in
     };
   };
 
-  services = {
+  services = lib.mkIf config.nix.enable {
     fast-nix-gc = {
       enable = true;
       automatic = true;
       package = fastNixGc;
       startCalendarInterval = gcInterval;
-      deleteOlderThan = "30d";
+      deleteOlderThan = "7d";
       keepRecent = "7d";
     };
 
     fast-nix-optimise = {
       enable = true;
       automatic = true;
-      package = fastNixGc;
       startCalendarInterval = lib.map (entry: entry // { Hour = entry.Hour + 1; }) gcInterval;
     };
   };

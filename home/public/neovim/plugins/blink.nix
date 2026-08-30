@@ -24,7 +24,7 @@
             };
           };
           keymap = {
-            "<Enter>" = [
+            "<CR>" = [
               "select_and_accept"
               "fallback"
             ];
@@ -40,7 +40,7 @@
             "select_prev"
             "fallback"
           ];
-          "<Enter>" = [
+          "<CR>" = [
             "select_and_accept"
             "fallback"
           ];

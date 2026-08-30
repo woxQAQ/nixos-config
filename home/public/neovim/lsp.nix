@@ -12,6 +12,12 @@
           buildScripts.enable = true;
           features = "all";
         };
+
+        diagnostics = {
+          enable = true;
+          # experimental.enable = true;
+          styleLints.enable = true;
+        };
         checkOnSave = true;
         check = {
           command = "clippy";

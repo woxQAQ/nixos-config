@@ -36,10 +36,11 @@ in
       })
     ];
     file = {
-      ".codex/AGENTS.md".source = mkMutable ./codex/AGENTS.md;
-      ".kimi-code/AGENTS.md".source = mkMutable ./codex/AGENTS.md;
-      ".pi/agent/AGENTS.md".source = mkMutable ./pi/AGENTS.md;
-      ".grok/AGENTS.md".source = mkMutable ./codex/AGENTS.md;
+      ".codex/AGENTS.md".source = mkMutable ./AGENTS.md;
+      ".kimi-code/AGENTS.md".source = mkMutable ./AGENTS.md;
+      ".pi/agent/AGENTS.md".source = mkMutable ./AGENTS.md;
+      ".grok/AGENTS.md".source = mkMutable ./AGENTS.md;
+      ".claude/CLAUDE.md".source = mkMutable ./AGENTS.md;
     };
   };
 }
