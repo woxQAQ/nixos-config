@@ -58,7 +58,7 @@ in
         inactive_tab_font_style = "normal";
         tab_bar_style = "powerline";
         tab_powerline_style = "round";
-        # background_opacity = "0.93";
+        background_opacity = "0.93";
         enable_audio_bell = false;
         tab_bar_edge = "top";
 
