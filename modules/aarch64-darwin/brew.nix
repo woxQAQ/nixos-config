@@ -29,7 +29,6 @@ in
       obsidian
       stats
       trufflehog
-      tuicr
       vscode
     ];
     shells = [
