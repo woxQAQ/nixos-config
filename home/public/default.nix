@@ -8,7 +8,6 @@
     ./terminal
     ./neovim
     ./agents
-    ./pkgs.nix
     ./git.nix
     ./options.nix
     ./yazi.nix

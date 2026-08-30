@@ -73,4 +73,8 @@
   home.shellAliases = {
     tree = lib.mkForce "${lib.getExe config.programs.eza.package} --tree --icons=always";
   };
+  home.packages = with pkgs; [
+    ups
+    glow
+  ];
 }

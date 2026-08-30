@@ -57,6 +57,7 @@
     leetgo
     nufmt
     ast-grep
+    dbeaver-bin
   ];
   # home.file.".npmrc".text = ''
   #   prefix=~/.npm-packages
