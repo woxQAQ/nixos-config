@@ -19,6 +19,19 @@ def "nu-complete pnpm init types" [] {
   ["commonjs" "module"]
 }
 
+def "nu-complete pnpm version types" [] {
+  [
+    { value: "major", description: "Bump 1.2.3 to 2.0.0" }
+    { value: "minor", description: "Bump 1.2.3 to 1.3.0" }
+    { value: "patch", description: "Bump 1.2.3 to 1.2.4" }
+    { value: "premajor", description: "Start the next major prerelease: 1.2.3 to 2.0.0-0" }
+    { value: "preminor", description: "Start the next minor prerelease: 1.2.3 to 1.3.0-0" }
+    { value: "prepatch", description: "Start the next patch prerelease: 1.2.3 to 1.2.4-0" }
+    { value: "prerelease", description: "Advance a prerelease: 1.2.3-0 to 1.2.3-1" }
+    { value: "from-git", description: "Use the version from the latest matching Git tag" }
+  ]
+}
+
 def "nu-complete pnpm" [] {
   [
    # manage your dependencies section
@@ -48,6 +61,7 @@ def "nu-complete pnpm" [] {
    { value: "publish", description:"Publishes a package to the registry" }
    { value: "root", description:"" }
    { value: "store", description:"store add, store path, store prune & store status" }
+   { value: "version", description: "Bumps the version of a package" }
   ]
 }
 
@@ -61,6 +75,23 @@ export extern "pnpm init" [
   --bare                             # Create a package.json file with the bare minimum of required fields
   --init-package-manager             # Declare a pnpm version range via devEngines.packageManager and auto-download pnpm when it is missing
   --init-type: string@"nu-complete pnpm init types" # Set the module system for the package
+  --help(-h)                         # Print help information
+]
+
+export extern "pnpm version" [
+  newversion?: string@"nu-complete pnpm version types" # The new version or the type of version bump
+  --allow-same-version               # Allow bumping to the same version
+  --dry-run                          # Print the release plan without applying it
+  --filter: string                   # Filter packages by name or glob pattern
+  --json                             # Show information in JSON format
+  --message: string                  # Set the version commit message
+  --no-commit-hooks                  # Skip running Git commit hooks
+  --no-git-checks                    # Do not check whether the working tree is clean
+  --no-git-tag-version               # Do not create a Git commit or tag
+  --preid: string                    # Set the prerelease identifier
+  --recursive(-r)                    # Apply the command to all packages in the workspace
+  --sign-git-tag                     # Sign the generated Git tag with GPG
+  --tag-version-prefix: string       # Set the Git tag prefix
   --help(-h)                         # Print help information
 ]
 
