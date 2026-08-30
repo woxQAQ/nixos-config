@@ -11,7 +11,10 @@ let
   mkMutable = mylib.mkMutable dotfilesDir config;
 in
 {
-  imports = [ ./skills.nix ];
+  imports = [
+    ./skills.nix
+    ./pi
+  ];
 
   home = {
     packages = with llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
