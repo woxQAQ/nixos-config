@@ -1,6 +1,5 @@
 {
   pkgs,
-  fastest-pkg,
   ...
 }:
 {
@@ -18,7 +17,6 @@
     bun
     pandoc
     typst
-    fastest-pkg.devenv
     mdbook
 
     ### C/C++

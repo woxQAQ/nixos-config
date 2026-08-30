@@ -86,8 +86,6 @@ in
         "/usr/lib"
         "/usr/bin/env"
       ];
-      min-free = lib.mkForce (20 * 1024 * 1024 * 1024);
-      max-free = lib.mkForce (50 * 1024 * 1024 * 1024);
       auto-optimise-store = false;
     };
   };

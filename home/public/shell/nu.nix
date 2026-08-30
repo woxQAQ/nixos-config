@@ -1,6 +1,5 @@
 {
   nu_scripts,
-  nu_scripts_wox,
   pkgs,
   lib,
   config,
@@ -12,7 +11,7 @@ let
     ''
       # completion
       source /etc/agenix/private.nu
-      const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}' '${nu_scripts_wox}']
+      const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}' '${./custom_completions}']
       ${lib.optionalString aerospaceEnabled "use custom-completions/aerospace/aerospace-completions.nu *"}
       use custom-completions/git/git-completions.nu *
       use custom-completions/gh/gh-completions.nu *
@@ -21,9 +20,9 @@ let
       use custom-completions/zellij/zellij-completions.nu *
       use custom-completions/docker/docker-completions.nu *
       use custom-completions/uv/uv-completions.nu *
-      use custom-completions/go/go-completions.nu *
+      source go/go.nu
       use custom-completions/rg/rg-completions.nu *
-      use custom-completions/pnpm/pnpm-completions.nu *
+      source pnpm/pnpm.nu
       use custom-completions/make/make-completions.nu *
       use custom-completions/npm/npm-completions.nu *
       use custom-completions/man/man-completions.nu *

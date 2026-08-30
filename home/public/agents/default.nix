@@ -2,6 +2,7 @@
   config,
   mylib,
   dotfilesDir,
+  fastest-pkg,
   llm-agents,
   pkgs,
   ...
@@ -38,7 +39,7 @@ in
       # package mentioned in the ./AGENTS.md, should keep it exists in this module
       pkgs.uv
       pkgs.pnpm
-      pkgs.devenv
+      fastest-pkg.devenv
     ];
     file = {
       ".codex/AGENTS.md".source = mkMutable ./AGENTS.md;
