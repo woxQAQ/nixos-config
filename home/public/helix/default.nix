@@ -52,6 +52,32 @@ in
         };
         keys.normal.space."w".r = ":reload";
       };
+      languages.language-server.rust-analyzer.config = {
+        cargo = {
+          buildScripts.enable = true;
+          features = "all";
+        };
+        check = {
+          command = "clippy";
+          features = "all";
+        };
+        files.excludeDirs = [
+          ".direnv"
+          "rust/.direnv"
+        ];
+        inlayHints = {
+          bindingModeHints.enable = true;
+          closureStyle = "rust_analyzer";
+          closureReturnTypeHints.enable = "always";
+          discriminantHints.enable = "always";
+          expressionAdjustmentHints.enable = "always";
+          implicitDrops.enable = true;
+          lifetimeElisionHints.enable = "always";
+          rangeExclusiveHints.enable = true;
+        };
+        procMacro.enable = true;
+        rustc.source = "discover";
+      };
       languages.language = [
         {
           name = "nix";
@@ -69,32 +95,6 @@ in
         }
         {
           name = "rust";
-          config = {
-            cargo = {
-              buildScripts.enable = true;
-              features = "all";
-            };
-            check = {
-              command = "clippy";
-              features = "all";
-            };
-            files.excludeDirs = [
-              ".direnv"
-              "rust/.direnv"
-            ];
-            inlayHints = {
-              bindingModeHints.enable = true;
-              closureStyle = "rust_analyzer";
-              closureReturnTypeHints.enable = "always";
-              discriminantHints.enable = "always";
-              expressionAdjustmentHints.enable = "always";
-              implicitDrops.enable = true;
-              lifetimeElisionHints.enable = "always";
-              rangeExclusiveHints.enable = true;
-            };
-            procMacro.enable = true;
-            rustc.source = "discover";
-          };
         }
         {
           name = "typescript";
