@@ -15,7 +15,7 @@
       noto-fonts-color-emoji
       noto-fonts
       noto-fonts-cjk-sans
-
+      noto-fonts-cjk-serif
       maple-mono.NF-CN-unhinted
 
       source-sans

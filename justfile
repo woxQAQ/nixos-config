@@ -143,5 +143,4 @@ check-store:
 # Delete system and user Nix generations older than seven days.
 [group('maintenance')]
 gc:
-    sudo nix-collect-garbage --delete-older-than 7d
-    nix-collect-garbage --delete-older-than 7d
+    sudo nix-collect-garbage
