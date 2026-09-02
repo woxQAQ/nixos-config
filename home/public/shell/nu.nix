@@ -20,6 +20,7 @@ let
       use custom-completions/zellij/zellij-completions.nu *
       use custom-completions/docker/docker-completions.nu *
       use custom-completions/uv/uv-completions.nu *
+      use custom-completions/just/just-completions.nu *
       source go/go.nu
       use custom-completions/rg/rg-completions.nu *
       source pnpm/pnpm.nu

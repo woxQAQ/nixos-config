@@ -1,7 +1,13 @@
 ---
 name: ast-grep-outline
-description: Use when exploring or modifying a codebase and you need a cheap structural map of files, directories, imports, exports, or direct members before reading full source.
+description: >
+    Use only when exploring an unfamiliar subtree containing many supported
+    source files, and the next decision is which file or top-level symbol to
+    inspect. Do not use for exact diagnostics, known small files, configuration
+    changes, unsupported languages, or when rg/compiler output already identifies
+    the relevant code.
 ---
+
 
 # Use ast-grep outline
 
