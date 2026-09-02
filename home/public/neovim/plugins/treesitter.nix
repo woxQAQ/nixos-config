@@ -1,5 +1,11 @@
 { config, ... }:
 {
+  filetype.pattern = {
+    ".*/templates/.*%.tpl" = "helm";
+    ".*/templates/.*%.txt" = "helm";
+    ".*/templates/.*%.ya?ml" = "helm";
+  };
+
   plugins = {
     treesitter = {
       enable = true;
@@ -19,6 +25,7 @@
         gosum
         gotmpl
         gowork
+        helm
         java
         javascript
         json
