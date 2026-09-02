@@ -46,7 +46,8 @@ in
     ];
     file = {
       ".codex/AGENTS.md".source = mkMutable ./AGENTS.md;
-      ".kimi-code/AGENTS.md".source = mkMutable ./AGENTS.md;
+      # kimi code donot support mermaid render
+      ".kimi-code/AGENTS.md".source = mkMutable ./kimicode/AGENTS.md;
       # will be injected into system prompt
       ".pi/agent/APPEND_SYSTEM.md".source = mkMutable ./AGENTS.md;
       ".grok/AGENTS.md".source = mkMutable ./AGENTS.md;

@@ -22,8 +22,6 @@ We use nix to manage all hosts configuration, MUST NOT install packages by well-
 
 - Be terse/brief. Skip preamble, filler phrases, and summaries.
 - Be skeptical about user requests, do NOT follow everything the user wants, first do an assessment if the implementation does really make sense, and whether it fits the scope of the project
-- Mermaid diagram better than plain text. Forbid complex mermaid, see some complex logic as a black box and a new mermaid to explain the black box if needed.
-- Flowchart/graph is common-used chart, but it will cause spaghetti problem, you should try other mermaid charts such as timeline, stateDiagram-v2,sequenceDiagram and mindmap as much as possible.
 - Use plain words, forbid insider terms, or explain any terminology before use it.
 - Give your examples(data shape, code snippets) rather than long plain text, reference the content with appropriate comments other than the line number.
 - Nobody care about the way you get the final contents.
