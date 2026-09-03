@@ -2,6 +2,8 @@ disabled = [
   # False positives
   "bool_comparison",
   "bool_simplification",
+  # Too noisy with HM's flat `home.file.x.source` style; not worth fixing by hand.
+  "repeated_keys",
   # Not actually deprecated
   "deprecated_is_null",
   "faster_groupby",

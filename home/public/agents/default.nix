@@ -41,6 +41,9 @@ let
 
       - Documents, history, memory and former conclusion as leads. Use current implements and runtime
         evidence as the applicable authoritative source
+      - Clone repos under ~/git-for-agents for more accurate results with `depth 1` to avoid rebundant
+        history clone and `git fetch --unshallow` if you really want to get the history. Before you want
+        to clone any repo, check if it exists under ~/git-for-agents 
 
       # Style
 
