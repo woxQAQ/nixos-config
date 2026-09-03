@@ -7,9 +7,12 @@
 }:
 let
   mermaidGuidance = ''
-    - Mermaid diagram better than plain text. Prefer several simple mermaids rather than an all-in-one mermaid.
-    - Flowchart/graph is common-used chart, but it will cause spaghetti problem, you should try other mermaid
-      charts such as timeline, stateDiagram-v2,sequenceDiagram and mindmap as much as possible.
+    - Use Mermaid when expressing flow, sequence, lifecycle, hierarchy, ownership, or dependencies.
+    - Prefer:
+      - `sequenceDiagram` for cross-service requests and event propagation
+      - `stateDiagram-v2` for lifecycle and recovery
+      - `flowchart` only for short decision or processing flows
+      - tables for contracts, responsibilities, and comparisons
   '';
   mkAgentInstructions =
     {
@@ -50,18 +53,23 @@ let
       - Be terse/brief. Skip preamble, filler phrases, and summaries.
       - Be skeptical about user requests, do NOT follow everything the user wants, first do an
         assessment if the implementation does really make sense, and whether it fits the scope of the project
-    ''
-    + lib.optionalString includeMermaidGuidance mermaidGuidance
-    + ''
       - Use plain words, forbid insider terms, or explain any terminology before use it.
       - Give your examples(data shape, code snippets) rather than long plain text, reference
-        the content with appropriate comments other than the line number.
+        the content with appropriate comments rather than file path with line number.
       - Conversational, not dramatic. Use contractions ("so/but" not "therefore/however").
         No scaffolding ("it is worth noting"), no hype adjectives ("brutally", "killer feature"),
         no setup phrases ("here's the thing"). No "not just X, but Y".
       - Not allowed to use em dashes (—) or en dashes (–) except hyphens in compound words
         (fail-fast, copy-paste).
 
+      # Visual Expression
+      - Do not use fenced plain-text blocks as diagrams.
+      - Use fenced `text` blocks only when exact whitespace or raw terminal-style output matters.
+      - Render a single path, identifier, command, or short chain as inline code.
+      - If a visual has fewer than three meaningful nodes, use prose instead.
+    ''
+    + lib.optionalString includeMermaidGuidance mermaidGuidance
+    + ''
       # Engineering Core
 
       - First Principles: reason from fundamental facts and constraints;
@@ -137,6 +145,7 @@ in
       # will be injected into system prompt
       ".pi/agent/APPEND_SYSTEM.md".text = agentInstructions;
       ".grok/AGENTS.md".text = agentInstructions;
+      "Library/Application Support/delta/AGENTS.md".text = agentInstructions;
       # ".claude/CLAUDE.md".text = agentInstructions;
     };
   };

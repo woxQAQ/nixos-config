@@ -5,6 +5,7 @@ let
     ".pi/agent/skills"
     ".kimi-code/skills"
     ".grok/skills"
+    ".agents/skills"
   ];
   skillDir = ./.agents/skills;
   skills = builtins.attrNames (
