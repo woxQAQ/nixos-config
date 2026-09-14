@@ -24,6 +24,7 @@ let
         desktop.enable = true;
         neovim.enable = true;
         helix.enable = true;
+        agent.enable = true;
         terminal = {
           font-size = 15;
           font-family = "IoskeleyMonoTerm Nerd Font Mono";
