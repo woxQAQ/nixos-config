@@ -122,8 +122,8 @@
 		"modal_max_width": "medium",
 	},
 	"theme": {
-		"mode": "dark",
-		"light": "Islands Light",
+		"mode": "system",
+		"light": "Catppuccin Latte",
 		"dark": "Catppuccin Macchiato",
 	},
 	"format_on_save": "off",

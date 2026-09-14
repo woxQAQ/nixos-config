@@ -121,6 +121,7 @@ in
 
     home.packages = with pkgs; [
       ty
+      typescript-language-server
       rust-analyzer
       clippy
       taplo

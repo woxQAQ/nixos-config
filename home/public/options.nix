@@ -13,6 +13,9 @@
     helix = {
       enable = lib.mkEnableOption "helix";
     };
+    agent = {
+      enable = lib.mkEnableOption "agent";
+    };
     terminal = {
       emulator = lib.mkOption {
         type = lib.types.nullOr (

@@ -27,7 +27,6 @@
       # keep-sorted end
     ];
   };
-
   programs.mpv = {
     enable = true;
     config = {
@@ -49,5 +48,9 @@
     };
   };
 
+  xdg.configFile."mole/whitelist".text = ''
+    ${config.home.homeDirectory}/Library/Caches/Dia
+    ${config.home.homeDirectory}/Library/Application Support/Dia
+  '';
   xdg.enable = true;
 }

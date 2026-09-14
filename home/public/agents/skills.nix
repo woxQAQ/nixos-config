@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   skillPath = [
     ".codex/skills"
@@ -11,20 +16,23 @@ let
   skills = builtins.attrNames (
     lib.attrsets.filterAttrs (_: type: type == "directory") (builtins.readDir skillDir)
   );
+  cfg = config.modules.public.agent;
 in
 {
-  home = {
-    packages = with pkgs; [
-      ast-grep
-    ];
-    file = builtins.listToAttrs (
-      lib.concatMap (
-        target:
-        map (skill: {
-          name = "${target}/${skill}";
-          value.source = skillDir + "/${skill}";
-        }) skills
-      ) skillPath
-    );
+  config = lib.mkIf cfg.enable {
+    home = {
+      packages = with pkgs; [
+        ast-grep
+      ];
+      file = builtins.listToAttrs (
+        lib.concatMap (
+          target:
+          map (skill: {
+            name = "${target}/${skill}";
+            value.source = skillDir + "/${skill}";
+          }) skills
+        ) skillPath
+      );
+    };
   };
 }
