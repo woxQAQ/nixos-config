@@ -113,7 +113,7 @@
 			],
 		},
 	},
-	"icon_theme": "Material Icon Theme",
+	"icon_theme": "Catppuccin Latte",
 	"vim_mode": true,
 	"ui_font_size": 16.0,
 	"buffer_font_family": "IoskeleyMonoTerm Nerd Font Mono",

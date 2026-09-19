@@ -109,8 +109,8 @@ in
         kimi-code
         pi
         grok
-        tuicr
         zcode
+        tuicr
         hunk
         # upstream llm-agents bundled the opencode and cursor agent into t3code
         # by default. They also provide the providerPackages override in t3code package that

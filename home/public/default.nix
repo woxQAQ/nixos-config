@@ -10,6 +10,7 @@
     ./agents
     ./git.nix
     ./options.nix
+    ./playwright.nix
     ./yazi.nix
     ./ssh.nix
     ./shell_core.nix

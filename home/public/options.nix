@@ -16,6 +16,9 @@
     agent = {
       enable = lib.mkEnableOption "agent";
     };
+    playwright = {
+      enable = lib.mkEnableOption "playwright";
+    };
     terminal = {
       emulator = lib.mkOption {
         type = lib.types.nullOr (

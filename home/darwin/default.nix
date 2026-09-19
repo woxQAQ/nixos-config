@@ -4,6 +4,7 @@
   lib,
   config,
   osConfig,
+  fastest-pkg,
   ...
 }:
 {
@@ -17,6 +18,7 @@
     stateVersion = "26.05";
     packages = with pkgs; [
       # keep-sorted start
+      fastest-pkg.openlogi
       iina
       localsend
       maccy
