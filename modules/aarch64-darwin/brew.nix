@@ -70,7 +70,10 @@ in
       # "jordanbaird-ice"
 
       # proxy client
-      "clash-verge-rev"
+      # FIXME: they release 2.5.4 and push to brew upstream,
+      # but delete the release after that. That has cause
+      # stale 2.5.4 in brew upstream
+      # "clash-verge-rev"
       # opensource lightweight text-editor
       "coteditor"
       # cursor AI IDE

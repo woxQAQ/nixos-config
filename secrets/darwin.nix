@@ -13,6 +13,7 @@
   };
   age.identityPaths = [
     "/etc/ssh/ssh_host_ed25519_key"
+    "/Users/${username}/.ssh/id_ed25519"
   ];
   age.secrets =
     let

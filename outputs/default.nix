@@ -74,6 +74,13 @@ flake-parts.lib.mkFlake { inherit inputs; } {
             stateVersion = 5;
           }
         );
+        woxMac-m1 = import ./darwin-m1.nix (
+          args
+          // {
+            system = "aarch64-darwin";
+            stateVersion = 5;
+          }
+        );
       };
 
       nixosSystemsValues = builtins.attrValues nixosSystems;
