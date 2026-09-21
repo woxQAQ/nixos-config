@@ -15,7 +15,7 @@ _nix := if _os == "Darwin" { "nix --extra-experimental-features 'nix-command fla
 [private]
 _nixos_hosts := "woxQAQ wsl windows-vm1 selfcloud"
 [private]
-_darwin_hosts := "woxMac"
+_darwin_hosts := "woxMac woxMac-m1"
 
 # Rebuild and switch the host saved by select-host.
 [group('system')]
