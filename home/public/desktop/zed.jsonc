@@ -1,5 +1,10 @@
 {
-	"outline_panel": {
+	"diagnostics": {
+  "inline": {
+   "enabled": false
+  }
+ },
+ "outline_panel": {
 		"dock": "right",
 	},
 	"collaboration_panel": {
@@ -18,10 +23,10 @@
 	"agent_servers": {
 		"codex-acp": {
 			"default_config_options": {
-    "mode": "agent-full-access",
-    "reasoning_effort": "xhigh"
-   },
-   "type": "registry",
+				"mode": "agent-full-access",
+				"reasoning_effort": "xhigh",
+			},
+			"type": "registry",
 		},
 		"pi-acp": {
 			"type": "registry",
@@ -32,7 +37,8 @@
 	},
 	"inlay_hints": {
 		// "enabled": true,
-		"show_type_hints": true,
+		"enabled": true,
+  "show_type_hints": true,
 		// "show_value_hints": true,
 	},
 	"indent_guides": {
@@ -44,7 +50,7 @@
 	"ui_font_family": ".ZedSans",
 	"terminal": {
 		"font_size": 15.0,
-  "shell": {
+		"shell": {
 			"program": "nu",
 		},
 		"env": {
@@ -113,7 +119,7 @@
 			],
 		},
 	},
-	"icon_theme": "Catppuccin Latte",
+	"icon_theme": "Material Icon Theme",
 	"vim_mode": true,
 	"ui_font_size": 16.0,
 	"buffer_font_family": "IoskeleyMonoTerm Nerd Font Mono",
@@ -131,10 +137,15 @@
 		"Nix": {
 			"language_servers": ["nixd", "!nil"],
 		},
+		"Rust": {
+			"inlay_hints": {
+				"enabled": true,
+			},
+		},
 		"Python": {
 			"language_servers": ["pyright"],
 			"inlay_hints": {
-				"enabled": false,
+				"enabled": true,
 			},
 		},
 		"Go": {
