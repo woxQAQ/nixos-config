@@ -12,6 +12,64 @@ export OPTIONS := env_var_or_default("OPTIONS", "")
 _os := `uname`
 [private]
 _nix := if _os == "Darwin" { "nix --extra-experimental-features 'nix-command flakes'" } else { "nix" }
+[private]
+_nixos_hosts := "woxQAQ wsl windows-vm1 selfcloud"
+[private]
+_darwin_hosts := "woxMac"
+
+# Rebuild and switch the host saved by select-host.
+[group('system')]
+rebuild:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    if [[ ! -s host ]]; then
+      just select-host
+    fi
+
+    selected_host=$(cat host)
+    for candidate in {{ _nixos_hosts }}; do
+      if [[ "$selected_host" == "$candidate" ]]; then
+        exec env NIXOS_HOST="$selected_host" just switch
+      fi
+    done
+    for candidate in {{ _darwin_hosts }}; do
+      if [[ "$selected_host" == "$candidate" ]]; then
+        exec env DARWIN_HOST="$selected_host" just switch-darwin
+      fi
+    done
+
+    echo "Unknown host '$selected_host'. Run 'just select-host' again." >&2
+    exit 1
+
+# Select a host interactively, or save the supplied host name.
+[group('system')]
+select-host selected="":
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    hosts=({{ _nixos_hosts }} {{ _darwin_hosts }})
+    selected_host={{ quote(selected) }}
+    if [[ -z "$selected_host" ]]; then
+      PS3="Select host: "
+      select selected_host in "${hosts[@]}"; do
+        if [[ -n "$selected_host" ]]; then
+          break
+        fi
+        echo "Choose a number from the list." >&2
+      done
+    fi
+
+    for candidate in "${hosts[@]}"; do
+      if [[ "$selected_host" == "$candidate" ]]; then
+        printf '%s\n' "$selected_host" > host
+        echo "Selected host: $selected_host"
+        exit 0
+      fi
+    done
+
+    echo "No valid host selected; host file unchanged." >&2
+    exit 1
 
 # List available recipes grouped by category.
 [group('help')]
@@ -50,7 +108,7 @@ bump-flake: fmt
 bump-secrets: fmt
     {{ _nix }} flake update "$SECRET_FLAKE_INPUT"
 
-# Update woxVim and switch the current operating system.
+# Update woxVim and switch the saved host.
 [group('updates')]
 bump-woxvim: fmt
     #!/usr/bin/env bash
@@ -58,11 +116,7 @@ bump-woxvim: fmt
 
     {{ _nix }} flake update "$WOXVIM_FLAKE_INPUT"
 
-    if [[ "$OSTYPE" == darwin* ]]; then
-      just switch-darwin
-    else
-      just switch
-    fi
+    just rebuild
 
 alias bump-woxVim := bump-woxvim
 
