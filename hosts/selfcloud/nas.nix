@@ -132,6 +132,8 @@
       Type = "simple";
       User = username;
       Group = "users";
+      # Prefer interactive directory reads over background torrent I/O.
+      IOSchedulingClass = "idle";
       ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --profile=/home/woxQAQ/.config/qBittorrent --webui-port=8080";
       Restart = "on-failure";
       # 关键：确保能访问 RAID 设备
