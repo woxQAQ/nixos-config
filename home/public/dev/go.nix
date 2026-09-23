@@ -1,4 +1,5 @@
 {
+  fastest-pkg,
   pkgs,
   config,
   ...
@@ -6,7 +7,7 @@
 {
   programs.go = {
     enable = true;
-    package = pkgs.go;
+    package = fastest-pkg.go_1_27;
     env = {
       GOBIN = "${config.home.homeDirectory}/go/bin";
       GOPATH = "${config.home.homeDirectory}/go";
