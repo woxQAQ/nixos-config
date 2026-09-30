@@ -1,5 +1,6 @@
 {
   mylib,
+  inputs,
   ...
 }@args:
 let
@@ -14,7 +15,9 @@ in
         hostname = name;
         nixos-modules = [
           ../hosts/${name}
-          ../modules/public/users.nix
+          ../modules/public
+          inputs.agenix.nixosModules.default
+          ../secrets/linux.nix
         ];
         home-modules = [
           ../home/nixos
