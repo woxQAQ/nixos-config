@@ -9,6 +9,7 @@
     ./storage.nix
     ./nas.nix
     ./resource.nix
+    ./home.nix
   ];
 
   boot.loader = {
