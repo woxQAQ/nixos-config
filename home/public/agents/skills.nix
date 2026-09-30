@@ -11,6 +11,7 @@ let
     ".kimi-code/skills"
     ".grok/skills"
     ".agents/skills"
+    ".workbuddy-ai/skills"
   ];
   skillDir = ./.agents/skills;
   skills = builtins.attrNames (

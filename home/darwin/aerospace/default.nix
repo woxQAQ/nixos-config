@@ -4,6 +4,20 @@
     launchd.enable = true;
 
     settings = {
+      "config-version" = 2;
+      "persistent-workspaces" = [
+        "1Terminal"
+        "2Browser"
+        "3Code"
+        "4Work"
+        "5Folo"
+        "6Chat"
+        "7Music"
+        "8Mail"
+        "9Float"
+        "0Obsidian"
+      ];
+
       "after-startup-command" = [
         "exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0"
       ];
@@ -223,6 +237,14 @@
         }
         {
           "if"."app-id" = "com.jd.jdmeeting";
+          run = "layout floating";
+        }
+        {
+          "if" = "test %{window-title} = 'Delta - Settings'";
+          run = "layout floating";
+        }
+        {
+          "if" = "test %{app-bundle-id} = com.tencent.xinWeChat && test %{window-title} = '图片和视频'";
           run = "layout floating";
         }
       ];

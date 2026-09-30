@@ -56,11 +56,11 @@ shell:
 
 .PHONY: switch switch-wsl switch-darwin
 switch: fmt
-	sudo nixos-rebuild switch --flake ".#${NIXOS_HOST}" \
+	nixos-rebuild switch --sudo --flake ".#${NIXOS_HOST}" \
 		$(_SWITCH_FLAGS) $(OPTIONS)
 
 switch-wsl: fmt
-	sudo nixos-rebuild switch --flake .#wsl $(_SWITCH_FLAGS)
+	nixos-rebuild switch --sudo --flake .#wsl $(_SWITCH_FLAGS)
 
 check-brew:
 	@if command -v brew &>/dev/null; then \

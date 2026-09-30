@@ -141,7 +141,7 @@ switch: fmt
       flags+=("${extra_options[@]}")
     fi
 
-    sudo nixos-rebuild switch \
+    nixos-rebuild switch --sudo \
       --flake ".#$NIXOS_HOST" \
       "${flags[@]}"
 
@@ -157,7 +157,7 @@ switch-wsl: fmt
       flags+=(--show-trace)
     fi
 
-    sudo nixos-rebuild switch --flake ".#wsl" "${flags[@]}"
+    nixos-rebuild switch --sudo --flake ".#wsl" "${flags[@]}"
 
 # Rebuild and switch the selected macOS host.
 [group('darwin')]

@@ -18,7 +18,8 @@ let
   '';
   mkAgentInstructions =
     {
-      includeMermaidGuidance ? false,
+      includeMermaidGuidance ? true,
+      includeBashEditGuideance ? false,
     }:
     ''
       # Global Instruction
@@ -64,6 +65,7 @@ let
       - If a visual has fewer than three meaningful nodes, use prose instead.
     ''
     + lib.optionalString includeMermaidGuidance mermaidGuidance
+    + lib.optionalString includeBashEditGuideance "Do not edit files by bash tool."
     + ''
       # Engineering Core
 
@@ -94,7 +96,7 @@ let
 
       - Prefer follow project commit history's convention. If start a new project, use scope commits.
     '';
-  agentInstructions = mkAgentInstructions { };
+  defaultInstructions = mkAgentInstructions { };
 in
 {
   imports = [
@@ -132,12 +134,12 @@ in
         fastest-pkg.devenv
       ];
       file = {
-        ".codex/AGENTS.md".text = agentInstructions;
-        ".kimi-code/AGENTS.md".text = agentInstructions;
+        ".codex/AGENTS.md".text = mkAgentInstructions { includeBashEditGuideance = true; };
+        ".kimi-code/AGENTS.md".text = mkAgentInstructions { includeMermaidGuidance = false; };
         # will be injected into system prompt
-        ".pi/agent/APPEND_SYSTEM.md".text = agentInstructions;
-        ".grok/AGENTS.md".text = agentInstructions;
-        "Library/Application Support/delta/AGENTS.md".text = agentInstructions;
+        ".pi/agent/APPEND_SYSTEM.md".text = defaultInstructions;
+        ".grok/AGENTS.md".text = defaultInstructions;
+        "Library/Application Support/delta/AGENTS.md".text = defaultInstructions;
         # ".claude/CLAUDE.md".text = agentInstructions;
       };
     };

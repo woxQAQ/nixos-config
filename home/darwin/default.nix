@@ -49,10 +49,5 @@
       Escape = "Capslock";
     };
   };
-
-  xdg.configFile."mole/whitelist".text = ''
-    ${config.home.homeDirectory}/Library/Caches/Dia
-    ${config.home.homeDirectory}/Library/Application Support/Dia
-  '';
   xdg.enable = true;
 }

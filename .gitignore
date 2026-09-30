@@ -13,3 +13,4 @@ _repo
 # git worktrees
 .worktree
 host
+.DS_Store

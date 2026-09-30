@@ -8,6 +8,7 @@
     ./hardware-configuration.nix
     ./storage.nix
     ./nas.nix
+    ./resource.nix
   ];
 
   boot.loader = {

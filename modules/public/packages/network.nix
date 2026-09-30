@@ -1,7 +1,4 @@
 { pkgs, ... }:
-let
-  v2dat = pkgs.callPackage ../../../pkg/v2dat { };
-in
 {
   environment.systemPackages = with pkgs; [
     # list open file-descriptor
@@ -16,6 +13,6 @@ in
     dnsutils
 
     mtr
-    v2dat
+    # v2dat
   ];
 }

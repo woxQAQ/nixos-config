@@ -65,5 +65,18 @@ in
         shell = "${pkgs.bash}/bin/bash --login -c 'nu --login --interactive'";
       };
     };
+
+    # the unwrap above breaks the bundle seal, and an invalid signature makes
+    # macOS Local Network privacy silently deny the app (EHOSTUNREACH on LAN
+    # addresses). codesign is blocked inside the build sandbox, so re-seal the
+    # installed copy at activation time with the system codesign.
+    home.activation.signKittyApp = lib.mkIf (isDarwin && config.targets.darwin.copyApps.enable) (
+      lib.hm.dag.entryAfter [ "copyApps" ] ''
+        app="$HOME/${config.targets.darwin.copyApps.directory}/kitty.app"
+        if [ -d "$app" ]; then
+          run /usr/bin/codesign --force --deep --sign - "$app"
+        fi
+      ''
+    );
   };
 }

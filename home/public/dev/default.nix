@@ -12,8 +12,8 @@
   home.packages = with pkgs; [
     ### NODEJS
     pnpm
-    yarn
     nodejs_22
+    oxfmt
     bun
     pandoc
     typst
