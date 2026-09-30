@@ -1,0 +1,33 @@
+{
+  "provider": "kimi",
+  "providers": {
+    "kimi": {
+      "protocol": "openai-chat-completions",
+      "base_url": "https://api.moonshot.cn/v1",
+      "auth": {
+        "type": "bearer",
+        "env": "MOONSHOT_API_KEY"
+      },
+      "model_metadata": {
+        "kimi-k3": {
+          "context_window": 1048576,
+          "max_output_tokens": 131072,
+          "supports_tool_use": true
+        },
+        "kimi-k2.7-code": {
+          "context_window": 262144,
+          "supports_tool_use": true,
+          "supports_vision": true
+        },
+        "kimi-k2.7-code-highspeed": {
+          "context_window": 262144,
+          "supports_tool_use": true,
+          "supports_vision": true
+        }
+      }
+    }
+  },
+  "models": {
+    "kimi": "kimi-k3"
+  }
+}
