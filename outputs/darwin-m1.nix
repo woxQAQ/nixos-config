@@ -9,6 +9,14 @@ let
   darwin-modules = [
     inputs.agenix.darwinModules.default
     ../secrets/darwin.nix
+    {
+      modules.darwin = {
+        brew.casks = [
+          "squirrel-app"
+          "clash-verge-rev"
+        ];
+      };
+    }
     ../hosts/${name}
     ../modules/${system}
     ../modules/public

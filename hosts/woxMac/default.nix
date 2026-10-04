@@ -3,6 +3,7 @@
   stateVersion,
   username,
   hostname,
+  pkgs,
   ...
 }:
 {
@@ -17,5 +18,15 @@
   };
   nixpkgs = {
     hostPlatform = system;
+  };
+  environment = {
+    systemPackages = with pkgs; [
+      # aerospace
+      bitwarden-desktop
+      cc-switch
+      koodo-reader
+      mole-cleaner
+      obsidian
+    ];
   };
 }
