@@ -1,9 +1,13 @@
 {
+  config,
+  lib,
   nixvim,
   pkgs,
   ...
 }:
 let
+  cfg = config.modules.public.neovim;
+
   mkKeymap =
     mode: key: action:
     let
@@ -23,35 +27,37 @@ in
 {
   imports = [ nixvim.homeModules.nixvim ];
 
-  home.shellAliases = {
-    vi = "nvim";
-    vim = "nvim";
-  };
-
-  home.packages = with pkgs; [ dwt1-shell-color-scripts ];
-
-  programs.nixvim = {
-    _module.args = { inherit mkKeymap; };
-    nixpkgs.config.allowUnfree = true;
-    nixpkgs.source = pkgs.path;
-    imports = [
-      ./keymaps.nix
-      ./options.nix
-      ./lsp.nix
-      ./performance.nix
-      ./plugins
-      ./diagnostics.nix
-    ];
-    enable = true;
-    colorschemes.catppuccin = {
-      enable = true;
-      settings = {
-        transparent_background = true;
-      };
+  config = lib.mkIf cfg.enable {
+    home.shellAliases = {
+      vi = "nvim";
+      vim = "nvim";
     };
-    plugins.which-key = {
+
+    home.packages = with pkgs; [ dwt1-shell-color-scripts ];
+
+    programs.nixvim = {
+      _module.args = { inherit mkKeymap; };
+      nixpkgs.config.allowUnfree = true;
+      nixpkgs.source = pkgs.path;
+      imports = [
+        ./keymaps.nix
+        ./options.nix
+        ./lsp.nix
+        ./performance.nix
+        ./plugins
+        ./diagnostics.nix
+      ];
       enable = true;
-      lazyLoad.settings.event = "DeferredUIEnter";
+      colorschemes.catppuccin = {
+        enable = true;
+        settings = {
+          transparent_background = true;
+        };
+      };
+      plugins.which-key = {
+        enable = true;
+        lazyLoad.settings.event = "DeferredUIEnter";
+      };
     };
   };
 }
