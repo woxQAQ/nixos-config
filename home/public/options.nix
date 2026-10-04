@@ -16,6 +16,11 @@
     playwright = {
       enable = lib.mkEnableOption "playwright";
     };
+    tuios = {
+      enable = (lib.mkEnableOption "tuios") // {
+        default = true;
+      };
+    };
     terminal = {
       emulator = lib.mkOption {
         type = lib.types.nullOr (

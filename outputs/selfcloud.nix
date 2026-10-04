@@ -24,6 +24,9 @@ in
           ../home/public
           ../home/agents
           ../hosts/${name}/home.nix
+          {
+            modules.public.tuios.enable = false;
+          }
         ];
       }
     );
