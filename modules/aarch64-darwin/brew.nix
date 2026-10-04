@@ -21,29 +21,28 @@ in
 {
   options.modules.darwin.brew = {
     casks = lib.mkOption {
-      # 与 nix-darwin 的 homebrew.casks 保持同一类型，允许字符串或带 caskArgs 的 attrset
       inherit (options.homebrew.casks) type;
-      default = [
-        # keep-sorted start
-        # proxy client
-        "clash-verge-rev"
-        # opensource lightweight text-editor
-        "coteditor"
-        "feishu"
-        # a gba emulators to play gba games
-        "mgba-app"
-        # Open broadcast studio
-        "obs"
-        "raycast"
-        # input method
-        "squirrel-app"
-        # keep-sorted end
-      ];
-      description = "Homebrew casks to install, overridable per host.";
+      default = [ ];
+      # nix 模块系统中只有最高优先级的定义参与合并（lib/modules.nix
+      # mergeDefinitions），同优先级的 list 定义才会拼接。因此默认值
+      # 不在 default 里声明，而是在 config 中以普通优先级注入，
+      # 让 rime 模块和各 host 的追加定义能与之拼接；
+      # 需要整体替换时使用 lib.mkForce。
+      description = "Homebrew casks to install, additively merged across modules and hosts.";
     };
   };
 
   config = {
+    # 基础 cask 列表，以普通优先级注入（见上方 options 注释）
+    modules.darwin.brew.casks = [
+      # keep-sorted start
+      # proxy client
+      "clash-verge-rev"
+      # opensource lightweight text-editor
+      "coteditor"
+      # keep-sorted end
+    ];
+
     environment = {
       systemPackages = with pkgs; [
         git

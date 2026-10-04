@@ -12,6 +12,21 @@ let
     ../hosts/${name}
     ../modules/${system}
     ../modules/public
+    {
+      modules.darwin = {
+        rime.enable = true;
+        brew.casks = [
+          # keep-sorted start
+          "feishu"
+          # a gba emulators to play gba games
+          "mgba-app"
+          # Open broadcast studio
+          "obs"
+          "raycast"
+          # keep-sorted end
+        ];
+      };
+    }
   ];
   home-modules = [
     ../home/darwin

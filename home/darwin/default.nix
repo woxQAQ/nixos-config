@@ -11,7 +11,7 @@
   imports = [
     ./aerospace
   ]
-  ++ lib.optional (builtins.any (x: x.name == "squirrel-app") osConfig.homebrew.casks) ./rime;
+  ++ lib.optional osConfig.modules.darwin.rime.enable ./rime;
 
   home = {
     homeDirectory = "/Users/${username}";
