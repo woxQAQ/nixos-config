@@ -105,6 +105,11 @@
       flake = false;
     };
 
+    tuios = {
+      url = "github:Gaurav-Gosain/tuios";
+      inputs.nixpkgs.follows = "nixpkgs-fast";
+    };
+
     vicinae.url = "github:vicinaehq/vicinae"; # tell Nixos where to get Vicinae
 
     woxVim = {

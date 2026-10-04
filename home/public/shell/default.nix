@@ -5,5 +5,6 @@
     ./zellij.nix
     ./starship.nix
     ./zsh.nix
+    ./tuios.nix
   ];
 }

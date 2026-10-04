@@ -22,7 +22,6 @@
           lib.types.enum [
             "kitty"
             "alacritty"
-            "foot"
             "ghostty"
           ]
         );
