@@ -13,9 +13,6 @@
     helix = {
       enable = lib.mkEnableOption "helix";
     };
-    agent = {
-      enable = lib.mkEnableOption "agent";
-    };
     playwright = {
       enable = lib.mkEnableOption "playwright";
     };

@@ -7,7 +7,6 @@
     ./shell
     ./terminal
     ./neovim
-    ./agents
     ./git.nix
     ./options.nix
     ./playwright.nix

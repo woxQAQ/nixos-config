@@ -20,6 +20,7 @@ let
     ../home/darwin
   ]
   ++ [
+    ../home/agents
     ../home/public
     {
       modules.public = {
@@ -27,7 +28,6 @@ let
         desktop.enable = true;
         neovim.enable = false;
         helix.enable = true;
-        agent.enable = false;
         playwright.enable = false;
         terminal = {
           font-size = 15;

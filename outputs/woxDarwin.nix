@@ -8,10 +8,10 @@ let
   name = "woxMac";
   darwin-modules = [
     inputs.agenix.darwinModules.default
-    ../secrets/darwin.nix
     ../hosts/${name}
     ../modules/${system}
     ../modules/public
+    ../secrets/darwin.nix
     {
       modules.darwin = {
         rime.enable = true;
@@ -32,6 +32,12 @@ let
     ../home/darwin
   ]
   ++ [
+    ../home/agents
+    {
+      modules.agents = {
+        profile = "terminal";
+      };
+    }
     ../home/public
     {
       modules.public = {
@@ -39,7 +45,6 @@ let
         desktop.enable = true;
         neovim.enable = true;
         helix.enable = true;
-        agent.enable = true;
         playwright.enable = true;
         terminal = {
           font-size = 15;

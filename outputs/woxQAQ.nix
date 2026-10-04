@@ -40,6 +40,7 @@ in
           inputs.zen-browser.homeModules.beta
           ../home/nixos
           ../hosts/${name}/home.nix
+          ../home/agents
           ../home/public
           {
             modules.public = {
