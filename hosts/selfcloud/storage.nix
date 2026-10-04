@@ -21,20 +21,25 @@
   systemd.tmpfiles.rules = [
     # 类型 路径 模式 用户 组 清理策略
     "d /mnt/data 0755 ${username} users -"
-    # 修复 ACL：子目录 group 权限只有 --x，需要改为 r-x 才能让 users 组读取
-    "a /mnt/data/1000 - - - - group::r-x default:group::r-x"
-    "a /mnt/data/1000/videos - - - - group::r-x default:group::r-x"
-    "a /mnt/data/1000/data - - - - group::r-x default:group::r-x"
+    # 修复 ACL：子目录 group 权限只有 --x，需要改为 r-x 才能让 users 组（jellyfin）读取。
+    # 注意：tmpfiles 的 ACL 字段内多条规则必须用逗号分隔，空格会导致解析失败被静默忽略。
+    "a /mnt/data/1000 - - - - group::r-x,default:group::r-x"
+    "a /mnt/data/1000/videos - - - - group::r-x,default:group::r-x"
+    "a /mnt/data/1000/data - - - - group::r-x,default:group::r-x"
   ];
+
+  # HDD 使用 bfq 调度器，qbittorrent 的 IOSchedulingClass=idle 只有在 bfq 下才真正生效
+  # （mq-deadline 不支持 ionice 调度级别）。
+  services.udev.extraRules = ''
+    ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
+  '';
   fileSystems."/mnt/data" = {
     device = "/dev/disk/by-uuid/4617589b-04c3-4534-8c4a-9c4667116b6c";
     fsType = "btrfs";
     options = [
-      "defaults"
       "noatime"
       "compress=zstd:1"
       "nofail"
-      "space_cache=v2"
       "x-systemd.device-timeout=90"
     ];
   };

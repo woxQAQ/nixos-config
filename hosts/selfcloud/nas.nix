@@ -133,11 +133,10 @@
       User = username;
       Group = "users";
       # Prefer interactive directory reads over background torrent I/O.
+      # 依赖 bfq 调度器（见 storage.nix 的 udev 规则），mq-deadline 下此设置无效。
       IOSchedulingClass = "idle";
       ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --profile=/home/woxQAQ/.config/qBittorrent --webui-port=8080";
       Restart = "on-failure";
-      # 关键：确保能访问 RAID 设备
-      DeviceAllow = [ "/dev/dri/renderD128 rw" ]; # 如果需要硬解（虽然 qbittorrent 不用，但保留）
     };
   };
 }

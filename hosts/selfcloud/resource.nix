@@ -4,8 +4,9 @@
     ../../modules/x86_64-linux/system/zram.nix
   ];
 
-  # 4C4G 小内存机器:压缩内存换出比例提高到一半,防止 rebuild 时 OOM 卡死
-  zramSwap.memoryPercent = lib.mkForce 50;
+  # 4C4G 小内存机器:zram 设备给到与内存等大（zstd 实际占用约为压缩后的一半），
+  # 防止 swap 耗尽导致 kswapd 抖振与 rebuild OOM 卡死
+  zramSwap.memoryPercent = lib.mkForce 100;
 
   # 限制构建并发,压低 CPU 和内存峰值
   nix.settings = {
