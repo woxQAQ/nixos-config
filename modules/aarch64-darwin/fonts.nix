@@ -31,6 +31,7 @@
       ioskeley-mono.normal-term-NF
 
       lxgw-wenkai-screen
+      literata
     ];
   };
 }
