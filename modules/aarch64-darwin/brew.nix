@@ -1,6 +1,5 @@
 {
   config,
-  options,
   pkgs,
   lib,
   unstable-pkg,
@@ -21,7 +20,11 @@ in
 {
   options.modules.darwin.brew = {
     casks = lib.mkOption {
-      inherit (options.homebrew.casks) type;
+      # 只承载原始写法（字符串或普通 attrset），归一化交给 nix-darwin 的
+      # homebrew.casks 自己做。不能继承它的 submodule 类型：其求值结果
+      # 带有 readOnly 的派生字段 brewfileLine，一旦 homebrew.casks 出现
+      # 第二个定义并按位置合并，该字段会被重复定义而报错。
+      type = with lib.types; listOf (either str (attrsOf anything));
       default = [ ];
       # nix 模块系统中只有最高优先级的定义参与合并（lib/modules.nix
       # mergeDefinitions），同优先级的 list 定义才会拼接。因此默认值
