@@ -17,6 +17,7 @@ in
           ../hosts/${name}
           ../modules/public
           inputs.agenix.nixosModules.default
+          inputs.disko.nixosModules.disko
           ../secrets/linux.nix
         ];
         home-modules = [

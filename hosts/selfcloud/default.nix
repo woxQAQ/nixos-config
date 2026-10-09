@@ -6,6 +6,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./disko.nix
     ./storage.nix
     ./nas.nix
     ./resource.nix

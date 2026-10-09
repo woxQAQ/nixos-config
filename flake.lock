@@ -138,6 +138,26 @@
         "type": "github"
       }
     },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789770686,
+        "narHash": "sha256-uZkBR7yHdIKUFB5SZdfgh1qkGfI3XmYmI/lTiquxbck=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "725ea35e410ad83be4931d1bff7e090eacaf3563",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "fast-nix-gc": {
       "inputs": {
         "nix-darwin": "nix-darwin",
@@ -1061,6 +1081,7 @@
         "agenix": "agenix",
         "catppuccin": "catppuccin",
         "dae": "dae",
+        "disko": "disko",
         "fast-nix-gc": "fast-nix-gc",
         "flake-parts": "flake-parts_2",
         "geodb": "geodb",

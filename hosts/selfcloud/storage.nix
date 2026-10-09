@@ -33,16 +33,8 @@
   services.udev.extraRules = ''
     ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
   '';
-  fileSystems."/mnt/data" = {
-    device = "/dev/disk/by-uuid/4617589b-04c3-4534-8c4a-9c4667116b6c";
-    fsType = "btrfs";
-    options = [
-      "noatime"
-      "compress=zstd:1"
-      "nofail"
-      "x-systemd.device-timeout=90"
-    ];
-  };
+  # /mnt/data 的挂载声明已迁移到 disko.nix（device 变为 /dev/<vg>/0，
+  # LVM 名称稳定，与 by-uuid 等价）。
   environment.systemPackages = with pkgs; [
     mdadm
     lvm2
