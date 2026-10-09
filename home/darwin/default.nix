@@ -22,9 +22,6 @@
       iina
       localsend
       maccy
-      podman
-      podman-compose
-      podman-tui
       zotero
       # keep-sorted end
     ];

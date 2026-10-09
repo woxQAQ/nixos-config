@@ -33,6 +33,27 @@ in
     programs.helix = {
       enable = true;
       settings = {
+        statusline = {
+          left = [
+            "mode"
+            "spinner"
+            "version-control"
+            "file-name"
+            "read-only-indicator"
+            "file-modification-indicator"
+          ];
+          center = [ ];
+          right = [
+            "workspace-diagnostics"
+            "diagnostics"
+            "selections"
+            "position"
+            "position-percentage"
+            "file-type"
+            "file-encoding"
+            "file-line-ending"
+          ];
+        };
         editor = {
           line-number = "relative";
           cursorline = true;

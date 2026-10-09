@@ -1,5 +1,6 @@
 {
-	"diagnostics": {
+	"diff_view_style": "unified",
+ "diagnostics": {
 		"inline": {
 			"enabled": false,
 		},

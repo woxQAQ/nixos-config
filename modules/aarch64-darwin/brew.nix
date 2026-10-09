@@ -72,7 +72,10 @@ in
         brewfile = true;
       };
       taps = [ ];
-      brews = [ ];
+      brews = [
+        "container"
+        "m-cli"
+      ];
       inherit (cfg) casks;
     };
     system.activationScripts.homebrew.text = lib.mkIf config.homebrew.enable (
