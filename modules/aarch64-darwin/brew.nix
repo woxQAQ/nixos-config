@@ -73,7 +73,6 @@ in
       };
       taps = [ ];
       brews = [
-        "container"
         "m-cli"
       ];
       inherit (cfg) casks;

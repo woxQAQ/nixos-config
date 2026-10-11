@@ -28,7 +28,7 @@
       nerd-fonts.fira-code
       nerd-fonts.jetbrains-mono
       nerd-fonts.hack
-      ioskeley-mono.normal-term-NF
+      ioskeley-mono.term-nf
 
       lxgw-wenkai-screen
       literata

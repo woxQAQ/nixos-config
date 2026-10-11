@@ -15,6 +15,9 @@
     # ...
     agenix = {
       url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+      inputs.darwin.follows = "nix-darwin";
     };
 
     catppuccin = {
@@ -24,6 +27,7 @@
 
     dae = {
       url = "github:woxQAQ/dae-flake.nix/33dd7a66366eba035ab7e9ef1891c88a57afcbe6";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     disko = {
@@ -34,6 +38,7 @@
     fast-nix-gc = {
       url = "github:Mic92/fast-nix-gc";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nix-darwin.follows = "nix-darwin";
     };
 
     flake-parts = {
@@ -53,6 +58,9 @@
 
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
+      # Do not add nixpkgs follows here: this flake moves with nixpkgs-unstable
+      # HEAD and uses hooks (e.g. installAgentSkills) that our pinned nixpkgs
+      # channels may not have yet.
     };
 
     nix-darwin = {
@@ -115,8 +123,6 @@
       inputs.nixpkgs.follows = "nixpkgs-fast";
     };
 
-    vicinae.url = "github:vicinaehq/vicinae"; # tell Nixos where to get Vicinae
-
     woxVim = {
       url = "github:woxQAQ/nixvim";
       # inputs.nixpkgs.follows = "nixpkgs";
@@ -127,6 +133,7 @@
       inputs = {
         # IMPORTANT: To ensure compatibility with the latest Firefox version, use nixpkgs-unstable.
         nixpkgs.follows = "nixpkgs-unstable";
+        home-manager.follows = "home-manager";
       };
     };
 

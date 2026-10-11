@@ -19,10 +19,12 @@
     packages = with pkgs; [
       # keep-sorted start
       fastest-pkg.openlogi
+      # nixpkgs-unstable's zotero 10.0.4 is pinned to Firefox ESR 153, which Zotero
+      # cannot consume; nixpkgs-fast still ships 10.0.1 against Firefox ESR 140.
+      fastest-pkg.zotero
       iina
       localsend
       maccy
-      zotero
       # keep-sorted end
     ];
   };
