@@ -84,7 +84,28 @@
       publish = {
         enable = true;
         domain = true;
+        # 发布 selfcloud.local 的 A/AAAA 记录，否则客户端能浏览到服务
+        # 却解析不出主机地址，连接会失败
+        addresses = true;
       };
+      # 向局域网广播 SMB 服务，macOS Finder 的「网络」依赖此 mDNS 记录做发现
+      # （wsdd 只对 Windows 有效）
+      extraServiceFiles.smb = ''
+        <?xml version="1.0" standalone='no'?>
+        <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+        <service-group>
+          <name replace-wildcards="yes">%h</name>
+          <service>
+            <type>_smb._tcp</type>
+            <port>445</port>
+          </service>
+          <service>
+            <type>_device-info._tcp</type>
+            <port>0</port>
+            <txt-record>model=Xserve</txt-record>
+          </service>
+        </service-group>
+      '';
     };
   };
 
