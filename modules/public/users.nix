@@ -7,10 +7,10 @@
 lib.mkMerge [
   {
     users.users.${username}.description = username;
+    nix.settings.trusted-users = [ username ];
   }
   (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
     users.users.${username}.home = "/Users/${username}";
-    nix.settings.trusted-users = [ username ];
   })
   (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     users.users.${username} = {

@@ -1,6 +1,5 @@
 {
   pkgs,
-  username,
   inputs,
   ...
 }:
@@ -12,5 +11,4 @@
     '')
     inputs.agenix.packages.${stdenv.hostPlatform.system}.default
   ];
-  nix.settings.trusted-users = [ username ];
 }

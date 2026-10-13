@@ -61,7 +61,7 @@
         "videos" = {
           path = "/mnt/data/1000/videos";
           browseable = "yes";
-          "read only" = "yes";
+          "read only" = "no";
           "valid users" = username;
           "oplocks" = "yes";
         };
