@@ -22,9 +22,9 @@
   environment = {
     systemPackages = with pkgs; [
       # aerospace
+      ghidra
       bitwarden-desktop
       cc-switch
-      koodo-reader
       mole-cleaner
       obsidian
     ];

@@ -18,6 +18,9 @@ let
         brew.casks = [
           # keep-sorted start
           "feishu"
+          # nixpkgs pins koodo-reader to electron_41, which is marked EOL/insecure;
+          # the cask ships the upstream-signed binary instead
+          # "koodo-reader"
           # a gba emulators to play gba games
           "mgba-app"
           # Open broadcast studio
