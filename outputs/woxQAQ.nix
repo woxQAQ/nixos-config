@@ -49,7 +49,7 @@ in
               neovim.enable = true;
               helix.enable = true;
               playwright.enable = true;
-              terminal.emulator = "ghostty";
+              terminal.emulators = [ "ghostty" ];
               terminal.font-size = 15;
             };
           }

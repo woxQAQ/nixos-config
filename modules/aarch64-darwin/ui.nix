@@ -2,7 +2,6 @@
   system.defaults = {
     dock = {
       # keep-sorted start
-
       autohide = true;
       # remove delay for showing dock
       autohide-delay = 0.0;
@@ -32,7 +31,6 @@
       wvous-tl-corner = 2;
       wvous-tr-corner = 12;
       # keep-sorted end
-
     };
     finder = {
       # keep-sorted start

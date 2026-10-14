@@ -21,5 +21,8 @@ in
       inherit (prev) xrdb;
     };
 
+    # In-tree packages from pkg/, exposed as pkgs.<name>.
+    yozai-font = prev.callPackage ../pkg/yozai-font { };
+    resource-han-rounded = prev.callPackage ../pkg/resource-han-rounded { };
   };
 }

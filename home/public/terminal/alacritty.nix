@@ -8,7 +8,7 @@ let
   cfg = config.modules.public.terminal;
 in
 {
-  config = lib.mkIf (cfg.emulator == "alacritty") {
+  config = lib.mkIf (lib.elem "alacritty" cfg.emulators) {
     programs.alacritty = {
       enable = true;
       settings = {

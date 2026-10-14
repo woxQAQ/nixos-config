@@ -8,31 +8,27 @@ let
   cfg = config.modules.public.terminal;
 in
 {
-  config = lib.mkIf (cfg.emulator == "ghostty") {
+  config = lib.mkIf (lib.elem "ghostty" cfg.emulators) {
     programs.ghostty = {
       enable = true;
-      settings = {
-        inherit (cfg) font-family;
-        inherit (cfg) font-size;
-        command = "${pkgs.bash}/bin/bash --login -c 'nu --login --interactive'";
-        background-opacity = "0.93";
-        adjust-underline-position = 4;
-        window-colorspace = "display-p3";
-        window-theme = "ghostty";
-        keybind = "alt+backspace=text:\\x1b\\x7f";
-        # gtk-titlebar = false;
-        gtk-single-instance = true;
-        confirm-close-surface = false;
-        mouse-hide-while-typing = true;
-        mouse-scroll-multiplier = 1;
-
-        gtk-tabs-location = "bottom";
-        gtk-wide-tabs = false;
-        gtk-toolbar-style = "flat";
-        window-padding-y = "2,0";
-        window-padding-balance = true;
-        window-decoration = false;
-      };
+      # ghostty 的 macOS 前端是 Swift/AppKit，无法在 Nix sandbox 中源码构建，
+      # nixpkgs 在 Darwin 上仅有官方 dmg 的重打包 ghostty-bin
+      package = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
+      settings = lib.mkMerge [
+        {
+          # home-manager 对 list 值生成重复键，ghostty 依此按顺序构建 fallback 链
+          font-family = [ cfg.font-family ] ++ cfg.font-family-fallbacks;
+          inherit (cfg) font-size;
+          command = "${pkgs.bash}/bin/bash --login -c 'nu --login --interactive'";
+          background-opacity = "0.93";
+        }
+        (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+          # window-colorspace 仅 macOS 支持
+          window-colorspace = "display-p3";
+          background-blur-radius = 10;
+          window-decoration = true;
+        })
+      ];
     };
   };
 }

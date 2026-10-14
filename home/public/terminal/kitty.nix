@@ -27,7 +27,7 @@ let
       pkgs.kitty;
 in
 {
-  config = lib.mkIf (cfg.emulator == "kitty") {
+  config = lib.mkIf (lib.elem "kitty" cfg.emulators) {
     programs.kitty = {
       enable = true;
       package = kittyPackage;

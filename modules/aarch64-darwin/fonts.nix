@@ -16,7 +16,6 @@
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
-      maple-mono.NF-CN-unhinted
 
       source-sans
       source-serif
@@ -29,8 +28,10 @@
       nerd-fonts.jetbrains-mono
       nerd-fonts.hack
       ioskeley-mono.term-nf
+      maple-mono.NF-CN-unhinted
 
       lxgw-wenkai-screen
+      yozai-font
       literata
     ];
   };

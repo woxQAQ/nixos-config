@@ -45,7 +45,7 @@ let
       - Avoid false dichotomies and over-binarization. Don't habitually use “not X but Y”
         constructions. Preserve nuance, ambiguity, gradation, multiple causality, and overlapping explanations.
         Do not reify contextual or conceptual distinctions into rigid oppositions.
-      - Use pseudocode in javascript or mermaid diagrams to describe complex logic.
+      - Use mermaid diagrams to describe complex logic.
 
       # Engineering Core
 
