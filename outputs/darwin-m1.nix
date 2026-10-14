@@ -21,6 +21,11 @@ let
   ]
   ++ [
     ../home/agents
+    {
+      modules.agents = {
+        profile = "terminal";
+      };
+    }
     ../home/public
     {
       modules.public = {
