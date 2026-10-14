@@ -57,7 +57,7 @@ let
           font-size = 15;
           font-family = "IoskeleyMonoTerm Nerd Font Mono";
           # Yozai(悠哉字体) 的手写圆润字形作为 CJK fallback
-          font-family-fallbacks = [ "Yozai" ];
+          # font-family-fallbacks = [ "Yozai" ];
         };
       };
     }

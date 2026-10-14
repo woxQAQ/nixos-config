@@ -31,8 +31,8 @@
       maple-mono.NF-CN-unhinted
 
       lxgw-wenkai-screen
-      yozai-font
       literata
+      resource-han-rounded
     ];
   };
 }
