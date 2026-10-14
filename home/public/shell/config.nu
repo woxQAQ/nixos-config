@@ -34,3 +34,17 @@ const NU_LIB_DIRS = [
     ($nu.default-config-dir | path join 'scripts') # add <nushell-config-dir>/scripts
     ($nu.data-dir | path join 'completions') # default home for nushell completions
 ]
+
+def loc [path: path = .] {
+   tokei -o json $path | from json
+     | transpose lang stats
+     | each { |it|
+         $it.stats
+         | reject reports children inaccurate
+         | insert files ($it.stats.reports | length)
+         | insert lang $it.lang
+       }
+     | select lang files code comments blanks
+     | where lang != Total
+     | sort-by code -r
+}
