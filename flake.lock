@@ -144,30 +144,6 @@
         "type": "github"
       }
     },
-    "fast-nix-gc": {
-      "inputs": {
-        "nix-darwin": [
-          "nix-darwin"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "treefmt-nix": "treefmt-nix"
-      },
-      "locked": {
-        "lastModified": 1786625301,
-        "narHash": "sha256-KNAjsTgfweOoqYxMAsIolrDcIV5AikvrSW9EpJ7fnK8=",
-        "owner": "Mic92",
-        "repo": "fast-nix-gc",
-        "rev": "254a2ba0a4f1570b3880bc10bb6166afe1e25936",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Mic92",
-        "repo": "fast-nix-gc",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -492,7 +468,7 @@
         "flake-parts": "flake-parts_3",
         "nixpkgs": "nixpkgs",
         "systems": "systems_2",
-        "treefmt-nix": "treefmt-nix_2"
+        "treefmt-nix": "treefmt-nix"
       },
       "locked": {
         "lastModified": 1791895923,
@@ -921,7 +897,7 @@
           "nixpkgs"
         ],
         "systems": "systems_4",
-        "treefmt-nix": "treefmt-nix_3"
+        "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
         "lastModified": 1775957204,
@@ -959,7 +935,6 @@
         "catppuccin": "catppuccin",
         "dae": "dae",
         "disko": "disko",
-        "fast-nix-gc": "fast-nix-gc",
         "flake-parts": "flake-parts_2",
         "geodb": "geodb",
         "home-manager": "home-manager",
@@ -1078,27 +1053,6 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
-          "fast-nix-gc",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1785945821,
-        "narHash": "sha256-NLSyTCW4K4ofhNBllt3omPasm6QpralXH1DBZOc91Dw=",
-        "owner": "numtide",
-        "repo": "treefmt-nix",
-        "rev": "ae7910970dddc408fe6ab1c8e4b277bb21d72dc0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
-    "treefmt-nix_2": {
-      "inputs": {
-        "nixpkgs": [
           "llm-agents",
           "nixpkgs"
         ]
@@ -1117,7 +1071,7 @@
         "type": "github"
       }
     },
-    "treefmt-nix_3": {
+    "treefmt-nix_2": {
       "inputs": {
         "nixpkgs": [
           "noctalia",
@@ -1139,7 +1093,7 @@
         "type": "github"
       }
     },
-    "treefmt-nix_4": {
+    "treefmt-nix_3": {
       "inputs": {
         "nixpkgs": [
           "tuios",
@@ -1171,7 +1125,7 @@
         "nixpkgs": [
           "nixpkgs-fast"
         ],
-        "treefmt-nix": "treefmt-nix_4"
+        "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
         "lastModified": 1791438265,

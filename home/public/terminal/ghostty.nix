@@ -19,14 +19,19 @@ in
           # home-manager 对 list 值生成重复键，ghostty 依此按顺序构建 fallback 链
           font-family = [ cfg.font-family ] ++ cfg.font-family-fallbacks;
           inherit (cfg) font-size;
-          command = "${pkgs.bash}/bin/bash --login -c 'nu --login --interactive'";
+          font-feature = "feat";
+          font-thicken = true;
+
           background-opacity = "0.93";
+          window-padding-balance = true;
+
+          command = "${pkgs.bash}/bin/bash --login -c 'nu --login --interactive'";
         }
         (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
           # window-colorspace 仅 macOS 支持
           window-colorspace = "display-p3";
-          background-blur-radius = 10;
           window-decoration = true;
+          background-blur-radius = 10;
         })
       ];
     };

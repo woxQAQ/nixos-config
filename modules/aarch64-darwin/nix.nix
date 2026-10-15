@@ -1,69 +1,32 @@
 {
   lib,
-  config,
-  pkgs,
-  fast-nix-gc,
   ...
 }:
-let
-  mkNixJobWrapper =
-    name: command:
-    pkgs.writeShellScript name ''
-      set +e
-      export PATH=${lib.makeBinPath [ config.nix.package ]}:/usr/bin:/bin
-
-      log() {
-        printf '%s %s\n' "[$(/bin/date -u '+%FT%TZ')][${name}]" "$1"
-      }
-
-      log "starting"
-      ${lib.escapeShellArgs command}
-      status=$?
-      log "finished status=$status"
-      exit $status
-    '';
-  fastNixGc = fast-nix-gc.packages.${pkgs.stdenv.hostPlatform.system}.default;
-  gcInterval = [
-    {
-      Weekday = 0;
-      Hour = 3;
-      Minute = 15;
-    }
-  ];
-  gcWrapper = mkNixJobWrapper "nix-gc" (
-    [
-      "/usr/bin/caffeinate"
-      "-i"
-      "-s"
-    ]
-    ++ config.services.fast-nix-gc.argv
-  );
-
-  optimiseWrapper = mkNixJobWrapper "nix-optimise" (
-    [
-      "/usr/bin/caffeinate"
-      "-i"
-      "-s"
-    ]
-    ++ config.services.fast-nix-optimise.argv
-  );
-
-  nixJobLogPaths = {
+{
+  nix = {
+    # nix-darwin's built-in launchd jobs replaced the fast-nix-gc flake
+    # input; they run the stock `nix-store --gc` / `nix-store --optimise`.
     gc = {
-      stdout = "/var/log/nix-gc.out.log";
-      stderr = "/var/log/nix-gc.err.log";
+      automatic = true;
+      interval = [
+        {
+          Weekday = 0;
+          Hour = 3;
+          Minute = 15;
+        }
+      ];
+      options = "--delete-older-than 7d";
     };
     optimise = {
-      stdout = "/var/log/nix-optimise.out.log";
-      stderr = "/var/log/nix-optimise.err.log";
+      automatic = true;
+      interval = [
+        {
+          Weekday = 0;
+          Hour = 4;
+          Minute = 15;
+        }
+      ];
     };
-  };
-in
-{
-  imports = [
-    fast-nix-gc.darwinModules.default
-  ];
-  nix = {
     settings = {
       allowed-impure-host-deps = [
         "/bin/sh"
@@ -99,47 +62,5 @@ in
     # `setNixPath` requires `setFlakeRegistry`; `nix.nixPath` is already
     # set explicitly in modules/public/system.nix.
     setNixPath = false;
-  };
-
-  launchd.daemons = lib.mkIf config.nix.enable {
-    fast-nix-gc.serviceConfig = {
-      ProgramArguments = lib.mkForce [ "${gcWrapper}" ];
-      StandardOutPath = nixJobLogPaths.gc.stdout;
-      StandardErrorPath = nixJobLogPaths.gc.stderr;
-
-      # Idle CPU + throttled disk I/O so maintenance yields to foreground
-      # work instead of stalling the shared APFS container and tripping
-      # the WindowServer watchdog.
-      ProcessType = "Background";
-      LowPriorityIO = true;
-    };
-
-    fast-nix-optimise.serviceConfig = {
-      ProgramArguments = lib.mkForce [ "${optimiseWrapper}" ];
-      StandardOutPath = nixJobLogPaths.optimise.stdout;
-      StandardErrorPath = nixJobLogPaths.optimise.stderr;
-
-      # Idle CPU + throttled disk I/O (see nix-gc); optimise scans ~2M
-      # link inodes and was the worst APFS-contention offender.
-      ProcessType = "Background";
-      LowPriorityIO = true;
-    };
-  };
-
-  services = lib.mkIf config.nix.enable {
-    fast-nix-gc = {
-      enable = true;
-      automatic = true;
-      package = fastNixGc;
-      startCalendarInterval = gcInterval;
-      deleteOlderThan = "7d";
-      keepRecent = "7d";
-    };
-
-    fast-nix-optimise = {
-      enable = true;
-      automatic = true;
-      startCalendarInterval = lib.map (entry: entry // { Hour = entry.Hour + 1; }) gcInterval;
-    };
   };
 }

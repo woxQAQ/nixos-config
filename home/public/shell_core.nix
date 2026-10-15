@@ -9,7 +9,7 @@
     fzf = {
       enable = true;
       historyWidget.command = lib.mkIf config.programs.atuin.enable "";
-      defaultCommand = "${lib.getExe pkgs.fd} --type=f --hidden --exclude=.git";
+      defaultCommand = "${lib.getExe pkgs.fd} --type=f --hidden --follow --strip-cwd-prefix --exclude=.git";
     };
     # a tldr alternate
     tealdeer = {

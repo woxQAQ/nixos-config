@@ -35,12 +35,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    fast-nix-gc = {
-      url = "github:Mic92/fast-nix-gc";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nix-darwin.follows = "nix-darwin";
-    };
-
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
