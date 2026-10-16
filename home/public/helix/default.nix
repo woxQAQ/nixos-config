@@ -2,6 +2,8 @@
   config,
   lib,
   pkgs,
+  mylib,
+  dotfilesDir,
   ...
 }:
 let
@@ -112,6 +114,10 @@ in
           auto-format = true;
         }
       ];
+
+      # nixd asks for the `nixd` section via workspace/configuration; helix
+      # resolves sections against this `config` attrset, so nest under `nixd`.
+      languages.language-server.nixd.config.nixd = mylib.mkNixdSettings dotfilesDir;
     };
 
     # serde_json::json! accepts Rust expressions as values. Parsing the entire

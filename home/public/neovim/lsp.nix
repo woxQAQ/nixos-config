@@ -1,7 +1,11 @@
+{ nixdSettings, ... }:
 {
   lsp.servers = {
     copilot.enable = true;
-    nixd.enable = true;
+    nixd = {
+      enable = true;
+      config.settings.nixd = nixdSettings;
+    };
     gopls.enable = true;
     bashls.enable = true;
     ts_ls.enable = true;

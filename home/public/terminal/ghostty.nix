@@ -22,7 +22,10 @@ in
           font-feature = "feat";
           font-thicken = true;
 
-          background-opacity = "0.93";
+          copy-on-select = false;
+          cursor-style = "bar";
+          cursor-style-blink = true;
+          background-opacity = 0.95;
           window-padding-balance = true;
 
           command = "${pkgs.bash}/bin/bash --login -c 'nu --login --interactive'";
@@ -30,7 +33,7 @@ in
         (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
           # window-colorspace 仅 macOS 支持
           window-colorspace = "display-p3";
-          window-decoration = true;
+          window-decoration = "auto";
           background-blur-radius = 10;
         })
       ];

@@ -3,6 +3,8 @@
   lib,
   nixvim,
   pkgs,
+  mylib,
+  dotfilesDir,
   ...
 }:
 let
@@ -36,7 +38,13 @@ in
     home.packages = with pkgs; [ dwt1-shell-color-scripts ];
 
     programs.nixvim = {
-      _module.args = { inherit mkKeymap; };
+      # The nixvim submodule runs its own module evaluation and cannot see the
+      # flake-level extraSpecialArgs (mylib, dotfilesDir), so forward the
+      # derived values it needs explicitly, like mkKeymap above.
+      _module.args = {
+        inherit mkKeymap;
+        nixdSettings = mylib.mkNixdSettings dotfilesDir;
+      };
       nixpkgs.config.allowUnfree = true;
       nixpkgs.source = pkgs.path;
       imports = [
