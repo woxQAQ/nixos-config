@@ -95,7 +95,7 @@
     };
 
     nu_scripts = {
-      url = "github:nushell/nu_scripts?shallow=1";
+      url = "github:nushell/nu_scripts";
       flake = false;
     };
 
