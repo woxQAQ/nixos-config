@@ -91,17 +91,9 @@ check:
 # Evaluate every host without building or switching a system.
 [group('quality')]
 check-hosts:
-    #!/usr/bin/env bash
-    set -euo pipefail
-
-    for host in {{ _nixos_hosts }}; do
-      {{ _nix }} eval --no-update-lock-file --raw ".#nixosConfigurations.$host.config.system.build.toplevel.drvPath"
-      printf '\n'
-    done
-    for host in {{ _darwin_hosts }}; do
-      {{ _nix }} eval --no-update-lock-file --raw ".#darwinConfigurations.$host.config.system.build.toplevel.drvPath"
-      printf '\n'
-    done
+    # Force derivations in --apply so attribute lookup does not hide evaluation errors.
+    {{ _nix }} eval --no-update-lock-file --json .#nixosConfigurations --apply 'builtins.mapAttrs (_: host: host.config.system.build.toplevel.drvPath)'
+    {{ _nix }} eval --no-update-lock-file --json .#darwinConfigurations --apply 'builtins.mapAttrs (_: host: host.config.system.build.toplevel.drvPath)'
 
 # Start the Nix REPL.
 [group('development')]

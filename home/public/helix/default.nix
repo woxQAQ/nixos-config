@@ -24,11 +24,11 @@ let
        (#set! injection.include-children))
     '';
 
-  rustInjections = builtins.readFile "${pkgs.helix.runtime}/queries/rust/injections.scm";
-  rustInjectionsWithoutJson =
-    assert lib.assertMsg (lib.hasInfix jsonMacroInjection rustInjections)
-      "Helix's Rust JSON macro injection query changed; update home/public/helix/default.nix";
-    lib.replaceStrings [ jsonMacroInjection ] [ "" ] rustInjections;
+  # Patch the runtime at build time so evaluating hosts does not require IFD.
+  rustInjectionsWithoutJson = pkgs.runCommand "helix-rust-injections.scm" { } ''
+    substitute ${pkgs.helix.runtime}/queries/rust/injections.scm "$out" \
+      --replace-fail ${lib.escapeShellArg jsonMacroInjection} ""
+  '';
 in
 {
   config = lib.mkIf cfg.enable {
@@ -123,7 +123,7 @@ in
     # serde_json::json! accepts Rust expressions as values. Parsing the entire
     # macro body as JSON leaves everything after the first expression in an
     # ERROR node and highlights otherwise identical object keys differently.
-    xdg.configFile."helix/runtime/queries/rust/injections.scm".text =
+    xdg.configFile."helix/runtime/queries/rust/injections.scm".source =
       rustInjectionsWithoutJson;
 
     home.packages = with pkgs; [

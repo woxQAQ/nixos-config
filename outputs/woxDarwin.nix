@@ -53,7 +53,6 @@ let
         terminal = {
           emulators = [
             "ghostty"
-            "kitty"
           ];
           font-size = 15;
           font-family = "IoskeleyMonoTerm Nerd Font Mono";

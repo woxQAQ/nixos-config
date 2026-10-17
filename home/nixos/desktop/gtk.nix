@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    lxappearance-gtk2
+    lxappearance
     # libsForQt5.qt5ct
     gtk3
     gtk4
