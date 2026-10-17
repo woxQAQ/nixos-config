@@ -9,7 +9,8 @@
   catppuccin = {
     autoEnable = true;
     enable = true;
-    cache.enable = true;
+    # Cache endpoints and signing trust are managed in modules/public/system.nix.
+    cache.enable = false;
     flavor = "mocha";
     accent = "pink";
     # starship.enable = pkgs.stdenv.hostPlatform.isLinux;

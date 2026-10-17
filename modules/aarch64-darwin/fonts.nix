@@ -12,6 +12,7 @@
       material-design-icons
       font-awesome
 
+      inter
       noto-fonts-color-emoji
       noto-fonts
       noto-fonts-cjk-sans
@@ -34,6 +35,7 @@
       literata
       resource-han-rounded
       yozai-font
+      chillroundf
     ];
   };
 }

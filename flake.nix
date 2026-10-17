@@ -1,13 +1,5 @@
 {
   description = "woxQAQ's NixOS flake";
-  #
-  nixConfig = {
-    extra-substituters = [
-      "https://mirror.sjtu.edu.cn/nix-channels/store"
-    ];
-    extra-trusted-public-keys = [
-    ];
-  };
 
   outputs = inputs: import ./outputs inputs;
   inputs = {

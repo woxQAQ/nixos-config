@@ -4,8 +4,6 @@ WOXVIM_FLAKE_INPUT = woxVim
 SECRET_FLAKE_INPUT = secrets
 OS = $(shell uname)
 _SWITCH_FLAGS ?=
-SUBSTITUTERS = https://mirrors.ustc.edu.cn/nix-channels/store
-_USE_SUBSTITUTERS = 0
 OPTIONS ?=
 
 TRACE ?= 0
@@ -20,10 +18,6 @@ endif
 
 ifeq ($(TRACE),1)
 _SWITCH_FLAGS += --show-trace
-endif
-
-ifeq ($(_USE_SUBSTITUTERS),1)
-OPTIONS += --option substituters $(SUBSTITUTERS)
 endif
 
 .PHONY: bump-flake bump-secrets bump-woxVim repl shell

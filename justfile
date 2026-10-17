@@ -4,9 +4,7 @@ export NIXOS_HOST := env_var_or_default("NIXOS_HOST", "woxQAQ")
 export DARWIN_HOST := env_var_or_default("DARWIN_HOST", "woxMac")
 export WOXVIM_FLAKE_INPUT := env_var_or_default("WOXVIM_FLAKE_INPUT", "woxVim")
 export SECRET_FLAKE_INPUT := env_var_or_default("SECRET_FLAKE_INPUT", "secrets")
-export SUBSTITUTERS := env_var_or_default("SUBSTITUTERS", "https://mirrors.ustc.edu.cn/nix-channels/store")
 export TRACE := env_var_or_default("TRACE", "0")
-export USE_SUBSTITUTERS := env_var_or_default("USE_SUBSTITUTERS", "0")
 export OPTIONS := env_var_or_default("OPTIONS", "")
 [private]
 _os := `uname`
@@ -130,10 +128,6 @@ switch: fmt
 
     if [[ "$TRACE" == "1" ]]; then
       flags+=(--show-trace)
-    fi
-
-    if [[ "$USE_SUBSTITUTERS" == "1" ]]; then
-      flags+=(--option substituters "$SUBSTITUTERS")
     fi
 
     if [[ -n "$OPTIONS" ]]; then
