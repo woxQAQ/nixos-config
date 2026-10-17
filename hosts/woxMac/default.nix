@@ -22,11 +22,13 @@
   environment = {
     systemPackages = with pkgs; [
       # aerospace
+      stats
       ghidra
       bitwarden-desktop
       cc-switch
       mole-cleaner
       obsidian
+      removemacai
     ];
   };
 }

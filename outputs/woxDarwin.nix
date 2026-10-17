@@ -25,6 +25,7 @@ let
           "mgba-app"
           # Open broadcast studio
           "obs"
+          "pixpin"
           "raycast"
           # keep-sorted end
         ];

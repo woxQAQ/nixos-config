@@ -33,6 +33,7 @@
       lxgw-wenkai-screen
       literata
       resource-han-rounded
+      yozai-font
     ];
   };
 }

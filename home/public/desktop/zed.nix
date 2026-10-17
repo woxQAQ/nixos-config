@@ -1,6 +1,6 @@
 {
   lib,
-  fastest-pkg,
+  pkgs,
   config,
   mylib,
   dotfilesDir,
@@ -13,7 +13,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.zed-editor = {
       enable = true;
-      package = fastest-pkg.zed-editor;
+      package = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.zed-editor-bin else pkgs.zed-editor;
     };
     xdg.configFile."zed/settings.json".source = mylib.mkMutable dotfilesDir config ./zed.jsonc;
   };

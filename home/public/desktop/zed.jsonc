@@ -1,4 +1,6 @@
 {
+	// Nix manages updates; the app bundle in the store is read-only.
+	"auto_update": false,
 	"diff_view_style": "unified",
  "diagnostics": {
 		"inline": {

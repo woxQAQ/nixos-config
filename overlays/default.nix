@@ -22,7 +22,9 @@ in
     };
 
     # In-tree packages from pkg/, exposed as pkgs.<name>.
+    removemacai = prev.callPackage ../pkg/removemacai { };
     yozai-font = prev.callPackage ../pkg/yozai-font { };
     resource-han-rounded = prev.callPackage ../pkg/resource-han-rounded { };
+    zed-editor-bin = prev.callPackage ../pkg/zed-editor-bin { };
   };
 }

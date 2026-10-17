@@ -1,5 +1,4 @@
 {
-  fastest-pkg,
   lib,
   llm-agents,
   pkgs,
@@ -83,7 +82,7 @@ in
         # Keep tools required by the global agent instructions available.
         pkgs.uv
         pkgs.pnpm
-        fastest-pkg.devenv
+        pkgs.devenv
       ]
       ++ lib.optionals (cfg.profile == "terminal") (
         with llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
