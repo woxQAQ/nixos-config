@@ -60,11 +60,15 @@
           # Use an explicit app path instead of AppleScript `activate`:
           # LaunchServices may resolve "kitty" by name to a stale nix-store registration
           # from a previous generation, which AeroSpace fails to manage.
-          "alt-enter" = "exec-and-forget open \"$HOME/Applications/Home Manager Apps/kitty.app\"";
-          "alt-n" = "exec-and-forget osascript -e 'tell application \"notion\" to activate'";
-          "alt-o" = "exec-and-forget osascript -e 'tell application \"obsidian\" to activate'";
+          "alt-enter" =
+            "exec-and-forget open \"$HOME/Applications/Home Manager Apps/kitty.app\"";
+          "alt-n" =
+            "exec-and-forget osascript -e 'tell application \"notion\" to activate'";
+          "alt-o" =
+            "exec-and-forget osascript -e 'tell application \"obsidian\" to activate'";
           "alt-z" = "exec-and-forget osascript -e 'tell application \"zed\" to activate'";
-          "alt-c" = "exec-and-forget osascript -e 'tell application \"chatgpt\" to activate'";
+          "alt-c" =
+            "exec-and-forget osascript -e 'tell application \"chatgpt\" to activate'";
           "alt-a" = "exec-and-forget osascript -e 'tell application \"dia\" to activate'";
 
           "alt-h" = "focus left";
@@ -244,7 +248,8 @@
           run = "layout floating";
         }
         {
-          "if" = "test %{app-bundle-id} = com.tencent.xinWeChat && test %{window-title} = '图片和视频'";
+          "if" =
+            "test %{app-bundle-id} = com.tencent.xinWeChat && test %{window-title} = '图片和视频'";
           run = "layout floating";
         }
       ];

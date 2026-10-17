@@ -31,7 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
     let
       selectSystem =
         attrs:
-        attrs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+        attrs.${stdenv.hostPlatform.system}
+          or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
       arch = selectSystem {
         x86_64-linux = "amd64";
         aarch64-linux = "arm64";

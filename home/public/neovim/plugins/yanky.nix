@@ -1,8 +1,14 @@
 { mkKeymap, ... }:
 let
   keymaps = [
-    (mkKeymap [ "n" "x" ] "p" "<Plug>(YankyPutAfter)" "put yanked text after cursor")
-    (mkKeymap [ "n" "x" ] "P" "<Plug>(YankyPutBefore)" "put yanked text before cursor")
+    (mkKeymap [
+      "n"
+      "x"
+    ] "p" "<Plug>(YankyPutAfter)" "put yanked text after cursor")
+    (mkKeymap [
+      "n"
+      "x"
+    ] "P" "<Plug>(YankyPutBefore)" "put yanked text before cursor")
     (mkKeymap [ "n" "x" ] "y" "<Plug>(YankyYank)" "Yank text")
   ];
   #

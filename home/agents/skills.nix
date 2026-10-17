@@ -15,7 +15,9 @@ let
   ];
   skillDir = ./.agents/skills;
   skills = builtins.attrNames (
-    lib.attrsets.filterAttrs (_: type: type == "directory") (builtins.readDir skillDir)
+    lib.attrsets.filterAttrs (_: type: type == "directory") (
+      builtins.readDir skillDir
+    )
   );
 in
 {

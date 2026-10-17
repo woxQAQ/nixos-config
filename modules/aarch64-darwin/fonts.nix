@@ -13,6 +13,7 @@
       font-awesome
 
       inter
+      inter-noto-sans-sc
       noto-fonts-color-emoji
       noto-fonts
       noto-fonts-cjk-sans

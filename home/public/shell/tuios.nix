@@ -9,15 +9,19 @@
 }:
 let
   # Tests bind to loopback (pprof listen tests), which the Nix sandbox forbids.
-  tuiosPkg = tuios.packages.${pkgs.stdenv.hostPlatform.system}.tuios.overrideAttrs {
-    doCheck = false;
-  };
+  tuiosPkg =
+    tuios.packages.${pkgs.stdenv.hostPlatform.system}.tuios.overrideAttrs
+      {
+        doCheck = false;
+      };
 in
 {
   config = lib.mkIf config.modules.public.tuios.enable {
     home.packages = [ tuiosPkg ];
 
-    xdg.configFile."tuios/config.toml".source = mylib.mkMutable dotfilesDir config ./tuios.toml;
+    xdg.configFile."tuios/config.toml".source =
+      mylib.mkMutable dotfilesDir config
+        ./tuios.toml;
 
     programs.nushell.extraConfig = /* nu */ ''
       # auto start tuios (kitty only)

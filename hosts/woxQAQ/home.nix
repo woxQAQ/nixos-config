@@ -35,7 +35,8 @@
     mylib.mkMutable dotfilesDir config
       ./niri-hardware.kdl;
 
-  programs.ssh.matchBlocks."github.com".identityFile = "${config.home.homeDirectory}/.ssh/id_ed25519";
+  programs.ssh.matchBlocks."github.com".identityFile =
+    "${config.home.homeDirectory}/.ssh/id_ed25519";
   systemd.user.services.win11-steamapps-symlink = {
     Unit = {
       Description = "Create symlink to Windows Steam library";

@@ -14,15 +14,17 @@ let
   # Undo the wrapper; its PATH additions are re-injected via `environment` below.
   kittyPackage =
     if isDarwin then
-      pkgs.runCommand "kitty-${pkgs.kitty.version}-unwrapped" { meta = pkgs.kitty.meta or { }; } ''
-        cp -RP ${pkgs.kitty} $out
-        chmod -R u+w $out
-        macos="$out/Applications/kitty.app/Contents/MacOS"
-        if [ -e "$macos/.kitty-wrapped" ]; then
-          rm "$macos/kitty"
-          mv "$macos/.kitty-wrapped" "$macos/kitty"
-        fi
-      ''
+      pkgs.runCommand "kitty-${pkgs.kitty.version}-unwrapped"
+        { meta = pkgs.kitty.meta or { }; }
+        ''
+          cp -RP ${pkgs.kitty} $out
+          chmod -R u+w $out
+          macos="$out/Applications/kitty.app/Contents/MacOS"
+          if [ -e "$macos/.kitty-wrapped" ]; then
+            rm "$macos/kitty"
+            mv "$macos/.kitty-wrapped" "$macos/kitty"
+          fi
+        ''
     else
       pkgs.kitty;
 in
@@ -70,13 +72,15 @@ in
     # macOS Local Network privacy silently deny the app (EHOSTUNREACH on LAN
     # addresses). codesign is blocked inside the build sandbox, so re-seal the
     # installed copy at activation time with the system codesign.
-    home.activation.signKittyApp = lib.mkIf (isDarwin && config.targets.darwin.copyApps.enable) (
-      lib.hm.dag.entryAfter [ "copyApps" ] ''
-        app="$HOME/${config.targets.darwin.copyApps.directory}/kitty.app"
-        if [ -d "$app" ]; then
-          run /usr/bin/codesign --force --deep --sign - "$app"
-        fi
-      ''
-    );
+    home.activation.signKittyApp =
+      lib.mkIf (isDarwin && config.targets.darwin.copyApps.enable)
+        (
+          lib.hm.dag.entryAfter [ "copyApps" ] ''
+            app="$HOME/${config.targets.darwin.copyApps.directory}/kitty.app"
+            if [ -d "$app" ]; then
+              run /usr/bin/codesign --force --deep --sign - "$app"
+            fi
+          ''
+        );
   };
 }

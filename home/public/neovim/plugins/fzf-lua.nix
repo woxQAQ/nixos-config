@@ -26,7 +26,9 @@
       (mkKeymap "n" "<leader>fg" "${cmd "live_grep_native"}" "Find grep")
       (mkKeymap "n" "<leader>ft" "${cmd "lsp_document_symbols"}" "Find lsp symbols")
       (mkKeymap "n" "<leader>fb" "${cmd "buffers"}" "fuzzy search opened files")
-      (mkKeymap "n" "<leader>fb" "${cmd "oldfiles"}" "fuzzy search opened files history")
+      (mkKeymap "n" "<leader>fb" "${cmd "oldfiles"}"
+        "fuzzy search opened files history"
+      )
       (mkKeymap "n" "<leader>fk" "${cmd "keymaps"}" "Find keymaps")
       (mkKeymap "n" "<leader>fT" "${cmd "colorschemes"}" "Find theme")
     ];

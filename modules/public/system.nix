@@ -22,10 +22,19 @@
         x
         // {
           nixpkgs.flake =
-            if pkgs.stdenv.hostPlatform.isLinux then inputs.nixpkgs else inputs.nixpkgs-unstable;
+            if pkgs.stdenv.hostPlatform.isLinux then
+              inputs.nixpkgs
+            else
+              inputs.nixpkgs-unstable;
         }
       )
-      (x: if pkgs.stdenv.hostPlatform.isDarwin then lib.removeAttrs x [ "nixpkgs-unstable" ] else x)
+      (
+        x:
+        if pkgs.stdenv.hostPlatform.isDarwin then
+          lib.removeAttrs x [ "nixpkgs-unstable" ]
+        else
+          x
+      )
     ];
     settings = {
       auto-optimise-store = pkgs.stdenv.hostPlatform.isLinux;

@@ -9,7 +9,9 @@
   ...
 }:
 let
-  defaultWallpaper = lib.attrByPath [ "defaultWallpaper" ] "wallhaven-6ldd9x.png" hostValues;
+  defaultWallpaper = lib.attrByPath [
+    "defaultWallpaper"
+  ] "wallhaven-6ldd9x.png" hostValues;
 in
 {
   imports = [
@@ -23,7 +25,8 @@ in
   programs.noctalia-shell = {
     enable = true;
   };
-  home.file.".wallpaper/${defaultWallpaper}".source = ../../../../assets/${defaultWallpaper};
+  home.file.".wallpaper/${defaultWallpaper}".source =
+    ../../../../assets/${defaultWallpaper};
 
   xdg.configFile =
     let

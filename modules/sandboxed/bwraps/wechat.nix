@@ -32,7 +32,10 @@ let
   };
 
   inherit (stdenvNoCC.hostPlatform) system;
-  inherit (sources.${system} or (throw "Unsupported system: ${system}")) version src;
+  inherit (sources.${system} or (throw "Unsupported system: ${system}"))
+    version
+    src
+    ;
 
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/we/wechat/linux.nix
   appimageContents = appimageTools.extract {

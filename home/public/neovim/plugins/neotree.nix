@@ -29,6 +29,8 @@
   };
 
   keymaps = [
-    (mkKeymap "n" "<leader>e" "<cmd>Neotree action=focus reveal toggle<CR>" "toggle neo tree")
+    (mkKeymap "n" "<leader>e" "<cmd>Neotree action=focus reveal toggle<CR>"
+      "toggle neo tree"
+    )
   ];
 }

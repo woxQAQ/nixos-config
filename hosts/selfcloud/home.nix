@@ -11,5 +11,7 @@
     fx
   ];
 
-  home.file.".fx/settings.json".source = mylib.mkMutable dotfilesDir config ./fx-settings.json;
+  home.file.".fx/settings.json".source =
+    mylib.mkMutable dotfilesDir config
+      ./fx-settings.json;
 }

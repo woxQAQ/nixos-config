@@ -6,7 +6,11 @@
   ...
 }:
 let
-  aerospaceEnabled = lib.attrByPath [ "programs" "aerospace" "enable" ] false config;
+  aerospaceEnabled = lib.attrByPath [
+    "programs"
+    "aerospace"
+    "enable"
+  ] false config;
   baseConfig = # nu
     ''
       # completion

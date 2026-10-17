@@ -16,7 +16,8 @@ let
   # the repo lives somewhere other than ~/nixos-config. Existence is verified
   # at activation time (pure evaluation cannot access absolute paths).
   dotfilesDir =
-    hostValues.dotfilesDir or "${if isDarwin then "/Users" else "/home"}/${username}/nixos-config";
+    hostValues.dotfilesDir
+      or "${if isDarwin then "/Users" else "/home"}/${username}/nixos-config";
   mkPkgs =
     nixpkgs:
     import nixpkgs {

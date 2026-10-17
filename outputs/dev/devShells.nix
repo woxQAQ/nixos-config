@@ -4,10 +4,7 @@
     {
       devShells.default = pkgs.mkShell {
         name = "nixos config dev shells";
-        shellHook = ''
-          echo "check precommit install"
-          ${config.pre-commit.installationScript}
-        '';
+        shellHook = config.pre-commit.shellHook;
         packages = with pkgs; [
           # stdenv puts its minimal bash on PATH, which lacks programmable
           # completion (progcomp) and \[ \] prompt decoding, breaking
@@ -16,7 +13,7 @@
           just
           nixfmt
           git
-          nodePackages.prettier
+          prettier
           deadnix
           nix-prefetch-git
           ruff

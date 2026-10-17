@@ -1,6 +1,7 @@
 .wallpaper
 .gitconfig
 result
+result-font
 .env
 .env.claude
 .direnv

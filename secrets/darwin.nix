@@ -7,10 +7,12 @@
   ...
 }:
 {
-  launchd.daemons."activate-agenix".serviceConfig = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
-    StandardErrorPath = "/Library/Logs/org.nixos.activate-agenix.stderr.log";
-    StandardOutPath = "/Library/Logs/org.nixos.activate-agenix.stdout.log";
-  };
+  launchd.daemons."activate-agenix".serviceConfig =
+    lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
+      {
+        StandardErrorPath = "/Library/Logs/org.nixos.activate-agenix.stderr.log";
+        StandardOutPath = "/Library/Logs/org.nixos.activate-agenix.stdout.log";
+      };
   age.identityPaths = [
     "/etc/ssh/ssh_host_ed25519_key"
     "/Users/${username}/.ssh/id_ed25519"

@@ -1,9 +1,4 @@
-{
-  inputs,
-  lib,
-  self,
-  ...
-}:
+{ inputs, ... }:
 {
   imports = [
     inputs.git-hooks.flakeModule
@@ -12,29 +7,17 @@
     { pkgs, ... }:
     {
       pre-commit = {
-        check.enable = false;
+        check.enable = true;
+        settings.package = pkgs.prek;
         settings.excludes = [ "flake.lock" ];
 
         settings.hooks = {
           # keep-sorted start block=yes
           actionlint.enable = true;
-          deadnix = {
-            enable = false;
-            settings = {
-              edit = true;
-            };
-          };
           statix.enable = true;
           treefmt.enable = true;
           # keep-sorted end
         };
       };
-
-      checks = lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin (
-        lib.mapAttrs' (name: cfg: {
-          name = "darwin-${name}";
-          value = cfg.system;
-        }) self.darwinConfigurations
-      );
     };
 }

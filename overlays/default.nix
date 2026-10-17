@@ -23,6 +23,7 @@ in
 
     # In-tree packages from pkg/, exposed as pkgs.<name>.
     chillroundf = prev.callPackage ../pkg/chillroundf { };
+    inter-noto-sans-sc = prev.callPackage ../pkg/inter-noto-sans-sc { };
     removemacai = prev.callPackage ../pkg/removemacai { };
     yozai-font = prev.callPackage ../pkg/yozai-font { };
     resource-han-rounded = prev.callPackage ../pkg/resource-han-rounded { };

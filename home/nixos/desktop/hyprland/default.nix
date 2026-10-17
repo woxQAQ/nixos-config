@@ -8,7 +8,9 @@
 }@args:
 let
   cfg = osConfig.modules.desktop;
-  defaultWallpaper = lib.attrByPath [ "defaultWallpaper" ] "wallhaven-6ldd9x.png" hostValues;
+  defaultWallpaper = lib.attrByPath [
+    "defaultWallpaper"
+  ] "wallhaven-6ldd9x.png" hostValues;
   enabled = cfg.environment == "hyprland";
 in
 {

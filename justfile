@@ -11,6 +11,8 @@ _os := `uname`
 [private]
 _nix := if _os == "Darwin" { "nix --extra-experimental-features 'nix-command flakes'" } else { "nix" }
 [private]
+_system := `nix eval --extra-experimental-features 'nix-command flakes' --impure --raw --expr builtins.currentSystem`
+[private]
 _nixos_hosts := "woxQAQ wsl windows-vm1 selfcloud"
 [private]
 _darwin_hosts := "woxMac woxMac-m1"
@@ -76,43 +78,65 @@ list:
 
 alias l := list
 
-# Format all Nix files.
+# Format and automatically fix supported files.
 [group('quality')]
 fmt:
     {{ _nix }} fmt
 
-# Validate all flake configurations.
+# Run the same hooks as prek in a Nix build, without changing the working tree.
 [group('quality')]
-check: fmt
-    {{ _nix }} flake check --keep-going
+check:
+    {{ _nix }} build --no-link --no-update-lock-file ".#checks.{{ _system }}.pre-commit"
+
+# Evaluate every host without building or switching a system.
+[group('quality')]
+check-hosts:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    for host in {{ _nixos_hosts }}; do
+      {{ _nix }} eval --no-update-lock-file --raw ".#nixosConfigurations.$host.config.system.build.toplevel.drvPath"
+      printf '\n'
+    done
+    for host in {{ _darwin_hosts }}; do
+      {{ _nix }} eval --no-update-lock-file --raw ".#darwinConfigurations.$host.config.system.build.toplevel.drvPath"
+      printf '\n'
+    done
 
 # Start the Nix REPL.
 [group('development')]
 repl:
     {{ _nix }} repl
 
-# Enter the default Nix shell.
+# Enter the default development shell.
 [group('development')]
 shell:
-    {{ _nix }} shell
+    {{ _nix }} develop
 
-# Update all flake inputs.
+# Update selected root inputs (or all inputs) and sync the dev lock's root snapshot.
 [group('updates')]
-bump-flake: fmt
-    {{ _nix }} flake update --flake .
+[positional-arguments]
+bump-flake *inputs:
+    {{ _nix }} flake update --flake . "$@"
+    {{ _nix }} flake update --flake ./outputs/dev root
+
+# Upgrade development tools and sync the root snapshot.
+[group('updates')]
+bump-dev:
+    {{ _nix }} flake update --flake ./outputs/dev
 
 # Update the secrets flake input.
 [group('updates')]
-bump-secrets: fmt
-    {{ _nix }} flake update "$SECRET_FLAKE_INPUT"
+bump-secrets:
+    just bump-flake "$SECRET_FLAKE_INPUT"
 
 # Update woxVim and switch the saved host.
 [group('updates')]
-bump-woxvim: fmt
+bump-woxvim:
     #!/usr/bin/env bash
     set -euo pipefail
 
-    {{ _nix }} flake update "$WOXVIM_FLAKE_INPUT"
+    just bump-flake "$WOXVIM_FLAKE_INPUT"
 
     just rebuild
 

@@ -16,6 +16,8 @@ jobs:
         include:
           - system: x86_64-linux
             os: ubuntu-latest
+          - system: aarch64-darwin
+            os: macos-15
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -33,12 +35,19 @@ jobs:
         with:
           name: woxqaq
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-      - name: Check flake
+      - name: Build development tools
         run: |
-          nix flake check
+          nix build --no-link --no-update-lock-file \
+            .#devShells.${{ matrix.system }}.default \
+            .#formatter.${{ matrix.system }}
+      - name: Validate hooks and run quality checks
+        run: |
+          nix develop --no-update-lock-file --command bash -euc '
+            prek --version
+            prek validate-config .pre-commit-config.yaml
+            just check
+          '
       - name: Evaluate host configurations
+        if: matrix.system == 'x86_64-linux'
         run: |
-          nix eval .#nixosConfigurations.woxQAQ.config.system.build.toplevel.drvPath
-          nix eval .#nixosConfigurations.wsl.config.system.build.toplevel.drvPath
-          nix eval .#nixosConfigurations.windows-vm1.config.system.build.toplevel.drvPath
-          nix eval .#darwinConfigurations.woxMac.config.system.build.toplevel.drvPath
+          nix develop --no-update-lock-file --command just check-hosts

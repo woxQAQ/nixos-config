@@ -20,22 +20,25 @@ ifeq ($(TRACE),1)
 _SWITCH_FLAGS += --show-trace
 endif
 
-.PHONY: bump-flake bump-secrets bump-woxVim repl shell
-bump: fmt
+.PHONY: bump-flake bump-dev bump-secrets bump-woxVim repl shell
+bump:
 	@if command -v nu &>/dev/null; then \
 		nu ./update-flake-inputs.nu; \
 	else \
 		echo "nushell not installed"; \
 		exit 1;\
 	fi
-bump-flake: fmt
-	$(NIX) flake update --flake .
+bump-flake:
+	just bump-flake
 
-bump-secrets: fmt
-	$(NIX) flake update ${SECRET_FLAKE_INPUT}
+bump-dev:
+	just bump-dev
 
-bump-woxVim: fmt
-	$(NIX) flake update ${WOXVIM_FLAKE_INPUT}
+bump-secrets:
+	just bump-flake "$(SECRET_FLAKE_INPUT)"
+
+bump-woxVim:
+	just bump-flake "$(WOXVIM_FLAKE_INPUT)"
 	@ if [ $(OS) = "Darwin" ]; then \
 		$(MAKE) switch-darwin; \
 	else \
@@ -46,7 +49,7 @@ repl:
 	$(NIX) repl
 
 shell:
-	$(NIX) shell
+	just shell
 
 .PHONY: switch switch-wsl switch-darwin
 switch: fmt
@@ -67,9 +70,12 @@ check-brew:
 switch-darwin: fmt
 	@sudo darwin-rebuild switch --flake ".#${DARWIN_HOST}" $(_SWITCH_FLAGS)
 
-.PHONY: check check-darwin check-linux
-check: fmt
-	$(NIX) flake check --keep-going
+.PHONY: check check-hosts
+check:
+	just check
+
+check-hosts:
+	just check-hosts
 
 .PHONY: check-store
 check-store:

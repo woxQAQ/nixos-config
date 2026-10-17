@@ -123,7 +123,8 @@ in
     # serde_json::json! accepts Rust expressions as values. Parsing the entire
     # macro body as JSON leaves everything after the first expression in an
     # ERROR node and highlights otherwise identical object keys differently.
-    xdg.configFile."helix/runtime/queries/rust/injections.scm".text = rustInjectionsWithoutJson;
+    xdg.configFile."helix/runtime/queries/rust/injections.scm".text =
+      rustInjectionsWithoutJson;
 
     home.packages = with pkgs; [
       ty

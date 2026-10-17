@@ -112,6 +112,12 @@ def update_input [input_name: string] {
   if $env.LAST_EXIT_CODE != 0 {
     exit $env.LAST_EXIT_CODE
   }
+
+  print $"(ansi cyan)Syncing the dev lock's root snapshot...(ansi reset)"
+  ^nix ...$nix_flags flake update --flake ($flake_dir | path join "outputs" "dev") root
+  if $env.LAST_EXIT_CODE != 0 {
+    exit $env.LAST_EXIT_CODE
+  }
 }
 
 def main [] {

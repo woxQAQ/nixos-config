@@ -114,7 +114,9 @@ in
         ]
       );
     file = {
-      ".codex/AGENTS.md".text = mkAgentInstructions { includeBashEditGuideance = true; };
+      ".codex/AGENTS.md".text = mkAgentInstructions {
+        includeBashEditGuideance = true;
+      };
       ".kimi-code/AGENTS.md".text = mkAgentInstructions { };
       # will be injected into system prompt
       ".pi/agent/APPEND_SYSTEM.md".text = defaultInstructions;

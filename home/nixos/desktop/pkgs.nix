@@ -30,11 +30,13 @@ in
     };
   };
 
-  home.activation.flatpakUserFontOverrides = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    if command -v flatpak >/dev/null 2>&1; then
-      run flatpak override --user ${flatpakUserFontOverrideArgs}
-    fi
-  '';
+  home.activation.flatpakUserFontOverrides =
+    lib.hm.dag.entryAfter [ "writeBoundary" ]
+      ''
+        if command -v flatpak >/dev/null 2>&1; then
+          run flatpak override --user ${flatpakUserFontOverrideArgs}
+        fi
+      '';
 
   fonts.fontconfig.enable = false;
 }

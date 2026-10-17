@@ -28,17 +28,19 @@ in
         "org.freedesktop.appearance.*" = "talk";
       }
       // (builtins.listToAttrs (
-        map (id: lib.nameValuePair "org.kde.StatusNotifierItem-${toString id}-1" "own") (
-          lib.lists.range 2 29
-        )
+        map (
+          id: lib.nameValuePair "org.kde.StatusNotifierItem-${toString id}-1" "own"
+        ) (lib.lists.range 2 29)
       ))
       // {
         # --- MPRIS Media Control ---
         # Allows the app to register as a media player. These are derived from the appID.
         "org.mpris.MediaPlayer2.${appId}" = "own";
         "org.mpris.MediaPlayer2.${appId}.*" = "own";
-        "org.mpris.MediaPlayer2.${lib.lists.last (lib.strings.splitString "." appId)}" = "own";
-        "org.mpris.MediaPlayer2.${lib.lists.last (lib.strings.splitString "." appId)}.*" = "own";
+        "org.mpris.MediaPlayer2.${lib.lists.last (lib.strings.splitString "." appId)}" =
+          "own";
+        "org.mpris.MediaPlayer2.${lib.lists.last (lib.strings.splitString "." appId)}.*" =
+          "own";
 
         # --- General Desktop Integration ---
         "com.canonical.AppMenu.Registrar" = "talk"; # For Ubuntu AppMenu
@@ -229,7 +231,10 @@ in
           (sloth.concat' sloth.xdgConfigHome "/fontconfig")
           (sloth.concat' sloth.xdgConfigHome "/dconf")
         ];
-        dev = [ "/dev/shm" ] ++ (map (id: "/dev/video${toString id}") (lib.lists.range 0 9));
+        dev = [
+          "/dev/shm"
+        ]
+        ++ (map (id: "/dev/video${toString id}") (lib.lists.range 0 9));
       };
     };
   };
