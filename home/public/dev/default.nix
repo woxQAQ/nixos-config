@@ -55,6 +55,9 @@
     ### MISC ###
     # useful leetcode cli
     leetgo
+    # 仓库工作流的入口（justfile / Makefile 都转调它），devShell 之外同样需要，
+    # 因此装进 home 层而非只留在 outputs/dev 的 shell 里。
+    just
     nufmt
     ast-grep
     dbeaver-bin

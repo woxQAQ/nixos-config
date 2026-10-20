@@ -87,6 +87,7 @@ in
       ++ lib.optionals (cfg.profile == "terminal") (
         with llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
         [
+          grok
           codex
           kimi-code
           tuicr
@@ -95,7 +96,6 @@ in
       ++ lib.optionals (cfg.profile == "full") (
         with llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
         [
-          grok
           claude-code
           # upstream llm-agents bundled the opencode and cursor agent into t3code
           # by default. They also provide the providerPackages override in t3code package that

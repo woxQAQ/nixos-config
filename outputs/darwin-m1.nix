@@ -35,6 +35,9 @@ let
         helix.enable = true;
         playwright.enable = false;
         terminal = {
+          emulators = [
+            "ghostty"
+          ];
           font-size = 15;
           font-family = "IoskeleyMonoTerm Nerd Font Mono";
         };
