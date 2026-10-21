@@ -6,15 +6,24 @@
 }:
 let
   cfg = config.modules.public.terminal;
+  ghosttyTerminfo =
+    if pkgs.stdenv.hostPlatform.isDarwin then
+      pkgs.ghostty-bin.terminfo
+    else
+      pkgs.ghostty.terminfo;
 in
 {
   config = lib.mkIf (lib.elem "ghostty" cfg.emulators) {
+    home.file.".terminfo/78/xterm-ghostty".source =
+      "${ghosttyTerminfo}/share/terminfo/78/xterm-ghostty";
+
     programs.ghostty = {
       enable = true;
       # ghostty 的 macOS 前端是 Swift/AppKit，无法在 Nix sandbox 中源码构建，
       # nixpkgs 在 Darwin 上仅有官方 dmg 的重打包 ghostty-bin
       package =
         if pkgs.stdenv.hostPlatform.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
+
       settings = lib.mkMerge [
         {
           # home-manager 对 list 值生成重复键，ghostty 依此按顺序构建 fallback 链
