@@ -22,8 +22,10 @@ in
     };
 
     # In-tree packages from pkg/, exposed as pkgs.<name>.
+    agent-skills = prev.callPackage ../pkg/agent-skills { };
     chillroundf = prev.callPackage ../pkg/chillroundf { };
     inter-noto-sans-sc = prev.callPackage ../pkg/inter-noto-sans-sc { };
+    obelisk-cli = prev.callPackage ../pkg/obelisk-cli { };
     removemacai = prev.callPackage ../pkg/removemacai { };
     yozai-font = prev.callPackage ../pkg/yozai-font { };
     resource-han-rounded = prev.callPackage ../pkg/resource-han-rounded { };

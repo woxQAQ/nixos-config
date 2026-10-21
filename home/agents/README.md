@@ -15,9 +15,15 @@ use llm-agents flake to apply agent.
 ## Layout
 
 - default.nix: packages and generated global instructions for each agent
-- .agents/skills: skills directory that stores skills installed by `skills` cli
-- skills.nix: entrypoint to mount skills to target agent dotfiles
+- skills.nix: mounts the skills packaged in pkg/agent-skills into each agent's dotfiles
 
 ## Skills
 
-- ast grep
+The skill sources are pinned upstream repos packaged by `pkg/agent-skills`, not
+vendored files in this tree. Bumping a skill means changing its `rev`/`hash`
+there; the overlay exposes the result as `pkgs.agent-skills`, whose
+`passthru.skills` lists the skills linked into every supported agent directory.
+
+- ast-grep, ast-grep-outline
+- kill-ai-slop
+- obelisk (the CLI itself is packaged as `pkgs.obelisk-cli`)

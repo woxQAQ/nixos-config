@@ -12,7 +12,7 @@
   home.packages = with pkgs; [
     ### NODEJS
     pnpm
-    nodejs_22
+    nodejs_24
     oxfmt
     bun
     pandoc
