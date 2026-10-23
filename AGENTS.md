@@ -15,6 +15,7 @@ Flake-based NixOS configuration supporting NixOS (x86_64-linux) and macOS (aarch
 ### Host Configuration Pattern
 
 Each host requires two files:
+
 1. `hosts/<hostname>/default.nix` - Machine-specific settings
 2. `outputs/<hostname>.nix` - Composes modules into final configuration
 
@@ -25,6 +26,7 @@ Each host requires two files:
 - `modules/public/` - Cross-platform modules
 
 Enable features via options:
+
 ```nix
 {
   modules.desktop.game.enable = true;
@@ -35,6 +37,7 @@ Enable features via options:
 ### Desktop Environments
 
 Set via `modules.desktop.environment` in host output:
+
 - `hyprland` (default) - Wayland compositor
 - `niri` - Scrollable-tiling Wayland
 - `gnome` - GNOME desktop

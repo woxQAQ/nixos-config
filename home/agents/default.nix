@@ -4,6 +4,7 @@
   pkgs,
   config,
   username,
+  dotfilesDir,
   ...
 }:
 let
@@ -28,8 +29,9 @@ let
 
       # Environment
 
-      - bash preference: use `fd` to replace `find`, use `rg` instead of `grep`.${lib.optionalString includeBashEditGuideance " Do not edit files by bash scripts."}
+      - Shell preference: use `fd` to replace `find`, use `rg` instead of `grep`.${lib.optionalString includeBashEditGuideance " Do not edit files by bash tools."}
       - We use nix to manage machines configuration${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ", MUST NOT install packages by brew manually."}
+      - ${dotfilesDir} contains the system nixos configuration so any patches to the system should apply to this repo.
 
       # Source of Truth
 
@@ -41,25 +43,21 @@ let
       # Style
 
       - You SHOULD explain new introduced names.
-      - Avoid false dichotomies and over-binarization. Don't habitually use “not X but Y”
-        constructions. Preserve nuance, ambiguity, gradation, multiple causality, and overlapping explanations.
-        Do not reify contextual or conceptual distinctions into rigid oppositions.
       - Use mermaid diagrams to describe complex logic.
 
       # Engineering Core
 
       - reason from fundamental facts and constraints;
         use established patterns when evidence shows they fit.
-      - Zero dependencies first. Avoid speculative dependencies, compatibility layers,
-        configuration, scaffolding, and abstractions.
+      - Zero dependencies first. That doesn't mean you should vendor any ability. 
       - Backward Compatibility(BC): Only published public contracts need to keep BC. Forbid keeping BC on
         internal packages, unpublished or branch-only implement details.
-      - Unit tests are not allowed.
+      - Tests are software too, need to be designed. And unit tests to functions are not allowed. 
 
       # Engineering Misc
 
       - Write comments as the view of authors, not users and agents. Claim self as we/our or use passive voice.
-      - For NEW projects, use `uv` for python, `pnpm` for typescript/javascript, `devenv` for develop environment manage.
+      - For NEW projects, use `uv` for python, `pnpm` for typescript/javascript.
       - Prefer eliminate special cases by redesigning data struct first, then consider adding code paths.
       - Follow project commit history's convention. Use scoped commits for new projects.
     '';
@@ -108,6 +106,7 @@ in
                 codex
                 claude-code
                 grok
+                pi
               ];
             };
           })

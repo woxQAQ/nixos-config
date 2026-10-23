@@ -18,6 +18,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   dontBuild = true;
 
+  # Upstream ships no Grok CLI / Delta IDE providers. We inject ours into the
+  # unpacked dist tree and register them in the builtin provider registry.
+  patches = [ ./register-providers.patch ];
+
+  postPatch = ''
+    cp ${./providers/grok.js} dist/core/src/providers/grok.js
+    cp ${./providers/delta.js} dist/core/src/providers/delta.js
+  '';
+
   installPhase = ''
     runHook preInstall
 

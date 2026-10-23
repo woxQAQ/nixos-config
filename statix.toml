@@ -16,5 +16,5 @@ ignore = [
   # about `result-*`, which statix does not read.
   "result",
   "result-*",
-  "*hardware-configuration.nix"
+  "*hardware-configuration.nix",
 ]

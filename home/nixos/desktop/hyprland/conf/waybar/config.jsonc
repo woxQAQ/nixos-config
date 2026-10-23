@@ -11,17 +11,14 @@
   "fixed-center": true,
   "passthrough": false,
   "mode": "dock",
-  "exclusive":true,
+  "exclusive": true,
   "modules-left": [
     // "custom/launcher",
     "custom/powermenu",
     "hyprland/workspaces",
     "cava",
   ],
-  "modules-center": [
-    "idle_inhibitor",
-    "clock",
-  ],
+  "modules-center": ["idle_inhibitor", "clock"],
   "modules-right": [
     "temperature",
     "cpu",
@@ -29,79 +26,55 @@
     "memory",
     "pulseaudio",
     "network",
-    "tray"
+    "tray",
   ],
   // keep-sorted start block=yes
   "battery": {
     "format": "<span foreground='${yellow}'>{icon}</span> {capacity}%",
-    "format-icons": [
-      " ",
-      " ",
-      " ",
-      " ",
-      " "
-    ],
+    "format-icons": [" ", " ", " ", " ", " "],
     "format-charging": "<span foreground='${yellow}'> </span>{capacity}%",
     "format-full": "<span foreground='${yellow}'> </span>{capacity}%",
     "format-warning": "<span foreground='${yellow}'> </span>{capacity}%",
     "interval": 5,
     "states": {
-      "warning": 20
+      "warning": 20,
     },
     "format-time": "{H}h{M}m",
     "tooltip": true,
-    "tooltip-format": "{time}"
+    "tooltip-format": "{time}",
   },
-  "cava" : {
-    "hide_on_silence" : false,
+  "cava": {
+    "hide_on_silence": false,
     "framerate": 60,
     "bars": 10,
-    "input_delay":1,
-    "sleep_timer":5,
-    "bar_delimiter":0,
+    "input_delay": 1,
+    "sleep_timer": 5,
+    "bar_delimiter": 0,
     "on-click": "playerctl play-pause",
-    "format-icons" : [
-      "▁",
-      "▂",
-      "▃",
-      "▄",
-      "▅",
-      "▆",
-      "▇",
-      "█"
-    ]
+    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
   },
   "clock": {
     "calendar": {
       "format": {
-        "today": "<span color='#98971A'><b>{}</b></span>"
-      }
+        "today": "<span color='#98971A'><b>{}</b></span>",
+      },
     },
     "align": 0,
     "rotate": 0,
     "format": "{:%H:%M}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format-alt": " {: $a $b %d, %G}"
+    "format-alt": " {: $a $b %d, %G}",
   },
   "cpu": {
     "format": "CPU {usage}%",
-    "format-alt" : "{icon0}{icon1}{icon2}{icon3}",
-    "format-icons" : [
-      "▁",
-      "▂",
-      "▃",
-      "▄",
-      "▅",
-      "▆",
-      "▇",
-      "█"
-    ],
-    "interval": 10
+    "format-alt": "{icon0}{icon1}{icon2}{icon3}",
+    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+    "interval": 10,
   },
   "custom/launcher": {
     "format": "\uf313 ",
     "on-click": "anyrun",
-    "tooltip": false
+    "tooltip": false,
   },
   "custom/playerctl": {
     "format": "{icon}  <span>{}</span>",
@@ -114,18 +87,18 @@
     "format-icons": {
       "Paused": "<span foreground='#6dd9d9'></span>",
       "Playing": "<span foreground='#82db97'></span>",
-    }
+    },
   },
   "custom/powermenu": {
     "format": "\uf011",
     "on-click": "wlogout",
-    "tooltip": false
+    "tooltip": false,
   },
   "hyprland/window": {
     "format": "{title}",
     "icon": true,
     "icon-size": 24,
-    "separate-outputs": true
+    "separate-outputs": true,
   },
   "hyprland/workspaces": {
     "format": "{icon}",
@@ -135,27 +108,27 @@
     "format": "{icon}",
     "format-icons": {
       "activated": "󰥔",
-      "deactivated": ""
+      "deactivated": "",
     },
-    "tooltip": false
+    "tooltip": false,
   },
   "memory": {
     "format": "MEM {percentage}%",
     "format-alt": "MEM {used}GB",
-    "tooltip" : true,
+    "tooltip": true,
     "tooltip-format": " {used:.1f}GB/{total:.1f}GB",
     "interval": 30,
     "states": {
       "warning": 80,
-      "critical": 90
-    }
+      "critical": 90,
+    },
   },
   "network": {
     "interval": 5,
     "format": "{ifname}",
     "format-wifi": " {essid}",
     "format-alt": "  {signalStrength}% ",
-    "format-ethernet" : "󱘖 Wired",
+    "format-ethernet": "󱘖 Wired",
     "format-disconnected": "⚠ Disconnected ",
     "tooltip-format": "󱘖 {ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}",
   },
@@ -171,25 +144,21 @@
       "phone": "",
       "portable": "",
       "car": "",
-      "default": [
-        "",
-        "",
-        ""
-      ],
+      "default": ["", "", ""],
     },
     "scroll-step": 2,
     "on-click": "amixer set Master toggle",
     "on-click-right": "GSK_RENDERER=opengl pavucontrol",
-    "smooth-scrolling-threshold": 1
+    "smooth-scrolling-threshold": 1,
   },
   "temperature": {
     "format": "\uf2c9 {temperatureC}\u00b0C",
-    "tooltip": false
+    "tooltip": false,
   },
   "tray": {
     "icon-size": 15,
-    "spacing": 5
+    "spacing": 5,
     // "show-passive-items": true
-  }
+  },
   // keep-sorted end
 }

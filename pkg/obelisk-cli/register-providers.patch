@@ -1,0 +1,22 @@
+diff --git a/dist/core/src/providers/builtins.js b/dist/core/src/providers/builtins.js
+index d65a0ba..0445146 100644
+--- a/dist/core/src/providers/builtins.js
++++ b/dist/core/src/providers/builtins.js
+@@ -4,6 +4,8 @@ import { createClaudeProvider } from "./claude.js";
+ import { createCodexProvider } from "./codex.js";
+ import { createCopilotProvider } from "./copilot.js";
+ import { createDeepseekProvider } from "./deepseek.js";
++import { createDeltaProvider } from "./delta.js";
++import { createGrokProvider } from "./grok.js";
+ import { createHermesProvider } from "./hermes.js";
+ import { createKimiProvider } from "./kimi.js";
+ import { createKiroProvider } from "./kiro.js";
+@@ -17,6 +19,8 @@ export function createBuiltinProviderRegistry(roots = {}, { cwd, copilotUserData
+         createCodexProvider({ rootDir: roots['codex'] }),
+         createCopilotProvider({ rootDir: roots['copilot'], userDataRoots: copilotUserDataRoots, openChronicle: openCopilotChronicle }),
+         createDeepseekProvider({ rootDir: roots['deepseek'] }),
++        createDeltaProvider({ rootDir: roots['delta'] }),
++        createGrokProvider({ rootDir: roots['grok'] }),
+         createHermesProvider({ rootDir: roots['hermes'], openStore: openHermesStore }),
+         createKimiProvider({ rootDir: roots['kimi'] }),
+         createKiroProvider({ rootDir: roots['kiro'], openDatabase: openKiroDatabase }),
