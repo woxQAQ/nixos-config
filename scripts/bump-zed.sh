@@ -54,5 +54,4 @@ with open(path, "w") as f:
     f.write(src)
 EOF
 
-echo "updated $pkg_file:"
-sed -n '11,14p' "$pkg_file"
+echo "updated $pkg_file"

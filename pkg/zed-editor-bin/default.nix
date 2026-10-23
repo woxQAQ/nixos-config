@@ -7,13 +7,13 @@
 let
   arch = stdenvNoCC.hostPlatform.parsed.cpu.name;
   hashes = {
-    aarch64 = "sha256-XRIH97pnaWP4u6N9oAKZfYhM2+yMXEdwIhD6URARGxk=";
-    x86_64 = "sha256-tvJD88g8wPn8g5x6xmjiBukCY6B+X3D5sdP450l2UX8=";
+    aarch64 = "sha256-xCexm7DVX1vZk5GyHnvaDc+JKr2A28Ag72RcnYZFeUA=";
+    x86_64 = "sha256-A9ghNqaOE+2+PmJEM94orwwlyoa5412rJ2N5vVIVGcw=";
   };
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zed-editor-bin";
-  version = "1.24.2";
+  version = "1.25.2";
 
   src = fetchurl {
     url = "https://github.com/zed-industries/zed/releases/download/v${finalAttrs.version}/Zed-${arch}.dmg";
