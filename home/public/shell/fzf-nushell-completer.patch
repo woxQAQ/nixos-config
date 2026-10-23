@@ -1,0 +1,40 @@
+diff --git a/shell/completion.nu b/shell/completion.nu
+index 4cc98be..056ba8b 100644
+--- a/shell/completion.nu
++++ b/shell/completion.nu
+@@ -9,10 +9,14 @@ if ($env.__fzf_completer_registered? | default false) != true {
+   # Get the currently configured external completer, if any exists
+   let previous_external_completer = $env.config? | get completions? | get external? | get completer?
+ 
+-  # Define the new wrapper completer
+-  let fzf_wrapper_completer = {|spans|
++  # Define the new wrapper completer. It declares `place` (a named input)
++  # rather than the legacy positional `spans`, so the completer never goes
++  # through Nushell's deprecated positional bridge. `$place.command` is the
++  # token list of the command being completed, the same value the old `spans`
++  # held (with a trailing "" when the cursor sits on an empty slot).
++  let fzf_wrapper_completer = {|place|
+     # 1. Try the FZF completer logic first
+-    let fzf_result = do $fzf_external_completer $spans
++    let fzf_result = do $fzf_external_completer $place.command
+ 
+     # 2. If FZF returned a result (a list, even an empty one), return it.
+     #    `null` means FZF didn't handle it because the trigger wasn't present.
+@@ -20,8 +24,16 @@ if ($env.__fzf_completer_registered? | default false) != true {
+       $fzf_result
+     } else {
+       # 3. FZF didn't handle it, so call the previous completer (if it exists).
++      #    It is handed the new `place` input first. A completer that still
++      #    declares the legacy `spans` parameter errors on a record, so it is
++      #    retried with the token list, which is what the old positional
++      #    bridge handed it.
+       if $previous_external_completer != null {
+-        do $previous_external_completer $spans
++        try {
++          do $previous_external_completer $place
++        } catch {
++          try { do $previous_external_completer $place.command } catch { null }
++        }
+       } else {
+         # 4. No previous completer, and FZF didn't handle it. Return null.
+         null
