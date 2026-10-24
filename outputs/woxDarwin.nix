@@ -18,6 +18,7 @@ let
         brew.casks = [
           # keep-sorted start
           "feishu"
+          "google-chrome"
           # nixpkgs pins koodo-reader to electron_41, which is marked EOL/insecure;
           # the cask ships the upstream-signed binary instead
           # "koodo-reader"
