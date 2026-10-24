@@ -42,18 +42,20 @@ function prettyJsonLine(line: string, theme: Theme): string {
         parts.push(token);
     }
   }
-  return parts.join("").replace(
-    /"(?:[^"\\]|\\.)*"|[^\s{}\[\],:]+|[{}\[\],:]/g,
-    (token, offset, text) => {
+  return parts
+    .join("")
+    .replace(/"(?:[^"\\]|\\.)*"|[^\s{}\[\],:]+|[{}\[\],:]/g, (token, offset, text) => {
       if (token.startsWith('"')) {
-        const isKey = text.slice(offset + token.length).trimStart().startsWith(":");
+        const isKey = text
+          .slice(offset + token.length)
+          .trimStart()
+          .startsWith(":");
         return theme.fg(isKey ? "syntaxVariable" : "syntaxString", token);
       }
       if (/^[{}\[\],:]$/.test(token)) return theme.fg("syntaxPunctuation", token);
       if (/^(true|false|null)$/.test(token)) return theme.fg("syntaxKeyword", token);
       return theme.fg("syntaxNumber", token);
-    },
-  );
+    });
 }
 
 export default function (pi: ExtensionAPI) {
@@ -69,7 +71,13 @@ export default function (pi: ExtensionAPI) {
         // Format a presentation-only copy; transcript and model-facing content stay intact.
         const content = result.content.map((block) =>
           block.type === "text"
-            ? { ...block, text: block.text.split("\n").map((line) => prettyJsonLine(line, theme)).join("\n") }
+            ? {
+                ...block,
+                text: block.text
+                  .split("\n")
+                  .map((line) => prettyJsonLine(line, theme))
+                  .join("\n"),
+              }
             : block,
         );
         return renderResult({ ...result, content }, options, theme, context);
