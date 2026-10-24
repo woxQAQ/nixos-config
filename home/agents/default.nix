@@ -12,6 +12,7 @@ let
   mkAgentInstructions =
     {
       includeBashEditGuideance ? false,
+      codemode ? false,
     }:
     ''
       # Global Instruction
@@ -45,6 +46,14 @@ let
       - You SHOULD explain new introduced names.
       - Use mermaid diagrams to describe complex logic.
 
+      ${lib.optionalString codemode ''
+        # Code Mode
+          When using codemode, write readable, multiline JavaScript.
+          Use normal indentation and one statement per line.
+          Name intermediate values and separate independent steps.
+          Use multiline template literals for shell scripts.
+          Do not minify scripts or collapse them into one-liners.
+      ''}
       # Engineering Core
 
       - reason from fundamental facts and constraints;
@@ -118,7 +127,7 @@ in
       };
       ".kimi-code/AGENTS.md".text = mkAgentInstructions { };
       # will be injected into system prompt
-      ".pi/agent/APPEND_SYSTEM.md".text = defaultInstructions;
+      ".pi/agent/APPEND_SYSTEM.md".text = mkAgentInstructions { codemode = true; };
       ".grok/AGENTS.md".text = defaultInstructions;
       "Library/Application Support/delta/AGENTS.md".text = defaultInstructions;
       # ".claude/CLAUDE.md".text = agentInstructions;
