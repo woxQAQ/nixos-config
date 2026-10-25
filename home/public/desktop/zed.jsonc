@@ -1,4 +1,5 @@
 {
+  "context_servers": {},
   // Nix manages updates; the app bundle in the store is read-only.
   "markdown_preview": {
     "font_family": "ChillRoundF",
@@ -114,10 +115,11 @@
     "dock": "left",
     "default_model": {
       "provider": "openai",
-      "model": "kimi-k2-0711-preview",
+      "model": "kimi-k2-0711-preview"
     },
   },
   "language_models": {
+    "openai_compatible": {},
     "openai": {
       "api_url": "https://api.moonshot.cn/v1",
       "available_models": [

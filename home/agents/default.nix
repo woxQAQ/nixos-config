@@ -11,7 +11,7 @@ let
   cfg = config.modules.agents;
   mkAgentInstructions =
     {
-      includeBashEditGuideance ? false,
+      includeBashEditGuideance ? true,
       codemode ? false,
     }:
     ''
