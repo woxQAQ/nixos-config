@@ -53,6 +53,8 @@ let
           Name intermediate values and separate independent steps.
           Use multiline template literals for shell scripts.
           Do not minify scripts or collapse them into one-liners.
+
+          Prefer plain javascript codes for hard logic than inline script in bash tool.
       ''}
       # Engineering Core
 
@@ -97,13 +99,13 @@ in
           grok
           codex
           kimi-code
+          claude-code
           tuicr
         ]
       )
       ++ lib.optionals (cfg.profile == "full") (
         with llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
         [
-          claude-code
           # upstream llm-agents bundled the opencode and cursor agent into t3code
           # by default. They also provide the providerPackages override in t3code package that
           # can choose the agent we use.

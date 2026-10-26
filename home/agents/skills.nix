@@ -14,6 +14,7 @@ let
     ".kimi-code/skills"
     ".grok/skills"
     ".agents/skills"
+    ".claude/skills"
     ".workbuddy-ai/skills"
     ".workbuddy/skills"
   ];
