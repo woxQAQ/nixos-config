@@ -9,6 +9,27 @@
 }:
 let
   cfg = config.modules.agents;
+  agents = llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
+  agentNames = [
+    "pi"
+  ]
+  ++ lib.optionals (cfg.profile == "terminal") [
+    "grok"
+    "codex"
+    "kimi-code"
+    "claude-code"
+    "tuicr"
+  ];
+  providerNames = [
+    "codex"
+    "claude-code"
+    "grok"
+    "pi"
+  ];
+  monitoredAgents = lib.genAttrs (lib.unique (
+    agentNames
+    ++ lib.optionals (cfg.profile == "full") ([ "t3code" ] ++ providerNames)
+  )) (name: agents.${name});
   mkAgentInstructions =
     {
       includeBashEditGuideance ? true,
@@ -49,10 +70,6 @@ let
       ${lib.optionalString codemode ''
         # Code Mode
           When using codemode, write readable, multiline JavaScript.
-          Use normal indentation and one statement per line.
-          Name intermediate values and separate independent steps.
-          Use multiline template literals for shell scripts.
-          Do not minify scripts or collapse them into one-liners.
 
           Prefer plain javascript codes for hard logic than inline script in bash tool.
       ''}
@@ -79,50 +96,26 @@ in
     ./skills.nix
     ./options.nix
     ./pi
+    (import ./update-notifier { packages = monitoredAgents; })
   ];
   home = {
-    # minimal 覆盖日常编码工作流：核心 CLI agent 加上全局指令依赖的工具链；
-    # full 在此基础上追加备选 agent、review 工具与桌面应用
+    # Each profile's package list also supplies the activated version manifest.
     packages =
-      (with llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
-        pi
-      ])
+      (map (name: agents.${name}) agentNames)
       ++ [
         # Keep tools required by the global agent instructions available.
         pkgs.uv
         pkgs.pnpm
         pkgs.devenv
       ]
-      ++ lib.optionals (cfg.profile == "terminal") (
-        with llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
-        [
-          grok
-          codex
-          kimi-code
-          claude-code
-          tuicr
-        ]
-      )
-      ++ lib.optionals (cfg.profile == "full") (
-        with llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
-        [
-          # upstream llm-agents bundled the opencode and cursor agent into t3code
-          # by default. They also provide the providerPackages override in t3code package that
-          # can choose the agent we use.
-          #
-          # see https://github.com/numtide/llm-agents.nix/blob/main/packages/t3code/package.nix
-          (t3code-desktop.override {
-            t3code = t3code.override {
-              providerPackages = [
-                codex
-                claude-code
-                grok
-                pi
-              ];
-            };
-          })
-        ]
-      );
+      ++ lib.optionals (cfg.profile == "full") [
+        # Include the selected providers in both t3code and the update checks.
+        (agents.t3code-desktop.override {
+          t3code = agents.t3code.override {
+            providerPackages = map (name: agents.${name}) providerNames;
+          };
+        })
+      ];
     file = {
       ".codex/AGENTS.md".text = mkAgentInstructions {
         includeBashEditGuideance = true;
