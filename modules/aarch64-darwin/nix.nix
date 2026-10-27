@@ -40,8 +40,15 @@
       ];
       # buildDotnetModule emits __sandboxProfile on Darwin (mds, ICU,
       # SecurityServer); strict `sandbox = true` refuses such drvs
-      # outright. Relaxed still sandboxes everything else.
-      sandbox = lib.mkForce "relaxed";
+      # outright, so we normally run `relaxed` and sandbox everything else.
+      #
+      # Forced off for now: the GHSA hardening shipped in nix 2.34.9 / 2.35.3+
+      # grows the Darwin sandbox profile with the build's input closure, and
+      # darwin-system's ~1k inputs push it past macOS's 64 KiB profile limit
+      # ("data object length ... exceeds maximum (65535)", NixOS/nix#16613).
+      # Restore "relaxed" once the bucketing fix (NixOS/nix#16619) reaches a
+      # released nix.
+      sandbox = lib.mkForce false;
 
       extra-sandbox-paths = [
         "/System/Library/Frameworks"
