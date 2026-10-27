@@ -17,7 +17,7 @@
     # golang lsp
     gopls
     # staticcheck,goimports for golang
-    go-tools
+    gotools
     # golang linter
     golangci-lint
     # golang debugger
