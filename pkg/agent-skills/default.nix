@@ -71,17 +71,26 @@ stdenvNoCC.mkDerivation {
     mkdir -p staged
     cp -R ${astGrep}/ast-grep/skills/ast-grep staged/ast-grep
     cp -R ${astGrep}/ast-grep/skills/outline staged/ast-grep-outline
+
     cp -R ${anthropicSkills}/skills/frontend-design staged/frontend-design
     cp -R ${mattPocockSkills}/skills/productivity/grill-me staged/grill-me
     # grill-me delegates to the grilling skill.
     cp -R ${mattPocockSkills}/skills/productivity/grilling staged/grilling
     cp -R ${mattPocockSkills}/skills/productivity/handoff staged/handoff
-    cp -R ${iHaveAdhd}/skills/i-have-adhd staged/i-have-adhd
-    cp -R ${killAiSlop}/skill staged/kill-ai-slop
-    cp -R ${obelisk}/skills/obelisk staged/obelisk
     cp -R ${mattPocockSkills}/skills/engineering/research staged/research
     cp -R ${mattPocockSkills}/skills/productivity/teach staged/teach
+
+    # pstack
     cp -R ${pstack}/skills/unslop staged/unslop
+    cp -R ${pstack}/skills/arena staged/arena
+    cp -R ${pstack}/skills/how staged/how
+    cp -R ${pstack}/skills/why staged/why
+    cp -R ${pstack}/skills/architect staged/architect
+
+    cp -R ${obelisk}/skills/obelisk staged/obelisk
+
+    cp -R ${iHaveAdhd}/skills/i-have-adhd staged/i-have-adhd
+    cp -R ${killAiSlop}/skill staged/kill-ai-slop
 
     for skill in staged/*; do
       installSkill "$skill"
@@ -97,12 +106,16 @@ stdenvNoCC.mkDerivation {
     "grill-me"
     "grilling"
     "handoff"
-    "i-have-adhd"
-    "kill-ai-slop"
-    "obelisk"
     "research"
     "teach"
     "unslop"
+    "arena"
+    "how"
+    "why"
+    "architect"
+    "obelisk"
+    "i-have-adhd"
+    "kill-ai-slop"
   ];
 
   meta = {
