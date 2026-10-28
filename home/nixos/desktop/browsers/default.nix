@@ -1,19 +1,9 @@
 {
-  osConfig,
-  options,
-  lib,
   ...
 }:
-let
-  cfg = osConfig.modules.desktop.browser;
-  hasZenBrowser = lib.hasAttrByPath [
-    "programs"
-    "zen-browser"
-  ] options;
-in
 {
-  config.programs = {
-    firefox.enable = cfg == "firefox";
+  programs = {
+    firefox.enable = true;
     chromium = {
       enable = true;
       commandLineArgs = [
@@ -24,12 +14,6 @@ in
         "--enable-wayland-ime"
       ];
     };
-  }
-  // lib.optionalAttrs hasZenBrowser {
-    zen-browser = {
-      enable = cfg == "zen";
-      # profiles."*" = {
-      # };
-    };
+    google-chrome.enable = true;
   };
 }

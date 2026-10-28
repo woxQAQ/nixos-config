@@ -22,13 +22,18 @@ in
           ../modules/x86_64-linux/system
           ../modules/x86_64-linux/desktop
           ../modules/x86_64-linux/packages
+          (
+            { pkgs, ... }:
+            {
+              modules.btop.package = pkgs.btop-rocm;
+            }
+          )
           ../modules/x86_64-linux/boot
           ../modules/public
           ../modules/sandboxed/nixpaks
           ../modules/sandboxed/bwraps
           {
             modules.desktop = {
-              browser = "zen";
               environment = "niri";
               fcitx5.enable = true;
               game.enable = true;

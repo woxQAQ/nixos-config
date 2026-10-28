@@ -4,12 +4,12 @@
     # keep-sorted start block=yes
     ./base.nix
     ./browsers
+    ./clipsync.nix
     ./cursor.nix
     ./fcitx
     ./game.nix
     ./gtk.nix
     ./hyprland
-    ./ides.nix
     ./mpv.nix
     ./niri
     ./noctalia

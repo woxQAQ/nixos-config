@@ -46,6 +46,7 @@
     };
     btop = {
       enable = true;
+      package = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.btop else null;
       settings = {
         theme_background = true;
         truecolor = true;

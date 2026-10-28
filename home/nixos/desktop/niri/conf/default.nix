@@ -5,7 +5,6 @@
   ...
 }:
 {
-
   xdg.configFile =
     let
       mkMutable = mylib.mkMutable dotfilesDir config;

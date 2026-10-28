@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   home.packages = with pkgs; [
     lxappearance
@@ -23,26 +23,13 @@
     enable = true;
 
     font = {
-      name = "Noto Sans";
-      package = pkgs.noto-fonts;
+      name = "Inter Noto Sans SC";
+      package = pkgs.inter-noto-sans-sc;
       size = 12;
     };
 
-    gtk3.extraConfig = {
-      gtk-xft-antialias = 1;
-      gtk-xft-hinting = 1;
-      gtk-xft-hintstyle = "hintslight";
-      gtk-xft-rgba = "none";
-    };
+    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
-    gtk2.force = true;
-
-    # gtk3.extraConfig = {
-    #   "gtk-application-prefer-dark-theme" = "1";
-    # };
-    # gtk4.extraConfig = {
-    #   "gtk-application-prefer-dark-theme" = "1";
-    # };
     iconTheme = {
       package = pkgs.adwaita-icon-theme;
       name = "Adwaita";

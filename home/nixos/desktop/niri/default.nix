@@ -33,6 +33,7 @@ in
             TimeoutStopSec = 10;
           };
         };
+        services.clipsync.enable = true;
         home.file.".wayland-session" = {
           source =
             pkgs.writeScript "init-session" # sh

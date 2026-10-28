@@ -10,7 +10,12 @@
     playerctl
     cava
     featherpad
+    virt-manager
+    deskflow
   ];
+  services = {
+    udiskie.enable = true;
+  };
   home.sessionVariables = {
     "NIXOS_OZONE_WL" = "1";
     "MOZ_ENABLE_WAYLAND" = "1"; # for firefox to run on wayland
