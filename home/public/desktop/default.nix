@@ -2,5 +2,8 @@
   ...
 }:
 {
-  imports = [ ./zed.nix ];
+  imports = [
+    ./zed.nix
+    ./lan-mouse.nix
+  ];
 }

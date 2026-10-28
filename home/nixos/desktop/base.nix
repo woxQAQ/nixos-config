@@ -11,7 +11,6 @@
     cava
     featherpad
     virt-manager
-    deskflow
   ];
   services = {
     udiskie.enable = true;

@@ -1,0 +1,24 @@
+# lan-mouse configuration.
+#
+# This file is managed by nix but linked out-of-store (mylib.mkMutable):
+# lan-mouse rewrites it on pairing (authorized_fingerprints, clients added via
+# the GTK frontend), and the rewrite drops comments (known upstream limitation).
+#
+# Each host lists its *peers* as clients, positioned by physical screen layout.
+# Example for woxQAQ (the machine with keyboard/mouse attached):
+#
+#   [[clients]]
+#   position = "right"
+#   hostname = "woxMac"
+#   ips = [ "192.168.31.x" ]
+#   activate_on_startup = true
+#
+# First-time pairing: connect once, then approve the peer's certificate
+# fingerprint in the GTK window (or via `lan-mouse cli`); the approved
+# fingerprint is persisted into [authorized_fingerprints] below.
+
+# Press all of these simultaneously to release the cursor back to this host.
+release_bind = [ "KeyA", "KeyS", "KeyD", "KeyF" ]
+
+# UDP port all peers must agree on.
+port = 4242
