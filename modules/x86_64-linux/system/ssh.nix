@@ -7,6 +7,5 @@ _: {
     };
 
   };
-
   environment.enableAllTerminfo = true;
 }

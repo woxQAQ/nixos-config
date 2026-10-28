@@ -33,6 +33,9 @@ in
           ../modules/sandboxed/nixpaks
           ../modules/sandboxed/bwraps
           {
+            modules.btrbk.enable = true;
+          }
+          {
             modules.desktop = {
               environment = "niri";
               fcitx5.enable = true;

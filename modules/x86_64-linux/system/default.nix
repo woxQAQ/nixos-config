@@ -11,5 +11,6 @@
     ./ssh.nix
     ./environment.nix
     ./optimization.nix
+    ./btrbk.nix
   ];
 }

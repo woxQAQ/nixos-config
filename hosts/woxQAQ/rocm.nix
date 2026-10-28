@@ -4,11 +4,21 @@
   ...
 }:
 {
-
   nixpkgs.config.rocmSupport = true;
+
   hardware = {
-    amdgpu.opencl.enable = true;
     enableAllFirmware = true;
+    amdgpu = {
+      initrd.enable = true;
+      opencl.enable = true;
+    };
+
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        vulkan-tools
+      ];
+    };
   };
 
   # Provide HIP/OpenCL runtime for AMD GPU compute.
@@ -19,6 +29,8 @@
     rocmPackages.rocm-runtime
     rocmPackages.rocminfo # 查看 GPU 信息
     clinfo # OpenCL 信息查看
+    amdgpu_top
+    nvtopPackages.amd
   ];
 
   # Keep compatibility path for software expecting amdgpu.ids under /opt/amdgpu.

@@ -3,8 +3,7 @@
     enable = true;
     algorithm = "zstd";
     priority = 100;
-    swapDevices = 1;
-    memoryPercent = 30;
+    memoryPercent = 50;
   };
   boot.kernel.sysctl = {
     "vm.swappiness" = 180;

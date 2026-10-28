@@ -22,6 +22,10 @@
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelParams = [
+    "i915.fastboot=1"
+    "enable_gvt=1"
+  ];
   # boot.extraModprobeConfig = "options kvm_intel nested=1";
   boot.extraModulePackages = [
   ];
