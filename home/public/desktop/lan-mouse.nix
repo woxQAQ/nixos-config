@@ -8,11 +8,34 @@
 }:
 let
   cfg = config.modules.public.desktop;
-  package = pkgs.lan-mouse;
+
+  # Upstream release bundle (ad-hoc signed, with gtk dylibs vendored). Pinning
+  # the artifact keeps the binary byte-identical across unrelated nixpkgs
+  # updates, so the macOS Input Monitoring grant survives until we deliberately
+  # bump `version` here. The nixpkgs build relinks against moving gtk4 inputs
+  # and would invalidate the (cdhash-based) grant far more often.
+  lan-mouse-app = pkgs.fetchzip {
+    name = "lan-mouse-0.11.0-macos";
+    url = "https://github.com/feschber/lan-mouse/releases/download/v0.11.0/lan-mouse-macos-arm64.zip";
+    hash = "sha256-0vAdCaWCoW0Us/GiU2jESQREaQj2tNojsiubdPD+opM=";
+    stripRoot = false;
+  };
+
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+  bin =
+    if isDarwin then
+      "${lan-mouse-app}/Lan Mouse.app/Contents/MacOS/lan-mouse"
+    else
+      "${pkgs.lan-mouse}/bin/lan-mouse";
 in
 {
   config = lib.mkIf cfg.enable {
-    home.packages = [ package ];
+    home.packages = lib.mkIf (!isDarwin) [ pkgs.lan-mouse ];
+
+    # Expose the .app to LaunchServices (Spotlight, `open -a`) for the pairing GUI.
+    home.file."Applications/Lan Mouse.app" = lib.mkIf isDarwin {
+      source = "${lan-mouse-app}/Lan Mouse.app";
+    };
 
     # Pairing state (authorized_fingerprints, GUI-managed clients) is written
     # back to this file by lan-mouse itself.
@@ -29,20 +52,21 @@ in
         PartOf = [ "graphical-session.target" ];
       };
       Service = {
-        ExecStart = "${package}/bin/lan-mouse daemon";
+        ExecStart = "${bin} daemon";
         Restart = "on-failure";
         RestartSec = 2;
       };
       Install.WantedBy = [ "graphical-session.target" ];
     };
 
-    # Note: the nix-built binary is ad-hoc signed, so macOS may ask again for
-    # Input Monitoring / Accessibility permission after lan-mouse upgrades.
-    launchd.agents.lan-mouse = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+    # First run requires granting Input Monitoring / Accessibility to the
+    # (unsigned) bundle; the grant stays valid until `lan-mouse-app` above is
+    # bumped to a new release.
+    launchd.agents.lan-mouse = lib.mkIf isDarwin {
       enable = true;
       config = {
         ProgramArguments = [
-          "${package}/bin/lan-mouse"
+          bin
           "daemon"
         ];
         RunAtLoad = true;
