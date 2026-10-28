@@ -105,8 +105,8 @@ def "nu-complete go shuffle modes" [] {
   [off on]
 }
 
-def "nu-complete go packages" [context: string, position?: int] {
-  let preceding = $context | str substring ..($position | default ($context | str length))
+def "nu-complete go packages" [buffer: string, place: record] {
+  let preceding = $buffer | str substring ..<$place.cursor
   let token = $preceding | split row --regex '\s+' | last
   let query = match $token {
     "" => "./..."
@@ -142,9 +142,8 @@ def "nu-complete go packages" [context: string, position?: int] {
   | uniq-by value
 }
 
-def "nu-complete go files or packages" [context: string, position?: int] {
-  let end = $position | default ($context | str length)
-  let preceding = $context | str substring ..$end
+def "nu-complete go files or packages" [buffer: string, place: record] {
+  let preceding = $buffer | str substring ..<$place.cursor
   let token = $preceding | split row --regex '\s+' | last
   let files = try {
     glob $"($token)*"
@@ -164,11 +163,7 @@ def "nu-complete go files or packages" [context: string, position?: int] {
     []
   }
 
-  let packages = if $position == null {
-    nu-complete go packages $context
-  } else {
-    nu-complete go packages $context $position
-  }
+  let packages = nu-complete go packages $buffer $place
   $packages | append $files | uniq-by value
 }
 
@@ -192,21 +187,19 @@ def "nu-complete go modules" [] {
   | uniq-by value
 }
 
-def "nu-complete go packages or modules" [context: string, position?: int] {
-  let preceding = $context | str substring ..($position | default ($context | str length))
+def "nu-complete go packages or modules" [buffer: string, place: record] {
+  let preceding = $buffer | str substring ..<$place.cursor
   if ($preceding | split row --regex '\s+' | any { |word| $word in ["-m" "--m"] }) {
     nu-complete go modules
-  } else if $position == null {
-    nu-complete go packages $context
   } else {
-    nu-complete go packages $context $position
+    nu-complete go packages $buffer $place
   }
 }
 
-def "nu-complete go env variables" [context: string, position?: int] {
+def "nu-complete go env variables" [buffer: string, place: record] {
   let result = do { ^go env -json } | complete
   if $result.exit_code == 0 {
-    let preceding = $context | str substring ..($position | default ($context | str length))
+    let preceding = $buffer | str substring ..<$place.cursor
     let writing = $preceding | split row --regex '\s+' | any { |word| $word in ["-w" "--w"] }
     $result.stdout
     | from json

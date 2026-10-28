@@ -1123,21 +1123,21 @@
         "git-hooks-nix": "git-hooks-nix",
         "nix-fast-build": "nix-fast-build",
         "nixpkgs": [
-          "nixpkgs-fast"
+          "nixpkgs"
         ],
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1792124535,
-        "narHash": "sha256-dV0iDTm52+5x4EqlwDWXQQG20DVBDCavT4IZcUSsnm0=",
+        "lastModified": 1792926175,
+        "narHash": "sha256-Ss8jYuaCkivmAzbwnlPciOtR9ftsy7wAg/mNxm/WsK0=",
         "owner": "Gaurav-Gosain",
         "repo": "tuios",
-        "rev": "e53ca4145c9f65481487ef029484f1e131e77707",
+        "rev": "3638a6f2093edfa7396b6233515786de4dbda683",
         "type": "github"
       },
       "original": {
         "owner": "Gaurav-Gosain",
-        "ref": "v0.10.0",
+        "ref": "v0.11.0",
         "repo": "tuios",
         "type": "github"
       }
