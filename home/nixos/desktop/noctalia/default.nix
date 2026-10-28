@@ -19,11 +19,18 @@ in
   ];
   home.packages = with pkgs; [
     qt6Packages.qt6ct
-    app2unit
+    # required by noctalia's screen-recording plugin
     gpu-screen-recorder
   ];
-  programs.noctalia-shell = {
+  programs.noctalia = {
     enable = true;
+    settings = {
+      wallpaper = {
+        directory = "${config.home.homeDirectory}/Pictures/Wallpapers";
+        fill_mode = "center";
+        default.path = "${config.home.homeDirectory}/.wallpaper/${defaultWallpaper}";
+      };
+    };
   };
   home.file.".wallpaper/${defaultWallpaper}".source =
     ../../../../assets/${defaultWallpaper};
@@ -33,7 +40,6 @@ in
       mkMutable = mylib.mkMutable dotfilesDir config;
     in
     {
-      "noctalia/settings.json".source = mkMutable ./settings.json;
       "qt6ct/qt6ct.conf".source = mkMutable ./qt6ct.conf;
     };
 }

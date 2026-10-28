@@ -80,4 +80,4 @@ animations {
     // off
 }
 include "./noctalia.kdl"
-spawn-at-startup "noctalia-shell"
+spawn-at-startup "noctalia"

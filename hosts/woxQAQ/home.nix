@@ -13,13 +13,14 @@
     # n8n
     insomnia
     # notepad-next
-    # flclash
+    flclash
 
     pamixer
     go-musicfox
     youtube-tui
 
     leetgo
+    magpie
     obsidian
     bitwarden-desktop
 
@@ -31,6 +32,10 @@
     obs-studio
     wineWow64Packages.wayland
   ];
+  # Keep launches on the Nix wrapper; upstream registers its unwrapped executable.
+  xdg.dataFile."applications/magpie.desktop".source =
+    "${pkgs.magpie}/share/applications/magpie.desktop";
+
   xdg.configFile."niri/niri-hardware.kdl".source =
     mylib.mkMutable dotfilesDir config
       ./niri-hardware.kdl;

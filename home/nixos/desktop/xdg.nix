@@ -64,11 +64,7 @@
             "application/x-archive"
             "application/x-cpio"
           ];
-          editor = [
-            "nvim.desktop"
-            "code.desktop"
-            "code-insider.desktop"
-          ];
+          editor = [ "nvim.desktop" ];
         in
         {
           "application/json" = browser;
@@ -93,9 +89,6 @@
           "x-scheme-handler/ftp" = browser; # open `ftp:` url with `browser`
           "x-scheme-handler/http" = browser;
           "x-scheme-handler/https" = browser;
-          # https://github.com/microsoft/vscode/issues/146408
-          "x-scheme-handler/vscode" = [ "code-url-handler.desktop" ]; # open `vscode://` url with `code-url-handler.desktop`
-          "x-scheme-handler/vscode-insiders" = [ "code-insiders-url-handler.desktop" ]; # open `vscode-insiders://` url with `code-insiders-url-handler.desktop`
           "x-scheme-handler/zoommtg" = [ "Zoom.desktop" ];
 
           # all other unknown schemes will be opened by this default application.

@@ -19,7 +19,6 @@ in
       (import ./waybar.nix)
       (import ./anyrun.nix args)
       (import ./xdg.nix args)
-      (import ./apps.nix args)
       (import ./pkgs.nix args)
       (import ./conf args)
       {

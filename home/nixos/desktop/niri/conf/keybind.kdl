@@ -1,8 +1,8 @@
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
-    Mod+Space hotkey-overlay-title="open noctalia-shell launcher" { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-    CTRL+Alt+L { spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
+    Mod+Space hotkey-overlay-title="open noctalia launcher" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
+    CTRL+Alt+L { spawn "noctalia" "msg" "session" "lock"; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }

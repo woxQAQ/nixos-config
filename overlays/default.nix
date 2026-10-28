@@ -24,7 +24,10 @@ in
     # In-tree packages from pkg/, exposed as pkgs.<name>.
     agent-skills = prev.callPackage ../pkg/agent-skills { };
     chillroundf = prev.callPackage ../pkg/chillroundf { };
+    # Vendored from nixpkgs: upstream removed flclash as unmaintained.
+    flclash = prev.callPackage ../pkg/flclash { };
     inter-noto-sans-sc = prev.callPackage ../pkg/inter-noto-sans-sc { };
+    magpie = prev.callPackage ../pkg/magpie { };
     obelisk-cli = prev.callPackage ../pkg/obelisk-cli { };
     removemacai = prev.callPackage ../pkg/removemacai { };
     yozai-font = prev.callPackage ../pkg/yozai-font { };
