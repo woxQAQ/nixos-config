@@ -14,10 +14,10 @@ in
         username = name;
         hostname = name;
         nixos-modules = [
-          inputs.agenix.nixosModules.default
+          # Bootstrap without an agenix identity; restore secrets after rekeying.
+          inputs.disko.nixosModules.disko
           inputs.dae.nixosModules.dae
           inputs.dae.nixosModules.daed
-          ../secrets/linux.nix
           ../hosts/${name}
           ../modules/x86_64-linux/system
           ../modules/x86_64-linux/desktop

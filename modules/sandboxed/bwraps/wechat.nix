@@ -1,64 +1,17 @@
-# - wechat's flatpak manifest: https://github.com/flathub/com.tencent.WeChat/blob/master/com.tencent.WeChat.yaml
-# Refer:
-# - Flatpak manifest's docs:
-#   - https://docs.flatpak.org/en/latest/manifests.html
-#   - https://docs.flatpak.org/en/latest/sandbox-permissions.html
-#
-# TODO Since appimageTools.wrapAppImage do not support overriding, I have to pack this package myself.
-# https://github.com/NixOS/nixpkgs/pull/358977
+# Reuse the version and archived source pinned by nixpkgs, adding filesystem
+# isolation around the upstream AppImage wrapper.
 {
   appimageTools,
-  fetchurl,
-  stdenvNoCC,
+  wechat,
 }:
-let
-  pname = "wechat";
-  # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/we/wechat/package.nix
-  sources = {
-    aarch64-linux = {
-      version = "4.1.0.13";
-      src = fetchurl {
-        url = "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_arm64.AppImage";
-        hash = "sha256-YlWJxT62tXDaNwYVpsPMC5elFH8fsbI1HjTQn6ePiPo=";
-      };
-    };
-    x86_64-linux = {
-      version = "4.1.0.13";
-      src = fetchurl {
-        url = "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.AppImage";
-        hash = "sha256-XxAvFnlljqurGPDgRr+DnuCKbdVvgXBPh02DLHY3Oz8=";
-      };
-    };
-  };
-
-  inherit (stdenvNoCC.hostPlatform) system;
-  inherit (sources.${system} or (throw "Unsupported system: ${system}"))
+appimageTools.wrapAppImage {
+  inherit (wechat)
+    pname
     version
     src
+    meta
+    extraInstallCommands
     ;
-
-  # https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/we/wechat/linux.nix
-  appimageContents = appimageTools.extract {
-    inherit pname version src;
-    postExtract = ''
-      patchelf --replace-needed libtiff.so.5 libtiff.so $out/opt/wechat/wechat
-    '';
-  };
-in
-appimageTools.wrapAppImage {
-  inherit pname version;
-
-  src = appimageContents;
-
-  extraInstallCommands = ''
-    mkdir -p $out/share/applications
-    cp ${appimageContents}/wechat.desktop $out/share/applications/
-    mkdir -p $out/share/pixmaps
-    cp ${appimageContents}/wechat.png $out/share/pixmaps/
-
-    substituteInPlace $out/share/applications/wechat.desktop --replace-fail AppRun wechat
-  '';
-
   # Add these root paths to FHS sandbox to prevent WeChat from accessing them by default
   # Adapted from https://aur.archlinux.org/cgit/aur.git/tree/wechat-universal.sh?h=wechat-universal-bwrap
   extraPreBwrapCmds = ''

@@ -51,9 +51,9 @@
       sandbox = true;
       # Keep cache endpoints and signing trust together for all hosts.
       # The USTC mirror reuses cache.nixos.org signatures.
-      # mkForce: platform defaults (nix-darwin/NixOS) would otherwise
-      # concat as duplicate list entries on top of this list.
-      substituters = lib.mkForce [
+      # Override platform entries (priority 100) without duplicating them;
+      # hosts can still replace the cache list with mkForce (priority 50).
+      substituters = lib.mkOverride 90 [
         "https://mirrors.ustc.edu.cn/nix-channels/store"
         "https://cache.nixos.org"
         "https://nix-community.cachix.org"

@@ -14,8 +14,11 @@ let
 in
 {
   config = lib.mkIf (lib.elem "ghostty" cfg.emulators) {
-    home.file.".terminfo/78/xterm-ghostty".source =
-      "${ghosttyTerminfo}/share/terminfo/78/xterm-ghostty";
+    # Preserve the package's terminfo layout, which differs by platform.
+    home.file.".terminfo" = {
+      source = "${ghosttyTerminfo}/share/terminfo";
+      recursive = true;
+    };
 
     programs.ghostty = {
       enable = true;

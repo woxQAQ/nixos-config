@@ -1,7 +1,6 @@
 {
   pkgs,
   stateVersion,
-  fastest-pkg,
   ...
 }:
 let
@@ -17,12 +16,14 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+    ./disko.nix
+    ./storage.nix
+    ./nix.nix
     ./boot.specified.nix
     ./rocm.nix
     ./vm.nix
     ./cloud-native.nix
     ./proxy.nix
-    ./monitoring.nix
     ./logid.nix
     ./tailscale.nix
   ];
@@ -52,7 +53,8 @@ in
   programs = {
     localsend.enable = true;
     clash-verge = {
-      package = fastest-pkg.clash-verge-rev;
+      # Keep WebKit and graphics dependencies aligned with the system package set.
+      package = pkgs.clash-verge-rev;
       enable = true;
       autoStart = true;
       serviceMode = true;

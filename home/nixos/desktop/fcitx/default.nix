@@ -10,11 +10,6 @@ let
 in
 {
   config = mkIf cfg.enable {
-    home.file.".config/fcitx5/profile" = {
-      source = ./profile.conf;
-      force = true;
-    };
-
     home.file.".local/share/fcitx5/rime/default.custom.yaml".text =
       #yaml
       ''
@@ -28,6 +23,22 @@ in
       enable = true;
       type = "fcitx5";
       fcitx5.waylandFrontend = true;
+      fcitx5.settings.inputMethod = {
+        "Groups/0" = {
+          Name = "Default";
+          "Default Layout" = "us";
+          DefaultIM = "rime";
+        };
+        "Groups/0/Items/0" = {
+          Name = "rime";
+          Layout = "";
+        };
+        "Groups/0/Items/1" = {
+          Name = "keyboard-us";
+          Layout = "us";
+        };
+        GroupOrder."0" = "Default";
+      };
       fcitx5.addons = with pkgs; [
         (fcitx5-rime.override {
           rimeDataPkgs = [

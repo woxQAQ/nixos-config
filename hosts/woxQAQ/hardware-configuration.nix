@@ -20,73 +20,10 @@
     "usb_storage"
     "sd_mod"
   ];
-  boot.initrd.kernelModules = [
-    "amdgpu"
-  ];
+  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   # boot.extraModprobeConfig = "options kvm_intel nested=1";
   boot.extraModulePackages = [
-  ];
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/4ff5745c-c227-492a-89df-da75e168dac1";
-    fsType = "btrfs";
-    options = [
-      "subvol=root"
-      "compress=zstd"
-    ];
-  };
-
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/4ff5745c-c227-492a-89df-da75e168dac1";
-    fsType = "btrfs";
-    options = [
-      "subvol=home"
-      "compress=zstd"
-    ];
-  };
-
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/4ff5745c-c227-492a-89df-da75e168dac1";
-    fsType = "btrfs";
-    options = [
-      "subvol=nix"
-      "compress=zstd"
-      "noatime"
-    ];
-  };
-  fileSystems."/mnt/win11" = {
-    device = "/dev/disk/by-uuid/98C2B1F5C2B1D828";
-    fsType = "ntfs-3g";
-    options = [
-      "rw"
-      "uid=1000"
-      "gid=1000"
-      "umask=0022"
-    ];
-  };
-  fileSystems."/mnt/data" = {
-    device = "/dev/disk/by-uuid/7E7AFA487AF9FD29";
-    fsType = "ntfs-3g";
-    options = [
-      "rw"
-      "uid=1000"
-      "gid=1000"
-      "umask=0022"
-    ];
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/12AE-8021";
-    fsType = "vfat";
-    options = [
-      "fmask=0022"
-      "dmask=0022"
-    ];
-  };
-
-  swapDevices = [
-    { device = "/dev/disk/by-uuid/54d1d70a-f9c8-47e2-b804-8663cbce0879"; }
   ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

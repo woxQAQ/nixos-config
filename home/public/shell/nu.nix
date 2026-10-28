@@ -3,6 +3,7 @@
   pkgs,
   lib,
   config,
+  osConfig ? { },
   ...
 }:
 let
@@ -11,10 +12,16 @@ let
     "aerospace"
     "enable"
   ] false config;
+  privateConfigEnabled = lib.hasAttrByPath [
+    "environment"
+    "etc"
+    "agenix/private.nu"
+  ] osConfig;
   baseConfig = # nu
     ''
+      # Only load the private module on hosts that provision it.
+      ${lib.optionalString privateConfigEnabled "source /etc/agenix/private.nu"}
       # completion
-      source /etc/agenix/private.nu
       const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}' '${./custom_completions}']
       ${lib.optionalString aerospaceEnabled "use custom-completions/aerospace/aerospace-completions.nu *"}
       use custom-completions/git/git-completions.nu *
