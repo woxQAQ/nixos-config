@@ -35,6 +35,7 @@ let
   ];
   home-modules = [
     ../home/darwin
+    ../hosts/${name}/home.nix
   ]
   ++ [
     ../home/agents

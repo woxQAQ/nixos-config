@@ -1,3 +1,5 @@
+# Hosts provide their own peer configuration through lan-mouse.configFile.
+# Keep this default unpaired for other desktop machines.
 port = 4242
 release_bind = [
     "KeyA",
@@ -5,10 +7,5 @@ release_bind = [
     "KeyD",
     "KeyF",
 ]
-
-[[clients]]
-hostname = "woxMac"
-ips = []
-position = "left"
 
 [authorized_fingerprints]

@@ -1,7 +1,4 @@
-{
-  ...
-}:
-{
+_: {
   programs = {
     firefox.enable = true;
     chromium = {
