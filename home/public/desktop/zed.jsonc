@@ -38,7 +38,7 @@
     "pi-acp": {
       "default_config_options": {
         "thought_level": "high",
-        "model": "kimi-coding/k3"
+        "model": "kimi-coding/k3",
       },
       "type": "registry",
     },
@@ -119,7 +119,7 @@
     "dock": "left",
     "default_model": {
       "provider": "openai",
-      "model": "kimi-k2-0711-preview"
+      "model": "kimi-k2-0711-preview",
     },
   },
   "language_models": {

@@ -22,16 +22,7 @@ in
     # required by noctalia's screen-recording plugin
     gpu-screen-recorder
   ];
-  programs.noctalia = {
-    enable = true;
-    settings = {
-      wallpaper = {
-        directory = "${config.home.homeDirectory}/Pictures/Wallpapers";
-        fill_mode = "center";
-        default.path = "${config.home.homeDirectory}/.wallpaper/${defaultWallpaper}";
-      };
-    };
-  };
+  programs.noctalia.enable = true;
   home.file.".wallpaper/${defaultWallpaper}".source =
     ../../../../assets/${defaultWallpaper};
 
