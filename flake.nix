@@ -37,6 +37,11 @@
       flake = false;
     };
 
+    hidpipe = {
+      url = "github:woxQAQ/hidpipe";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";

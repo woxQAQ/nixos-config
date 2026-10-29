@@ -38,6 +38,16 @@ let
   ]
   ++ [
     ../home/agents
+    inputs.hidpipe.homeManagerModules.default
+    {
+      # macOS 注入端。woxqaq.local 由 Linux 侧 avahi 发布;
+      # 首次运行需在 系统设置 → 辅助功能 授权(launchd 项名为 hidpipe-client,
+      # nix store 路径更新后需要重新授权)。
+      services.hidpipe = {
+        enable = true;
+        host = "woxqaq.local";
+      };
+    }
     {
       modules.agents = {
         profile = "terminal";

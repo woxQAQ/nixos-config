@@ -441,6 +441,26 @@
         "type": "github"
       }
     },
+    "hidpipe": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793260790,
+        "narHash": "sha256-Jo1Jh/19SI/kdo5cGvSTZyg4xMl6R+3JbbMAFnDplPs=",
+        "owner": "woxQAQ",
+        "repo": "hidpipe",
+        "rev": "6b80dd50e6e5ce8919c9ad62057f35c88892a44b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "woxQAQ",
+        "repo": "hidpipe",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -913,6 +933,7 @@
         "disko": "disko",
         "flake-parts": "flake-parts_2",
         "geodb": "geodb",
+        "hidpipe": "hidpipe",
         "home-manager": "home-manager",
         "llm-agents": "llm-agents",
         "nix-darwin": "nix-darwin",
