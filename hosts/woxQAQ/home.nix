@@ -13,7 +13,6 @@
     # n8n
     insomnia
     # notepad-next
-    flclash
 
     pamixer
     go-musicfox

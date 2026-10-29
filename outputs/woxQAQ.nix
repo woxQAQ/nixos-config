@@ -37,6 +37,12 @@ in
             modules.btrbk.enable = true;
           }
           {
+            modules.flclash = {
+              enable = true;
+              user = name;
+            };
+          }
+          {
             modules.desktop = {
               environment = "niri";
               fcitx5.enable = true;

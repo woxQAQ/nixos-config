@@ -12,5 +12,6 @@
     ./environment.nix
     ./optimization.nix
     ./btrbk.nix
+    ./flclash.nix
   ];
 }
