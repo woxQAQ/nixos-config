@@ -32,7 +32,7 @@ border_width = 1.0
 enabled = true
 fill = "surface_container"
 id = "g1"
-members = ["cpu", "ram","disk", "network_tx", "network_rx", "temp"]
+members = ["cpu", "ram", "disk", "network_tx", "network_rx", "temp"]
 opacity = 1.0
 padding = 6.0
 

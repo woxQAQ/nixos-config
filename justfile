@@ -82,6 +82,7 @@ alias l := list
 [group('quality')]
 fmt:
     {{ _nix }} fmt
+    oxfmt
 
 # Run the same hooks as prek in a Nix build, without changing the working tree.
 [group('quality')]
