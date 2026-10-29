@@ -82,7 +82,7 @@ in
     # surfaces as a failing btrbk timer instead of silently writing into the
     # root subvolume, because btrbk refuses non-subvolume `subvolume` paths.
     fileSystems.${cfg.volumePath} = {
-      device = cfg.device;
+      inherit (cfg) device;
       fsType = "btrfs";
       options = [
         "subvolid=5"
