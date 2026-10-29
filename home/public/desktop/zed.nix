@@ -2,8 +2,6 @@
   lib,
   pkgs,
   config,
-  mylib,
-  dotfilesDir,
   ...
 }:
 let
@@ -18,9 +16,245 @@ in
           pkgs.zed-editor-bin
         else
           pkgs.zed-editor;
+      mutableUserSettings = false;
+      extensions = [
+        # keep-sorted start
+        "cargo-tom"
+        "catppuccin"
+        "catppuccin-blur"
+        "catppuccin-icons"
+        "color-highlight"
+        "colored-zed-icons-theme"
+        "csharp"
+        "csv"
+        "dockerfile"
+        "git-firefly"
+        "go-snippets"
+        "helm"
+        "html"
+        "islands-theme"
+        "java"
+        "just"
+        "lua"
+        "macos-classic"
+        "make"
+        "material-icon-theme"
+        "mcp-server-context7"
+        "mcp-server-sequential-thinking"
+        "nix"
+        "nu"
+        "prisma"
+        "proto"
+        "rust-snippets"
+        "scheme"
+        "sql"
+        "svelte"
+        "svelte-snippets"
+        "terraform"
+        "toml"
+        "vscode-dark-modern"
+        "vscode-icons"
+        "vue"
+        "xml"
+        # keep-sorted end
+      ];
+      userSettings = {
+        context_servers = { };
+        markdown_preview = {
+          font_family = "ChillRoundF";
+        };
+        # Nix manages updates; the app bundle in the store is read-only.
+        auto_update = false;
+        diff_view_style = "unified";
+        diagnostics = {
+          inline = {
+            enabled = false;
+          };
+        };
+        outline_panel = {
+          dock = "right";
+        };
+        collaboration_panel = {
+          dock = "right";
+        };
+        project_panel = {
+          dock = "right";
+          hide_hidden = false;
+          hide_root = false;
+          entry_spacing = "comfortable";
+          auto_fold_dirs = false;
+          button = true;
+          git_status = true;
+        };
+        agent_servers = {
+          codex-acp = {
+            default_config_options = {
+              mode = "agent-full-access";
+              reasoning_effort = "xhigh";
+            };
+            type = "registry";
+          };
+          pi-acp = {
+            default_config_options = {
+              thought_level = "high";
+              model = "kimi-coding/k3";
+            };
+            type = "registry";
+          };
+          kimi = {
+            type = "registry";
+          };
+        };
+        inlay_hints = {
+          enabled = false;
+          show_type_hints = true;
+        };
+        indent_guides = {
+          enabled = true;
+          coloring = "indent_aware";
+        };
+        current_line_highlight = "all";
+        text_rendering_mode = "platform_default";
+        ui_font_family = "Inter Noto Sans SC";
+        terminal = {
+          toolbar = {
+            breadcrumbs = false;
+          };
+          font_size = 15;
+          shell = {
+            program = "nu";
+          };
+          env = {
+            EDITOR = "zed --wait";
+          };
+        };
+        file_types = {
+          Dockerfile = [
+            "Dockerfile"
+            "Dockerfile.*"
+          ];
+          JSON = [
+            "json"
+            "jsonc"
+          ];
+        };
+        git_panel = {
+          tree_view = false;
+          dock = "right";
+        };
+        git = {
+          inline_blame = {
+            enabled = true;
+          };
+        };
+        session = {
+          trust_all_worktrees = true;
+        };
+        status_bar = { };
+        gutter = {
+          line_numbers = true;
+        };
+        cursor_shape = "bar";
+        cursor_blink = false;
+        use_system_window_tabs = true;
+        show_whitespaces = "all";
+        hard_tabs = true;
+        relative_line_numbers = "enabled";
+        tab_bar = {
+          show = true;
+        };
+        scrollbar = { };
+        tabs = {
+          show_diagnostics = "errors";
+        };
+        which_key = {
+          enabled = true;
+        };
+        centered_layout = {
+          left_padding = 0.15;
+          right_padding = 0.15;
+        };
+        buffer_line_height = "comfortable";
+        agent = {
+          dock = "left";
+          default_model = {
+            provider = "openai";
+            model = "kimi-k2-0711-preview";
+          };
+        };
+        language_models = {
+          openai_compatible = { };
+          openai = {
+            api_url = "https://api.moonshot.cn/v1";
+            available_models = [
+              {
+                name = "kimi-k2-0711-preview";
+                max_tokens = 128000;
+              }
+            ];
+          };
+        };
+        icon_theme = "Material Icon Theme";
+        vim_mode = true;
+        ui_font_size = 16;
+        buffer_font_family = "IoskeleyMonoTerm Nerd Font Mono";
+        buffer_font_size = 14;
+        file_finder = {
+          modal_max_width = "medium";
+        };
+        theme = {
+          mode = "system";
+          light = "Catppuccin Latte";
+          dark = "Catppuccin Macchiato";
+        };
+        format_on_save = "off";
+        languages = {
+          Nix = {
+            language_servers = [
+              "nixd"
+              "!nil"
+            ];
+          };
+          Markdown = {
+            formatter = {
+              external = {
+                command = "oxfmt";
+              };
+            };
+          };
+          Rust = {
+            inlay_hints = {
+              enabled = true;
+            };
+          };
+          Python = {
+            language_servers = [
+              "pyright"
+            ];
+            inlay_hints = {
+              enabled = true;
+            };
+          };
+          Go = {
+            formatter = "language_server";
+          };
+        };
+        lsp = {
+          nixd = {
+            settings = {
+              diagnostic = {
+                suppress = [
+                  "sema-extra-with"
+                ];
+              };
+            };
+          };
+        };
+        telemetry = {
+          diagnostics = true;
+          metrics = false;
+        };
+      };
     };
-    xdg.configFile."zed/settings.json".source =
-      mylib.mkMutable dotfilesDir config
-        ./zed.jsonc;
   };
 }
