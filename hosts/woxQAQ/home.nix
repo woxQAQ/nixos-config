@@ -7,8 +7,6 @@
 }:
 
 {
-  modules.public.desktop.lan-mouse.configFile = ./lan-mouse.toml;
-
   home.packages = with pkgs; [
     # clash-nyanpasu
     netease-cloud-music-gtk
