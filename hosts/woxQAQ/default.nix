@@ -22,6 +22,7 @@ in
     ./boot.specified.nix
     ./rocm.nix
     ./vm.nix
+    ./waydroid-houdini.nix
     ./cloud-native.nix
     ./proxy.nix
     ./logid.nix
