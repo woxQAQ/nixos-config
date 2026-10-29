@@ -42,65 +42,69 @@ let
 
   # 容器内 /system/bin/sh（toybox）执行。先剥离旧注入行保证幂等，
   # 只在 [system] 段的 default namespace 赋值行后插入。
-  ldconfigPatch = pkgs.writeText "houdini-ldconfig.sh" ''
-    #!/system/bin/sh
-    CFG=/linkerconfig/ld.config.txt
-    TMP=/data/local/tmp/.ldcfg.$$
-    grep -v 'permitted.paths += /apex/com.android.art' "$CFG" > "$TMP"
-    in_sys=0
-    while IFS= read -r line; do
-      case "$line" in
-        "[system]") in_sys=1 ;;
-        "["*) in_sys=0 ;;
-      esac
-      echo "$line"
-      if [ "$in_sys" = 1 ]; then
-        case "$line" in
-          "namespace.default.permitted.paths = "*)
-            echo 'namespace.default.permitted.paths += /apex/com.android.art/lib64'
-            echo 'namespace.default.permitted.paths += /apex/com.android.art/lib'
-            ;;
-        esac
-      fi
-    done < "$TMP" > "$CFG"
-    rm -f "$TMP"
-  '';
+  ldconfigPatch =
+    pkgs.writeText "houdini-ldconfig.sh" # sh
+      ''
+        #!/system/bin/sh
+        CFG=/linkerconfig/ld.config.txt
+        TMP=/data/local/tmp/.ldcfg.$$
+        grep -v 'permitted.paths += /apex/com.android.art' "$CFG" > "$TMP"
+        in_sys=0
+        while IFS= read -r line; do
+          case "$line" in
+            "[system]") in_sys=1 ;;
+            "["*) in_sys=0 ;;
+          esac
+          echo "$line"
+          if [ "$in_sys" = 1 ]; then
+            case "$line" in
+              "namespace.default.permitted.paths = "*)
+                echo 'namespace.default.permitted.paths += /apex/com.android.art/lib64'
+                echo 'namespace.default.permitted.paths += /apex/com.android.art/lib'
+                ;;
+            esac
+          fi
+        done < "$TMP" > "$CFG"
+        rm -f "$TMP"
+      '';
 
   # props 写入与清理。单独成文件以避免 heredoc 缩进破坏 Python。
-  propsScript = pkgs.writeText "waydroid-houdini-props.py" ''
-    import os
-    import re
+  propsScript =
+    pkgs.writeText "waydroid-houdini-props.py" # py
+      ''
+        import os
+        import re
 
-    props = {
-        "ro.product.cpu.abilist": "x86_64,arm64-v8a,x86,armeabi-v7a,armeabi",
-        "ro.product.cpu.abilist32": "x86,armeabi-v7a,armeabi",
-        "ro.product.cpu.abilist64": "x86_64,arm64-v8a",
-        "ro.dalvik.vm.native.bridge": "libhoudini.so",
-        "ro.enable.native.bridge.exec": "1",
-        "ro.dalvik.vm.isa.arm": "x86",
-        "ro.dalvik.vm.isa.arm64": "x86_64",
-    }
+        props = {
+            "ro.product.cpu.abilist": "x86_64,arm64-v8a,x86,armeabi-v7a,armeabi",
+            "ro.product.cpu.abilist32": "x86,armeabi-v7a,armeabi",
+            "ro.product.cpu.abilist64": "x86_64,arm64-v8a",
+            "ro.dalvik.vm.native.bridge": "libhoudini.so",
+            "ro.enable.native.bridge.exec": "1",
+            "ro.dalvik.vm.isa.arm": "x86",
+            "ro.dalvik.vm.isa.arm64": "x86_64",
+        }
 
-    cfg_path = "/var/lib/waydroid/waydroid.cfg"
-    content = open(cfg_path).read() if os.path.exists(cfg_path) else "[waydroid]\n"
-    for key in props:
-        content = re.sub(rf"^{re.escape(key)}=.*\n?", "", content, flags=re.M)
-    block = "[properties]\n" + "".join(f"{k}={v}\n" for k, v in props.items())
-    if "[properties]" in content:
-        content = re.sub(r"\[properties\]\n?", block, content, count=1)
-    else:
-        content = content.rstrip() + "\n\n" + block
-    open(cfg_path, "w").write(content)
-
-    # 调试期曾把同一组 props 直接追加进 waydroid_base.prop；
-    # cfg [properties] 优先级更高且 base.prop 随镜像重置，清掉重复项。
-    base = "/var/lib/waydroid/waydroid_base.prop"
-    if os.path.exists(base):
-        content = open(base).read()
+        cfg_path = "/var/lib/waydroid/waydroid.cfg"
+        content = open(cfg_path).read() if os.path.exists(cfg_path) else "[waydroid]\n"
         for key in props:
             content = re.sub(rf"^{re.escape(key)}=.*\n?", "", content, flags=re.M)
-        open(base, "w").write(content)
-  '';
+        block = "[properties]\n" + "".join(f"{k}={v}\n" for k, v in props.items())
+        if "[properties]" in content:
+            content = re.sub(r"\[properties\]\n?", block, content, count=1)
+        else:
+            content = content.rstrip() + "\n\n" + block
+        open(cfg_path, "w").write(content)
+
+        # 调试期曾把同一组 props 直接追加进 waydroid_base.prop；
+        # cfg [properties] 优先级更高且 base.prop 随镜像重置，清掉重复项。
+        base = "/var/lib/waydroid/waydroid_base.prop"
+        if os.path.exists(base):
+            content = open(base).read()
+            for key in props:
+                content = re.sub(rf"^{re.escape(key)}=.*\n?", "", content, flags=re.M)
+            open(base, "w").write(content)
+      '';
 in
 {
   systemd.services.waydroid-houdini-setup = {
