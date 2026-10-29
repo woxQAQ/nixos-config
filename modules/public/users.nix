@@ -29,7 +29,7 @@ lib.mkMerge [
       ];
       openssh.authorizedKeys.keys =
         let
-          nixos-woxQAQ = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMrL5gG/7PPvCr8U/uBXp4B7GRjSu9zZVoFQgffQpQUS srkmyk@woxqaq";
+          nixos-woxQAQ = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJEvf14fJEmmPVUwUzb+NrLLC5AZNgPnqnhnio3bUq43 srkmyk@woxqaq";
           darwin-machine = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHAVB5rGXF8TrlRrKwRwUGju/yrenIqy78osPf9itUkq root@woxMac";
           darwin-woxQAQ = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOoMXR0qWpbMU+39FsJ9zUiD7q8yGgpG7RYUc3tasPN woxqaq@woxMac";
         in
