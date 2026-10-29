@@ -9,9 +9,9 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
+    home.packages = with pkgs; [
       # declare font packages to avoid font missing
-      ioskeley-mono
+      ioskeley-mono.term-nf
       inter-noto-sans-sc
       chillroundf
 
