@@ -9,38 +9,36 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      # declare font packages to avoid font missing
+      ioskeley-mono
+      inter-noto-sans-sc
+      chillroundf
+
+      nixd
+      oxfmt
+      pyright
+    ];
     programs.zed-editor = {
       enable = true;
-      package =
-        if pkgs.stdenv.hostPlatform.isDarwin then
-          pkgs.zed-editor-bin
-        else
-          pkgs.zed-editor;
+      package = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.zed-editor-bin else pkgs.zed-editor;
       mutableUserSettings = false;
       extensions = [
         # keep-sorted start
-        "cargo-tom"
         "catppuccin"
-        "catppuccin-blur"
         "catppuccin-icons"
-        "color-highlight"
         "colored-zed-icons-theme"
         "csharp"
-        "csv"
         "dockerfile"
         "git-firefly"
         "go-snippets"
         "helm"
         "html"
-        "islands-theme"
         "java"
         "just"
         "lua"
-        "macos-classic"
         "make"
         "material-icon-theme"
-        "mcp-server-context7"
-        "mcp-server-sequential-thinking"
         "nix"
         "nu"
         "prisma"
@@ -177,22 +175,6 @@ in
         buffer_line_height = "comfortable";
         agent = {
           dock = "left";
-          default_model = {
-            provider = "openai";
-            model = "kimi-k2-0711-preview";
-          };
-        };
-        language_models = {
-          openai_compatible = { };
-          openai = {
-            api_url = "https://api.moonshot.cn/v1";
-            available_models = [
-              {
-                name = "kimi-k2-0711-preview";
-                max_tokens = 128000;
-              }
-            ];
-          };
         };
         icon_theme = "Material Icon Theme";
         vim_mode = true;
