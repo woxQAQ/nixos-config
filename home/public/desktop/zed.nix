@@ -21,7 +21,11 @@ in
     ];
     programs.zed-editor = {
       enable = true;
-      package = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.zed-editor-bin else pkgs.zed-editor;
+      package =
+        if pkgs.stdenv.hostPlatform.isDarwin then
+          pkgs.zed-editor-bin
+        else
+          pkgs.zed-editor;
       mutableUserSettings = false;
       extensions = [
         # keep-sorted start

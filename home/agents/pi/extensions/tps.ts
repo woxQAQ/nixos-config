@@ -1,47 +1,77 @@
-import type { AssistantMessage } from "@earendil-works/pi-ai";
-import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 
-function isAssistantMessage(message: unknown): message is AssistantMessage {
-  if (!message || typeof message !== "object") return false;
-  const role = (message as { role?: unknown }).role;
-  return role === "assistant";
-}
+const UPDATE_INTERVAL_MS = 250;
 
 export default function (pi: ExtensionAPI) {
-  let agentStartMs: number | null = null;
+  let active: { startedAt: number; chars: number } | undefined;
+  let timer: ReturnType<typeof setInterval> | undefined;
 
-  pi.on("agent_start", () => {
-    agentStartMs = Date.now();
-  });
+  function stop() {
+    if (timer !== undefined) clearInterval(timer);
+    timer = undefined;
+    active = undefined;
+  }
 
-  pi.on("agent_end", (event, ctx) => {
+  function reset(ctx: ExtensionContext) {
+    stop();
+    if (ctx.hasUI) ctx.ui.setStatus("tps", undefined);
+  }
+
+  function render(ctx: ExtensionContext, output: number, estimated: boolean, suffix = "") {
+    if (!active) return;
+    const elapsedSeconds = (performance.now() - active.startedAt) / 1000;
+    const prefix = estimated ? "~" : "";
+    const rate =
+      output > 0 && elapsedSeconds > 0
+        ? `${prefix}${(output / elapsedSeconds).toFixed(1)}`
+        : "--";
+    ctx.ui.setStatus(
+      "tps",
+      `TPS ${rate} tok/s · out ${prefix}${output.toLocaleString()} · ${elapsedSeconds.toFixed(1)}s${suffix}`,
+    );
+  }
+
+  pi.on("turn_start", (_event, ctx) => {
+    stop();
     if (!ctx.hasUI) return;
-    if (agentStartMs === null) return;
 
-    const elapsedMs = Date.now() - agentStartMs;
-    agentStartMs = null;
-    if (elapsedMs <= 0) return;
-
-    let input = 0;
-    let output = 0;
-    let cacheRead = 0;
-    let cacheWrite = 0;
-    let totalTokens = 0;
-
-    for (const message of event.messages) {
-      if (!isAssistantMessage(message)) continue;
-      input += message.usage.input || 0;
-      output += message.usage.output || 0;
-      cacheRead += message.usage.cacheRead || 0;
-      cacheWrite += message.usage.cacheWrite || 0;
-      totalTokens += message.usage.totalTokens || 0;
-    }
-
-    if (output <= 0) return;
-
-    const elapsedSeconds = elapsedMs / 1000;
-    const tokensPerSecond = output / elapsedSeconds;
-    const message = `TPS ${tokensPerSecond.toFixed(1)} tok/s. out ${output.toLocaleString()}, in ${input.toLocaleString()}, cache r/w ${cacheRead.toLocaleString()}/${cacheWrite.toLocaleString()}, total ${totalTokens.toLocaleString()}, ${elapsedSeconds.toFixed(1)}s`;
-    ctx.ui.notify(message, "info");
+    // Include the wait for output, but stop timing before tool execution.
+    active = { startedAt: performance.now(), chars: 0 };
+    render(ctx, 0, true);
+    timer = setInterval(() => {
+      if (active) render(ctx, Math.ceil(active.chars / 4), true);
+    }, UPDATE_INTERVAL_MS);
+    timer.unref();
   });
+
+  pi.on("message_update", (event) => {
+    if (!active) return;
+    const update = event.assistantMessageEvent;
+    switch (update.type) {
+      case "text_delta":
+      case "thinking_delta":
+      case "toolcall_delta":
+        // Usage can be absent or stale while streaming. Match Pi's chars/4 estimate.
+        active.chars += update.delta.length;
+        break;
+    }
+  });
+
+  pi.on("message_end", (event, ctx) => {
+    if (!active || event.message.role !== "assistant") return;
+    const { usage, stopReason } = event.message;
+    const interrupted = stopReason === "error" || stopReason === "aborted";
+    // Interrupted streams may retain only the provider's initial usage snapshot.
+    const estimated = interrupted || usage.output <= 0;
+    const output = estimated ? Math.ceil(active.chars / 4) : usage.output;
+    render(ctx, output, estimated, interrupted ? ` · ${stopReason}` : "");
+    stop();
+  });
+
+  pi.on("agent_end", (_event, ctx) => {
+    if (active) reset(ctx);
+  });
+
+  pi.on("session_start", (_event, ctx) => reset(ctx));
+  pi.on("session_shutdown", (_event, ctx) => reset(ctx));
 }
