@@ -1,17 +1,35 @@
-# Reuse the version and archived source pinned by nixpkgs, adding filesystem
-# isolation around the upstream AppImage wrapper.
+# Pin the official Linux AppImage independently of nixpkgs, with filesystem
+# isolation around the application.
 {
   appimageTools,
+  fetchurl,
   wechat,
 }:
+let
+  pname = "wechat";
+  version = "4.1.13";
+  src = fetchurl {
+    url = "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.AppImage";
+    hash = "sha256-RSYYC8qYASh5FZmvEi/0eVACpXFaUQ9qZUgOK+aHQkQ=";
+  };
+  appimageContents = appimageTools.extract {
+    inherit pname version src;
+    postExtract = ''
+      patchelf --replace-needed libtiff.so.5 libtiff.so $out/opt/wechat/wechat
+    '';
+  };
+in
 appimageTools.wrapAppImage {
-  inherit (wechat)
-    pname
-    version
-    src
-    meta
-    extraInstallCommands
-    ;
+  inherit pname version;
+  src = appimageContents;
+  meta = wechat.meta // {
+    platforms = [ "x86_64-linux" ];
+  };
+  extraInstallCommands = ''
+    install -Dm644 ${appimageContents}/wechat.desktop $out/share/applications/wechat.desktop
+    install -Dm644 ${appimageContents}/wechat.png $out/share/icons/hicolor/256x256/apps/wechat.png
+    substituteInPlace $out/share/applications/wechat.desktop --replace-fail AppRun wechat
+  '';
   # Add these root paths to FHS sandbox to prevent WeChat from accessing them by default
   # Adapted from https://aur.archlinux.org/cgit/aur.git/tree/wechat-universal.sh?h=wechat-universal-bwrap
   extraPreBwrapCmds = ''
