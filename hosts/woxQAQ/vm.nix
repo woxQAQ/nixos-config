@@ -19,7 +19,6 @@ in
     #   };
     # })
   ];
-  services.flatpak.enable = true;
   systemd = {
     packages = [ _helper ];
     services.waydroid-mount.wantedBy = [ "multi-user.target" ];

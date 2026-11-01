@@ -11,6 +11,5 @@
     ./options.nix
     ./packages.nix
     ./niri.nix
-    ./flatpak-apps.nix
   ];
 }

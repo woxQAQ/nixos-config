@@ -1,18 +1,4 @@
-{
-  pkgs,
-  stateVersion,
-  ...
-}:
-let
-  dnscryptForwardingRules = pkgs.writeText "dnscrypt-forwarding-rules.txt" ''
-    ##################################
-    #        Forwarding rules        #
-    ##################################
-
-    ## Route the homelab .lan zone to the router DNS server.
-    lan 192.168.31.1
-  '';
-in
+{ pkgs, stateVersion, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -39,8 +25,6 @@ in
     # Trust all traffic from Tailscale
     trustedInterfaces = [ "tailscale0" ];
   };
-
-  services.dnscrypt-proxy.settings.forwarding_rules = dnscryptForwardingRules;
 
   services.lact = {
     enable = true;

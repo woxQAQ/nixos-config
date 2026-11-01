@@ -41,6 +41,7 @@ in
         "iptables.service"
       ];
       wantedBy = [ "multi-user.target" ];
+      wants = [ "network-online.target" ];
       startLimitIntervalSec = 60;
       startLimitBurst = 5;
       serviceConfig = {

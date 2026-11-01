@@ -47,7 +47,6 @@ in
               environment = "niri";
               fcitx5.enable = true;
               game.enable = true;
-              flatpak-apps.enable = true;
             };
           }
           {

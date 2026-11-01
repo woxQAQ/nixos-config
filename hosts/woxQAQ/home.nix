@@ -27,7 +27,7 @@
     remmina
 
     font-manager
-    # qq - migrated to flatpak
+    # qq - via nixpaks (modules/sandboxed/nixpaks)
     obs-studio
     wineWow64Packages.wayland
   ];
