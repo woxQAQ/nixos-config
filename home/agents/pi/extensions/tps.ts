@@ -22,9 +22,7 @@ export default function (pi: ExtensionAPI) {
     const elapsedSeconds = (performance.now() - active.startedAt) / 1000;
     const prefix = estimated ? "~" : "";
     const rate =
-      output > 0 && elapsedSeconds > 0
-        ? `${prefix}${(output / elapsedSeconds).toFixed(1)}`
-        : "--";
+      output > 0 && elapsedSeconds > 0 ? `${prefix}${(output / elapsedSeconds).toFixed(1)}` : "--";
     ctx.ui.setStatus(
       "tps",
       `TPS ${rate} tok/s · out ${prefix}${output.toLocaleString()} · ${elapsedSeconds.toFixed(1)}s${suffix}`,

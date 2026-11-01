@@ -7,7 +7,16 @@
 {
   programs.go = {
     enable = true;
-    package = fastest-pkg.go_1_27;
+    # Keep nixpkgs-fast pinned for Zotero; update the Go source independently.
+    package = fastest-pkg.go_1_27.overrideAttrs (
+      finalAttrs: _previousAttrs: {
+        version = "1.27.3";
+        src = fastest-pkg.fetchurl {
+          url = "https://go.dev/dl/go${finalAttrs.version}.src.tar.gz";
+          hash = "sha256-bndJA1zzYPBrJXXRYup535/ajvZxiJ5cN1+OUHd/Jrs=";
+        };
+      }
+    );
     env = {
       GOBIN = "${config.home.homeDirectory}/go/bin";
       GOPATH = "${config.home.homeDirectory}/go";
