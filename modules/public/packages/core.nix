@@ -21,6 +21,7 @@
     ncdu
     # replace of find
     fd
+    findutils
     # GNU grep
     gnugrep
     # rg, replace of grep

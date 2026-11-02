@@ -22,6 +22,8 @@ in
     #   # package = aagl.anime-game-launcher; # for non-flakes
     #   # package = inputs.aagl.packages.x86_64-linux.anime-game-launcher; # for flakes
     # };
+
+    environment.variables.UMU_PROTONPATH = "${pkgs.dwproton-bin.steamcompattool}";
     programs = {
       gamescope = {
         enable = true;
@@ -41,7 +43,10 @@ in
         protontricks.enable = true;
         extest.enable = true;
         fontPackages = [ pkgs.wqy_zenhei ];
-        extraCompatPackages = [ pkgs.proton-ge-bin ];
+        extraCompatPackages = [
+          pkgs.proton-ge-bin
+          pkgs.dwproton-bin
+        ];
         platformOptimizations.enable = true;
       };
 

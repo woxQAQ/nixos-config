@@ -6,7 +6,6 @@
     ./zram.nix
     ./system.nix
     ./misc.nix
-    ./security.nix
     ./fhs.nix
     ./ssh.nix
     ./environment.nix

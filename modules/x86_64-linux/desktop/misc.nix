@@ -29,17 +29,6 @@
       enable = true;
     };
 
-    ollama = {
-      enable = false;
-      package = pkgs.ollama-rocm;
-      port = 11111;
-      loadModels = [
-        "nomic-embed-text"
-      ];
-      environmentVariables = {
-        HCC_AMDGPU_TARGET = "gfx1010";
-      };
-    };
     keyd = {
       enable = true;
       keyboards.default.settings = {

@@ -34,6 +34,7 @@
     ];
     # use fonts specified by user rather than default ones
     enableDefaultPackages = false;
+    fontDir.enable = true;
     # user defined fonts
     # the reason there's Noto Color Emoji everywhere is to override DejaVu's
     # B&W emojisthat would sometimes show instead of some Color emojis
@@ -60,9 +61,9 @@
         ];
         emoji = [ "Noto Color Emoji" ];
       };
-      subpixel.rgba = "none";
+      subpixel.rgba = "rgb";
       hinting = {
-        enable = true;
+        enable = false;
         style = "slight";
       };
       antialias = true;

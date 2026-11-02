@@ -10,6 +10,7 @@
     ./greetd.nix
     ./options.nix
     ./packages.nix
+    ./security.nix
     ./niri.nix
   ];
 }

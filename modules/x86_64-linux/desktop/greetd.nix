@@ -2,6 +2,7 @@
   username,
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -10,16 +11,24 @@ let
 in
 {
   config = lib.mkIf iswayland {
+    security.pam.services = {
+      greetd.enableGnomeKeyring = true;
+      passwd.enableGnomeKeyring = true;
+    };
+    programs = {
+      seahorse.enable = true;
+      gnupg.agent.pinentryPackage = pkgs.pinentry-qt;
+    };
     services = {
+      xserver.enable = false;
       greetd = {
         enable = true;
         useTextGreeter = true;
         settings = rec {
-          initial_session = {
-            command = "$HOME/.wayland-session";
+          default_session = {
             user = username;
+            command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd $HOME/.wayland-session"; # start wayland session with a TUI login manager
           };
-          default_session = initial_session;
           terminal.vt = 1;
         };
       };

@@ -8,6 +8,9 @@
     jack.enable = true;
     wireplumber.enable = true;
   };
+  services.udev.packages = with pkgs; [
+    gnome-settings-daemon
+  ];
   security.rtkit.enable = true;
   services.pulseaudio.enable = false;
   environment.systemPackages = with pkgs; [ pulseaudio ];

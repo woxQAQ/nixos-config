@@ -1,13 +1,10 @@
-{ pkgs, ... }:
-{
+_: {
   programs = {
     gnupg.agent = {
       enable = true;
-      pinentryPackage = pkgs.pinentry-qt;
       enableSSHSupport = false;
       settings.default-cache-ttl = 4 * 60 * 60; # 4 hours
     };
-    seahorse.enable = true;
     ssh.startAgent = true;
   };
   services.gnome = {
@@ -16,7 +13,9 @@
       enable = true;
     };
   };
-  security.pam.services.greetd.enableGnomeKeyring = true;
-
+  services.openssh.settings = {
+    PermitRootLogin = "no";
+    X11Forwarding = true;
+  };
   security.polkit.enable = true;
 }
