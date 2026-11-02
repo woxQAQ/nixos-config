@@ -25,7 +25,12 @@ in
       # ghostty 的 macOS 前端是 Swift/AppKit，无法在 Nix sandbox 中源码构建，
       # nixpkgs 在 Darwin 上仅有官方 dmg 的重打包 ghostty-bin
       package =
-        if pkgs.stdenv.hostPlatform.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
+        if pkgs.stdenv.hostPlatform.isDarwin then
+          pkgs.ghostty-bin
+        else
+          pkgs.ghostty.overrideAttrs (old: {
+            patches = (old.patches or [ ]) ++ [ ./ghostty-fractional-scroll.patch ];
+          });
 
       settings = lib.mkMerge [
         {

@@ -25,6 +25,7 @@ let
       const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}' '${./custom_completions}']
       ${lib.optionalString aerospaceEnabled "use custom-completions/aerospace/aerospace-completions.nu *"}
       use custom-completions/git/git-completions.nu *
+      use ${./custom_completions/git/submodule.nu} *
       use custom-completions/gh/gh-completions.nu *
       use custom-completions/tldr/tldr-completions.nu *
       use custom-completions/tar/tar-completions.nu *

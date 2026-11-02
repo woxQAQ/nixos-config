@@ -1,0 +1,29 @@
+diff --git a/src/Surface.zig b/src/Surface.zig
+--- a/src/Surface.zig
++++ b/src/Surface.zig
+@@ -3407,7 +3407,11 @@ pub fn scrollCallback(
+             // magnitude of 0.1 which would normally require a few clicks
+             // before we register an actual scroll event (depending on cell
+             // height and the mouse_scroll_multiplier setting).
+-            const yoff_max: f64 = if (yoff > 0)
++            // Linux high-resolution wheels report real fractional ticks.
++            // Keep those fractions instead of promoting each report to a notch.
++            const yoff_max: f64 = if (comptime builtin.os.tag != .macos)
++                yoff
++            else if (yoff > 0)
+                 @max(yoff, 1)
+             else
+                 @min(yoff, -1);
+@@ -3432,11 +3436,11 @@ pub fn scrollCallback(
+         // We scroll by the number of rows in the offset and save the remainder
+         const amount = poff / cell_size;
+         assert(@abs(amount) >= 1);
+-        self.mouse.pending_scroll_y = poff - (amount * cell_size);
+ 
+         // Round towards zero.
+         const delta: isize = @intFromFloat(@trunc(amount));
+         assert(@abs(delta) >= 1);
++        self.mouse.pending_scroll_y = poff - (@as(f64, @floatFromInt(delta)) * cell_size);
+ 
+         break :y .{ .delta = delta };
+     };

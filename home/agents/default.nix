@@ -54,6 +54,7 @@ let
       - Shell preference: use `fd` to replace `find`, use `rg` instead of `grep`.${lib.optionalString includeBashEditGuideance " Do not edit files by bash tools."}
       - We use nix to manage machines configuration${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ", MUST NOT install packages by brew manually."}
       - ${dotfilesDir} contains the system nixos configuration so any patches to the system should apply to this repo.
+      - If you are requesting user to run a shell, provide a nushell script
 
       # Source of Truth
 
