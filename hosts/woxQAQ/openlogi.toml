@@ -18,7 +18,6 @@ theme_light = "Default Light"
 [devices."receiver:b6cf9aa4:slot:1"]
 gesture_owner = "GestureButton"
 dpi = 1600
-scroll_resolution = "high"
 
 [devices."receiver:b6cf9aa4:slot:1".identity]
 display_name = "MX Master 2S"
@@ -27,8 +26,17 @@ kind = "mouse"
 
 [devices."receiver:b6cf9aa4:slot:1".identity.model_info]
 entity_count = 4
-unit_id = [0, 0, 0, 0]
-model_ids = [45081, 16489, 0]
+unit_id = [
+    0,
+    0,
+    0,
+    0,
+]
+model_ids = [
+    45081,
+    16489,
+    0,
+]
 extended_model_id = 0
 
 [devices."receiver:b6cf9aa4:slot:1".identity.model_info.transports]
