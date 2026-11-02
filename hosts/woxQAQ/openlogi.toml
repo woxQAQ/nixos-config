@@ -1,0 +1,24 @@
+schema_version = 3
+selected_device = "niri"
+
+# The initializer replaces this profile key with the detected physical device key.
+[devices.niri]
+gesture_owner = "GestureButton"
+dpi = 1000
+scroll_resolution = "high"
+
+[devices.niri.smartshift]
+mode = "ratchet"
+auto_disengage = 16
+tunable_torque = 0
+
+[devices.niri.bindings]
+DpiToggle = "ToggleSmartShift"
+
+# These commands invoke niri IPC and do not depend on keyboard bindings.
+[devices.niri.bindings.GestureButton]
+Up = { RunShellCommand = "/run/current-system/sw/bin/niri msg action focus-workspace-up" }
+Down = { RunShellCommand = "/run/current-system/sw/bin/niri msg action focus-workspace-down" }
+Left = { RunShellCommand = "/run/current-system/sw/bin/niri msg action focus-column-left" }
+Right = { RunShellCommand = "/run/current-system/sw/bin/niri msg action focus-column-right" }
+Click = { RunShellCommand = "/run/current-system/sw/bin/niri msg action toggle-overview" }

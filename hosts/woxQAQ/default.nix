@@ -11,7 +11,7 @@
     ./waydroid-houdini.nix
     ./cloud-native.nix
     ./proxy.nix
-    ./logid.nix
+    ./openlogi.nix
     ./tailscale.nix
   ];
 

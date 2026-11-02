@@ -18,7 +18,6 @@
     stateVersion = "26.05";
     packages = with pkgs; [
       # keep-sorted start
-      fastest-pkg.openlogi
       # nixpkgs-unstable's zotero 10.0.4 is pinned to Firefox ESR 153, which Zotero
       # cannot consume; nixpkgs-fast still ships 10.0.1 against Firefox ESR 140.
       fastest-pkg.zotero
@@ -39,6 +38,11 @@
     scripts = with pkgs.mpvScripts; [
       thumbnail
     ];
+  };
+
+  services.hidpipe.openlogi = {
+    enable = true;
+    basePackage = fastest-pkg.openlogi;
   };
 
   services.macos-remap-keys = {
