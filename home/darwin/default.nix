@@ -3,7 +3,6 @@
   pkgs,
   lib,
   config,
-  options,
   osConfig,
   fastest-pkg,
   ...
@@ -41,15 +40,10 @@
     ];
   };
 
-  services.hidpipe = {
-    # Backport the macOS client build fix until the hidpipe input advances.
-    package = options.services.hidpipe.package.default.overrideAttrs (old: {
-      patches = (old.patches or [ ]) ++ [ ./hidpipe-scroll-unit.patch ];
-    });
-    openlogi = {
-      enable = true;
-      basePackage = fastest-pkg.openlogi;
-    };
+  services.hidpipe.openlogi = {
+    enable = true;
+    gui.enable = true;
+    basePackage = fastest-pkg.openlogi;
   };
 
   services.macos-remap-keys = {

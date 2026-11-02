@@ -1,24 +1,57 @@
 schema_version = 3
-selected_device = "niri"
+selected_device = "receiver:b6cf9aa4:slot:1"
 
-# The initializer replaces this profile key with the detected physical device key.
-[devices.niri]
+[devices."receiver:b6cf9aa4:slot:1"]
 gesture_owner = "GestureButton"
 dpi = 1000
 scroll_resolution = "high"
 
-[devices.niri.smartshift]
+[devices."receiver:b6cf9aa4:slot:1".identity]
+display_name = "MX Master 2S"
+codename = "MX Master 2S"
+kind = "mouse"
+
+[devices."receiver:b6cf9aa4:slot:1".identity.model_info]
+entity_count = 4
+unit_id = [0, 0, 0, 0]
+model_ids = [45081, 16489, 0]
+extended_model_id = 0
+
+[devices."receiver:b6cf9aa4:slot:1".identity.model_info.transports]
+usb = false
+equad = true
+btle = true
+bluetooth = false
+
+[devices."receiver:b6cf9aa4:slot:1".identity.capabilities]
+buttons = true
+pointer = true
+lighting = false
+scroll_inversion = true
+hires_wheel = true
+thumbwheel = true
+
+[devices."receiver:b6cf9aa4:slot:1".bindings]
+DpiToggle = "ToggleSmartShift"
+
+[devices."receiver:b6cf9aa4:slot:1".bindings.GestureButton.Up]
+RunShellCommand = "/run/current-system/sw/bin/niri msg action focus-workspace-up"
+
+[devices."receiver:b6cf9aa4:slot:1".bindings.GestureButton.Down]
+RunShellCommand = "/run/current-system/sw/bin/niri msg action focus-workspace-down"
+
+[devices."receiver:b6cf9aa4:slot:1".bindings.GestureButton.Left]
+RunShellCommand = "/run/current-system/sw/bin/niri msg action focus-column-left"
+
+[devices."receiver:b6cf9aa4:slot:1".bindings.GestureButton.Right]
+RunShellCommand = "/run/current-system/sw/bin/niri msg action focus-column-right"
+
+[devices."receiver:b6cf9aa4:slot:1".bindings.GestureButton.Click]
+RunShellCommand = "/run/current-system/sw/bin/niri msg action toggle-overview"
+
+[devices."receiver:b6cf9aa4:slot:1".smartshift]
 mode = "ratchet"
 auto_disengage = 16
 tunable_torque = 0
 
-[devices.niri.bindings]
-DpiToggle = "ToggleSmartShift"
-
-# These commands invoke niri IPC and do not depend on keyboard bindings.
-[devices.niri.bindings.GestureButton]
-Up = { RunShellCommand = "/run/current-system/sw/bin/niri msg action focus-workspace-up" }
-Down = { RunShellCommand = "/run/current-system/sw/bin/niri msg action focus-workspace-down" }
-Left = { RunShellCommand = "/run/current-system/sw/bin/niri msg action focus-column-left" }
-Right = { RunShellCommand = "/run/current-system/sw/bin/niri msg action focus-column-right" }
-Click = { RunShellCommand = "/run/current-system/sw/bin/niri msg action toggle-overview" }
+[keyboard]
