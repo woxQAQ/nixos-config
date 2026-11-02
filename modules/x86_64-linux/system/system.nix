@@ -18,7 +18,13 @@
     optimise = {
       automatic = true;
     };
-    settings.auto-optimise-store = true;
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [ "cgroups" ];
+      extra-sandbox-paths = [
+        "/dev/net"
+      ];
+    };
     channel.enable = false;
   };
 }

@@ -11,8 +11,23 @@
     tcpdump
     # dns tools
     dnsutils
-
+    libargon2
+    # gui traceroute
     mtr
-    # v2dat
+    # gui ping
+    gping
+    # dns client
+    doggo
+    # openbsd-netcat replace
+    socat
+    # network discovery
+    nmap
+    # better curl
+    xh
+    # cmd for URL
+    curl
+    # download utils
+    aria2
+    iperf
   ];
 }

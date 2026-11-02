@@ -6,7 +6,7 @@
       systemd-boot = {
         enable = true;
         # Limit kernel/initrd copies on the shared Windows ESP.
-        configurationLimit = 2;
+        configurationLimit = 10;
         consoleMode = "max";
       };
       efi.canTouchEfiVariables = true;

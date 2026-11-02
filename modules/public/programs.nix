@@ -15,7 +15,6 @@
 
     age
     yq
-    nmap
     tealdeer
     tokei
   ];

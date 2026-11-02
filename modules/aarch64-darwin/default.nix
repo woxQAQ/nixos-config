@@ -7,5 +7,6 @@
     ./brew.nix
     ./rime.nix
     ./packages.nix
+    ./users.nix
   ];
 }

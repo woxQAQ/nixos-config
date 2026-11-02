@@ -7,7 +7,6 @@
     # git with large file support
     git-lfs
     ### CORE UTILS
-
     # replace of du
     gdu
     # GNU sed
@@ -41,25 +40,16 @@
     procs
     # GNU wget, download file via HTTP, HTTPS and FTP
     wget
-
     # show host info, alternative of neofetch
     fastfetch
-    # cmd for URL
-    curl
-    # download utils
-    aria2
     pkg-config
     # log highlighter
     tailspin
-
     # recursive directory listing
     tree
-
     # password generator
     pwgen-secure
-
     file
-
     jq
   ];
 }

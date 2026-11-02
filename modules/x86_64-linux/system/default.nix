@@ -13,5 +13,6 @@
     ./optimization.nix
     ./btrbk.nix
     ./flclash.nix
+    ./users.nix
   ];
 }

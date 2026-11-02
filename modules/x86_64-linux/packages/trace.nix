@@ -5,25 +5,21 @@
     enable = true;
   };
   environment.systemPackages = with pkgs; [
-    # eBPF related
-    pwru
-    bpftrace
-    bpftop
-    bpftools
-    bpfmon
-
     # syscall monitor
-    iperf
+    psmisc
     strace
-    iotop
+    iotop-c
     iotools
     ltrace
     ethtool
     usbutils
     pciutils
+    parted
     hdparm
+    nvme-cli
     dmidecode
-    systemctl-tui
+    sysstat
     nmon
+    smartmontools
   ];
 }

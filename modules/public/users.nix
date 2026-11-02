@@ -1,44 +1,10 @@
 {
   username,
   lib,
-  pkgs,
   ...
 }:
 lib.mkMerge [
   {
     users.users.${username}.description = username;
-    nix.settings.trusted-users = [ username ];
   }
-  (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
-    users.users.${username}.home = "/Users/${username}";
-  })
-  (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
-    users.users.${username} = {
-      isNormalUser = true;
-      extraGroups = [
-        "wireshark"
-        "samba"
-        "input"
-        "networkmanager"
-        "wheel"
-        "audio"
-        "pipewire"
-        "docker"
-        "kvm"
-        "libvirtd"
-      ];
-      openssh.authorizedKeys.keys =
-        let
-          nixos-woxQAQ = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJEvf14fJEmmPVUwUzb+NrLLC5AZNgPnqnhnio3bUq43 srkmyk@woxqaq";
-          darwin-machine = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHAVB5rGXF8TrlRrKwRwUGju/yrenIqy78osPf9itUkq root@woxMac";
-          darwin-woxQAQ = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOoMXR0qWpbMU+39FsJ9zUiD7q8yGgpG7RYUc3tasPN woxqaq@woxMac";
-        in
-        [
-          nixos-woxQAQ
-          darwin-machine
-          darwin-woxQAQ
-        ];
-    };
-    nix.settings.allowed-users = [ username ];
-  })
 ]
