@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  helix,
   mylib,
   dotfilesDir,
   ...
@@ -26,7 +27,7 @@ let
 
   # Patch the runtime at build time so evaluating hosts does not require IFD.
   rustInjectionsWithoutJson = pkgs.runCommand "helix-rust-injections.scm" { } ''
-    substitute ${pkgs.helix.runtime}/queries/rust/injections.scm "$out" \
+    substitute ${helix}/runtime/queries/rust/injections.scm "$out" \
       --replace-fail ${lib.escapeShellArg jsonMacroInjection} ""
   '';
 in

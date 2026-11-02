@@ -37,6 +37,11 @@
       flake = false;
     };
 
+    helix = {
+      url = "github:woxQAQ/helix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hidpipe = {
       url = "github:woxQAQ/hidpipe";
       inputs.nixpkgs.follows = "nixpkgs";

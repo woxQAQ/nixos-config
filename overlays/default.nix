@@ -15,6 +15,25 @@ in
   };
 
   modifications = _final: prev: {
+    helix =
+      inputs.helix.packages.${prev.stdenv.hostPlatform.system}.default.override
+        {
+          grammarOverlays = [
+            (_final: grammars: {
+              perl = grammars.perl.overrideAttrs (old: {
+                # glibc 2.44 defines bsearch as a C23 macro; keep the scanner's
+                # bundled implementation private to avoid the libc name collision.
+                postPatch = (old.postPatch or "") + ''
+                  substituteInPlace src/bsearch.c \
+                    --replace-fail 'void *bsearch(' 'static void *tsp_bsearch('
+                  substituteInPlace src/tsp_unicode.h \
+                    --replace-fail 'return bsearch(' 'return tsp_bsearch('
+                '';
+              });
+            })
+          ];
+        };
+
     # Home Manager still references deprecated xorg aliases.
     xorg = prev.xorg // {
       inherit (prev) lndir;
