@@ -17,7 +17,7 @@ theme_light = "Default Light"
 
 [devices."receiver:b6cf9aa4:slot:1"]
 gesture_owner = "GestureButton"
-dpi = 1600
+dpi = 1000
 scroll_resolution = "low"
 
 [devices."receiver:b6cf9aa4:slot:1".identity]
