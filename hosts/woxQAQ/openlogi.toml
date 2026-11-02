@@ -1,9 +1,23 @@
 schema_version = 3
 selected_device = "receiver:b6cf9aa4:slot:1"
 
+[app_settings]
+launch_at_login = false
+check_for_updates = false
+auto_install_updates = false
+update_prompt_seen = true
+show_in_menu_bar = true
+capture_mouse_events = true
+auto_download_assets = true
+asset_source = "automatic"
+language = "zh-CN"
+thumbwheel_sensitivity = 14
+appearance = "light"
+theme_light = "Default Light"
+
 [devices."receiver:b6cf9aa4:slot:1"]
 gesture_owner = "GestureButton"
-dpi = 1000
+dpi = 1600
 scroll_resolution = "high"
 
 [devices."receiver:b6cf9aa4:slot:1".identity]

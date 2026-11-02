@@ -110,7 +110,7 @@
     };
 
     tuios = {
-      url = "github:Gaurav-Gosain/tuios/v0.11.0";
+      url = "github:Gaurav-Gosain/tuios/v0.12.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

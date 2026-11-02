@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 
 # TUI script for updating flake inputs.
-# Usage: ./update-flake-inputs.sh
+# Usage: ./update-flake-inputs.nu
 
 const flake_dir = path self .
 const flake_file = path self flake.nix
@@ -94,6 +94,29 @@ def get_declared_inputs [] {
   $state.inputs
 }
 
+# Nix can return success after a fetch failure by falling back to cached data.
+# Such a result does not confirm that the requested inputs are up to date.
+def run_update [nix_flags: list<string>, target: path, inputs: list<string>] {
+  let result = (^nix ...$nix_flags flake update --flake $target ...$inputs | complete)
+
+  if ($result.stdout | is-not-empty) {
+    print --no-newline $result.stdout
+  }
+  if ($result.stderr | is-not-empty) {
+    print --stderr --no-newline $result.stderr
+  }
+
+  if $result.exit_code != 0 {
+    print --stderr $"(ansi red)Update failed. Lock files may contain partial updates.(ansi reset)"
+    exit $result.exit_code
+  }
+
+  if ($result.stderr | str contains "using cached version") {
+    print --stderr $"(ansi red)Update incomplete: Nix used cached data after a fetch failure. Lock files may contain partial updates; retry once the fetch issue is resolved.(ansi reset)"
+    exit 1
+  }
+}
+
 def update_input [input_name: string] {
   let nix_flags = if $nu.os-info.name == "macos" {
     [--extra-experimental-features "nix-command flakes"]
@@ -103,21 +126,14 @@ def update_input [input_name: string] {
 
   if $input_name == $update_all {
     print $"(ansi cyan)Updating all inputs...(ansi reset)"
-    ^nix ...$nix_flags flake update --flake $flake_dir
+    run_update $nix_flags $flake_dir []
   } else {
     print $"(ansi cyan)Updating input: (ansi yellow)($input_name)(ansi reset)"
-    ^nix ...$nix_flags flake update --flake $flake_dir $input_name
-  }
-
-  if $env.LAST_EXIT_CODE != 0 {
-    exit $env.LAST_EXIT_CODE
+    run_update $nix_flags $flake_dir [$input_name]
   }
 
   print $"(ansi cyan)Syncing the dev lock's root snapshot...(ansi reset)"
-  ^nix ...$nix_flags flake update --flake ($flake_dir | path join "outputs" "dev") root
-  if $env.LAST_EXIT_CODE != 0 {
-    exit $env.LAST_EXIT_CODE
-  }
+  run_update $nix_flags ($flake_dir | path join "outputs" "dev") [root]
 }
 
 def main [] {

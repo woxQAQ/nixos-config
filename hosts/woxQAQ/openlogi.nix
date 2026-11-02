@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  fastest-pkg,
   ...
 }:
 {
@@ -19,7 +18,8 @@
     enable = true;
     gui.enable = true;
     mouse = "MX Master 2S";
-    basePackage = fastest-pkg.openlogi.overrideAttrs (old: {
+    # Match the system graphics driver's libc when the GUI loads Vulkan ICDs.
+    basePackage = pkgs.openlogi.overrideAttrs (old: {
       postPatch = (old.postPatch or "") + ''
         install -Dm644 ${./openlogi-init.rs} crates/openlogi-agent/src/bin/openlogi-init.rs
       '';

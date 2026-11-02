@@ -48,7 +48,9 @@ visible = true
 [desktop_widgets.widget]
 
 [dock]
+enabled = true
 reserve_space = false
+smart_auto_hide = true
 
 [location]
 address = "Quanzhou"
@@ -118,7 +120,7 @@ directory = "/home/woxQAQ/Pictures/Screenshots"
 builtin = "Catppuccin"
 community_palette = "Oxocarbon"
 mode = "dark"
-source = "builtin"
+source = "community"
 wallpaper_scheme = "m3-content"
 
 [wallpaper]
