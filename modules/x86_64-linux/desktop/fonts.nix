@@ -41,21 +41,20 @@
     fontconfig = {
       defaultFonts = {
         serif = [
-          "inter-noto-sans-sc"
           "Source Serif 4"
-          "Source Han Serif SC"
-          "Source Han Serif TC"
+          "Noto Serif CJK SC"
+          "Noto Serif CJK TC"
         ];
         sansSerif = [
-          "Source Sans 3"
-          "Source Han Sans SC"
-          "Source Han Sans TC"
-          "LXGW WenKai Screen"
+          "inter-noto-sans-sc"
+          # "Source Sans 3"
+          # "Noto Sans CJK SC"
+          # "Noto Sans CJK TC"
         ];
         monospace = [
           "Maple Mono NF CN"
-          "Source Han Mono SC"
-          "Source Han Mono TC"
+          "Noto Sans Mono CJK SC"
+          "Noto Sans Mono CJK TC"
           # "JetBrainsMono Nerd Font"
           "JetBrains Nerd Font"
         ];

@@ -48,6 +48,10 @@ in
 
           command = "${pkgs.bash}/bin/bash --login -c 'nu --login --interactive'";
         }
+        (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+          # Keep high-resolution wheel input at its original scale.
+          mouse-scroll-multiplier = "precision:1,discrete:1";
+        })
         (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
           # window-colorspace 仅 macOS 支持
           window-colorspace = "display-p3";

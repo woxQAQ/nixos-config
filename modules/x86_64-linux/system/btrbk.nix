@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -48,8 +49,8 @@ in
       type = lib.types.str;
       default = "btrbk_snapshots";
       description = ''
-        Snapshot directory, relative to {option}`volumePath`. Created by btrbk
-        on first run; kept as a plain directory on the top level so snapshots
+        Snapshot directory, relative to {option}`volumePath`. Created before
+        btrbk starts; kept as a plain directory on the top level so snapshots
         stay out of the snapshotted subvolumes themselves.
       '';
     };
@@ -88,6 +89,14 @@ in
         "subvolid=5"
         "noatime"
         "nofail"
+      ];
+    };
+
+    systemd.services.btrbk-btrbk = {
+      unitConfig.RequiresMountsFor = [ cfg.volumePath ];
+      # The service runs as btrbk, but the top-level directory belongs to root.
+      serviceConfig.ExecStartPre = [
+        "+${pkgs.coreutils}/bin/mkdir -p -- ${lib.escapeShellArg "${cfg.volumePath}/${cfg.snapshotDir}"}"
       ];
     };
 

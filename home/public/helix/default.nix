@@ -44,7 +44,7 @@ in
           completion-timeout = 50;
           completion-trigger-len = 1;
           lsp.display-messages = true;
-          lsp.display-inlay-hints = true;
+          lsp.display-inlay-hints = false;
           cursor-shape = {
             insert = "bar";
             normal = "block";
