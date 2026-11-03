@@ -59,7 +59,6 @@ in
           }
         ];
         home-modules = [
-          inputs.zen-browser.homeModules.beta
           ../home/nixos
           ../hosts/${name}/home.nix
           ../home/agents

@@ -843,8 +843,7 @@
         "nu_scripts": "nu_scripts",
         "secrets": "secrets",
         "tuios": "tuios",
-        "woxVim": "woxVim",
-        "zen-browser": "zen-browser"
+        "woxVim": "woxVim"
       }
     },
     "rust-overlay": {
@@ -1035,29 +1034,6 @@
       "original": {
         "owner": "woxQAQ",
         "repo": "nixvim",
-        "type": "github"
-      }
-    },
-    "zen-browser": {
-      "inputs": {
-        "home-manager": [
-          "home-manager"
-        ],
-        "nixpkgs": [
-          "nixpkgs-unstable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1792192561,
-        "narHash": "sha256-XNE80BcOYerOY/+2bfmVk1Sik7FYq7ID9mbtXTeqDN0=",
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
-        "rev": "733154388e22e459c7e6dd14e6522069bbf25971",
-        "type": "github"
-      },
-      "original": {
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
         "type": "github"
       }
     }
