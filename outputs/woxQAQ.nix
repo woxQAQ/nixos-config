@@ -56,6 +56,7 @@ in
               enable = true;
               user = name;
               openFirewall = true;
+              latencyStats = true;
             };
           }
         ];

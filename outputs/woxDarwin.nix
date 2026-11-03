@@ -46,6 +46,8 @@ let
       services.hidpipe = {
         enable = true;
         host = "woxqaq.local";
+        latencyStats = true;
+        inputFeedback = true;
       };
     }
     {
