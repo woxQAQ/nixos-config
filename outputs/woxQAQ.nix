@@ -16,8 +16,6 @@ in
         nixos-modules = [
           # Bootstrap without an agenix identity; restore secrets after rekeying.
           inputs.disko.nixosModules.disko
-          inputs.dae.nixosModules.dae
-          inputs.dae.nixosModules.daed
           inputs.hidpipe.nixosModules.default
           ../hosts/${name}
           ../modules/x86_64-linux/system

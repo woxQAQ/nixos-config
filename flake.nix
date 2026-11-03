@@ -17,11 +17,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    dae = {
-      url = "github:woxQAQ/dae-flake.nix/33dd7a66366eba035ab7e9ef1891c88a57afcbe6";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,11 +25,6 @@
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-
-    geodb = {
-      url = "github:Loyalsoldier/v2ray-rules-dat/release";
-      flake = false;
     };
 
     helix = {
