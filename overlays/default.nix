@@ -18,6 +18,8 @@ in
     helix =
       inputs.helix.packages.${prev.stdenv.hostPlatform.system}.default.override
         {
+          # The pinned Cylc grammar repository is no longer publicly available.
+          includeGrammarIf = grammar: grammar.name != "cylc";
           grammarOverlays = [
             (_final: grammars: {
               perl = grammars.perl.overrideAttrs (old: {
