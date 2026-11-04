@@ -40,12 +40,6 @@
     ];
   };
 
-  services.hidpipe.openlogi = {
-    enable = true;
-    gui.enable = true;
-    basePackage = fastest-pkg.openlogi;
-  };
-
   services.macos-remap-keys = {
     enable = pkgs.stdenv.hostPlatform.isDarwin;
     keyboard = {

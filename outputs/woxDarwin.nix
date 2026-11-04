@@ -39,17 +39,25 @@ let
   ++ [
     ../home/agents
     inputs.hidpipe.homeManagerModules.default
-    {
-      # macOS 注入端。woxqaq.local 由 Linux 侧 avahi 发布。
-      # 固定安装并签名 ~/Applications 中的两个 agent；首次迁移需授权一次。
-      services.hidpipe = {
-        enable = true;
-        localSigning.enable = true;
-        host = "woxqaq.local";
-        latencyStats = true;
-        inputFeedback = true;
-      };
-    }
+    (
+      { fastest-pkg, ... }:
+      {
+        # macOS 注入端。woxqaq.local 由 Linux 侧 avahi 发布。
+        # 固定安装并签名 ~/Applications 中的两个 agent；首次迁移需授权一次。
+        services.hidpipe = {
+          enable = true;
+          localSigning.enable = true;
+          host = "woxqaq.local";
+          latencyStats = true;
+          inputFeedback = true;
+          openlogi = {
+            enable = true;
+            gui.enable = true;
+            basePackage = fastest-pkg.openlogi;
+          };
+        };
+      }
+    )
     {
       modules.agents = {
         profile = "terminal";
