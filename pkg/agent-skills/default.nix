@@ -2,7 +2,7 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  installAgentSkills,
+  python3,
 }:
 let
   anthropicSkills = fetchFromGitHub {
@@ -12,9 +12,6 @@ let
     hash = "sha256-+UIqBnzyeIOvJSKYaDaE3GYPEpLw7qQqyUw5S971AfU=";
   };
 
-  # Upstream layouts do not always match the skill name in SKILL.md frontmatter
-  # (e.g. ast-grep ships `skills/outline` for the `ast-grep-outline` skill), so
-  # the install phase stages each skill under its published name.
   astGrep = fetchFromGitHub {
     owner = "ast-grep";
     repo = "agent-skill";
@@ -27,6 +24,13 @@ let
     repo = "i-have-adhd";
     rev = "1ecea1993b7fce257ffbd686c070948b5e07eda6";
     hash = "sha256-GTqrnZxQvzo/ogAuUrffkOaMK1BYm/4rAZsnfmDt7DU=";
+  };
+
+  improve = fetchFromGitHub {
+    owner = "shadcn";
+    repo = "improve";
+    rev = "cac56e1ebd3c279aa9153616cfeac7b174ab90f9";
+    hash = "sha256-czQV2LzhVddiT6kz0Wf3z+hHqGBgl4Zh/qw6hN3qEQw=";
   };
 
   killAiSlop = fetchFromGitHub {
@@ -63,63 +67,23 @@ stdenvNoCC.mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ installAgentSkills ];
+  nativeBuildInputs = [ (python3.withPackages (ps: [ ps.pyyaml ])) ];
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p staged
-    cp -R ${astGrep}/ast-grep/skills/ast-grep staged/ast-grep
-    cp -R ${astGrep}/ast-grep/skills/outline staged/ast-grep-outline
-
-    cp -R ${anthropicSkills}/skills/frontend-design staged/frontend-design
-
-    cp -R ${mattPocockSkills}/skills/productivity/grill-me staged/grill-me
-    # grill-me delegates to the grilling skill.
-    cp -R ${mattPocockSkills}/skills/productivity/grilling staged/grilling
-    cp -R ${mattPocockSkills}/skills/productivity/handoff staged/handoff
-    cp -R ${mattPocockSkills}/skills/engineering/research staged/research
-    cp -R ${mattPocockSkills}/skills/productivity/teach staged/teach
-
-    # pstack
-    cp -R ${pstack}/skills/unslop staged/unslop
-    cp -R ${pstack}/skills/arena staged/arena
-    cp -R ${pstack}/skills/how staged/how
-    cp -R ${pstack}/skills/why staged/why
-    cp -R ${pstack}/skills/architect staged/architect
-    cp -R ${pstack}/skills/bro staged/bro
-
-    cp -R ${obelisk}/skills/obelisk staged/obelisk
-
-    cp -R ${iHaveAdhd}/skills/i-have-adhd staged/i-have-adhd
-
-    cp -R ${killAiSlop}/skill staged/kill-ai-slop
-
-    for skill in staged/*; do
-      installSkill "$skill"
-    done
+    python ${./install-skills.py} "$out/share/skills/agent-skills" \
+      anthropic=${anthropicSkills}/skills \
+      ast-grep=${astGrep}/ast-grep/skills \
+      i-have-adhd=${iHaveAdhd}/skills \
+      improve=${improve}/skills \
+      kill-ai-slop=${killAiSlop}/skill \
+      mattpocock=${mattPocockSkills}/skills \
+      obelisk=${obelisk}/skills \
+      pstack=${pstack}/skills
 
     runHook postInstall
   '';
-
-  passthru.skills = [
-    "ast-grep"
-    "ast-grep-outline"
-    "frontend-design"
-    "grill-me"
-    "grilling"
-    "handoff"
-    "research"
-    "teach"
-    "unslop"
-    "arena"
-    "how"
-    "why"
-    "architect"
-    "obelisk"
-    "i-have-adhd"
-    "kill-ai-slop"
-  ];
 
   meta = {
     description = "Agent skills for code analysis, design, writing, research, learning, and session management";

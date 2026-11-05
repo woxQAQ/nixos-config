@@ -65,10 +65,23 @@ python3 home/agents/update-notifier/test_check.py
 ## Skills
 
 The skill sources are pinned upstream repos packaged by `pkg/agent-skills`, not
-vendored files in this tree. Bumping a skill means changing its `rev`/`hash`
-there; the overlay exposes the result as `pkgs.agent-skills`, whose
-`passthru.skills` lists the skills linked into every supported agent directory.
+vendored files in this tree. Bumping a source means changing its `rev`/`hash`
+there. The package installs all skills under each source's skill root (including
+nested categories), using the `name` in `SKILL.md` frontmatter as the directory
+name. Templates outside these roots are excluded.
 
-- ast-grep, ast-grep-outline
-- kill-ai-slop
-- obelisk (the CLI itself is packaged as `pkgs.obelisk-cli`)
+Skills are stored at `share/skills/agent-skills/<source>/<name>` so different
+sources can publish the same name without overwriting one another.
+
+Choose which skills agents can use in `enabledSkills` in `home/agents/skills.nix`.
+Its keys identify sources and its values list enabled skill names, for example:
+
+```nix
+mattpocock = [ "research" "teach" ];
+pstack = [ "unslop" ];
+```
+
+Only selected skills are linked into every supported agent directory. Selected
+names must be unique across sources because agent directories have a flat layout.
+Keep delegated skills enabled together (for example, `grill-me` and `grilling`).
+The obelisk CLI is packaged separately as `pkgs.obelisk-cli`.
