@@ -8,15 +8,15 @@ let
   anthropicSkills = fetchFromGitHub {
     owner = "anthropics";
     repo = "skills";
-    rev = "dbd4588f9e1033efb41dad4bef2f7947c8993d44";
-    hash = "sha256-+UIqBnzyeIOvJSKYaDaE3GYPEpLw7qQqyUw5S971AfU=";
+    rev = "ca45fc496a3436251f191354091d557da31c15b5";
+    hash = "sha256-MkCOANBAqCc1WmNf7S8PsyAphGJAIzEXGyCm8RrCR9M=";
   };
 
   astGrep = fetchFromGitHub {
     owner = "ast-grep";
     repo = "agent-skill";
-    rev = "f2175aff21f20cfb8e2db30c28febeb3a2d42b61";
-    hash = "sha256-dORqiMdFOUQVEF6wn1IZiTIcslzO+441A0GZP4KNcOQ=";
+    rev = "0613dc7f82bbfb3b557380b54726b92f73358460";
+    hash = "sha256-HFZVX/UYsct8EMtkczBGJNr9RjjDz77zY6SHS1WlKkc=";
   };
 
   iHaveAdhd = fetchFromGitHub {
@@ -43,22 +43,22 @@ let
   mattPocockSkills = fetchFromGitHub {
     owner = "mattpocock";
     repo = "skills";
-    rev = "5beb35b040e3de97e54fa9e386d7e42d15c295c2";
-    hash = "sha256-2FKfe3/Fwc4MmwBLa+d/oQW4/gtYIssdWapy2MPd39I=";
+    rev = "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d";
+    hash = "sha256-3vhd77xfZjKUYJsIwPFevIZPUAzUgZXr0RYj5NQrBwk=";
   };
 
   obelisk = fetchFromGitHub {
     owner = "tommy0103";
     repo = "obelisk-skill";
-    rev = "e883398c3d61ff6715e43ed8092d033df6ef8880";
-    hash = "sha256-2un/eGLVp5ejq1HuimEm0xKWSs3ximBxfEd69MsM62U=";
+    rev = "e7c0e358c82a609d53f1f1045572dbc0fd965bfc";
+    hash = "sha256-Z0nw4J1qOrbh2VYErq2PpjibhZskW61FeNuaPF4Azvs=";
   };
 
   pstack = fetchFromGitHub {
     owner = "backnotprop";
     repo = "pstack";
-    rev = "18b6c36e6e201b110acc62472de987416ac4e23b";
-    hash = "sha256-hsGfW8S58TL5QPv9VbhQ5/V1JyPhz52y4we914LELOI=";
+    rev = "4ae1636abe217c7215774bf6b2265916a5c5f648";
+    hash = "sha256-enRz+0Yv6U+wHDJk9Sdl6FzwMLUoQsBqoJUL1W3SM/w=";
   };
 in
 stdenvNoCC.mkDerivation {

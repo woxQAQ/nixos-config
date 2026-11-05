@@ -7,11 +7,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "obelisk";
-  version = "0.3.0";
+  version = "0.3.1";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/@obelisk-apps/cli/-/cli-${finalAttrs.version}.tgz";
-    hash = "sha256-q8cUIgo9heXO6nQh9prmYZDCPV2FhL+rJm52HklBGRY=";
+    hash = "sha256-VAGRLCqcbAldKxKBgaPAuOARnDDf+e8Mc/uN+RbL0IA=";
   };
 
   nativeBuildInputs = [ makeWrapper ];

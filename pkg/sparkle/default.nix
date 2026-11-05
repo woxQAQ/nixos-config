@@ -25,7 +25,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sparkle";
-  version = "1.26.1";
+  version = "1.26.10";
 
   src =
     let
@@ -41,8 +41,8 @@ stdenv.mkDerivation (finalAttrs: {
     fetchurl {
       url = "https://github.com/xishang0128/sparkle/releases/download/${finalAttrs.version}/sparkle-linux-${finalAttrs.version}-${arch}.deb";
       hash = selectSystem {
-        x86_64-linux = "sha256-gSfjPhR2nMl1qL1IXqWOI12cGrzOBPK6O7AnPPHg00Q=";
-        aarch64-linux = "sha256-lo19xwSqNgTxBxZuNIV7cq2qE93xtbxnsn7K3vROmrc=";
+        x86_64-linux = "sha256-4xfv+As2pO5Z12kGhBXVBuCXYL/7oYq2kNbPYh+BjJg=";
+        aarch64-linux = "sha256-ZvLnbdse+aOyBe6FYd90Y1RXy7NqeyKiPE0UrSuipu4=";
       };
     };
 
