@@ -73,6 +73,7 @@ stdenvNoCC.mkDerivation {
     cp -R ${astGrep}/ast-grep/skills/outline staged/ast-grep-outline
 
     cp -R ${anthropicSkills}/skills/frontend-design staged/frontend-design
+
     cp -R ${mattPocockSkills}/skills/productivity/grill-me staged/grill-me
     # grill-me delegates to the grilling skill.
     cp -R ${mattPocockSkills}/skills/productivity/grilling staged/grilling
@@ -86,10 +87,12 @@ stdenvNoCC.mkDerivation {
     cp -R ${pstack}/skills/how staged/how
     cp -R ${pstack}/skills/why staged/why
     cp -R ${pstack}/skills/architect staged/architect
+    cp -R ${pstack}/skills/bro staged/bro
 
     cp -R ${obelisk}/skills/obelisk staged/obelisk
 
     cp -R ${iHaveAdhd}/skills/i-have-adhd staged/i-have-adhd
+
     cp -R ${killAiSlop}/skill staged/kill-ai-slop
 
     for skill in staged/*; do

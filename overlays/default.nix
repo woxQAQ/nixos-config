@@ -48,6 +48,7 @@ in
     # In-house Go port of ryan4yin/pyclipsync: Wayland <-> X11 clipboard
     # sync for xwayland-satellite setups (niri).
     clipsync = prev.callPackage ../pkg/clipsync { };
+    delta-bin = prev.callPackage ../pkg/delta-bin { };
     # Vendored from nixpkgs: upstream removed flclash as unmaintained.
     flclash = prev.callPackage ../pkg/flclash { };
     inter-noto-sans-sc = prev.callPackage ../pkg/inter-noto-sans-sc { };

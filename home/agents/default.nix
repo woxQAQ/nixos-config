@@ -13,15 +13,11 @@ let
   agentNames = [
     "pi"
   ]
-  ++ lib.optionals (cfg.profile == "terminal") [
+  ++ lib.optionals (cfg.profile == "terminal" || cfg.profile == "full") [
     "grok"
-    "codex"
-    "kimi-code"
     "claude-code"
-    "tuicr"
   ];
   providerNames = [
-    "codex"
     "claude-code"
     "grok"
     "pi"
@@ -76,9 +72,6 @@ let
       ''}
       # Engineering Core
 
-      - reason from fundamental facts and constraints;
-        use established patterns when evidence shows they fit.
-      - Zero dependencies first. That doesn't mean you should vendor any ability. 
       - Backward Compatibility(BC): Only published public contracts need to keep BC. Forbid keeping BC on
         internal packages, unpublished or branch-only implement details.
       - Tests are software too, need to be designed. And unit tests to functions are not allowed. 
@@ -108,9 +101,11 @@ in
         pkgs.uv
         pkgs.pnpm
         pkgs.devenv
+        agents.tuicr
       ]
       ++ lib.optionals (cfg.profile == "full") [
         # Include the selected providers in both t3code and the update checks.
+        pkgs.delta-bin
         (agents.t3code-desktop.override {
           t3code = agents.t3code.override {
             providerPackages = map (name: agents.${name}) providerNames;

@@ -62,6 +62,11 @@ in
           ../home/nixos
           ../hosts/${name}/home.nix
           ../home/agents
+          {
+            modules.agents = {
+              profile = "full";
+            };
+          }
           ../home/public
           {
             modules.public = {
