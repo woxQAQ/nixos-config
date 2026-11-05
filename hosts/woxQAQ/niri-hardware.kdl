@@ -1,14 +1,14 @@
 output "DP-3" {
-  scale 1.25
+  scale 1.1
   transform "normal"
   mode "2560x1440@179.998"
-  position x=0 y=0
 }
 
 output "HDMI-A-2" {
   scale 1.25
-  transform "90"
+  // transform "90"
   mode "1920x1080@144.000"
+  position x=0 y=0
 }
 
 // spawn-at-startup "clash-nyanpasu"

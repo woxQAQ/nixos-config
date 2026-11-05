@@ -17,7 +17,8 @@ theme_light = "Default Light"
 
 [devices."receiver:b6cf9aa4:slot:1"]
 gesture_owner = "GestureButton"
-dpi = 1000
+dpi = 1600
+scroll_resolution = "low"
 
 [devices."receiver:b6cf9aa4:slot:1".identity]
 display_name = "MX Master 2S"
