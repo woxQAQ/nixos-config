@@ -32,13 +32,13 @@ nu pkg/agent-skills/check-update.nu
 
 结果包含 `package`、`source`、`current`、`latest`、`status`、`url`、`error`。单包脚本没有 `package` 列，该列由统一入口添加。
 
-| status | 含义 |
-| --- | --- |
-| `current` | 版本或 commit 相同；纯数字版本允许末尾补零 |
-| `update` | 上游纯数字版本高于本地，如 `0.3.0` → `0.3.1` |
-| `ahead` | 本地纯数字版本高于上游，不建议降级 |
+| status    | 含义                                                                            |
+| --------- | ------------------------------------------------------------------------------- |
+| `current` | 版本或 commit 相同；纯数字版本允许末尾补零                                      |
+| `update`  | 上游纯数字版本高于本地，如 `0.3.0` → `0.3.1`                                    |
+| `ahead`   | 本地纯数字版本高于上游，不建议降级                                              |
 | `changed` | commit 或其他版本字符串不同，需人工判断；不推断 commit 祖先关系或预发布版本顺序 |
-| `error` | 查询、解析或检查脚本协议失败 |
+| `error`   | 查询、解析或检查脚本协议失败                                                    |
 
 GitHub 的 `latest` 是其指定的 release，不一定是数值最大的 tag。例如上游可能把较老版本标成 latest，此时会报告 `ahead`。
 

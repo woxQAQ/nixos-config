@@ -2,6 +2,7 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
+  applyPatches,
   python3,
 }:
 let
@@ -40,11 +41,21 @@ let
     hash = "sha256-5kUlXiBbbpwj6UT2VhFIW7f9EFo3iWT0UKWl41PGbQA=";
   };
 
-  mattPocockSkills = fetchFromGitHub {
-    owner = "mattpocock";
-    repo = "skills";
-    rev = "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d";
-    hash = "sha256-3vhd77xfZjKUYJsIwPFevIZPUAzUgZXr0RYj5NQrBwk=";
+  mattPocockSkills = applyPatches {
+    src = fetchFromGitHub {
+      owner = "mattpocock";
+      repo = "skills";
+      rev = "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d";
+      hash = "sha256-3vhd77xfZjKUYJsIwPFevIZPUAzUgZXr0RYj5NQrBwk=";
+    };
+
+    # Quote the description's colon so the published frontmatter is valid YAML.
+    postPatch = ''
+      substituteInPlace skills/in-progress/software-factory/SKILL.md \
+        --replace-fail \
+        'description: Shared language for designing a software factory: the tasks it runs and the services it plugs into.' \
+        'description: "Shared language for designing a software factory: the tasks it runs and the services it plugs into."'
+    '';
   };
 
   obelisk = fetchFromGitHub {

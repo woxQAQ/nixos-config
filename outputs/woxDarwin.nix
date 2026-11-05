@@ -50,6 +50,9 @@ let
           host = "woxqaq.local";
           latencyStats = true;
           inputFeedback = true;
+          clipboard = {
+            enable = true;
+          };
           openlogi = {
             enable = true;
             gui.enable = true;
