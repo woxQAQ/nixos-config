@@ -45,9 +45,6 @@ in
     # In-tree packages from pkg/, exposed as pkgs.<name>.
     agent-skills = prev.callPackage ../pkg/agent-skills { };
     chillroundf = prev.callPackage ../pkg/chillroundf { };
-    # In-house Go port of ryan4yin/pyclipsync: Wayland <-> X11 clipboard
-    # sync for xwayland-satellite setups (niri).
-    clipsync = prev.callPackage ../pkg/clipsync { };
     delta-bin = prev.callPackage ../pkg/delta-bin { };
     # Vendored from nixpkgs: upstream removed flclash as unmaintained.
     flclash = prev.callPackage ../pkg/flclash { };

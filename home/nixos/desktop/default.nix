@@ -4,7 +4,6 @@
     # keep-sorted start block=yes
     ./base.nix
     ./browsers
-    ./clipsync.nix
     ./cursor.nix
     ./fcitx
     ./game.nix
