@@ -29,10 +29,8 @@
       enable = true;
       defaultApplications =
         let
-          browser = [
-            "chromium-browser.desktop"
-            "google-chrome.desktop"
-          ];
+          browser = [ "google-chrome.desktop" ];
+          archive = [ "org.gnome.FileRoller.desktop" ];
           editor = [
             "dev.zed.Zed.desktop"
             "nvim.desktop"
@@ -42,6 +40,25 @@
         {
           "application/json" = browser;
           "application/pdf" = browser;
+
+          "application/zip" = archive;
+          "application/x-zip" = archive;
+          "application/x-zip-compressed" = archive;
+          "application/vnd.rar" = archive;
+          "application/x-rar" = archive;
+          "application/x-rar-compressed" = archive;
+          "application/x-7z-compressed" = archive;
+          "application/x-tar" = archive;
+          "application/x-compressed-tar" = archive;
+          "application/x-bzip-compressed-tar" = archive;
+          "application/x-xz-compressed-tar" = archive;
+          "application/x-zstd-compressed-tar" = archive;
+          "application/gzip" = archive;
+          "application/x-gzip" = archive;
+          "application/bzip2" = archive;
+          "application/x-bzip" = archive;
+          "application/x-xz" = archive;
+          "application/zstd" = archive;
 
           "text/html" = browser;
           "text/xml" = browser;

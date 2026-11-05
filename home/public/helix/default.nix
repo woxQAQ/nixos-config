@@ -83,6 +83,10 @@ in
       };
       languages.language = [
         {
+          name = "markdown";
+          soft-wrap.enable = true;
+        }
+        {
           name = "nix";
           auto-format = true;
           formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
