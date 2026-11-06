@@ -27,10 +27,8 @@ let
     obelisk = [ "obelisk" ];
     pstack = [
       "unslop"
-      "arena"
       "how"
       "why"
-      "architect"
       "bro"
     ];
   };

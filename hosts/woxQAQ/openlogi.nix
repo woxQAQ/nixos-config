@@ -38,6 +38,10 @@
     ];
   };
 
+  # Keep capture lifecycle evidence for intermittent side-button loss.
+  systemd.user.services.openlogi-agent.environment.OPENLOGI_LOG =
+    "info,openlogi_hid::gesture=debug,openlogi_agent_core::watchers::gesture=debug,openlogi_agent_core::orchestrator=debug,openlogi_agent_core::remote=debug,openlogi_hook::linux=debug";
+
   # Resolve the initial profile's device key before the input owner starts.
   systemd.user.services.openlogi-agent.serviceConfig.ExecStartPre =
     "${config.services.hidpipe.openlogi.package}/bin/openlogi-init %h/.config/openlogi/config.toml";
