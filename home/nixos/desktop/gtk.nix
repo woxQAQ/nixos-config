@@ -5,6 +5,7 @@
     # libsForQt5.qt5ct
     gtk3
     gtk4
+    adw-gtk3
   ];
 
   xresources.properties = {

@@ -7,51 +7,51 @@ ui_scale = 1.2500000111758709
 background_opacity = 0.0
 capsule = true
 capsule_thickness = 0.79999998584389687
-center = [ "active_window", "caffeine" ]
+center = ["active_window", "caffeine"]
 contact_shadow = true
 end = [
-    "tray",
-    "notifications",
-    "clipboard",
-    "network",
-    "bluetooth",
-    "volume",
-    "brightness",
-    "battery",
-    "clock",
-    "control-center",
-    "wallpaper",
-    "session"
+  "tray",
+  "notifications",
+  "clipboard",
+  "network",
+  "bluetooth",
+  "volume",
+  "brightness",
+  "battery",
+  "clock",
+  "control-center",
+  "wallpaper",
+  "session",
 ]
 font_family = "Inter Noto Sans SC"
 margin_ends = 20
 scale = 1.1000000089406967
-start = [ "launcher", "workspaces", "group:g1" ]
+start = ["launcher", "workspaces", "group:g1"]
 thickness = 40
 widget_spacing = 7
 
-    [[bar.default.capsule_group]]
-    accordion = false
-    accordion_direction = "end"
-    border = ""
-    border_width = 1.0
-    enabled = true
-    fill = "surface_container"
-    id = "g1"
-    members = [ "cpu", "ram", "disk", "network_tx", "network_rx", "temp" ]
-    opacity = 1.0
-    padding = 6.0
+[[bar.default.capsule_group]]
+accordion = false
+accordion_direction = "end"
+border = ""
+border_width = 1.0
+enabled = true
+fill = "surface_container"
+id = "g1"
+members = ["cpu", "ram", "disk", "network_tx", "network_rx", "temp"]
+opacity = 1.0
+padding = 6.0
 
 [desktop_widgets]
 schema_version = 2
 widget_order = []
 
-    [desktop_widgets.grid]
-    cell_size = 16
-    major_interval = 4
-    visible = true
+[desktop_widgets.grid]
+cell_size = 16
+major_interval = 4
+visible = true
 
-    [desktop_widgets.widget]
+[desktop_widgets.widget]
 
 [dock]
 enabled = true
@@ -61,72 +61,75 @@ smart_auto_hide = true
 
 [location]
 address = "Quanzhou"
+# Keep the solar schedule available before online geocoding completes.
+latitude = 24.8741
+longitude = 118.6757
 
 [lockscreen_widgets]
 enabled = false
 schema_version = 2
-widget_order = [ "lockscreen-login-box@DP-3", "lockscreen-login-box@HDMI-A-2" ]
+widget_order = ["lockscreen-login-box@DP-3", "lockscreen-login-box@HDMI-A-2"]
 
-    [lockscreen_widgets.grid]
-    cell_size = 16
-    major_interval = 4
-    visible = true
+[lockscreen_widgets.grid]
+cell_size = 16
+major_interval = 4
+visible = true
 
-    [lockscreen_widgets.widget."lockscreen-login-box@DP-3"]
-    box_height = 196.0
-    box_width = 810.0
-    cx = 1163.5
-    cy = 1102.1961669921875
-    output = "DP-3"
-    placement_height = 1309.0
-    placement_width = 2327.0
-    rotation = 0.0
-    type = "login_box"
+[lockscreen_widgets.widget."lockscreen-login-box@DP-3"]
+box_height = 196.0
+box_width = 810.0
+cx = 1163.5
+cy = 1102.1961669921875
+output = "DP-3"
+placement_height = 1309.0
+placement_width = 2327.0
+rotation = 0.0
+type = "login_box"
 
-        [lockscreen_widgets.widget."lockscreen-login-box@DP-3".settings]
-        background_color = "surface_container"
-        background_opacity = 0.88
-        background_radius = 12.0
-        center_password_text = false
-        input_opacity = 1.0
-        input_radius = 6.0
-        layout = "regular"
-        show_caps_lock = true
-        show_keyboard_layout = true
-        show_login_button = true
-        show_media = true
-        show_password_reveal = true
-        show_session_buttons = true
-        show_unlock_hint = true
-        show_weather = true
+[lockscreen_widgets.widget."lockscreen-login-box@DP-3".settings]
+background_color = "surface_container"
+background_opacity = 0.88
+background_radius = 12.0
+center_password_text = false
+input_opacity = 1.0
+input_radius = 6.0
+layout = "regular"
+show_caps_lock = true
+show_keyboard_layout = true
+show_login_button = true
+show_media = true
+show_password_reveal = true
+show_session_buttons = true
+show_unlock_hint = true
+show_weather = true
 
-    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2"]
-    box_height = 196.0
-    box_width = 810.0
-    cx = 768.0
-    cy = 761.625
-    output = "HDMI-A-2"
-    placement_height = 864.0
-    placement_width = 1536.0
-    rotation = 0.0
-    type = "login_box"
+[lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2"]
+box_height = 196.0
+box_width = 810.0
+cx = 768.0
+cy = 761.625
+output = "HDMI-A-2"
+placement_height = 864.0
+placement_width = 1536.0
+rotation = 0.0
+type = "login_box"
 
-        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2".settings]
-        background_color = "surface_container"
-        background_opacity = 0.88
-        background_radius = 12.0
-        center_password_text = false
-        input_opacity = 1.0
-        input_radius = 6.0
-        layout = "regular"
-        show_caps_lock = true
-        show_keyboard_layout = true
-        show_login_button = true
-        show_media = true
-        show_password_reveal = true
-        show_session_buttons = true
-        show_unlock_hint = true
-        show_weather = true
+[lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2".settings]
+background_color = "surface_container"
+background_opacity = 0.88
+background_radius = 12.0
+center_password_text = false
+input_opacity = 1.0
+input_radius = 6.0
+layout = "regular"
+show_caps_lock = true
+show_keyboard_layout = true
+show_login_button = true
+show_media = true
+show_password_reveal = true
+show_session_buttons = true
+show_unlock_hint = true
+show_weather = true
 
 [nightlight]
 force = true
@@ -137,8 +140,8 @@ position = "bottom_right"
 [osd]
 position = "bottom_right"
 
-    [osd.kinds]
-    media = false
+[osd.kinds]
+media = false
 
 [plugins]
 enabled = []
@@ -148,33 +151,37 @@ font_family = "Inter Noto Sans SC"
 lang = "zh-Hans"
 screen_time_enabled = true
 
-    [shell.panel]
-    transparency_mode = "glass"
+[shell.panel]
+transparency_mode = "glass"
 
-    [shell.screen_corners]
-    enabled = true
+[shell.screen_corners]
+enabled = true
 
-    [shell.screenshot]
-    directory = "/home/woxQAQ/Pictures/Screenshots"
+[shell.screenshot]
+directory = "/home/woxQAQ/Pictures/Screenshots"
 
 [theme]
 builtin = "Catppuccin"
 community_palette = "Oxocarbon"
-mode = "dark"
+mode = "auto"
 source = "wallpaper"
+sync_color_scheme = true
+
+[theme.templates]
+builtin_ids = ["gtk3", "gtk4", "qt", "kcolorscheme"]
 
 [wallpaper]
 directory = "/home/woxQAQ/Pictures/Wallpapers"
 fill_mode = "center"
 
-    [wallpaper.default]
-    path = "/home/woxQAQ/Pictures/Wallpapers/wallhaven-w53k9q.jpg"
+[wallpaper.default]
+path = "/home/woxQAQ/Pictures/Wallpapers/wallhaven-w53k9q.jpg"
 
-    [wallpaper.last]
-    path = "/home/woxQAQ/Pictures/Wallpapers/wallhaven-w53k9q.jpg"
+[wallpaper.last]
+path = "/home/woxQAQ/Pictures/Wallpapers/wallhaven-w53k9q.jpg"
 
-    [wallpaper.monitors.DP-3]
-    path = "/home/woxQAQ/Pictures/Wallpapers/wallhaven-w53k9q.jpg"
+[wallpaper.monitors.DP-3]
+path = "/home/woxQAQ/Pictures/Wallpapers/wallhaven-w53k9q.jpg"
 
 [widget.disk]
 path = "/"

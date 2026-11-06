@@ -20,6 +20,9 @@ in
       recursive = true;
     };
 
+    # Linux follows the desktop portal's light/dark preference.
+    catppuccin.ghostty.enable = lib.mkIf pkgs.stdenv.hostPlatform.isLinux false;
+
     programs.ghostty = {
       enable = true;
       # ghostty 的 macOS 前端是 Swift/AppKit，无法在 Nix sandbox 中源码构建，
@@ -49,6 +52,7 @@ in
           command = "${pkgs.bash}/bin/bash --login -c 'nu --login --interactive'";
         }
         (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+          theme = "light:Catppuccin Latte,dark:Catppuccin Mocha";
           # Keep high-resolution wheel input at its original scale.
           mouse-scroll-multiplier = "precision:1,discrete:1";
         })
