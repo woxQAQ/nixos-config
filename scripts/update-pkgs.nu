@@ -79,7 +79,11 @@ def main [
             $"($row.package) / ($row.source): ($current) → ($latest)"
         } 'Select updates (Tab to toggle, Enter to apply, Esc to cancel)'
     }
-    if ($selected | is-empty) { print 'No updates selected.'; return }
+    if ($selected | is-empty) {
+        print 'No updates selected.'
+        if not ($errors | is-empty) { exit 1 }
+        return
+    }
     print ($selected | select package source current latest | table --expand)
     if $dry_run {
         if not ($errors | is-empty) { exit 1 }

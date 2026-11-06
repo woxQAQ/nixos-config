@@ -40,7 +40,7 @@ jobs:
           nix build --no-link --no-update-lock-file \
             .#devShells.${{ matrix.system }}.default \
             .#formatter.${{ matrix.system }}
-      - name: Validate hooks and run quality checks
+      - name: Validate hooks and run workflow tests
         run: |
           nix develop --no-update-lock-file --command bash -euc '
             prek --version

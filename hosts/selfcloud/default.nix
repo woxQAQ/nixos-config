@@ -1,6 +1,7 @@
 {
   pkgs,
   stateVersion,
+  username,
   ...
 }:
 {
@@ -15,6 +16,11 @@
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
+  };
+
+  users.users.${username} = {
+    home = "/home/${username}";
+    isNormalUser = true;
   };
 
   networking.hostName = "selfcloud";

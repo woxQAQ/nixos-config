@@ -16,6 +16,8 @@
           prettier
           deadnix
           nix-prefetch-git
+          nushell
+          python3
           ruff
           fzf
           jq
