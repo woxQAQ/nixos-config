@@ -48,14 +48,15 @@ let
       # Environment
 
       - Shell preference: use `fd` to replace `find`, use `rg` instead of `grep`.${lib.optionalString includeBashEditGuideance " Do not edit files by bash tools."}
+      - Prefer just than make.
       - We use nix to manage machines configuration${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ", MUST NOT install packages by brew manually."}
       - ${dotfilesDir} contains the system nixos configuration so any patches to the system should apply to this repo.
-      - If you are requesting user to run a shell, provide a nushell script
+      - If you are requesting user to running any command, provide a nushell script, but writing bash script for common ops purpose.
 
       # Source of Truth
 
       - Use current implements and runtime evidence as the applicable authoritative source
-      - Clone repos under ${config.home.homeDirectory}/git-for-agents for more accurate results with `--depth 1` to reduce 
+      - Clone repos under ${config.home.homeDirectory}/git-for-agents with `--depth 1` to reduce 
         history clone and `git fetch --unshallow` if you really want rest history.
         Before you clone any repo, check if it exists.
 
@@ -79,7 +80,7 @@ let
       # Engineering Misc
 
       - Write comments as the view of authors, not users and agents. Claim self as we/our or use passive voice.
-      - For NEW projects, use `uv` for python, `pnpm` for typescript/javascript.
+      - For NEW projects, use `uv` for python, `bun` for js project.
       - Prefer eliminate special cases by redesigning data struct first, then consider adding code paths.
       - Follow project commit history's convention. Use scoped commits for new projects.
     '';
