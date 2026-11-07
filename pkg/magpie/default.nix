@@ -24,18 +24,18 @@ let
     {
       x86_64-linux = {
         arch = "amd64";
-        hash = "sha256-3qIJtgC7B2SmmO/8p6e01R1h0XhTvsSCLcJcRS8f3Y4=";
+        hash = "sha256-IeXBtgY7n3W9zDnaHidyR4PhF2RzeCCTP68TIg+OluU=";
       };
       aarch64-linux = {
         arch = "arm64";
-        hash = "sha256-onqDZWox2yAaWN4y0KX++VbQ/DVB15vtzhk97CIuo04=";
+        hash = "sha256-bA8Y9VuEJfxee7A2Me5YaZNG37hStGpD3/dTm2kDM2Y=";
       };
     }
     .${stdenvNoCC.hostPlatform.system};
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "magpie";
-  version = "0.1.3035";
+  version = "0.1.3233";
 
   src = fetchurl {
     url = "https://github.com/yetone/magpie/releases/download/v${finalAttrs.version}/magpie-linux-${platform.arch}";

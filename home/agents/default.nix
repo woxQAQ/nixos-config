@@ -91,6 +91,7 @@ in
     ./skills.nix
     ./options.nix
     ./pi
+    ./tuicr
     (import ./update-notifier { packages = monitoredAgents; })
   ];
   home = {

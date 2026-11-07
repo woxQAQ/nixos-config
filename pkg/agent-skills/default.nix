@@ -9,8 +9,8 @@ let
   anthropicSkills = fetchFromGitHub {
     owner = "anthropics";
     repo = "skills";
-    rev = "ca45fc496a3436251f191354091d557da31c15b5";
-    hash = "sha256-MkCOANBAqCc1WmNf7S8PsyAphGJAIzEXGyCm8RrCR9M=";
+    rev = "2c5958ecac7cee2b583967a2c4981d0f4a75c579";
+    hash = "sha256-dRCZrNarCCJFuvATgfW6qmwwVS5HGFXNVGOhbVZd7LA=";
   };
 
   astGrep = fetchFromGitHub {
@@ -68,8 +68,8 @@ let
   pstack = fetchFromGitHub {
     owner = "backnotprop";
     repo = "pstack";
-    rev = "4ae1636abe217c7215774bf6b2265916a5c5f648";
-    hash = "sha256-enRz+0Yv6U+wHDJk9Sdl6FzwMLUoQsBqoJUL1W3SM/w=";
+    rev = "f104aa8f821a3f7397318b0dc8ad2f7e4a1f8bc7";
+    hash = "sha256-VPgYiNBX4J8TuaoWAkd9xG7DxDcKZaTLj3ILo0uf1jc=";
   };
 in
 stdenvNoCC.mkDerivation {

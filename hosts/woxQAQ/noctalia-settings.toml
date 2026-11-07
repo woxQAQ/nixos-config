@@ -7,7 +7,7 @@ ui_scale = 1.2500000111758709
 background_opacity = 0.0
 capsule = true
 capsule_thickness = 0.79999998584389687
-center = ["active_window", "caffeine"]
+center = ["active_window", "caffeine", "media"]
 contact_shadow = true
 end = [
   "tray",
@@ -61,9 +61,8 @@ smart_auto_hide = true
 
 [location]
 address = "Quanzhou"
-# Keep the solar schedule available before online geocoding completes.
-latitude = 24.8741
-longitude = 118.6757
+latitude = 24.874099999999999
+longitude = 118.67570000000001
 
 [lockscreen_widgets]
 enabled = false
