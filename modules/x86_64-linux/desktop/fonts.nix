@@ -25,7 +25,7 @@
       nerd-fonts.fira-code
       nerd-fonts.jetbrains-mono
       nerd-fonts.hack
-      nerd-fonts.iosevka
+      ioskeley-chillround
 
       lxgw-wenkai-screen
       inter-noto-sans-sc
@@ -52,6 +52,7 @@
           # "Noto Sans CJK TC"
         ];
         monospace = [
+          "Ioskeley ChillRound Mono"
           "Maple Mono NF CN"
           "Noto Sans Mono CJK SC"
           "Noto Sans Mono CJK TC"
@@ -76,7 +77,7 @@
     # including full unicode support, and when the video card supports drm should be much faster.
     enable = true;
     config = {
-      font-name = "Maple Mono NF CN";
+      font-name = "Ioskeley ChillRound Mono";
       font-size = 14;
       # Whether to use 3D hardware acceleration to render the console.
       hwaccel = true;

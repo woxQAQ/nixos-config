@@ -11,7 +11,12 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       # declare font packages to avoid font missing
-      ioskeley-mono.term-nf
+      (
+        if pkgs.stdenv.hostPlatform.isLinux then
+          ioskeley-chillround
+        else
+          ioskeley-mono.term-nf
+      )
       inter-noto-sans-sc
       chillroundf
 
@@ -183,7 +188,11 @@ in
         icon_theme = "Material Icon Theme";
         vim_mode = true;
         ui_font_size = 16;
-        buffer_font_family = "IoskeleyMonoTerm Nerd Font Mono";
+        buffer_font_family =
+          if pkgs.stdenv.hostPlatform.isLinux then
+            "Ioskeley ChillRound Mono"
+          else
+            "IoskeleyMonoTerm Nerd Font Mono";
         buffer_font_size = 14;
         file_finder = {
           modal_max_width = "medium";

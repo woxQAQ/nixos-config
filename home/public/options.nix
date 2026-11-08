@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   options.modules.public = {
     cloud-native = {
@@ -36,7 +36,11 @@
       font-family = lib.mkOption {
         type = lib.types.str;
         description = "The font family to use in the terminal emulator.";
-        default = "Maple Mono NF CN";
+        default =
+          if pkgs.stdenv.hostPlatform.isLinux then
+            "Ioskeley ChillRound Mono"
+          else
+            "Maple Mono NF CN";
       };
       font-family-fallbacks = lib.mkOption {
         type = lib.types.listOf lib.types.str;

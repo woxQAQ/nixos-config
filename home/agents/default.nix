@@ -122,7 +122,7 @@ in
       # will be injected into system prompt
       ".pi/agent/APPEND_SYSTEM.md".text = mkAgentInstructions { codemode = true; };
       ".grok/AGENTS.md".text = defaultInstructions;
-      "Library/Application Support/delta/AGENTS.md".text = defaultInstructions;
+      "${config.home.homeDirectory}/delta/AGENTS.md".text = defaultInstructions;
       # ".claude/CLAUDE.md".text = agentInstructions;
     };
   };

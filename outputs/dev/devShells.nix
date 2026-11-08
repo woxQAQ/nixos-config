@@ -17,7 +17,7 @@
           deadnix
           nix-prefetch-git
           nushell
-          python3
+          (python3.withPackages (ps: [ ps.fonttools ]))
           ruff
           fzf
           jq

@@ -49,6 +49,7 @@ in
     # Vendored from nixpkgs: upstream removed flclash as unmaintained.
     flclash = prev.callPackage ../pkg/flclash { };
     inter-noto-sans-sc = prev.callPackage ../pkg/inter-noto-sans-sc { };
+    ioskeley-chillround = prev.callPackage ../pkg/ioskeley-chillround { };
     magpie = prev.callPackage ../pkg/magpie { };
     obelisk-cli = prev.callPackage ../pkg/obelisk-cli { };
     removemacai = prev.callPackage ../pkg/removemacai { };
