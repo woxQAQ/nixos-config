@@ -76,7 +76,13 @@
       enableBashIntegration = true;
       enableZshIntegration = true;
       enableNushellIntegration = true;
-      daemon.enable = true;
+      # Native autostart serializes startup and removes stale sockets on macOS;
+      # launchd's direct `daemon start` cannot recover from a leftover socket.
+      daemon.enable = !pkgs.stdenv.hostPlatform.isDarwin;
+      settings.daemon = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+        enabled = true;
+        autostart = true;
+      };
     };
   };
   home.shellAliases = {
