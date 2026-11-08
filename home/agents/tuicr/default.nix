@@ -5,7 +5,7 @@
       (
         config.programs.nushell.enable
         && lib.any (package: lib.getName package == "tuicr") config.home.packages
-      )
+      ) # nu
       ''
         use ${./completions.nu} *
       '';
