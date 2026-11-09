@@ -9,7 +9,6 @@
     ./rocm.nix
     ./vm.nix
     ./waydroid-houdini.nix
-    ./cloud-native.nix
     ./openlogi.nix
     ./tailscale.nix
   ];

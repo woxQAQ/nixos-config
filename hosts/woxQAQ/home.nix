@@ -7,6 +7,19 @@
 }:
 
 {
+  # Keep GTK and SWT on the same integer scale under native Wayland.
+  programs.dbeaver = {
+    forceX11 = false;
+    showSplash = false;
+    environment = {
+      DISPLAY = null;
+      GDK_BACKEND = "wayland";
+      GDK_SCALE = "2";
+      GDK_DPI_SCALE = "1";
+    };
+    extraJavaOptions = [ "-Dswt.autoScale=200" ];
+  };
+
   home.packages = with pkgs; [
     # clash-nyanpasu
     netease-cloud-music-gtk

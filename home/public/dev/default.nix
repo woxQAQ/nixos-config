@@ -9,6 +9,11 @@
     ./cloud-native.nix
     ./nix.nix
   ];
+  programs.dbeaver = {
+    enable = true;
+    drivers = with pkgs; [ sqlite-jdbc ];
+  };
+
   home.packages = with pkgs; [
     ### NODEJS
     pnpm
@@ -60,7 +65,6 @@
     just
     nufmt
     ast-grep
-    dbeaver-bin
   ];
   # home.file.".npmrc".text = ''
   #   prefix=~/.npm-packages

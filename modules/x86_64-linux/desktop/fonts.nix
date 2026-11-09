@@ -8,28 +8,23 @@
 
       # normal fonts
       noto-fonts
-      sarasa-gothic
       noto-fonts-cjk-sans
       noto-fonts-color-emoji
+      noto-fonts-cjk-serif
 
       source-sans
       source-serif
       source-han-sans
       source-han-serif
-      source-han-mono
-
-      maple-mono.NF-CN
 
       # nerdfonts
       nerd-fonts.symbols-only
-      nerd-fonts.fira-code
-      nerd-fonts.jetbrains-mono
       nerd-fonts.hack
+      maple-mono.NF-CN
       ioskeley-chillround
 
       lxgw-wenkai-screen
       inter-noto-sans-sc
-      yozai-font
       chillroundf
     ];
     # use fonts specified by user rather than default ones
@@ -46,21 +41,18 @@
           "Noto Serif CJK TC"
         ];
         sansSerif = [
-          "inter-noto-sans-sc"
+          "Inter Noto Sans SC"
+          "Noto Sans TC"
           # "Source Sans 3"
-          # "Noto Sans CJK SC"
-          # "Noto Sans CJK TC"
         ];
         monospace = [
           "Ioskeley ChillRound Mono"
-          "Maple Mono NF CN"
-          "Noto Sans Mono CJK SC"
-          "Noto Sans Mono CJK TC"
-          # "JetBrainsMono Nerd Font"
-          "JetBrains Nerd Font"
+          "Material Design Icons"
         ];
         emoji = [ "Noto Color Emoji" ];
       };
+      # Use grayscale antialiasing across displays with different scale factors.
+      # Physical RGB/BGR subpixel layouts have not been verified.
       subpixel.rgba = "rgb";
       hinting = {
         enable = false;

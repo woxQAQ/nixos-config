@@ -1,8 +1,5 @@
 config_version = 16
 
-[accessibility]
-ui_scale = 1.2500000111758709
-
 [bar.default]
 background_opacity = 0.0
 capsule = true
@@ -25,7 +22,7 @@ end = [
 ]
 font_family = "Inter Noto Sans SC"
 margin_ends = 20
-scale = 1.1000000089406967
+padding = 12
 start = ["launcher", "workspaces", "group:g1"]
 thickness = 40
 widget_spacing = 7
@@ -82,7 +79,7 @@ visible = true
 box_height = 196.0
 box_width = 810.0
 cx = 1163.5
-cy = 1102.1961669921875
+cy = 1102.196044921875
 output = "DP-3"
 placement_height = 1309.0
 placement_width = 2327.0
