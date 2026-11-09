@@ -8,7 +8,7 @@
     appearance = "auto";
     lightFlavor = "latte";
     flavor = "mocha";
-    accent = "pink";
+    accent = "blue";
     # Cache endpoints and signing trust are managed in modules/public/system.nix.
     cache.enable = false;
     starship.enable = false;

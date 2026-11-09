@@ -20,7 +20,7 @@ catppuccin = {
 
 | Ports                                                     | Mechanism                                                               |
 | --------------------------------------------------------- | ----------------------------------------------------------------------- |
-| bat, Ghostty, Helix, Yazi, Zellij | Native light/dark theme selection from the terminal or desktop |
+| bat, Ghostty, Helix, Yazi, Zellij                         | Native light/dark theme selection from the terminal or desktop          |
 | Atuin, btop, delta, eza, fzf, k9s, lazygit, Nushell, tmux | Linux desktop setting selects a bundle of upstream Catppuccin resources |
 
 ## Desktop setting bridge
