@@ -1,10 +1,10 @@
 { config, ... }:
 {
   imports = [
-    ./nu.nix
+    ./nu
+    ./zellij
+    ./tuios
     ./starship.nix
-    ./tuios.nix
-    ./zellij.nix
     ./zsh.nix
   ];
 

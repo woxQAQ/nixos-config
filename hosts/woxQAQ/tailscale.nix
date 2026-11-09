@@ -2,7 +2,7 @@
 {
   environment.systemPackages = [ pkgs.tailscale ];
   services.tailscale = {
-    enable = true;
+    enable = false;
     port = 41641;
     interfaceName = "tailscale0";
     openFirewall = true;

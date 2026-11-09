@@ -20,6 +20,29 @@
       });
       historyWidget.command = lib.mkIf config.programs.atuin.enable "";
       defaultCommand = "${lib.getExe pkgs.fd} --type=f --hidden --follow --strip-cwd-prefix --exclude=.git";
+      defaultOptions = [
+        "--layout=reverse" # Top-first.
+        "--exact" # Substring matching by default, `'`-quote for subsequence matching.
+        "--bind=alt-p:toggle-preview,alt-a:select-all"
+        "--multi"
+        "--no-mouse"
+        "--info=inline"
+
+        # Style and widget layout
+        "--ansi"
+        "--with-nth=1.."
+        "--pointer=' '"
+        "--header-first"
+        "--border=rounded"
+      ];
+    };
+    ripgrep = {
+      enable = true;
+      package = pkgs.ripgrep;
+      arguments = [
+        "--glob=!.git/*"
+        "--smart-case"
+      ];
     };
     # a tldr alternate
     tealdeer = {
@@ -44,7 +67,19 @@
       enable = true;
       config = {
         pager = "less -FR";
+        style = "auto,header-filesize";
       };
+      extraPackages = lib.optionals pkgs.stdenv.hostPlatform.isLinux (
+        with pkgs.bat-extras;
+        [
+          batdiff
+          batgrep
+          batman
+          batpipe
+          batwatch
+          prettybat
+        ]
+      );
     };
     btop = {
       enable = true;
@@ -89,6 +124,7 @@
   };
   home.shellAliases = {
     tree = lib.mkForce "${lib.getExe config.programs.eza.package} --tree --icons=always";
+    grep = lib.mkForce "${lib.getExe config.programs.eza.package}";
   };
   home.packages = with pkgs; [
     ups
