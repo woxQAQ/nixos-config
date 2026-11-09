@@ -1,19 +1,20 @@
 { ... }:
 {
   imports = [
-    ./helix
-    ./dev
     ./desktop
+    ./dev
+    ./helix
+    ./neovim
     ./shell
     ./terminal
-    ./neovim
+
+    ./catppuccin.nix
     ./git.nix
+    ./mutable-config.nix
     ./options.nix
     ./playwright.nix
-    ./yazi.nix
-    ./ssh.nix
     ./shell_core.nix
-    ./catppuccin.nix
-    ./mutable-config.nix
+    ./ssh.nix
+    ./yazi.nix
   ];
 }

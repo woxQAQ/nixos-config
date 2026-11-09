@@ -2,10 +2,10 @@
 {
   imports = [
     ./nu.nix
-    ./zellij.nix
     ./starship.nix
-    ./zsh.nix
     ./tuios.nix
+    ./zellij.nix
+    ./zsh.nix
   ];
 
   home.sessionPath = [

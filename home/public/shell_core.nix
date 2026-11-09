@@ -14,7 +14,9 @@
       # 0.116+ warns about on every prompt. fzf master already migrated to the
       # record input; backport that section until a release carries it.
       package = pkgs.fzf.overrideAttrs (old: {
-        patches = (old.patches or [ ]) ++ [ ./shell/fzf-nushell-completer.patch ];
+        patches = (old.patches or [ ]) ++ [
+          ./shell/patches/fzf-nushell-completer.patch
+        ];
       });
       historyWidget.command = lib.mkIf config.programs.atuin.enable "";
       defaultCommand = "${lib.getExe pkgs.fd} --type=f --hidden --follow --strip-cwd-prefix --exclude=.git";
