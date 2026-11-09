@@ -24,13 +24,15 @@ let
     );
   apply = pkgs.writeShellApplication {
     name = "catppuccin-apply";
-    runtimeInputs = [
-      pkgs.coreutils
-      pkgs.util-linux
-      pkgs.glib
-      pkgs.procps
-    ]
-    ++ lib.optional config.programs.tmux.enable pkgs.tmux;
+    runtimeInputs =
+      with pkgs;
+      [
+        coreutils
+        util-linux
+        glib
+        procps
+      ]
+      ++ lib.optional config.programs.tmux.enable tmux;
     text = ''
       export GSETTINGS_SCHEMA_DIR=${schemas}
       export GIO_EXTRA_MODULES=${pkgs.dconf.lib}/lib/gio/modules''${GIO_EXTRA_MODULES:+:$GIO_EXTRA_MODULES}

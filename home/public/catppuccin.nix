@@ -9,7 +9,6 @@
     lightFlavor = "latte";
     flavor = "mocha";
     accent = "pink";
-    nvim.implementation = "nixvim";
     # Cache endpoints and signing trust are managed in modules/public/system.nix.
     cache.enable = false;
     starship.enable = false;

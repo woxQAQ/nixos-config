@@ -134,50 +134,6 @@ in
     }
   );
 
-  nvim = native (
-    {
-      config,
-      lib,
-      options,
-      cfg,
-      ...
-    }:
-    let
-      settings = cfg.settings // {
-        flavour = "auto";
-        background = {
-          light = cfg.lightFlavor;
-          dark = cfg.flavor;
-        };
-      };
-    in
-    lib.mkMerge [
-      (lib.mkIf (cfg.implementation == "nixvim") (
-        lib.optionalAttrs (options.programs ? nixvim) {
-          programs.nixvim.colorschemes.catppuccin.settings = {
-            flavour = "auto";
-            inherit (settings) background;
-          };
-        }
-      ))
-      (lib.mkIf (cfg.implementation != "nixvim") {
-        programs.neovim.plugins = [
-          {
-            plugin = config.catppuccin.sources.nvim;
-            type = "lua";
-            config = ''
-              local compile_path = vim.fn.stdpath("cache") .. "/catppuccin-nvim"
-              vim.fn.mkdir(compile_path, "p")
-              vim.opt.runtimepath:append(compile_path)
-              require("catppuccin").setup(${lib.generators.toLua { } settings})
-              vim.cmd.colorscheme("catppuccin")
-            '';
-          }
-        ];
-      })
-    ]
-  );
-
   btop = runtime (
     {
       config,

@@ -5,8 +5,7 @@ let
   keepUpstream =
     path:
     let
-      base = lib.removeSuffix ".nix" (builtins.baseNameOf path);
-      name = if base == "neovim" then "nvim" else base;
+      name = lib.removeSuffix ".nix" (baseNameOf path);
     in
     !(adapters ? ${name});
 in
