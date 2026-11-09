@@ -50,6 +50,7 @@ nix-darwin.lib.darwinSystem {
           useGlobalPkgs = true;
           useUserPackages = true;
           backupFileExtension = "hmbak";
+          sharedModules = [ ../pkg/dbeaver-bin/module.nix ];
           extraSpecialArgs = specialArgs;
           users.${username}.imports = home-modules;
         };

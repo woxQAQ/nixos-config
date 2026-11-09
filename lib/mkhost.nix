@@ -49,6 +49,7 @@ nixpkgs.lib.nixosSystem {
           useGlobalPkgs = true;
           useUserPackages = true;
           backupFileExtension = "hmbak";
+          sharedModules = [ ../pkg/dbeaver-bin/module.nix ];
 
           extraSpecialArgs = specialArgs;
           users.${username}.imports = home-modules;

@@ -9,7 +9,6 @@
     ./terminal
 
     ./catppuccin.nix
-    ../../pkg/dbeaver-bin/module.nix
     ./git.nix
     ./gh.nix
     ./mutable-config.nix
