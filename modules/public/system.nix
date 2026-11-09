@@ -2,42 +2,51 @@
   inputs,
   lib,
   pkgs,
+  self,
   ...
 }:
+let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+in
 {
-
   # faster rebuilding
   documentation = {
     doc.enable = false;
     info.enable = false;
     man.enable = lib.mkDefault true;
   };
-  nix = {
+  environment.systemPackages = with pkgs; [
+    git
+    nix-prefetch-git
+  ];
+  environment.etc =
+    with lib;
+    mapAttrs' (
+      name: input:
+      nameValuePair "nix/inputs/${name}" {
+        source = input.outPath or input;
+      }
+    ) inputs
+    // optionalAttrs isLinux {
+      "nixos".source = self;
+    };
+  nix = with lib; {
+    package = pkgs.nixVersions.latest;
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-    registry = lib.pipe inputs [
-      (lib.filterAttrs (_: lib.isType "flake"))
-      (lib.mapAttrs (_: flake: { inherit flake; }))
+    registry = pipe inputs [
+      (filterAttrs (_: isType "flake"))
+      (mapAttrs (_: flake: { inherit flake; }))
       (
         x:
         x
         // {
-          nixpkgs.flake =
-            if pkgs.stdenv.hostPlatform.isLinux then
-              inputs.nixpkgs
-            else
-              inputs.nixpkgs-unstable;
+          nixpkgs.flake = if isLinux then inputs.nixpkgs else inputs.nixpkgs-unstable;
         }
       )
-      (
-        x:
-        if pkgs.stdenv.hostPlatform.isDarwin then
-          lib.removeAttrs x [ "nixpkgs-unstable" ]
-        else
-          x
-      )
+      (x: if isDarwin then removeAttrs x [ "nixpkgs-unstable" ] else x)
     ];
     settings = {
-      auto-optimise-store = pkgs.stdenv.hostPlatform.isLinux;
+      auto-optimise-store = isLinux;
       experimental-features = [
         "nix-command"
         "flakes"
@@ -69,6 +78,12 @@
         "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
         "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
       ];
+
+      fallback = true;
+      connect-timeout = 5;
+      log-lines = 50;
+      keep-going = true;
+      use-xdg-base-directories = true;
     };
   };
 }

@@ -3,6 +3,7 @@
   fonts = {
     packages = with pkgs; [
       # icon fonts
+      material-icons
       material-design-icons
       font-awesome
 
@@ -10,6 +11,7 @@
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-color-emoji
+      noto-fonts-monochrome-emoji
       noto-fonts-cjk-serif
 
       source-sans
@@ -23,6 +25,8 @@
       maple-mono.NF-CN
       ioskeley-chillround
 
+      b612
+      comic-neue
       lxgw-wenkai-screen
       inter-noto-sans-sc
       chillroundf

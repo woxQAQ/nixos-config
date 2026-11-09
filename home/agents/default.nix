@@ -53,6 +53,17 @@ let
       - ${dotfilesDir} contains the system nixos configuration so any patches to the system should apply to this repo.
       - If you are requesting user to running any command, provide a nushell script, but writing bash script for common ops purpose.
 
+      For any project that is not nixos configuration, The only places nix code and notes can live
+      is flake.nix, devenv.nix and the reference nix code they depend on.
+
+      For any project that is not a nixos configuration, the nix code MUST be organized like
+      .
+      ├── nix/ # codes flake.nix depend on
+      ├── flake.lock
+      └── flake.nix # flake entrance
+
+
+
       # Source of Truth
 
       - Use current implements and runtime evidence as the applicable authoritative source

@@ -83,7 +83,7 @@
       trim.bases = "develop,master,main";
       pull.rebase = true;
       log.date = "iso";
-      merge.conflictStyle = "zdiff3";
+      merge.conflictStyle = lib.mkForce "zdiff3";
       diff.algorithm = "histogram";
       branch.sort = "committerdate";
       aliases = {

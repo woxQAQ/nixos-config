@@ -1,10 +1,10 @@
 #!/usr/bin/env nu
 
 # TUI script for updating flake inputs.
-# Usage: ./update-flake-inputs.nu
+# Usage (from the repository root): ./scripts/update-flake-inputs.nu
 
-const flake_dir = path self .
-const flake_file = path self flake.nix
+const flake_dir = path self ..
+const flake_file = path self ../flake.nix
 const update_all = "[update-all-inputs]"
 
 def indentation [line: string] {

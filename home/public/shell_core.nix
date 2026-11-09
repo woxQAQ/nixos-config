@@ -124,7 +124,6 @@
   };
   home.shellAliases = {
     tree = lib.mkForce "${lib.getExe config.programs.eza.package} --tree --icons=always";
-    grep = lib.mkForce "${lib.getExe config.programs.eza.package}";
   };
   home.packages = with pkgs; [
     ups

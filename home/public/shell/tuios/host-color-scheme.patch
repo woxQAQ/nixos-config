@@ -1,0 +1,120 @@
+--- a/vt/color_scheme.go
++++ b/vt/color_scheme.go
+@@ -10,9 +10,10 @@
+ // again, and opencode asks for the whole palette again. A program that reads
+ // the notice only as dark or light sees the same value twice.
+ //
+-// The notice follows the reported colours: the ones SetReportColors gives,
+-// which are what OSC 10, OSC 11 and OSC 4 answer when the guest has set no
+-// colour of its own. A SetReportColors call that changes any of them sends one
++// The notice follows the host appearance, independently of a guest's OSC 11
++// background override. Otherwise a guest that sets its background, such as
++// Helix, would keep receiving its old appearance after a host theme change.
++// A SetReportColors call that changes any reported colour sends one
+ // notice, so one theme change is one notice. SetThemeColors sends none. It sets
+ // the colours the screen is drawn in, and a host may call it for a preview
+ // that it never reports, as tuios does while its theme picker is open. A host
+--- a/vt/conform_color_scheme_test.go
++++ b/vt/conform_color_scheme_test.go
+@@ -15,7 +15,7 @@
+ //   - one theme push sends more than one notice;
+ //   - a push that changes nothing sends a notice;
+ //   - a program that never set ?2031, or reset it, gets a notice;
+-//   - Ps reads a colour other than the one OSC 11 answers with;
++//   - Ps follows the guest's OSC 11 override instead of the host appearance;
+ //   - DSR 996 goes unanswered, or is answered only with ?2031 set;
+ //   - SetThemeColors sends a notice, which would tell the guest about a
+ //     theme a host only previews.
+@@ -102,9 +102,11 @@
+ 			tokyoNight.with(func(r *reportSet) { r.bg = color.NRGBA{R: 0x1a, G: 0x1b, B: 0x26, A: 0xff} }), ""},
+ 		{"no mode 2031", "", tokyoNight, dracula, ""},
+ 		{"mode 2031 reset", "\x1b[?2031h\x1b[?2031l", tokyoNight, dracula, ""},
+-		// The program set its own light background with OSC 11, so that is
+-		// what OSC 11 answers, and Ps follows it.
+-		{"Ps reads the guest's own background", "\x1b[?2031h\x1b]11;rgb:ff/ff/ff\x1b\\", tokyoNight, dracula, "\x1b[?997;2n"},
++		// Helix sets OSC 11 to its active theme background. Appearance reports
++		// must follow the host so that it can leave that theme on a switch.
++		{"guest light background", "\x1b[?2031h\x1b]11;rgb:ff/ff/ff\x1b\\", tokyoNight, dracula, "\x1b[?997;1n"},
++		{"Helix dark to light", "\x1b[?2031h\x1b]11;rgb:00/00/00\x1b\\", tokyoNight, latte, "\x1b[?997;2n"},
++		{"Helix light to dark", "\x1b[?2031h\x1b]11;rgb:ff/ff/ff\x1b\\", latte, tokyoNight, "\x1b[?997;1n"},
+ 	} {
+ 		t.Run(tc.name, func(t *testing.T) {
+ 			term := vt.New(20, 4)
+@@ -155,7 +157,7 @@
+ 			term.SetThemeColors(color.Black, lightBg, nil, [16]color.Color{})
+ 		}, "\x1b[?996n", "\x1b[?997;2n"},
+ 		{"answered with mode 2031 set too", func(term vt.Terminal) { term.SetReportColors(latte.fg, latte.bg, latte.pal) }, "\x1b[?2031h\x1b[?996n", "\x1b[?997;2n"},
+-		{"the guest's own background", func(term vt.Terminal) { term.SetReportColors(latte.fg, latte.bg, latte.pal) }, "\x1b]11;rgb:00/00/00\x1b\\\x1b[?996n", "\x1b[?997;1n"},
++		{"the guest's own background", func(term vt.Terminal) { term.SetReportColors(latte.fg, latte.bg, latte.pal) }, "\x1b]11;rgb:00/00/00\x1b\\\x1b[?996n", "\x1b[?997;2n"},
+ 	} {
+ 		t.Run(tc.name, func(t *testing.T) {
+ 			term := vt.New(20, 4)
+--- a/vt/emulator.go
++++ b/vt/emulator.go
+@@ -1661,10 +1661,23 @@
+ 	changed := !sameReport(e.reportFg, e.reportBg, e.reportPal, fg, bg, pal)
+ 	e.reportFg, e.reportBg, e.reportPal = fg, bg, pal
+ 	if changed && e.isModeSet(ansi.ModeLightDark) {
+-		_, _ = io.WriteString(e.pipe, colorSchemeNotice(e.reportedBackground()))
++		_, _ = io.WriteString(e.pipe, colorSchemeNotice(e.schemeBackground()))
+ 	}
+ }
+ 
++// schemeBackground follows the host appearance even when a guest sets OSC 11.
++// Using the guest background here would prevent applications such as Helix
++// from switching away from their current theme.
++func (e *Emulator) schemeBackground() color.Color {
++	if e.reportBg != nil {
++		return e.reportBg
++	}
++	if e.defaultBg != nil {
++		return e.defaultBg
++	}
++	return color.Black
++}
++
+ // reportedIndexedColor is the answer to an OSC 4 query: the guest's or the
+ // theme's colour for the slot when one is set, the reported colour when there
+ // is one, and the xterm default otherwise.
+--- a/vt/ghostty_observe.go
++++ b/vt/ghostty_observe.go
+@@ -312,7 +312,7 @@
+ 		_, _ = t.pipe.Write([]byte(ansi.ExtendedCursorPositionReport(line+1, col+1, 0)))
+ 	case 996:
+ 		t.scanner.flushOut()
+-		_, _ = t.pipe.Write([]byte(colorSchemeNotice(t.reportedBackgroundLocked())))
++		_, _ = t.pipe.Write([]byte(colorSchemeNotice(t.schemeBackgroundLocked())))
+ 	}
+ }
+ 
+--- a/vt/ghostty_state.go
++++ b/vt/ghostty_state.go
+@@ -275,10 +275,16 @@
+ 		return
+ 	}
+ 	if on, _ := t.term.Mode(gh.ModeColorSchemeReport); on {
+-		_, _ = io.WriteString(t.pipe, colorSchemeNotice(t.reportedBackgroundLocked()))
++		_, _ = io.WriteString(t.pipe, colorSchemeNotice(t.schemeBackgroundLocked()))
+ 	}
+ }
+ 
++// schemeBackgroundLocked follows the host appearance independently of OSC 11.
++// t.mu is held.
++func (t *GhosttyTerminal) schemeBackgroundLocked() color.Color {
++	return firstColor(t.reportBg, t.defaultBg, color.Black)
++}
++
+ // reportedBackgroundLocked is the answer to an OSC 11 query. t.mu is held.
+ func (t *GhosttyTerminal) reportedBackgroundLocked() color.Color {
+ 	return firstColor(t.guestBg, t.reportBg, t.defaultBg, color.Black)
+--- a/vt/handlers.go
++++ b/vt/handlers.go
+@@ -955,7 +955,7 @@
+ 			line, col := e.reportedCursorPosition()
+ 			_, _ = io.WriteString(e.pipe, ansi.ExtendedCursorPositionReport(line, col, 0)) // We don't support page numbers //nolint:errcheck
+ 		case 996: // Colour scheme: answered as the mode 2031 notice is sent.
+-			_, _ = io.WriteString(e.pipe, colorSchemeNotice(e.reportedBackground()))
++			_, _ = io.WriteString(e.pipe, colorSchemeNotice(e.schemeBackground()))
+ 		default:
+ 			return false
+ 		}

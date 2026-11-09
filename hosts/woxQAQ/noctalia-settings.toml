@@ -1,5 +1,8 @@
 config_version = 16
 
+[accessibility]
+ui_scale = 1.2500000111758709
+
 [bar.default]
 background_opacity = 0.0
 capsule = true
