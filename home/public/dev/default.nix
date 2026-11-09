@@ -65,11 +65,6 @@
   # home.file.".npmrc".text = ''
   #   prefix=~/.npm-packages
   # '';
-  home.sessionPath = [
-    "$HOME/go/bin"
-    "$HOME/.npm/bin"
-    "$HOME/.kimi-code/bin"
-  ];
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;

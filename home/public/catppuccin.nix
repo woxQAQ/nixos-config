@@ -1,19 +1,17 @@
+{ ... }:
 {
-  catppuccin,
-  ...
-}:
-{
-  imports = [
-    catppuccin.homeModules.catppuccin
-  ];
+  imports = [ ./catppuccin ];
+
   catppuccin = {
-    autoEnable = true;
     enable = true;
-    # Cache endpoints and signing trust are managed in modules/public/system.nix.
-    cache.enable = false;
+    autoEnable = true;
+    appearance = "auto";
+    lightFlavor = "latte";
     flavor = "mocha";
     accent = "pink";
-    # starship.enable = pkgs.stdenv.hostPlatform.isLinux;
+    nvim.implementation = "nixvim";
+    # Cache endpoints and signing trust are managed in modules/public/system.nix.
+    cache.enable = false;
     starship.enable = false;
     zed = {
       enable = false;

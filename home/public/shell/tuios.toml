@@ -22,6 +22,7 @@ show_clock = false
 show_cpu = false
 show_ram = false
 theme = 'catppuccin_mocha'
+theme_light = 'catppuccin_latte'
 border_focused_color = ''
 border_unfocused_color = ''
 window_title_format = ''

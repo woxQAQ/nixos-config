@@ -6,11 +6,8 @@
 }:
 let
   cfg = config.modules.public.terminal;
-  ghosttyTerminfo =
-    if pkgs.stdenv.hostPlatform.isDarwin then
-      pkgs.ghostty-bin.terminfo
-    else
-      pkgs.ghostty.terminfo;
+  bin = with pkgs; if stdenv.hostPlatform.isDarwin then ghostty-bin else ghostty;
+  ghosttyTerminfo = bin.terminfo;
 in
 {
   config = lib.mkIf (lib.elem "ghostty" cfg.emulators) {
@@ -19,9 +16,6 @@ in
       source = "${ghosttyTerminfo}/share/terminfo";
       recursive = true;
     };
-
-    # Linux follows the desktop portal's light/dark preference.
-    catppuccin.ghostty.enable = lib.mkIf pkgs.stdenv.hostPlatform.isLinux false;
 
     programs.ghostty = {
       enable = true;
@@ -49,10 +43,10 @@ in
           background-opacity = 0.95;
           window-padding-balance = true;
 
+          fullscreen = pkgs.stdenv.hostPlatform.isDarwin;
           command = "${pkgs.bash}/bin/bash --login -c 'nu --login --interactive'";
         }
         (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
-          theme = "light:Catppuccin Latte,dark:Catppuccin Mocha";
           # Keep high-resolution wheel input at its original scale.
           mouse-scroll-multiplier = "precision:1,discrete:1";
         })

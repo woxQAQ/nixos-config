@@ -6,8 +6,8 @@ in
 {
   programs.zellij = {
     enable = true;
+    extraConfig = builtins.readFile ./zj-config.kdl;
   };
-  xdg.configFile."zellij/config.kdl".source = ./zj-config.kdl;
   home.shellAliases = shellAliases;
   programs.nushell.shellAliases = shellAliases;
 }

@@ -5,12 +5,14 @@ $env.config = {
         isolation: true
     }
     show_banner: false
+    rm.always_trash: true
     recursion_limit: 50
     edit_mode: "vi"
-    buffer_editor: ["nvim", "--clean"]
+    buffer_editor: ["hx"]
     cursor_shape: {
         vi_insert: "block"
         vi_normal: "underscore"
+        emacs: "inherit"
     }
     completions: {
         case_sensitive: false
@@ -32,8 +34,9 @@ $env.config = {
 
 const NU_LIB_DIRS = [
     ($nu.default-config-dir | path join 'scripts') # add <nushell-config-dir>/scripts
-    ($nu.data-dir | path join 'completions') # default home for nushell completions
 ]
+
+$env.PATH = ($env.PATH | uniq)
 
 # Count source lines, excluding submodule paths declared in .gitmodules.
 def loc [

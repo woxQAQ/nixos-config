@@ -2,16 +2,10 @@
   nu_scripts,
   pkgs,
   lib,
-  config,
   osConfig ? { },
   ...
 }:
 let
-  aerospaceEnabled = lib.attrByPath [
-    "programs"
-    "aerospace"
-    "enable"
-  ] false config;
   privateConfigEnabled = lib.hasAttrByPath [
     "environment"
     "etc"
@@ -23,7 +17,6 @@ let
       ${lib.optionalString privateConfigEnabled "source /etc/agenix/private.nu"}
       # completion
       const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${nu_scripts}' '${./custom_completions}']
-      ${lib.optionalString aerospaceEnabled "use custom-completions/aerospace/aerospace-completions.nu *"}
       use custom-completions/git/git-completions.nu *
       use ${./custom_completions/git/submodule.nu} *
       use custom-completions/gh/gh-completions.nu *

@@ -6,6 +6,12 @@
   perSystem =
     { pkgs, ... }:
     {
+      checks = pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+        catppuccin-appearance = import ../../home/public/catppuccin/check.nix {
+          inherit pkgs;
+          inherit (inputs) home-manager catppuccin;
+        };
+      };
       pre-commit = {
         check.enable = true;
         settings.package = pkgs.prek;

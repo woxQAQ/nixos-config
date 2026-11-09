@@ -30,6 +30,10 @@ start = ["launcher", "workspaces", "group:g1"]
 thickness = 40
 widget_spacing = 7
 
+[bar.default.monitor.HDMI-A-2]
+padding = 13
+scale = 1.0000000074505806
+
 [[bar.default.capsule_group]]
 accordion = false
 accordion_direction = "end"
@@ -105,11 +109,11 @@ show_weather = true
 [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2"]
 box_height = 196.0
 box_width = 810.0
-cx = 768.0
-cy = 761.625
+cx = 959.99993896484375
+cy = 952.03118896484375
 output = "HDMI-A-2"
-placement_height = 864.0
-placement_width = 1536.0
+placement_height = 1080.0
+placement_width = 1920.0
 rotation = 0.0
 type = "login_box"
 
@@ -163,7 +167,6 @@ directory = "/home/woxQAQ/Pictures/Screenshots"
 builtin = "Catppuccin"
 community_palette = "Oxocarbon"
 mode = "auto"
-source = "wallpaper"
 sync_color_scheme = true
 
 [theme.templates]
