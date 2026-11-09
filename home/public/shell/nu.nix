@@ -2,6 +2,7 @@
   nu_scripts,
   pkgs,
   lib,
+  config,
   osConfig ? { },
   ...
 }:
@@ -51,6 +52,23 @@ in
 {
   programs.nushell = {
     enable = true;
+    # Reload the current generation even when a parent shell sourced an older one.
+    # Bash preserves Home Manager's POSIX variable expansion and search paths.
+    extraEnv = # nu
+      ''
+        load-env (
+          ^${pkgs.bash}/bin/bash --noprofile --norc -e -c '
+            unset __HM_SESS_VARS_SOURCED
+            source "$1"
+            ${pkgs.coreutils}/bin/env -0
+          ' home-manager ${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh
+          | split row (char nul)
+          | parse --regex '(?s)^(?<name>[^=]+)=(?<value>.*)$'
+          | where name not-in [PWD FILE_PWD CURRENT_FILE NU_VERSION SHLVL _]
+          | reduce --fold {} {|entry, vars| $vars | insert $entry.name $entry.value }
+          | update PATH {|vars| $vars.PATH | split row (char esep) | uniq }
+        )
+      '';
     configFile.source = ./config.nu;
     plugins = with pkgs.nushellPlugins; [
       query

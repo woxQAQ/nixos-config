@@ -5,7 +5,6 @@ $env.config = {
         isolation: true
     }
     show_banner: false
-    rm.always_trash: true
     recursion_limit: 50
     edit_mode: "vi"
     buffer_editor: ["hx"]
@@ -31,6 +30,8 @@ $env.config = {
         reset_application_mode: true
     }
 }
+
+$env.config.rm.always_trash = true
 
 const NU_LIB_DIRS = [
     ($nu.default-config-dir | path join 'scripts') # add <nushell-config-dir>/scripts
