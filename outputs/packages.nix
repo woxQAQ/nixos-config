@@ -15,37 +15,19 @@
       home = host.config.home-manager.users.${if isLinux then "woxQAQ" else "woxqaq"};
       hidpipe =
         if isLinux then host.config.services.hidpipe else home.services.hidpipe;
-      localPackages = lib.genAttrs [
-        "agent-skills"
-        "chillroundf"
-        "delta-bin"
-        "flclash"
-        "helix"
-        "inter-noto-sans-sc"
-        "ioskeley-chillround"
-        "magpie"
-        "obelisk-cli"
-        "removemacai"
-        "resource-han-rounded"
-        "yozai-font"
-        "zed-editor-bin"
-      ] (name: pkgs.${name});
-      extraPackages = {
-        dbeaver-bin = home.programs.dbeaver.package;
+      # Cache source builds, including the OpenLogi component used by hidpipe.
+      packages = {
+        inherit (pkgs) helix;
         hidpipe = hidpipe.package;
-        v2dat = pkgs.callPackage ../pkg/v2dat { };
       }
       // lib.optionalAttrs isLinux {
-        sparkle = pkgs.callPackage ../pkg/sparkle { };
-        waydroid-helper = pkgs.callPackage ../pkg/waydroid-helper { };
+        inherit (pkgs) flclash;
       }
       // lib.optionalAttrs hidpipe.openlogi.enable {
         hidpipe-openlogi = hidpipe.openlogi.package;
       };
     in
     {
-      packages = lib.filterAttrs (
-        _: package: lib.meta.availableOn pkgs.stdenv.hostPlatform package
-      ) (localPackages // extraPackages);
+      inherit packages;
     };
 }

@@ -21,6 +21,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Setup access to nix-secrets
+        uses: webfactory/ssh-agent@v0.9.1
+        with:
+          ssh-private-key: ${{ secrets.NIX_SECRETS_SSH_KEY }}
       - name: Verify cache upload credentials
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         env:
@@ -44,7 +48,7 @@ jobs:
         with:
           name: woxqaq
           authToken: "${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && secrets.CACHIX_AUTH_TOKEN || '' }}"
-      - name: Build custom packages
+      - name: Build source packages
         env:
           NIX_SYSTEM: ${{ matrix.system }}
         run: |
