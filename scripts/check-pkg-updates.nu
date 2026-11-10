@@ -1,5 +1,7 @@
 #!/usr/bin/env nu
 
+use lib/pkg-update-display.nu [format-updates format-errors]
+
 const package_root = path self ../pkg
 
 # Check all packages, or pass package directory names to limit the selection.
@@ -39,7 +41,7 @@ def main [
                         error make {msg: $"Invalid checker field: ($column)"}
                     }
                 }
-                if $row.status not-in [current update ahead changed error] {
+                if $row.status not-in [current update ahead changed skipped error] {
                     error make {msg: $"Unknown checker status: ($row.status)"}
                 }
                 $row | insert package $package | select package source current latest status url error
@@ -51,7 +53,10 @@ def main [
     if $json {
         print ($rows | to json)
     } else {
-        print ($rows | table --expand)
+        print (format-updates $rows)
+        if ($rows | any {|row| $row.status == 'error' }) {
+            print (format-errors $rows)
+        }
     }
     if ($rows | any {|row| $row.status == 'error' }) {
         exit 1

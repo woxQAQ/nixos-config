@@ -29,8 +29,11 @@ nu pkg/agent-skills/check-update.nu
 - GitHub commit：比较本地固定的 rev 与远端默认分支 HEAD。`agent-skills` 自动读取每个字面量 `fetchFromGitHub` 块，逐来源报告；`v2dat` 使用同一策略。
 - npm：查询 `latest` dist-tag。`obelisk-cli` 使用其实际下载来源 npm。
 - Noto Sans：遍历 GitHub tags 的所有分页，只比较 `Sans` 系列，以自然顺序选择最新 tag。`inter-noto-sans-sc` 自身的 `1.0` 是本地组合包版本，因此检查外部 Noto 来源；Inter 由 nixpkgs 管理，随 flake input 更新。
+- 依赖管理版本：`dbeaver-bin` 包装 nixpkgs 的 DBeaver；`ioskeley-chillround` 组合 nixpkgs 的 Ioskeley 与本仓库的 `chillroundf`。两者没有独立上游 pin，检查脚本返回 `skipped`；更新对应 flake input 或 `chillroundf` 即可。`skipped` 不检查这些依赖是否为最新版本。
 
 结果包含 `package`、`source`、`current`、`latest`、`status`、`url`、`error`。单包脚本没有 `package` 列，该列由统一入口添加。
+
+终端表格仅显示包、状态、当前版本、最新版本与来源，不显示行号；按终端宽度折行，commit 缩短为 12 位。URL 和完整 commit 保留在 `--json` 中；错误信息在单独的表格中展示。状态颜色为：`current` 绿色，`update` / `changed` 黄色，`ahead` 青色，`skipped` 灰色，`error` 红色。禁用 Nushell 的 ANSI 颜色或设置 `NO_COLOR` 可关闭颜色，JSON 始终使用原始状态字符串。
 
 | status    | 含义                                                                            |
 | --------- | ------------------------------------------------------------------------------- |
@@ -38,6 +41,7 @@ nu pkg/agent-skills/check-update.nu
 | `update`  | 上游纯数字版本高于本地，如 `0.3.0` → `0.3.1`                                    |
 | `ahead`   | 本地纯数字版本高于上游，不建议降级                                              |
 | `changed` | commit 或其他版本字符串不同，需人工判断；不推断 commit 祖先关系或预发布版本顺序 |
+| `skipped` | 无独立上游 pin，版本由依赖管理；不需要单独更新                                  |
 | `error`   | 查询、解析或检查脚本协议失败                                                    |
 
 GitHub 的 `latest` 是其指定的 release，不一定是数值最大的 tag。例如上游可能把较老版本标成 latest，此时会报告 `ahead`。

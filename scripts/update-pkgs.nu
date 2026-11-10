@@ -1,5 +1,7 @@
 #!/usr/bin/env nu
 
+use lib/pkg-update-display.nu [format-updates format-errors]
+
 const repo_root = path self ..
 const check_script = path self check-pkg-updates.nu
 
@@ -62,7 +64,7 @@ def main [
     let rows = ($checked.stdout | from json)
     let errors = ($rows | where status == error)
     if not ($errors | is-empty) {
-        print --stderr ($errors | select package source error | table --expand)
+        print --stderr (format-errors $errors)
     }
     let candidates = ($rows | where {|row| $row.status in [update changed] })
     if ($candidates | is-empty) {
@@ -84,7 +86,7 @@ def main [
         if not ($errors | is-empty) { exit 1 }
         return
     }
-    print ($selected | select package source current latest | table --expand)
+    print (format-updates $selected)
     if $dry_run {
         if not ($errors | is-empty) { exit 1 }
         return

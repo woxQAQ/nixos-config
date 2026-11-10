@@ -61,15 +61,15 @@ let
   obelisk = fetchFromGitHub {
     owner = "tommy0103";
     repo = "obelisk-skill";
-    rev = "e7c0e358c82a609d53f1f1045572dbc0fd965bfc";
-    hash = "sha256-Z0nw4J1qOrbh2VYErq2PpjibhZskW61FeNuaPF4Azvs=";
+    rev = "506c221788d5377c08a297998f62e1783319a121";
+    hash = "sha256-J5Pl8/ZFxbUODDRMNUyqpLgs32gGJcfW9i+sXnuX+5Y=";
   };
 
   pstack = fetchFromGitHub {
     owner = "backnotprop";
     repo = "pstack";
-    rev = "f104aa8f821a3f7397318b0dc8ad2f7e4a1f8bc7";
-    hash = "sha256-VPgYiNBX4J8TuaoWAkd9xG7DxDcKZaTLj3ILo0uf1jc=";
+    rev = "4161d4ef5051574e825ffe70e2f43a2e49e4b3db";
+    hash = "sha256-q8Jk2fqwLWUJtRkv61AL0YvciDnlpVai+M05UgZlUng=";
   };
 in
 stdenvNoCC.mkDerivation {
