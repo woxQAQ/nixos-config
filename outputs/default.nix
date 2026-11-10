@@ -11,6 +11,7 @@ flake-parts.lib.mkFlake { inherit inputs; } {
 
   imports = [
     flake-parts.flakeModules.partitions
+    ./packages.nix
   ];
 
   partitions.dev = {

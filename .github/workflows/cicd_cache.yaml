@@ -1,0 +1,58 @@
+name: Build binary cache
+permissions:
+  contents: read
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+jobs:
+  build-cache:
+    name: Cache on ${{ matrix.system }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - system: x86_64-linux
+            os: ubuntu-latest
+          - system: aarch64-darwin
+            os: macos-15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Verify cache upload credentials
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        run: |
+          if [[ -z "$CACHIX_AUTH_TOKEN" ]]; then
+            echo "::error::Set the CACHIX_AUTH_TOKEN Actions secret to a token with write access to the woxqaq cache."
+            exit 1
+          fi
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            auto-optimise-store = true
+            allow-import-from-derivation = false
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            experimental-features = nix-command flakes
+            system = ${{ matrix.system }}
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v16
+        with:
+          name: woxqaq
+          authToken: "${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && secrets.CACHIX_AUTH_TOKEN || '' }}"
+      - name: Build custom packages
+        env:
+          NIX_SYSTEM: ${{ matrix.system }}
+        run: |
+          package_names=$(nix eval --no-update-lock-file --raw \
+            ".#packages.${NIX_SYSTEM}" \
+            --apply 'packages: builtins.concatStringsSep "\n" (builtins.attrNames packages)')
+          targets=()
+          while IFS= read -r package; do
+            targets+=(".#packages.${NIX_SYSTEM}.${package}")
+          done <<< "$package_names"
+          nix build --no-link --no-update-lock-file --keep-going "${targets[@]}"

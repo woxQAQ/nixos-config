@@ -34,7 +34,7 @@ jobs:
         uses: cachix/cachix-action@v16
         with:
           name: woxqaq
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+          skipPush: true
       - name: Build development tools
         run: |
           nix build --no-link --no-update-lock-file \
