@@ -6,6 +6,16 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+    inputs:
+      source:
+        description: Source package to build
+        type: choice
+        options: [all, helix, hidpipe]
+        default: all
+      revision:
+        description: Full source commit SHA (empty uses flake.lock)
+        type: string
+        default: ""
 jobs:
   build-cache:
     name: Cache on ${{ matrix.system }}
@@ -51,12 +61,31 @@ jobs:
       - name: Build source packages
         env:
           NIX_SYSTEM: ${{ matrix.system }}
+          CACHE_SOURCE: ${{ inputs.source || 'all' }}
+          SOURCE_REVISION: ${{ inputs.revision }}
         run: |
-          package_names=$(nix eval --no-update-lock-file --raw \
+          case "$CACHE_SOURCE" in
+            all|helix|hidpipe) ;;
+            *) echo "::error::Unsupported cache source: $CACHE_SOURCE"; exit 1 ;;
+          esac
+          nix_flags=(--no-update-lock-file)
+          if [[ -n "$SOURCE_REVISION" ]]; then
+            if [[ "$CACHE_SOURCE" == all || ! "$SOURCE_REVISION" =~ ^[0-9a-f]{40}$ ]]; then
+              echo "::error::A source revision must be a full commit SHA for helix or hidpipe."
+              exit 1
+            fi
+            # Keep the host's dependency graph and overrides, replacing only the source revision.
+            nix_flags=(--no-write-lock-file --override-input "$CACHE_SOURCE" \
+              "github:woxQAQ/${CACHE_SOURCE}/${SOURCE_REVISION}")
+          fi
+          package_names=$(nix eval "${nix_flags[@]}" --raw \
             ".#packages.${NIX_SYSTEM}" \
             --apply 'packages: builtins.concatStringsSep "\n" (builtins.attrNames packages)')
           targets=()
           while IFS= read -r package; do
-            targets+=(".#packages.${NIX_SYSTEM}.${package}")
+            case "$CACHE_SOURCE:$package" in
+              all:*|helix:helix|hidpipe:hidpipe|hidpipe:hidpipe-openlogi)
+                targets+=(".#packages.${NIX_SYSTEM}.${package}") ;;
+            esac
           done <<< "$package_names"
-          nix build --no-link --no-update-lock-file --keep-going "${targets[@]}"
+          nix build --no-link --keep-going "${nix_flags[@]}" "${targets[@]}"
