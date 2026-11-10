@@ -3,8 +3,11 @@ config_version = 16
 [accessibility]
 ui_scale = 1.2500000111758709
 
+[backdrop]
+blur_intensity = 0.47999998927116394
+
 [bar.default]
-background_opacity = 0.0
+background_opacity = 0.7799999825656414
 capsule = true
 capsule_thickness = 0.79999998584389687
 center = ["active_window", "caffeine", "media"]
@@ -26,7 +29,7 @@ end = [
 font_family = "Inter Noto Sans SC"
 margin_ends = 20
 padding = 12
-start = ["launcher", "workspaces", "group:g1"]
+start = ["launcher", "workspaces", "group:g1", "cpu_2", "disk_2", "memory", "network_2"]
 thickness = 40
 widget_spacing = 7
 
@@ -39,7 +42,7 @@ accordion = false
 accordion_direction = "end"
 border = ""
 border_width = 1.0
-enabled = true
+enabled = false
 fill = "surface_container"
 id = "g1"
 members = ["cpu", "ram", "disk", "network_tx", "network_rx", "temp"]
@@ -146,16 +149,31 @@ position = "bottom_right"
 [osd.kinds]
 media = false
 
+[plugin_settings."woxQAQ/stats"]
+details_open_near_click = true
+
 [plugins]
-enabled = []
+enabled = ["woxQAQ/stats"]
+
+[[plugins.source]]
+kind = "git"
+location = "https://github.com/noctalia-dev/official-plugins"
+name = "official"
+
+[[plugins.source]]
+kind = "git"
+location = "https://github.com/noctalia-dev/community-plugins"
+name = "community"
+
+[[plugins.source]]
+kind = "path"
+location = "/home/woxQAQ/noctalia-stats"
+name = "noctalia-stats"
 
 [shell]
 font_family = "Inter Noto Sans SC"
 lang = "zh-Hans"
 screen_time_enabled = true
-
-[shell.panel]
-transparency_mode = "glass"
 
 [shell.screen_corners]
 enabled = true
@@ -185,13 +203,29 @@ path = "/home/woxQAQ/Pictures/Wallpapers/wallhaven-w53k9q.jpg"
 [wallpaper.monitors.DP-3]
 path = "/home/woxQAQ/Pictures/Wallpapers/wallhaven-w53k9q.jpg"
 
+[widget.cpu_2]
+display = "value"
+type = "woxQAQ/stats:cpu"
+
 [widget.disk]
 path = "/"
 stat = "disk_used_pct"
 type = "sysmon"
 
+[widget.disk_2]
+display = "value"
+type = "woxQAQ/stats:disk"
+
+[widget.memory]
+display = "value"
+type = "woxQAQ/stats:memory"
+
 [widget.network]
 show_label = false
+
+[widget.network_2]
+display = "value"
+type = "woxQAQ/stats:network"
 
 [widget.ram]
 stat = "ram_pct"
