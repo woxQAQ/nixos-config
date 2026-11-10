@@ -53,6 +53,33 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             experimental-features = nix-command flakes
             system = ${{ matrix.system }}
+      - name: Compute grammar cache key
+        if: inputs.source != 'hidpipe'
+        id: grammar-cache
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CACHE_SOURCE: ${{ inputs.source || 'all' }}
+          SOURCE_REVISION: ${{ inputs.revision }}
+        run: |
+          helix_revision=$(jq -r '.nodes.helix.locked.rev' flake.lock)
+          if [[ "$CACHE_SOURCE" == helix && -n "$SOURCE_REVISION" ]]; then
+            helix_revision="$SOURCE_REVISION"
+          fi
+          grammar_hash=$(gh api --method GET repos/woxQAQ/helix/contents/languages.toml \
+            --raw-field ref="$helix_revision" --jq '.sha')
+          echo "hash=$grammar_hash" >> "$GITHUB_OUTPUT"
+      - name: Cache public Nix source downloads
+        if: inputs.source != 'hidpipe'
+        uses: actions/cache@v4
+        with:
+          # The tarball cache contains GitHub source trees and can repopulate an empty store.
+          # Keep the private nix-secrets checkout in gitv3 outside this cache.
+          path: |
+            ~/.cache/nix/tarball-cache*
+            ~/.cache/nix/fetcher-cache*
+          key: nix-fetch-v1-${{ matrix.system }}-${{ steps.grammar-cache.outputs.hash }}
+          restore-keys: |
+            nix-fetch-v1-${{ matrix.system }}-
       - name: Setup Cachix
         uses: cachix/cachix-action@v16
         with:
