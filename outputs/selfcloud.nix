@@ -27,7 +27,7 @@ in
           ../hosts/${name}/home.nix
           {
             modules.public.tuios.enable = false;
-            modules.public.helix.enable = true;
+            modules.public.helix.enable = false;
           }
         ];
       }
