@@ -1,8 +1,5 @@
 config_version = 16
 
-[accessibility]
-ui_scale = 1.2500000111758709
-
 [backdrop]
 blur_intensity = 0.47999998927116394
 
@@ -95,11 +92,11 @@ widget_order = [ "lockscreen-login-box@DP-3", "lockscreen-login-box@HDMI-A-2" ]
     [lockscreen_widgets.widget."lockscreen-login-box@DP-3"]
     box_height = 196.0
     box_width = 810.0
-    cx = 1163.5
-    cy = 1102.196044921875
+    cx = 1024.0
+    cy = 969.9998779296875
     output = "DP-3"
-    placement_height = 1309.0
-    placement_width = 2327.0
+    placement_height = 1152.0
+    placement_width = 2048.0
     rotation = 0.0
     type = "login_box"
 
@@ -226,6 +223,7 @@ stat = "disk_used_pct"
 type = "sysmon"
 
 [widget.disk_2]
+capacity_display = "value"
 display = "value"
 type = "woxQAQ/stats:disk"
 

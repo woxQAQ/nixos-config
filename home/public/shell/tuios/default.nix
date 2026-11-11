@@ -30,12 +30,5 @@ in
     xdg.configFile."tuios/config.toml".source =
       mylib.mkMutable dotfilesDir config
         ./tuios.toml;
-
-    programs.nushell.extraConfig = /* nu */ ''
-      # auto start tuios (kitty only)
-      if $nu.is-interactive and ("KITTY_WINDOW_ID" in $env) and (not ("TUIOS_SESSION" in $env)) {
-        ^tuios attach kitty -c
-      }
-    '';
   };
 }

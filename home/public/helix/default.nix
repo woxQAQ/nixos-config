@@ -83,6 +83,16 @@ in
       };
       languages.language = [
         {
+          name = "lua";
+          language-servers = [ "lua-language-server" ];
+          formatter.command = "${pkgs.stylua}/bin/stylua";
+          formatter.args = [ "-" ];
+          auto-format = true;
+        }
+        {
+          name = "luau";
+        }
+        {
           name = "markdown";
           soft-wrap.enable = true;
         }
@@ -132,6 +142,9 @@ in
       rustInjectionsWithoutJson;
 
     home.packages = with pkgs; [
+      lua-language-server
+      luau-lsp
+      stylua
       ty
       typescript-language-server
       rust-analyzer
