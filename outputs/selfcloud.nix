@@ -22,7 +22,7 @@ in
         ];
         home-modules = [
           ../home/nixos
-          ../home/public
+          ../home/public/profiles/minimal.nix
           ../home/agents
           ../hosts/${name}/home.nix
           {

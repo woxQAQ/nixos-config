@@ -1,0 +1,7 @@
+{ ... }:
+{
+  imports = [
+    ./minimal.nix
+    ../dev
+  ];
+}

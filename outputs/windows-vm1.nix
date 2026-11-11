@@ -29,7 +29,8 @@ in
         ];
         home-modules = [
           ../home/nixos
-          ../home/public
+          ../home/public/profiles/workstation.nix
+          { modules.public.zed.enable = false; }
           ../home/nixos/desktop
         ];
       }

@@ -5,14 +5,8 @@
 {
   imports = [
     ./go.nix
-    ./npm.nix
-    ./cloud-native.nix
-    ./nix.nix
+    # ./cloud-native.nix
   ];
-  programs.dbeaver = {
-    enable = true;
-    drivers = with pkgs; [ sqlite-jdbc ];
-  };
 
   home.packages = with pkgs; [
     ### NODEJS
@@ -35,11 +29,7 @@
     rust-analyzer
 
     ### PYTHON ###
-    (python3.withPackages (
-      ps: with ps; [
-        pyyaml
-      ]
-    ))
+    python3
     uv
     black
     ruff

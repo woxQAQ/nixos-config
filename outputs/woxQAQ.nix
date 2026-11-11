@@ -83,11 +83,11 @@ in
               profile = "full";
             };
           }
-          ../home/public
+          ../home/public/profiles/workstation.nix
           {
             modules.public = {
               cloud-native.enable = true;
-              desktop.enable = true;
+              zed.enable = true;
               neovim.enable = true;
               helix.enable = true;
               playwright.enable = true;

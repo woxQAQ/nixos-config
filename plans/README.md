@@ -1,15 +1,15 @@
 # 模块边界调整实施计划
 
-由 improve 技能于 2026-11-11 编写，源码基线为 `1a695a3`。用户选择的范围为 Linux 桌面边界、跨平台用户配置组合，以及新增的 selfcloud 模块化。本目录记录实施计划及执行状态；001 已按维护者后续的明确指令实现。
+由 improve 技能于 2026-11-11 编写，源码基线为 `1a695a3`。用户选择的范围为 Linux 桌面边界、跨平台用户配置组合，以及新增的 selfcloud 模块化。本目录记录实施计划及执行状态；001、002 已按维护者后续的明确指令实现。
 
-每位执行者都应完整阅读自己负责的计划、核对工作区漂移、运行验证，再更新状态。计划均自包含，不要求先阅读对话。初次规划阶段没有自动执行；001 由当前代理在维护者明确要求实现后直接完成源码调整。
+每位执行者都应完整阅读自己负责的计划、核对工作区漂移、运行验证，再更新状态。计划均自包含，不要求先阅读对话。初次规划阶段没有自动执行；001、002 由当前代理在维护者明确要求实现后直接完成源码调整。
 
 ## 推荐执行顺序与状态
 
 | Plan                             | 内容                                                             | Priority | Effort | 依赖 | 状态                                           |
 | -------------------------------- | ---------------------------------------------------------------- | -------- | ------ | ---- | ---------------------------------------------- |
 | [001](001-desktop-boundaries.md) | 区分桌面共享配置与会话组件，处理 Noctalia/Qt 调色板关联          | P1       | M      | 无   | DONE |
-| [002](002-home-profiles.md)      | minimal / developer / workstation 显式组合用户环境               | P1       | M      | 无   | TODO                                           |
+| [002](002-home-profiles.md) | minimal / developer / workstation 显式组合用户环境 | P1 | M | 无 | DONE |
 | [003](003-selfcloud-services.md) | 提取 Samba、Jellyfin、qBittorrent、Gitea，保留主机数据和硬件政策 | P1       | M      | 无   | TODO                                           |
 
 状态值：TODO、IN PROGRESS、DONE、BLOCKED（附原因）、REJECTED（附原因）。
@@ -23,6 +23,16 @@
 - `just check` 首次因 `home/public/shell/tuios/default.nix` 的格式失败；后续复查时文件已符合格式，`nixfmt --width=80 --check` 与完整 `just check` 均通过，001 已完成。
 - 已有 Hyprland 默认壁纸引用指向空 assets 目录。测试 fixture 仅清空 Hyprland 的 exec-once，以排除壁纸启动命令后验证其他完整配置；没有修复或验证真实壁纸启动行为。
 - 未切换系统、未测试实际图形登录。执行期间观察到 Noctalia 设置继续变化、`hosts/woxQAQ/configs/niri-hardware.kdl` 出现外部修改；均未触碰。Helix 与 tuios 文件内容哈希与执行开始时一致。
+
+### 002 执行记录（2026-11-11）
+
+- 已新增 minimal、developer、workstation 静态组合。selfcloud 选择 minimal，WSL 选择 developer，其余四台机器选择 workstation。
+- 基础入口保留 CLI、Nix 维护工具与 npm/pnpm 发布时间策略；开发工具由 developer 选择；DBeaver 和媒体工具由 workstation 选择。终端默认不安装，workstation 默认 Kitty，主机现有 Ghostty 选择保留。
+- 已将内部 `modules.public.desktop.enable` 及其全部调用者迁移为 `modules.public.zed.enable`，windows-vm1 显式保留 Zed 禁用。
+- 四台工作站的用户软件包集合与执行前完全一致；WSL 只移除 dbeaver-bin、kitty、ffmpeg-full、imagemagick；selfcloud 移除开发工具链和 GUI，保留 Nix 维护、agents 自身依赖及原有 helix/tuios 禁用设置。
+- 新增 `tests/home-profiles.nix`。六台真实主机、服务器叠加 developer、工作站默认值、终端列表强制清空，共九个完整 Home Manager 配置用例通过，包含激活 derivation 求值。命令：`nix eval --impure --offline --no-update-lock-file --json --expr 'import ./tests/home-profiles.nix { flake = builtins.getFlake (toString ./.); }'`。
+- `just check-hosts`、完整 `just check`、001 的四种桌面回归测试及 `git diff --check` 均通过。
+- 本次基线为 `66ae86e`，执行开始时工作区干净。改动仅涉及计划范围；未修改系统服务、磁盘、语言包版本、锁文件或其他主机偏好；未切换系统。
 
 ## 依赖与交付原则
 

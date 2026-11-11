@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.public.desktop;
+  cfg = config.modules.public.zed;
 in
 {
   config = lib.mkIf cfg.enable {

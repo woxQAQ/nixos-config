@@ -26,11 +26,11 @@ let
         profile = "terminal";
       };
     }
-    ../home/public
+    ../home/public/profiles/workstation.nix
     {
       modules.public = {
         cloud-native.enable = false;
-        desktop.enable = true;
+        zed.enable = true;
         neovim.enable = false;
         helix.enable = true;
         playwright.enable = false;

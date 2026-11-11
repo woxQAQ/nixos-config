@@ -128,8 +128,5 @@
   home.packages = with pkgs; [
     ups
     glow
-    ffmpeg-full
-    graphviz
-    imagemagick
   ];
 }

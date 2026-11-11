@@ -21,7 +21,7 @@ in
           ../modules/public
         ];
         home-modules = [
-          ../home/public
+          ../home/public/profiles/developer.nix
           ../home/nixos
         ];
       }

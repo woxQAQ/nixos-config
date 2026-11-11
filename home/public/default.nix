@@ -2,7 +2,8 @@
 {
   imports = [
     ./desktop
-    ./dev
+    ./dev/nix.nix
+    ./dev/npm.nix
     ./helix
     ./neovim
     ./shell

@@ -4,8 +4,8 @@
     cloud-native = {
       enable = lib.mkEnableOption "Cloud-native";
     };
-    desktop = {
-      enable = lib.mkEnableOption "Desktop";
+    zed = {
+      enable = lib.mkEnableOption "Zed editor";
     };
     neovim = {
       enable = lib.mkEnableOption "neovim";
@@ -30,7 +30,7 @@
             "ghostty"
           ]
         );
-        default = [ "kitty" ];
+        default = [ ];
         description = "The terminal emulators to install and configure.";
       };
       font-family = lib.mkOption {
