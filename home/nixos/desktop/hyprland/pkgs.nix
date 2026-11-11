@@ -20,6 +20,7 @@
     #keep-sorted start
 
     hyprcursor
+    hyprshot
     # swaybg
     swww
     wayland

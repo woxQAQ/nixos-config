@@ -4,7 +4,6 @@
     wl-clipboard
     alsa-utils
     wf-recorder
-    hyprshot
     imv
     pavucontrol
     playerctl
