@@ -13,5 +13,6 @@
     ./btrbk.nix
     ./flclash.nix
     ./users.nix
+    ./qmk.nix
   ];
 }

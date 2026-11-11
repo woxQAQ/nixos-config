@@ -90,7 +90,7 @@
       };
       # 向局域网广播 SMB 服务，macOS Finder 的「网络」依赖此 mDNS 记录做发现
       # （wsdd 只对 Windows 有效）
-      extraServiceFiles.smb = ''
+      extraServiceFiles.smb = /* xml */ ''
         <?xml version="1.0" standalone='no'?>
         <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
         <service-group>

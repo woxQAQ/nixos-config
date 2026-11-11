@@ -4,7 +4,12 @@
     {
       devShells.default = pkgs.mkShell {
         name = "nixos config dev shells";
-        shellHook = config.pre-commit.shellHook;
+        shellHook = ''
+          ${config.pre-commit.shellHook}
+
+          # Nested terminals use $SHELL rather than resolving bash from PATH.
+          export SHELL=${pkgs.bashInteractive}/bin/bash
+        '';
         packages = with pkgs; [
           # stdenv puts its minimal bash on PATH, which lacks programmable
           # completion (progcomp) and \[ \] prompt decoding, breaking

@@ -42,6 +42,8 @@ in
           ../modules/hardware/fans
           ../modules/hardware/gpu
           ../modules/hardware/opengl
+          ../modules/hardware/storage
+          ../modules/hardware/audio
           {
             modules.hardware = {
               opengl.enable = true;

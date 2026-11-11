@@ -11,11 +11,6 @@ let
 in
 {
   config = mkIf cfg.enable {
-    # programs.anime-game-launcher = {
-    #   enable = true;
-    #   # package = aagl.anime-game-launcher; # for non-flakes
-    #   # package = inputs.aagl.packages.x86_64-linux.anime-game-launcher; # for flakes
-    # };
     boot.kernel.sysctl = {
       "kernel.sched_cfs_bandwidth_slice_us" = 3000;
       "net.ipv4.tcp_fin_timeout" = 5;
@@ -24,21 +19,12 @@ in
     };
     environment.variables.UMU_PROTONPATH = "${pkgs.dwproton-bin.steamcompattool}";
     programs = {
-      gamescope = {
-        enable = true;
-        capSysNice = true;
-        args = [
-          "--rt"
-          "--expose-wayland"
-        ];
-      };
       gamemode = {
         enable = true;
       };
       steam = {
         enable = true;
         dedicatedServer.openFirewall = false;
-        gamescopeSession.enable = true;
         protontricks.enable = true;
         extest.enable = true;
         fontPackages = [ pkgs.wqy_zenhei ];
