@@ -206,7 +206,7 @@ in
 
             grafana-github-datasource
             # Visualize data from JSON, CSV, XML, GraphQL and HTML endpoints.
-            yesoreyeram-infinity-datasource
+            # yesoreyeram-infinity-datasource
           ];
           # No dashboard provisioning: dashboards are managed interactively.
           # Datasources are still provisioned so the hub works out of the box.
