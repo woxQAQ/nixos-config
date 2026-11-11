@@ -50,17 +50,17 @@
 
   xdg.configFile."niri/niri-hardware.kdl".source =
     mylib.mkMutable dotfilesDir config
-      ./niri-hardware.kdl;
+      ./configs/niri-hardware.kdl;
 
   xdg.configFile."openlogi/config.toml".source =
     mylib.mkMutable dotfilesDir config
-      ./openlogi.toml;
+      ./openlogi/config.toml;
 
   # Noctalia v5 writes GUI-managed state to settings.toml; it follows the
   # symlink and writes through to this repo file, like v4's settings.json.
   home.file.".local/state/noctalia/settings.toml".source =
     mylib.mkMutable dotfilesDir config
-      ./noctalia-settings.toml;
+      ./configs/noctalia-settings.toml;
 
   programs.ssh.settings."github.com".IdentityFile =
     "${config.home.homeDirectory}/.ssh/id_ed25519";

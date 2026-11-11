@@ -19,7 +19,17 @@ in
           inputs.hidpipe.nixosModules.default
           ../hosts/${name}
           ../modules/x86_64-linux/system
+          {
+            modules.btrbk.enable = true;
+          }
           ../modules/x86_64-linux/desktop
+          {
+            modules.desktop = {
+              environment = "niri";
+              fcitx5.enable = true;
+              game.enable = true;
+            };
+          }
           ../modules/x86_64-linux/packages
           (
             { pkgs, ... }:
@@ -28,23 +38,26 @@ in
             }
           )
           ../modules/x86_64-linux/boot
+          ../modules/hardware/cpu
+          ../modules/hardware/fans
+          ../modules/hardware/gpu
+          ../modules/hardware/opengl
+          {
+            modules.hardware = {
+              opengl.enable = true;
+              amd = {
+                enable = true;
+                rocm.enable = true;
+              };
+            };
+          }
           ../modules/public
           ../modules/sandboxed/nixpaks
           ../modules/sandboxed/bwraps
           {
-            modules.btrbk.enable = true;
-          }
-          {
             modules.flclash = {
               enable = true;
               user = name;
-            };
-          }
-          {
-            modules.desktop = {
-              environment = "niri";
-              fcitx5.enable = true;
-              game.enable = true;
             };
           }
           {

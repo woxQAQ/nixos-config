@@ -29,7 +29,7 @@ end = [
 font_family = "Inter Noto Sans SC"
 margin_ends = 20
 padding = 12
-start = ["launcher", "workspaces", "group:g1", "cpu_2", "disk_2", "memory", "network_2"]
+start = ["launcher", "workspaces", "group:g1", "group:g2"]
 thickness = 40
 widget_spacing = 7
 
@@ -46,6 +46,17 @@ enabled = false
 fill = "surface_container"
 id = "g1"
 members = ["cpu", "ram", "disk", "network_tx", "network_rx", "temp"]
+opacity = 1.0
+padding = 6.0
+
+[[bar.default.capsule_group]]
+accordion = false
+accordion_direction = "end"
+border_width = 1.0
+enabled = true
+fill = "surface_container"
+id = "g2"
+members = ["cpu_2", "memory", "disk_2", "network_2"]
 opacity = 1.0
 padding = 6.0
 
@@ -151,6 +162,8 @@ media = false
 
 [plugin_settings."woxQAQ/stats"]
 details_open_near_click = true
+details_placement = "attached"
+interval_seconds = 1
 
 [plugins]
 enabled = ["woxQAQ/stats"]

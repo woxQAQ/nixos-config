@@ -27,5 +27,4 @@
     # Use the standard kernel to benefit from the official binary cache.
     kernelPackages = pkgs.linuxPackages;
   };
-  hardware.amdgpu.initrd.enable = true;
 }

@@ -25,7 +25,7 @@
       '';
       postInstall = (old.postInstall or "") + ''
         install -Dm755 target/${pkgs.stdenv.hostPlatform.rust.cargoShortTarget}/release/openlogi-init "$out/bin/openlogi-init"
-        ${pkgs.python3}/bin/python ${./tests/openlogi-init.py} "$out/bin/openlogi-init"
+        ${pkgs.python3}/bin/python ${./openlogi-init.py} "$out/bin/openlogi-init"
       '';
     });
   };

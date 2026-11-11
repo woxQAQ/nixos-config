@@ -1,16 +1,15 @@
 { pkgs, stateVersion, ... }:
 {
   imports = [
-    ./hardware-configuration.nix
+    ./boot.specified.nix
     ./disko.nix
+    ./hardware-configuration.nix
+
     ./storage.nix
     ./nix.nix
-    ./boot.specified.nix
-    ./rocm.nix
     ./vm.nix
     ./waydroid-houdini.nix
-    ./openlogi.nix
-    ./tailscale.nix
+    ./openlogi
   ];
 
   networking.hostName = "woxQAQ";
@@ -22,15 +21,6 @@
     '';
     # Trust all traffic from Tailscale
     trustedInterfaces = [ "tailscale0" ];
-  };
-
-  services.lact = {
-    enable = true;
-  };
-
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
   };
 
   programs = {
