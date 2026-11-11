@@ -6,11 +6,11 @@
 
 ## 推荐执行顺序与状态
 
-| Plan                             | 内容                                                             | Priority | Effort | 依赖 | 状态                                           |
-| -------------------------------- | ---------------------------------------------------------------- | -------- | ------ | ---- | ---------------------------------------------- |
+| Plan                             | 内容                                                             | Priority | Effort | 依赖 | 状态 |
+| -------------------------------- | ---------------------------------------------------------------- | -------- | ------ | ---- | ---- |
 | [001](001-desktop-boundaries.md) | 区分桌面共享配置与会话组件，处理 Noctalia/Qt 调色板关联          | P1       | M      | 无   | DONE |
-| [002](002-home-profiles.md) | minimal / developer / workstation 显式组合用户环境 | P1 | M | 无 | DONE |
-| [003](003-selfcloud-services.md) | 提取 Samba、Jellyfin、qBittorrent、Gitea，保留主机数据和硬件政策 | P1       | M      | 无   | TODO                                           |
+| [002](002-home-profiles.md)      | minimal / developer / workstation 显式组合用户环境               | P1       | M      | 无   | DONE |
+| [003](003-selfcloud-services.md) | 提取 Samba、Jellyfin、qBittorrent、Gitea，保留主机数据和硬件政策 | P1       | M      | 无   | TODO |
 
 状态值：TODO、IN PROGRESS、DONE、BLOCKED（附原因）、REJECTED（附原因）。
 

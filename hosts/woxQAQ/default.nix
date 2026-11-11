@@ -10,6 +10,7 @@
     ./vm.nix
     ./waydroid-houdini.nix
     ./openlogi
+    ./monitoring.nix
   ];
 
   networking.hostName = "woxQAQ";

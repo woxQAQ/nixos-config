@@ -52,6 +52,7 @@ in
     ioskeley-chillround = prev.callPackage ../pkg/ioskeley-chillround { };
     magpie = prev.callPackage ../pkg/magpie { };
     obelisk-cli = prev.callPackage ../pkg/obelisk-cli { };
+    otelcol = prev.callPackage ../pkg/otelcol { };
     removemacai = prev.callPackage ../pkg/removemacai { };
     yozai-font = prev.callPackage ../pkg/yozai-font { };
     resource-han-rounded = prev.callPackage ../pkg/resource-han-rounded { };

@@ -12,6 +12,7 @@
     ./nas.nix
     ./gitea.nix
     ./resource.nix
+    ./monitoring.nix
   ];
 
   boot.loader = {
