@@ -5,6 +5,8 @@
   # into these endpoints.
   imports = [ ../../modules/x86_64-linux/services ];
 
+  services.grafana.settings.server.http_addr = "0.0.0.0";
+
   modules.services.monitoring = {
     enable = true;
     openFirewall = true;
