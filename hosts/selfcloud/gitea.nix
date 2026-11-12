@@ -11,7 +11,7 @@ in
     lfs.enable = true;
     settings = {
       server = {
-        ROOT_URL = "http://gitea.selfcloud.lan/";
+        ROOT_URL = "https://gitea.selfcloud.lan/";
         HTTP_ADDR = "0.0.0.0";
         HTTP_PORT = 3000;
         START_SSH_SERVER = true;
