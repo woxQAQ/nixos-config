@@ -34,6 +34,10 @@
         {
           address = "0.0.0.0";
           port = 8081;
+          # Only the local Caddy proxy may supply the original client address.
+          proxy_allowed = [ "127.0.0.1" ];
+          client_ip_proxy_header = "X-Forwarded-For";
+          client_ip_header_depth = 0;
           enable_web_admin = true;
           enable_web_client = true;
         }

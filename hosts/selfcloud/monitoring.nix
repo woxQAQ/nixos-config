@@ -5,7 +5,11 @@
   # into these endpoints.
   imports = [ ../../modules/x86_64-linux/services ];
 
-  services.grafana.settings.server.http_addr = "0.0.0.0";
+  services.grafana.settings.server = {
+    http_addr = "0.0.0.0";
+    domain = "grafana.selfcloud.lan";
+    root_url = "http://grafana.selfcloud.lan/";
+  };
 
   modules.services.monitoring = {
     enable = true;

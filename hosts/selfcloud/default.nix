@@ -13,6 +13,7 @@
     ./gitea.nix
     ./resource.nix
     ./monitoring.nix
+    ./caddy.nix
   ];
 
   boot.loader = {

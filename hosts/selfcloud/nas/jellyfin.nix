@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   environment.systemPackages = with pkgs; [
     ffmpeg
@@ -36,7 +41,27 @@
       enableToneMapping = false;
     };
   };
-  systemd.services.jellyfin.environment.LIBVA_DRIVER_NAME = "i965";
+  systemd.services.jellyfin = {
+    environment.LIBVA_DRIVER_NAME = "i965";
+    # Merge proxy trust into the writable network config before Jellyfin loads it.
+    preStart = lib.mkAfter /* py */ ''
+      ${pkgs.python3}/bin/python3 - <<'PY'
+      from pathlib import Path
+      import xml.etree.ElementTree as ET
+
+      path = Path("${config.services.jellyfin.configDir}/network.xml")
+      tree = ET.parse(path) if path.exists() else ET.ElementTree(ET.Element("NetworkConfiguration"))
+      root = tree.getroot()
+      proxies = root.find("KnownProxies")
+      if proxies is None:
+          proxies = ET.SubElement(root, "KnownProxies")
+      if not any(proxy.text == "127.0.0.1" for proxy in proxies):
+          ET.SubElement(proxies, "string").text = "127.0.0.1"
+          path.parent.mkdir(parents=True, exist_ok=True)
+          tree.write(path, encoding="utf-8", xml_declaration=True)
+      PY
+    '';
+  };
   users.users.jellyfin.extraGroups = [
     "video"
     "render"
