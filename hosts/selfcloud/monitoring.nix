@@ -8,6 +8,7 @@
   modules.services.monitoring = {
     enable = true;
     openFirewall = true;
+    ports.grafana = 3001;
     scrapeTargets = [
       {
         name = "selfcloud";
