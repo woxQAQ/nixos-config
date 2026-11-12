@@ -15,6 +15,9 @@
 
   networking.hostName = "woxQAQ";
 
+  # Trust HTTPS certificates issued by selfcloud's Caddy internal CA.
+  security.pki.certificateFiles = [ ../selfcloud/caddy-root.crt ];
+
   networking.firewall = {
     # Trust all traffic from LAN
     extraInputRules = ''
