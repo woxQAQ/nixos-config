@@ -45,11 +45,7 @@
     };
   };
 
-  systemd.tmpfiles.rules = [
-    "d /mnt/data/1000/sftpgo 0755 ${username} users -"
-  ];
   systemd.services.sftpgo = {
-    unitConfig.RequiresMountsFor = [ "/mnt/data" ];
     # 上传文件允许媒体服务读取，与 Samba 的文件权限一致。
     serviceConfig.UMask = lib.mkForce "0022";
   };

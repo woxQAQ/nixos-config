@@ -12,10 +12,7 @@ in
 
   systemd.services.qbittorrent-nox = {
     description = "qBittorrent-nox";
-    after = [
-      "network.target"
-      "mnt-data.mount"
-    ];
+    after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     # Merge proxy settings into the writable profile, retaining credentials and torrents.
     preStart = ''

@@ -23,9 +23,9 @@ in
 {
   disko.devices = {
     disk = {
-      sda = raidMember "/dev/sda";
-      sdc = raidMember "/dev/sdc";
-      sdd = raidMember "/dev/sdd";
+      toshibaLaptop = raidMember "/dev/disk/by-id/ata-TOSHIBA_MQ04ABF100_396IPK2XT";
+      seagate = raidMember "/dev/disk/by-id/ata-ST1000DM003-1ER162_W4Y3WGNG";
+      toshibaDesktop = raidMember "/dev/disk/by-id/ata-TOSHIBA_DT01ACA100_50UW472MS";
     };
 
     mdadm.md0 = {
