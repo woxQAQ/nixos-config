@@ -25,9 +25,6 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
-
-  modules.public.helix.enable = false;
-
   # Keep an interactive terminal for the encrypted agenix identity.
   environment.variables.NIXOS_REBUILD_NO_SYSTEMD_RUN = "1";
 
@@ -46,18 +43,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    wget
-    file
-    fastfetch
     pciutils
-    git
-    git-lfs
-    gitui
-    unzip
-    unar
-    unrar
-    gnutar
-    gzip
   ];
 
   system.stateVersion = stateVersion;

@@ -1,135 +1,22 @@
+{ pkgs, ... }:
 {
-  pkgs,
-  username,
-  ...
-}:
-{
+  imports = [
+    ./nas/samba.nix
+    ./nas/jellyfin.nix
+    ./nas/qbittorrent.nix
+    ./nas/sftpgo.nix
+  ];
+
   environment.systemPackages = with pkgs; [
     nmap
-    ffmpeg
-    mediainfo
     ncdu
   ];
-  networking = {
-    firewall = {
-      enable = true;
-      allowedTCPPorts = [
-        22 # SSH
-        445
-        139 # Samba
-        8096 # Jellyfin
-        8080 # qBittorrent WebUI（如需外网访问建议改端口）
-      ];
-      allowedUDPPorts = [
-        137
-        138 # Samba NetBIOS
-        1900
-        7359 # Jellyfin 服务发现
-      ];
-    };
-  };
-  services = {
-    samba = {
-      enable = true;
-      openFirewall = true;
-      settings = {
-        global = {
-          workgroup = "WORKGROUP";
-          "server string" = "selfcloud";
 
-          # 局域网读多写少场景下，保留 SMB3 与必要项，避免过度调参
-          "server min protocol" = "SMB3";
-          "server max protocol" = "SMB3";
-          "client min protocol" = "SMB3";
-          "use sendfile" = "yes";
-
-          "store dos attributes" = "no";
-          "map archive" = "no";
-          "map hidden" = "no";
-          "map system" = "no";
-
-          "create mask" = "0644";
-          "directory mask" = "0755";
-          "force user" = username;
-          "force group" = "users";
-          "security" = "user";
-
-          "inherit permissions" = "yes";
-          "map to guest" = "never";
-          "guest account" = "nobody";
-        };
-        "videos" = {
-          path = "/mnt/data/1000/videos";
-          browseable = "yes";
-          "read only" = "no";
-          "valid users" = username;
-          "oplocks" = "yes";
-        };
-        "data" = {
-          path = "/mnt/data/1000/data";
-          browseable = "yes";
-          "read only" = "no";
-          "valid users" = username;
-          "oplocks" = "yes";
-        };
-      };
-    };
-    samba-wsdd = {
-      enable = true;
-      openFirewall = true;
-    };
-    avahi = {
-      enable = true;
-      openFirewall = true;
-      publish = {
-        enable = true;
-        domain = true;
-        # 发布 selfcloud.local 的 A/AAAA 记录，否则客户端能浏览到服务
-        # 却解析不出主机地址，连接会失败
-        addresses = true;
-      };
-      # 向局域网广播 SMB 服务，macOS Finder 的「网络」依赖此 mDNS 记录做发现
-      # （wsdd 只对 Windows 有效）
-      extraServiceFiles.smb = /* xml */ ''
-        <?xml version="1.0" standalone='no'?>
-        <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
-        <service-group>
-          <name replace-wildcards="yes">%h</name>
-          <service>
-            <type>_smb._tcp</type>
-            <port>445</port>
-          </service>
-          <service>
-            <type>_device-info._tcp</type>
-            <port>0</port>
-            <txt-record>model=Xserve</txt-record>
-          </service>
-        </service-group>
-      '';
-    };
-  };
-
-  services.jellyfin = {
+  networking.firewall = {
     enable = true;
-    openFirewall = true;
-    # 配置目录放系统盘，保留服务设置
-    configDir = "/var/lib/jellyfin/config";
-    # 缓存目录放系统 SSD，减少与媒体盘争抢 I/O
-    cacheDir = "/var/cache/jellyfin";
+    allowedTCPPorts = [ 22 ];
   };
-  users.users.jellyfin.extraGroups = [
-    "videos"
-    "render"
-    "users"
-  ];
-  # 确保 jellyfin (users 组) 能访问媒体子目录
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      libvdpau-va-gl
-      intel-vaapi-driver
-    ];
-  };
+
   boot.kernel.sysctl = {
     "net.core.rmem_max" = 134217728;
     "net.core.wmem_max" = 134217728;
@@ -139,25 +26,6 @@
     "net.core.netdev_max_backlog" = 5000;
 
     # 文件描述符
-    "fs.file-max" = 1048576; # Btrfs 异步写优化
-  };
-  # 自定义服务，明确以 woxQAQ 运行
-  systemd.services.qbittorrent-nox = {
-    description = "qBittorrent-nox";
-    after = [
-      "network.target"
-      "mnt-data.mount"
-    ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "simple";
-      User = username;
-      Group = "users";
-      # Prefer interactive directory reads over background torrent I/O.
-      # 依赖 bfq 调度器（见 storage.nix 的 udev 规则），mq-deadline 下此设置无效。
-      IOSchedulingClass = "idle";
-      ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --profile=/home/woxQAQ/.config/qBittorrent --webui-port=8080";
-      Restart = "on-failure";
-    };
+    "fs.file-max" = 1048576;
   };
 }
