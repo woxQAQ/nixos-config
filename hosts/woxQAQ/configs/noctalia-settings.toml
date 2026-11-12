@@ -7,66 +7,66 @@ blur_intensity = 0.47999998927116394
 background_opacity = 0.7799999825656414
 capsule = true
 capsule_thickness = 0.79999998584389687
-center = ["active_window", "caffeine", "media"]
+center = [ "active_window", "caffeine", "media" ]
 contact_shadow = true
 end = [
-  "tray",
-  "notifications",
-  "clipboard",
-  "network",
-  "bluetooth",
-  "volume",
-  "brightness",
-  "battery",
-  "clock",
-  "control-center",
-  "wallpaper",
-  "session",
+    "tray",
+    "notifications",
+    "clipboard",
+    "network",
+    "bluetooth",
+    "volume",
+    "brightness",
+    "battery",
+    "clock",
+    "control-center",
+    "wallpaper",
+    "session"
 ]
 font_family = "Inter Noto Sans SC"
 margin_ends = 20
 padding = 12
-start = ["launcher", "workspaces", "group:g1", "group:g2"]
+start = [ "launcher", "workspaces", "group:g1", "group:g2" ]
 thickness = 40
 widget_spacing = 7
 
-[bar.default.monitor.HDMI-A-2]
-padding = 13
-scale = 1.0000000074505806
+    [bar.default.monitor.HDMI-A-2]
+    padding = 13
+    scale = 1.0000000074505806
 
-[[bar.default.capsule_group]]
-accordion = false
-accordion_direction = "end"
-border = ""
-border_width = 1.0
-enabled = false
-fill = "surface_container"
-id = "g1"
-members = ["cpu", "ram", "disk", "network_tx", "network_rx", "temp"]
-opacity = 1.0
-padding = 6.0
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border = ""
+    border_width = 1.0
+    enabled = false
+    fill = "surface_container"
+    id = "g1"
+    members = [ "cpu", "ram", "disk", "network_tx", "network_rx", "temp" ]
+    opacity = 1.0
+    padding = 6.0
 
-[[bar.default.capsule_group]]
-accordion = false
-accordion_direction = "end"
-border_width = 1.0
-enabled = true
-fill = "surface_container"
-id = "g2"
-members = ["cpu_2", "memory", "disk_2", "network_2"]
-opacity = 1.0
-padding = 6.0
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border_width = 1.0
+    enabled = true
+    fill = "surface_container"
+    id = "g2"
+    members = [ "cpu_2", "memory", "disk_2", "network_2", "magpie" ]
+    opacity = 1.0
+    padding = 6.0
 
 [desktop_widgets]
 schema_version = 2
 widget_order = []
 
-[desktop_widgets.grid]
-cell_size = 16
-major_interval = 4
-visible = true
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
 
-[desktop_widgets.widget]
+    [desktop_widgets.widget]
 
 [dock]
 enabled = true
@@ -82,68 +82,68 @@ longitude = 118.67570000000001
 [lockscreen_widgets]
 enabled = false
 schema_version = 2
-widget_order = ["lockscreen-login-box@DP-3", "lockscreen-login-box@HDMI-A-2"]
+widget_order = [ "lockscreen-login-box@DP-3", "lockscreen-login-box@HDMI-A-2" ]
 
-[lockscreen_widgets.grid]
-cell_size = 16
-major_interval = 4
-visible = true
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
 
-[lockscreen_widgets.widget."lockscreen-login-box@DP-3"]
-box_height = 196.0
-box_width = 810.0
-cx = 1024.0
-cy = 969.9998779296875
-output = "DP-3"
-placement_height = 1152.0
-placement_width = 2048.0
-rotation = 0.0
-type = "login_box"
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-3"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1024.0
+    cy = 969.9998779296875
+    output = "DP-3"
+    placement_height = 1152.0
+    placement_width = 2048.0
+    rotation = 0.0
+    type = "login_box"
 
-[lockscreen_widgets.widget."lockscreen-login-box@DP-3".settings]
-background_color = "surface_container"
-background_opacity = 0.88
-background_radius = 12.0
-center_password_text = false
-input_opacity = 1.0
-input_radius = 6.0
-layout = "regular"
-show_caps_lock = true
-show_keyboard_layout = true
-show_login_button = true
-show_media = true
-show_password_reveal = true
-show_session_buttons = true
-show_unlock_hint = true
-show_weather = true
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-3".settings]
+        background_color = "surface_container"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
-[lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2"]
-box_height = 196.0
-box_width = 810.0
-cx = 959.99993896484375
-cy = 952.03118896484375
-output = "HDMI-A-2"
-placement_height = 1080.0
-placement_width = 1920.0
-rotation = 0.0
-type = "login_box"
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 959.99993896484375
+    cy = 952.03118896484375
+    output = "HDMI-A-2"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
 
-[lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2".settings]
-background_color = "surface_container"
-background_opacity = 0.88
-background_radius = 12.0
-center_password_text = false
-input_opacity = 1.0
-input_radius = 6.0
-layout = "regular"
-show_caps_lock = true
-show_keyboard_layout = true
-show_login_button = true
-show_media = true
-show_password_reveal = true
-show_session_buttons = true
-show_unlock_hint = true
-show_weather = true
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2".settings]
+        background_color = "surface_container"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
 [nightlight]
 force = true
@@ -154,43 +154,44 @@ position = "bottom_right"
 [osd]
 position = "bottom_right"
 
-[osd.kinds]
-media = false
+    [osd.kinds]
+    media = false
 
 [plugin_settings."woxQAQ/stats"]
 details_open_near_click = true
 details_placement = "attached"
 interval_seconds = 1
-otlp_endpoint = "http://localhost:4138"
+magpie_metrics_endpoint = "http://selfcloud.lan:8428"
+magpie_window = "24h"
 
 [plugins]
-enabled = ["woxQAQ/stats"]
+enabled = [ "woxQAQ/stats" ]
 
-[[plugins.source]]
-kind = "git"
-location = "https://github.com/noctalia-dev/official-plugins"
-name = "official"
+    [[plugins.source]]
+    kind = "git"
+    location = "https://github.com/noctalia-dev/official-plugins"
+    name = "official"
 
-[[plugins.source]]
-kind = "git"
-location = "https://github.com/noctalia-dev/community-plugins"
-name = "community"
+    [[plugins.source]]
+    kind = "git"
+    location = "https://github.com/noctalia-dev/community-plugins"
+    name = "community"
 
-[[plugins.source]]
-kind = "path"
-location = "/home/woxQAQ/noctalia-stats"
-name = "noctalia-stats"
+    [[plugins.source]]
+    kind = "path"
+    location = "/home/woxQAQ/noctalia-stats"
+    name = "noctalia-stats"
 
 [shell]
 font_family = "Inter Noto Sans SC"
 lang = "zh-Hans"
 screen_time_enabled = true
 
-[shell.screen_corners]
-enabled = true
+    [shell.screen_corners]
+    enabled = true
 
-[shell.screenshot]
-directory = "/home/woxQAQ/Pictures/Screenshots"
+    [shell.screenshot]
+    directory = "/home/woxQAQ/Pictures/Screenshots"
 
 [theme]
 builtin = "Catppuccin"
@@ -198,21 +199,21 @@ community_palette = "Oxocarbon"
 mode = "auto"
 sync_color_scheme = true
 
-[theme.templates]
-builtin_ids = ["gtk3", "gtk4", "qt", "kcolorscheme"]
+    [theme.templates]
+    builtin_ids = [ "gtk3", "gtk4", "qt", "kcolorscheme" ]
 
 [wallpaper]
 directory = "/home/woxQAQ/Pictures/Wallpapers"
 fill_mode = "center"
 
-[wallpaper.default]
-path = "/home/woxQAQ/Pictures/Wallpapers/wallhaven-w53k9q.jpg"
+    [wallpaper.default]
+    path = "/home/woxQAQ/Pictures/Wallpapers/wallhaven-w53k9q.jpg"
 
-[wallpaper.last]
-path = "/home/woxQAQ/Pictures/Wallpapers/wallhaven-w53k9q.jpg"
+    [wallpaper.last]
+    path = "/home/woxQAQ/Pictures/Wallpapers/wallhaven-w53k9q.jpg"
 
-[wallpaper.monitors.DP-3]
-path = "/home/woxQAQ/Pictures/Wallpapers/wallhaven-w53k9q.jpg"
+    [wallpaper.monitors.DP-3]
+    path = "/home/woxQAQ/Pictures/Wallpapers/wallhaven-w53k9q.jpg"
 
 [widget.cpu_2]
 display = "value"
@@ -227,6 +228,10 @@ type = "sysmon"
 capacity_display = "value"
 display = "value"
 type = "woxQAQ/stats:disk"
+
+[widget.magpie]
+display = "tokens"
+type = "woxQAQ/stats:magpie"
 
 [widget.memory]
 display = "value"

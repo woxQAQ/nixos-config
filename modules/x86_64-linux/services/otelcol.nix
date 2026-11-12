@@ -31,7 +31,7 @@ let
 
     exporters = lib.mapAttrs' (signal: endpoint: {
       name = exporterName signal;
-      value.endpoint = endpoint;
+      value."${signal}_endpoint" = endpoint;
     }) activeSignals;
 
     service.pipelines = lib.mapAttrs (signal: _: {

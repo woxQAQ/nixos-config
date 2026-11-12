@@ -109,7 +109,7 @@ in
     assert lib.assertMsg (
       gatewaySettings.exporters == lib.mapAttrs' (signal: url: {
         name = "otlphttp/${signal}";
-        value.endpoint = url;
+        value."${signal}_endpoint" = url;
       }) endpoints
     ) "gateway: each signal must export to its own endpoint";
     assert lib.assertMsg (
