@@ -22,10 +22,9 @@
     "net.core.wmem_max" = 134217728;
     "net.ipv4.tcp_rmem" = "4096 87380 134217728";
     "net.ipv4.tcp_wmem" = "4096 65536 134217728";
-    "net.ipv4.tcp_congestion_control" = "bbr"; # 高带宽延迟积网络优化
+    "net.ipv4.tcp_congestion_control" = "bbr";
     "net.core.netdev_max_backlog" = 5000;
 
-    # 文件描述符
     "fs.file-max" = 1048576;
   };
 }

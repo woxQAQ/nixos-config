@@ -24,7 +24,6 @@ in
           ../home/nixos
           ../home/public/profiles/minimal.nix
           ../home/agents
-          ../hosts/${name}/home.nix
           {
             modules.public.tuios.enable = false;
             modules.public.helix.enable = false;

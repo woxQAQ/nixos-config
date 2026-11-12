@@ -20,7 +20,6 @@
           workgroup = "WORKGROUP";
           "server string" = "selfcloud";
 
-          # 局域网读多写少场景下，保留 SMB3 与必要项，避免过度调参
           "server min protocol" = "SMB3";
           "server max protocol" = "SMB3";
           "client min protocol" = "SMB3";
@@ -67,12 +66,8 @@
       publish = {
         enable = true;
         domain = true;
-        # 发布 selfcloud.local 的 A/AAAA 记录，否则客户端能浏览到服务
-        # 却解析不出主机地址，连接会失败
         addresses = true;
       };
-      # 向局域网广播 SMB 服务，macOS Finder 的「网络」依赖此 mDNS 记录做发现
-      # （wsdd 只对 Windows 有效）
       extraServiceFiles.smb = /* xml */ ''
         <?xml version="1.0" standalone='no'?>
         <!DOCTYPE service-group SYSTEM "avahi-service.dtd">

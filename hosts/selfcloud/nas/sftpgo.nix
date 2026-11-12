@@ -11,7 +11,6 @@
 
   services.sftpgo = {
     enable = true;
-    # 与 Samba、qBittorrent 保持相同的文件属主，复用现有数据目录权限。
     user = username;
     group = "users";
     extraReadWriteDirs = [
