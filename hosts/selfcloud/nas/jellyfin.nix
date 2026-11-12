@@ -26,17 +26,6 @@
       type = "vaapi";
       device = "/dev/dri/renderD128";
     };
-    hardwareEncodingCodecs.hevc = true;
-
-    hardwareDecodingCodecs = {
-      h264 = true;
-      hevc = true;
-      hevc10bit = true;
-      mpeg2 = true;
-      vc1 = true;
-      vp8 = true;
-      vp9 = true;
-    };
     # 启动时备份并更新 encoding.xml，转码设置由 Nix 管理。
     forceEncodingConfig = true;
     transcoding = {
@@ -46,6 +35,7 @@
         mpeg2 = true;
         vc1 = true;
       };
+      hardwareEncodingCodecs.hevc = true;
       enableHardwareEncoding = true;
       # Haswell 不支持 HDR 硬件色调映射。
       enableToneMapping = false;
