@@ -6,6 +6,7 @@
   imports = [
     ../../modules/x86_64-linux/services
     ./storage-monitoring.nix
+    ./dashboards
   ];
 
   services.grafana.settings.server = {
