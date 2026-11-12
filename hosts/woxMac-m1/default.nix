@@ -13,7 +13,6 @@
   };
   environment.systemPackages = with pkgs; [
     stats
-    daisydisk
   ];
   system = {
     defaults.smb.NetBIOSName = hostname;
