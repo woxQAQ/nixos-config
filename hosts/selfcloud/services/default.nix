@@ -1,10 +1,13 @@
 { pkgs, ... }:
 {
   imports = [
-    ./nas/samba.nix
-    ./nas/jellyfin.nix
-    ./nas/qbittorrent.nix
-    ./nas/sftpgo.nix
+    ./samba.nix
+    ./jellyfin.nix
+    ./qbittorrent.nix
+    ./sftpgo.nix
+    ./gitea.nix
+    ./homepage.nix
+    ./caddy.nix
   ];
 
   environment.systemPackages = with pkgs; [

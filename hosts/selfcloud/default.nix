@@ -9,12 +9,9 @@
     ./hardware-configuration.nix
     ./disko.nix
     ./storage.nix
-    ./nas.nix
-    ./gitea.nix
+    ./services
     ./resource.nix
-    ./monitoring.nix
-    ./homepage.nix
-    ./caddy.nix
+    ./monitoring
   ];
 
   boot.loader = {

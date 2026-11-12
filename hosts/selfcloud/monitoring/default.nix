@@ -4,7 +4,7 @@
   # runs the node_exporter being scraped below and an OTLP gateway pushing
   # into these endpoints.
   imports = [
-    ../../modules/x86_64-linux/services
+    ../../../modules/x86_64-linux/services
     ./storage-monitoring.nix
     ./dashboards
   ];
