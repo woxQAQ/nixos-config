@@ -12,6 +12,14 @@ in
       skip_install_trust
     '';
     virtualHosts = {
+      "selfcloud.lan".extraConfig = ''
+        reverse_proxy 127.0.0.1:${toString config.services.homepage-dashboard.listenPort}
+      '';
+
+      "homepage.selfcloud.lan".extraConfig = ''
+        redir https://selfcloud.lan{uri} permanent
+      '';
+
       "sftp.selfcloud.lan".extraConfig = ''
         reverse_proxy 127.0.0.1:8081
       '';
