@@ -180,8 +180,8 @@ location = "https://github.com/noctalia-dev/community-plugins"
 name = "community"
 
 [[plugins.source]]
-kind = "path"
-location = "/home/woxQAQ/noctalia-stats"
+kind = "git"
+location = "https://github.com/woxQAQ/noctalia-stats.git"
 name = "noctalia-stats"
 
 [shell]
