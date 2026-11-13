@@ -20,6 +20,7 @@ def "nu-complete tuicr remotes" [] {
   if $result.exit_code == 0 { $result.stdout | lines } else { [] }
 }
 
+# Leave --help undeclared so Nushell forwards it to the original command.
 # Review changes in the current checkout.
 export extern tuicr [
   --revisions(-r): string@"nu-complete tuicr revisions" # Commit or revision range
@@ -33,7 +34,6 @@ export extern tuicr [
   --no-update-check               # Skip startup update checks
   --repo-url: string              # Override the forge repository
   --remote: string@"nu-complete tuicr remotes" # Use a named Git remote
-  --help(-h)                      # Print help
   --version(-V)                   # Print version
 ]
 
@@ -50,23 +50,22 @@ export extern "tuicr tui" [
   --no-update-check
   --repo-url: string
   --remote: string@"nu-complete tuicr remotes"
-  --help(-h)
 ]
 
 # Review a GitHub pull request or GitLab merge request.
-export extern "tuicr pr" [target: string, --help(-h)]
-export extern "tuicr mr" [target: string, --help(-h)]
-export extern "tuicr tui pr" [target: string, --help(-h)]
-export extern "tuicr tui mr" [target: string, --help(-h)]
+export extern "tuicr pr" [target: string]
+export extern "tuicr mr" [target: string]
+export extern "tuicr tui pr" [target: string]
+export extern "tuicr tui mr" [target: string]
 
 # Inspect or update persisted review sessions.
-export extern "tuicr review" [--help(-h)]
-export extern "tuicr review list" [...args: string, --help(-h)]
-export extern "tuicr review add" [...args: string, --help(-h)]
-export extern "tuicr review comments" [...args: string, --help(-h)]
-export extern "tuicr review delete" [...args: string, --help(-h)]
-export extern "tuicr review clearc" [...args: string, --help(-h)]
-export extern "tuicr review clear" [...args: string, --help(-h)]
+export extern "tuicr review" []
+export extern "tuicr review list" [...args: string]
+export extern "tuicr review add" [...args: string]
+export extern "tuicr review comments" [...args: string]
+export extern "tuicr review delete" [...args: string]
+export extern "tuicr review clearc" [...args: string]
+export extern "tuicr review clear" [...args: string]
 
 # Install a specific release or update to the latest version.
-export extern "tuicr update" [version?: string, --help(-h)]
+export extern "tuicr update" [version?: string]
