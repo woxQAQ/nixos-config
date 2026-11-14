@@ -18,6 +18,17 @@ use llm-agents flake to apply agent.
 - skills.nix: mounts the skills packaged in pkg/agent-skills into each agent's dotfiles
 - update-notifier/: macOS scheduled version checks, release notes, and notifications
 
+## Pi 终端工具
+
+在 Pi 中使用 `/review [revisions] [directory]` 打开 tuicr，使用
+`/lazygit [directory]` 打开 lazygit；省略目录时使用当前会话的工作目录。
+两者也分别注册了 `tuicr`、`lazygit` 工具供 agent 调用。打开时暂停 Pi 界面，退出后恢复会话。
+`/lazygit` 的目录参数按完整路径读取，包含空格时无需加引号；相对路径基于会话目录。
+需要本机已安装对应程序；lazygit 使用现有 Home Manager Git 配置。
+
+扩展通过 `home/agents/pi/extensions/` 的可写链接加载，修改后在 Pi 中执行
+`/reload` 即可生效。
+
 ## macOS 更新通知
 
 导入本模块后，macOS 默认启用 `modules.agents.updateNotifier.enable`。
