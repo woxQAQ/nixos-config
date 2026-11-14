@@ -62,7 +62,12 @@ export default function (pi: ExtensionAPI) {
     async execute(_toolCallId, params, _signal, _onUpdate, ctx) {
       await runLazygit(ctx, params.directory);
       return {
-        content: [{ type: "text", text: "lazygit closed. Re-read Git state before continuing; the user may have changed the repository." }],
+        content: [
+          {
+            type: "text",
+            text: "lazygit closed. Re-read Git state before continuing; the user may have changed the repository.",
+          },
+        ],
         details: undefined,
       };
     },
