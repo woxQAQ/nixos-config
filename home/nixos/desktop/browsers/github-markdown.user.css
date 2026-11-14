@@ -1,0 +1,15 @@
+/* ==UserStyle==
+@name           GitHub Markdown browser monospace
+@namespace      github.com/woxQAQ/nixos-config
+@version        1.0.0
+@description    Use the browser's configured monospace font for GitHub Markdown code.
+@license        MIT
+==/UserStyle== */
+
+@-moz-document domain("github.com") {
+  .markdown-body pre,
+  .markdown-body code,
+  .markdown-body tt {
+    font-family: monospace !important;
+  }
+}

@@ -8,7 +8,7 @@
     ./storage.nix
     ./nix.nix
     ./vm.nix
-    ./waydroid-houdini.nix
+    # ./waydroid-houdini.nix
     ./openlogi
     ./monitoring.nix
   ];
