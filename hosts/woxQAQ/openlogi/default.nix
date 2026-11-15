@@ -4,11 +4,14 @@
   ...
 }:
 {
-  # The MX Master advertises keyboard capabilities; keyd's wildcard grabs it.
+  # G Pro advertises keyboard capabilities; keyd's wildcard grabs it.
   # OpenLogi preserves this ID on its virtual mouse, so both stay outside keyd.
   services.keyd.keyboards.default.ids = [
     "*"
+    # 4069 = MX Master 2S (retired but its receiver stays plugged in).
     "-046d:4069"
+    # 4079 = G Pro (current pointer).
+    "-046d:4079"
   ];
 
   # Pin capture to keyd so startup waits for its replacement virtual keyboard.
@@ -17,7 +20,7 @@
   services.hidpipe.openlogi = {
     enable = true;
     gui.enable = true;
-    mouse = "MX Master 2S";
+    mouse = "G Pro";
     # Match the system graphics driver's libc when the GUI loads Vulkan ICDs.
     basePackage = pkgs.openlogi.overrideAttrs (old: {
       postPatch = (old.postPatch or "") + ''

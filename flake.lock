@@ -394,11 +394,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794329401,
-        "narHash": "sha256-TIIO+Yxg307Pa86/Z43QJdFQvwEewnGoSAbx2jtSzLE=",
+        "lastModified": 1794713512,
+        "narHash": "sha256-w3CS45pNwxCTgdxeIfUrB8se2R/1k52LPpdzeeqBpMQ=",
         "owner": "woxQAQ",
         "repo": "hidpipe",
-        "rev": "1407cb2f6714ea787c00568229554317402059a8",
+        "rev": "af9539d0e2e5a5201c688a57fd43a6f57272eae7",
         "type": "github"
       },
       "original": {
