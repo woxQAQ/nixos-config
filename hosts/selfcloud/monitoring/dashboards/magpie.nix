@@ -6,7 +6,8 @@ let
   };
   # OTLP ingestion preserves dots in metric and label names.
   identity = ''"service.name"="magpie","scope.name"="github.com/yetone/magpie"'';
-  selector = ''${identity},"gen_ai.provider.name"=~"''${provider:regex}","gen_ai.request.model"=~"''${model:regex}","magpie.agent"=~"''${agent:regex}"'';
+  # Use the datasource formatter so regex values are also escaped as PromQL strings.
+  selector = ''${identity},"gen_ai.provider.name"=~"$provider","gen_ai.request.model"=~"$model","magpie.agent"=~"$agent"'';
   metric = name: extra: ''{"${name}",${selector}${extra}}'';
   calls = metric "gen_ai.client.operation.duration_count" "";
   errors = metric "gen_ai.client.operation.duration_count" '',"error.type"!=""'';
