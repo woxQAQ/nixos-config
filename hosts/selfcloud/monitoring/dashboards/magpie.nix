@@ -51,7 +51,7 @@ let
       ;
     interval = "$bucket";
     fieldConfig.defaults = {
-      inherit unit;
+      unit = if unit == "short" then "locale" else unit;
       min = if unit == "s" then 0.001 else 0;
       color.mode = "palette-classic";
     }
