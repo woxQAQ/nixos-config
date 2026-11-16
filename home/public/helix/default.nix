@@ -81,6 +81,7 @@ in
         procMacro.enable = true;
         rustc.source = "discover";
       };
+      languages.language-server.tinymist.config.formatterMode = "typstyle";
       languages.language = [
         {
           name = "lua";
@@ -112,6 +113,12 @@ in
         }
         {
           name = "rust";
+        }
+        {
+          name = "typst";
+          language-servers = [ "tinymist" ];
+          auto-format = true;
+          soft-wrap.enable = true;
         }
         {
           name = "typescript";
@@ -150,6 +157,7 @@ in
       rust-analyzer
       clippy
       taplo
+      tinymist
       nixfmt
       nixd
     ];

@@ -3,6 +3,7 @@ let
   dashboards = {
     storage = import ./storage.nix { inherit lib; };
     node-exporter = import ./node-exporter.nix { inherit lib; };
+    magpie = import ./magpie.nix { inherit lib; };
   };
 in
 {

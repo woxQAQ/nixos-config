@@ -22,6 +22,9 @@
     nautilus
     file-roller
   ];
+  # GVfs spawns wsdd to discover SMB servers on the local network.
+  systemd.user.services.gvfs-daemon.path = [ pkgs.wsdd ];
+
   security.sudo.keepTerminfo = true;
   services = {
     gvfs.enable = true; # Mount, trash, and other functionalities

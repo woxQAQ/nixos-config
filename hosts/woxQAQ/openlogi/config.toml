@@ -16,7 +16,7 @@ appearance = "light"
 theme_light = "Default Light"
 
 [devices."receiver:a6979b94:slot:1"]
-dpi = 1650
+dpi = 1600
 
 [devices."receiver:a6979b94:slot:1".identity]
 display_name = "G Pro "

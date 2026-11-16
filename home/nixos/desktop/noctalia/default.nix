@@ -11,6 +11,7 @@
   ];
   config = lib.mkIf (osConfig.modules.desktop.environment == "niri") {
     home.packages = with pkgs; [
+      ddcutil
       # Required by Noctalia's screen-recording plugin.
       gpu-screen-recorder
     ];

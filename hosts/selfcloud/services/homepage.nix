@@ -125,6 +125,13 @@ in
             };
           }
           {
+            Magpie = {
+              href = "${grafana}/d/selfcloud-magpie/magpie";
+              description = "模型调用、Token 用量、延迟与错误";
+              siteMonitor = grafanaHealth;
+            };
+          }
+          {
             "存储状态" = {
               href = "${grafana}/d/selfcloud-storage/selfcloud-storage";
               description = "RAID、SMART 与数据盘容量";
