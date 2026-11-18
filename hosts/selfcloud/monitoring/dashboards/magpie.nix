@@ -276,25 +276,111 @@ mkDashboard {
     (stat 5 "输入 Token" 16 "short" "blue" (total input))
     (stat 6 "输出 Token" 20 "short" "green" (total output))
 
-    (row 101 "用量分布" 5)
-    (panel 7 "模型 Token 占比" "piechart" "short" (grid 0 6 12 9) [
+    (tracePanel 16 "缓存读取 Token · Trace" "stat" "short" (grid 0 5 8 4) [
+      (traceTarget "A" "cache_read.input_tokens")
+    ])
+    (tracePanel 17 "缓存写入 Token · Trace" "stat" "short" (grid 8 5 8 4) [
+      (traceTarget "A" "cache_creation.input_tokens")
+    ])
+    (lib.recursiveUpdate
+      (tracePanel 18 "Token 缓存命中率 · Trace" "stat" "percentunit" (grid 16 5 8 4) [
+        (traceTarget "A" "cache_read.input_tokens")
+        (traceTarget "B" "input_tokens")
+      ])
+      {
+        description = "先分别汇总同一组 span 的缓存读取和完整输入 Token，再计算缓存读取占输入的比例。完整输入包含缓存读写。输入为零时显示无输入。只统计已保存且带有缓存字段的 Trace。";
+        transformations = [
+          traceSamplesOnly
+          {
+            id = "reduce";
+            options = {
+              mode = "reduceFields";
+              reducers = [ "sum" ];
+            };
+          }
+        ]
+        ++
+          map
+            ({ refId, name }: {
+              id = "renameByRegex";
+              filter = {
+                id = "byRefId";
+                options = refId;
+              };
+              options = {
+                regex = ".*";
+                renamePattern = name;
+              };
+            })
+            [
+              {
+                refId = "A";
+                name = "缓存读取";
+              }
+              {
+                refId = "B";
+                name = "完整输入";
+              }
+            ]
+        ++ [
+          {
+            id = "concatenate";
+            options.frameNameMode = "drop";
+          }
+          {
+            id = "calculateField";
+            options = {
+              mode = "binary";
+              binary = {
+                left.matcher = {
+                  id = "byName";
+                  options = "缓存读取";
+                };
+                operator = "/";
+                right.matcher = {
+                  id = "byName";
+                  options = "完整输入";
+                };
+              };
+              alias = "缓存命中率";
+              replaceFields = true;
+            };
+          }
+        ];
+        fieldConfig.defaults = {
+          decimals = 2;
+          mappings = [
+            {
+              type = "special";
+              options = {
+                match = "nan";
+                result.text = "无输入";
+              };
+            }
+          ];
+        };
+      }
+    )
+
+    (row 101 "用量分布" 9)
+    (panel 7 "模型 Token 占比" "piechart" "short" (grid 0 10 12 9) [
       (target "A" "${byModel tokens} > 0" "{{model}}")
     ])
-    (panel 8 "供应商调用占比" "piechart" "short" (grid 12 6 6 9) [
+    (panel 8 "供应商调用占比" "piechart" "short" (grid 12 10 6 9) [
       (target "A"
         ''sum by ("gen_ai.provider.name") (sum_over_time(${calls}[$__range])) > 0''
         "{{gen_ai.provider.name}}"
       )
     ])
-    (panel 9 "Agent 调用占比" "piechart" "short" (grid 18 6 6 9) [
+    (panel 9 "Agent 调用占比" "piechart" "short" (grid 18 10 6 9) [
       (target "A" ''sum by ("magpie.agent") (sum_over_time(${calls}[$__range])) > 0''
         "{{magpie.agent}}"
       )
     ])
 
-    (row 102 "模型明细" 15)
+    (row 102 "模型明细" 19)
     (lib.recursiveUpdate
-      (panel 10 "模型调用、Token 与延迟" "table" "short" (grid 0 16 24 10) [
+      (panel 10 "模型调用、Token 与延迟" "table" "short" (grid 0 20 24 10) [
         (target "A" modelCalls "调用次数")
         (target "B" (byModel input) "输入 Token")
         (target "C" (byModel output) "输出 Token")
@@ -397,8 +483,8 @@ mkDashboard {
       }
     )
 
-    (row 103 "调用与 Token 趋势" 26)
-    (panel 11 "调用次数 / $bucket · 按模型" "timeseries" "short" (grid 0 27 12 9) [
+    (row 103 "调用与 Token 趋势" 30)
+    (panel 11 "调用次数 / $bucket · 按模型" "timeseries" "short" (grid 0 31 12 9) [
       (target "A"
         ''sum by ("gen_ai.request.model") (sum_over_time(${calls}[$bucket]))''
         "{{gen_ai.request.model}}"
@@ -409,9 +495,9 @@ mkDashboard {
       (target "B" "sum(sum_over_time(${output}[$bucket]))" "输出")
     ])
 
-    (row 104 "延迟与可靠性" 36)
+    (row 104 "延迟与可靠性" 40)
     (
-      (panel 13 "调用耗时 / $bucket" "timeseries" "s" (grid 0 37 12 9) [
+      (panel 13 "调用耗时 / $bucket" "timeseries" "s" (grid 0 41 12 9) [
         (target "A"
           "sum(sum_over_time(${duration}[$bucket])) / (sum(sum_over_time(${calls}[$bucket])) > 0)"
           "平均"
@@ -429,14 +515,14 @@ mkDashboard {
         description = "纵轴使用对数刻度，包含异常长调用。没有调用时不显示耗时。P50 和 P95 由直方图估算，调用量少时误差较大。";
       }
     )
-    (panel 14 "错误次数 / $bucket" "timeseries" "short" (grid 12 37 12 9) [
+    (panel 14 "错误次数 / $bucket" "timeseries" "short" (grid 12 41 12 9) [
       (target "A"
         ''sum by ("gen_ai.provider.name", "error.type") (sum_over_time(${errors}[$bucket]))''
         "{{gen_ai.provider.name}} · {{error.type}}"
       )
     ])
     (lib.recursiveUpdate
-      (panel 15 "错误汇总" "table" "short" (grid 0 46 24 8) [
+      (panel 15 "错误汇总" "table" "short" (grid 0 50 24 8) [
         (target "A"
           ''sort_desc(sum by ("gen_ai.provider.name", "gen_ai.request.model", "error.type") (sum_over_time(${errors}[$__range])) > 0)''
           "错误次数"
@@ -470,92 +556,6 @@ mkDashboard {
             };
           }
         ];
-      }
-    )
-    (row 105 "缓存用量 · Trace" 54)
-    (tracePanel 16 "缓存读取 Token · Trace" "stat" "short" (grid 0 55 8 4) [
-      (traceTarget "A" "cache_read.input_tokens")
-    ])
-    (tracePanel 17 "缓存写入 Token · Trace" "stat" "short" (grid 8 55 8 4) [
-      (traceTarget "A" "cache_creation.input_tokens")
-    ])
-    (lib.recursiveUpdate
-      (tracePanel 18 "Token 缓存命中率 · Trace" "stat" "percentunit" (grid 16 55 8 4) [
-        (traceTarget "A" "cache_read.input_tokens")
-        (traceTarget "B" "input_tokens")
-      ])
-      {
-        description = "先分别汇总同一组 span 的缓存读取和完整输入 Token，再计算缓存读取占输入的比例。完整输入包含缓存读写。输入为零时显示无输入。只统计已保存且带有缓存字段的 Trace。";
-        transformations = [
-          traceSamplesOnly
-          {
-            id = "reduce";
-            options = {
-              mode = "reduceFields";
-              reducers = [ "sum" ];
-            };
-          }
-        ]
-        ++
-          map
-            ({ refId, name }: {
-              id = "renameByRegex";
-              filter = {
-                id = "byRefId";
-                options = refId;
-              };
-              options = {
-                regex = ".*";
-                renamePattern = name;
-              };
-            })
-            [
-              {
-                refId = "A";
-                name = "缓存读取";
-              }
-              {
-                refId = "B";
-                name = "完整输入";
-              }
-            ]
-        ++ [
-          {
-            id = "concatenate";
-            options.frameNameMode = "drop";
-          }
-          {
-            id = "calculateField";
-            options = {
-              mode = "binary";
-              binary = {
-                left.matcher = {
-                  id = "byName";
-                  options = "缓存读取";
-                };
-                operator = "/";
-                right.matcher = {
-                  id = "byName";
-                  options = "完整输入";
-                };
-              };
-              alias = "缓存命中率";
-              replaceFields = true;
-            };
-          }
-        ];
-        fieldConfig.defaults = {
-          decimals = 2;
-          mappings = [
-            {
-              type = "special";
-              options = {
-                match = "nan";
-                result.text = "无输入";
-              };
-            }
-          ];
-        };
       }
     )
     (lib.recursiveUpdate
