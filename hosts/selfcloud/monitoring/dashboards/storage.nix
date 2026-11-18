@@ -1,6 +1,11 @@
 { lib }:
 let
-  inherit (import ./lib.nix { inherit lib; }) mkDashboard mkPanel mkTarget;
+  inherit (import ./lib.nix { inherit lib; })
+    mkDashboard
+    mkPanel
+    mkTarget
+    grid
+    ;
   datasource = {
     type = "prometheus";
     uid = "selfcloud-storage";
@@ -20,12 +25,9 @@ let
         datasource
         unit
         ;
-      gridPos = {
-        x = if lib.mod (id - 1) 2 == 0 then 0 else 12;
-        y = builtins.div (id - 1) 2 * 8;
-        w = 12;
-        h = 8;
-      };
+      gridPos = grid (if lib.mod (id - 1) 2 == 0 then 0 else 12) (
+        builtins.div (id - 1) 2 * 8
+      ) 12 8;
       fieldConfig.defaults = lib.optionalAttrs (unit == "percentunit") {
         min = 0;
         max = 1;

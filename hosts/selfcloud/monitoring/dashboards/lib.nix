@@ -15,8 +15,16 @@
     lib.recursiveUpdate {
       fieldConfig.defaults = { inherit unit; };
       options = { };
-    } (builtins.removeAttrs attrs [ "unit" ]);
+    } (removeAttrs attrs [ "unit" ]);
 
+  grid = x: y: w: h: {
+    inherit
+      x
+      y
+      w
+      h
+      ;
+  };
   mkTarget =
     attrs:
     {

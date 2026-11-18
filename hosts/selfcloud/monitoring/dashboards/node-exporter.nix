@@ -1,6 +1,11 @@
 { lib }:
 let
-  inherit (import ./lib.nix { inherit lib; }) mkDashboard mkPanel mkTarget;
+  inherit (import ./lib.nix { inherit lib; })
+    mkDashboard
+    mkPanel
+    mkTarget
+    grid
+    ;
   datasource = {
     type = "prometheus";
     uid = "\${datasource}";
@@ -21,19 +26,9 @@ let
         ;
       gridPos =
         if id <= 4 then
-          {
-            x = (id - 1) * 6;
-            y = 0;
-            w = 6;
-            h = 4;
-          }
+          grid ((id - 1) * 6) 0 6 4
         else
-          {
-            x = lib.mod (id - 5) 2 * 12;
-            y = 4 + builtins.div (id - 5) 2 * 8;
-            w = 12;
-            h = 8;
-          };
+          grid (lib.mod (id - 5) 2 * 12) (4 + builtins.div (id - 5) 2 * 8) 12 8;
       fieldConfig.defaults = lib.optionalAttrs (unit == "percentunit") {
         min = 0;
         max = 1;

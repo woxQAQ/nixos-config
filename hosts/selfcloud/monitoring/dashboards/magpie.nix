@@ -1,6 +1,11 @@
 { lib }:
 let
-  inherit (import ./lib.nix { inherit lib; }) mkDashboard mkPanel mkTarget;
+  inherit (import ./lib.nix { inherit lib; })
+    mkDashboard
+    mkPanel
+    mkTarget
+    grid
+    ;
   datasource = {
     type = "prometheus";
     uid = "selfcloud-storage";
@@ -47,14 +52,14 @@ let
     filters = [ ];
     exemplars = 0;
   };
-  grid = x: y: w: h: {
-    inherit
-      x
-      y
-      w
-      h
-      ;
-  };
+  # With one grouping label, Tempo names each value field after the model.
+  # Reduce these fields to one row per model in the cache tables.
+  modelTraceTarget =
+    refId: attribute:
+    (traceTarget refId attribute)
+    // {
+      query = "${traceSelector} | sum_over_time(span.gen_ai.usage.${attribute}) by (span.gen_ai.request.model)";
+    };
   row = id: title: y: {
     inherit id title;
     type = "row";
@@ -184,7 +189,7 @@ let
   tracePanel =
     id: title: type: unit: gridPos: targets:
     lib.recursiveUpdate
-      (builtins.removeAttrs (panel id title type unit gridPos [ ]) [ "interval" ])
+      (removeAttrs (panel id title type unit gridPos [ ]) [ "interval" ])
       {
         datasource = traceDatasource;
         inherit targets;
@@ -202,6 +207,46 @@ let
       options = "exemplar";
     };
   };
+  # Tempo uses the model as the frame reference, so each cache table uses one
+  # query and reduces all its model series without filtering by query reference.
+  modelCachePanel =
+    id: title: attribute: x:
+    lib.recursiveUpdate
+      (tracePanel id title "table" "short" (grid x 30 12 8) [
+        (modelTraceTarget "A" attribute)
+      ])
+      {
+        options.sortBy = [
+          {
+            displayName = "Token 数";
+            desc = true;
+          }
+        ];
+        transformations = [
+          traceSamplesOnly
+          {
+            id = "reduce";
+            options = {
+              mode = "seriesToRows";
+              reducers = [ "sum" ];
+              labelsToFields = false;
+            };
+          }
+          {
+            id = "organize";
+            options = {
+              indexByName = {
+                Field = 0;
+                Total = 1;
+              };
+              renameByName = {
+                Field = "模型";
+                Total = "Token 数";
+              };
+            };
+          }
+        ];
+      };
   variable = name: label: sourceLabel: {
     inherit name label datasource;
     type = "query";
@@ -226,7 +271,7 @@ mkDashboard {
   uid = "selfcloud-magpie";
   title = "Magpie · 模型用量";
   description = "总量、占比和明细按所选时间范围统计。Metrics 按批次上报时间统计，调用趋势使用所选粒度。缓存用量和 Token 趋势来自已保存的 Trace，Token 趋势使用自动粒度。调用次数可能包含路由重试，输入 Token 包含重复上下文。";
-  version = 6;
+  version = 7;
   tags = [
     "selfcloud"
     "magpie"
@@ -483,15 +528,18 @@ mkDashboard {
       }
     )
 
-    (row 103 "调用与 Token 趋势" 30)
-    (panel 11 "调用次数 / $bucket · 按模型" "timeseries" "short" (grid 0 31 12 9) [
+    (modelCachePanel 19 "模型缓存读取 Token · Trace" "cache_read.input_tokens" 0)
+    (modelCachePanel 20 "模型缓存写入 Token · Trace" "cache_creation.input_tokens" 12)
+
+    (row 103 "调用与 Token 趋势" 38)
+    (panel 11 "调用次数 / $bucket · 按模型" "timeseries" "short" (grid 0 39 12 9) [
       (target "A"
         ''sum by ("gen_ai.request.model") (sum_over_time(${calls}[$bucket]))''
         "{{gen_ai.request.model}}"
       )
     ])
     (lib.recursiveUpdate
-      (tracePanel 12 "Token 用量 · Trace · 自动粒度" "timeseries" "short" (grid 12 31 12 9)
+      (tracePanel 12 "Token 用量 · Trace · 自动粒度" "timeseries" "short" (grid 12 39 12 9)
         [
           (traceTarget "A" "input_tokens")
           (traceTarget "B" "output_tokens")
@@ -569,9 +617,9 @@ mkDashboard {
       }
     )
 
-    (row 104 "延迟与可靠性" 40)
+    (row 104 "延迟与可靠性" 48)
     (
-      (panel 13 "调用耗时 / $bucket" "timeseries" "s" (grid 0 41 12 9) [
+      (panel 13 "调用耗时 / $bucket" "timeseries" "s" (grid 0 49 12 9) [
         (target "A"
           "sum(sum_over_time(${duration}[$bucket])) / (sum(sum_over_time(${calls}[$bucket])) > 0)"
           "平均"
@@ -589,14 +637,14 @@ mkDashboard {
         description = "纵轴使用对数刻度，包含异常长调用。没有调用时不显示耗时。P50 和 P95 由直方图估算，调用量少时误差较大。";
       }
     )
-    (panel 14 "错误次数 / $bucket" "timeseries" "short" (grid 12 41 12 9) [
+    (panel 14 "错误次数 / $bucket" "timeseries" "short" (grid 12 49 12 9) [
       (target "A"
         ''sum by ("gen_ai.provider.name", "error.type") (sum_over_time(${errors}[$bucket]))''
         "{{gen_ai.provider.name}} · {{error.type}}"
       )
     ])
     (lib.recursiveUpdate
-      (panel 15 "错误汇总" "table" "short" (grid 0 50 24 8) [
+      (panel 15 "错误汇总" "table" "short" (grid 0 58 24 8) [
         (target "A"
           ''sort_desc(sum by ("gen_ai.provider.name", "gen_ai.request.model", "error.type") (sum_over_time(${errors}[$__range])) > 0)''
           "错误次数"
