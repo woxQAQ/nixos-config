@@ -17,12 +17,15 @@ let
   tokens = metric "gen_ai.client.token.usage_sum" "";
   input = metric "gen_ai.client.token.usage_sum" '',"gen_ai.token.type"="input"'';
   output = metric "gen_ai.client.token.usage_sum" '',"gen_ai.token.type"="output"'';
-  total = series: "sum(increase(${series}[$__range]))";
+  # Magpie exports DELTA histograms (aggregationTemporality = 1); the OTLP
+  # gateway forwards them unchanged and VictoriaMetrics stores each batch.
+  # Sum batch values directly: increase() would interpret drops as resets.
+  total = series: "sum(sum_over_time(${series}[$__range]))";
   totalCalls = total calls;
   totalErrors = "(${total errors} or (0 * ${totalCalls}))";
   byModel =
     series:
-    ''sum by (model) (label_replace(increase(${series}[$__range]), "model", "$1", "gen_ai.request.model", "(.*)"))'';
+    ''sum by (model) (label_replace(sum_over_time(${series}[$__range]), "model", "$1", "gen_ai.request.model", "(.*)"))'';
   modelCalls = byModel calls;
   modelErrors = "(${byModel errors} or (0 * ${modelCalls}))";
   grid = x: y: w: h: {
@@ -180,8 +183,8 @@ in
 mkDashboard {
   uid = "selfcloud-magpie";
   title = "Magpie · 模型用量";
-  description = "调用与 Token 用量分析。总量、占比和明细按所选时间范围统计，趋势按统计粒度展示窗口增量。调用可能包含路由重试；输入 Token 包含重复上下文。";
-  version = 3;
+  description = "调用与 Token 用量分析。按 Magpie 上报的增量批次求和：总量、占比和明细按所选时间范围统计，趋势按统计粒度展示窗口用量。时间以批次上报时刻为准；调用可能包含路由重试；输入 Token 包含重复上下文。";
+  version = 4;
   tags = [
     "selfcloud"
     "magpie"
@@ -237,12 +240,12 @@ mkDashboard {
     ])
     (panel 8 "供应商调用占比" "piechart" "short" (grid 12 6 6 9) [
       (target "A"
-        ''sum by ("gen_ai.provider.name") (increase(${calls}[$__range])) > 0''
+        ''sum by ("gen_ai.provider.name") (sum_over_time(${calls}[$__range])) > 0''
         "{{gen_ai.provider.name}}"
       )
     ])
     (panel 9 "Agent 调用占比" "piechart" "short" (grid 18 6 6 9) [
-      (target "A" ''sum by ("magpie.agent") (increase(${calls}[$__range])) > 0''
+      (target "A" ''sum by ("magpie.agent") (sum_over_time(${calls}[$__range])) > 0''
         "{{magpie.agent}}"
       )
     ])
@@ -354,28 +357,29 @@ mkDashboard {
 
     (row 103 "调用与 Token 趋势" 26)
     (panel 11 "调用次数 / $bucket · 按模型" "timeseries" "short" (grid 0 27 12 9) [
-      (target "A" ''sum by ("gen_ai.request.model") (increase(${calls}[$bucket]))''
+      (target "A"
+        ''sum by ("gen_ai.request.model") (sum_over_time(${calls}[$bucket]))''
         "{{gen_ai.request.model}}"
       )
     ])
     (panel 12 "Token 用量 / $bucket" "timeseries" "short" (grid 12 27 12 9) [
-      (target "A" "sum(increase(${input}[$bucket]))" "输入")
-      (target "B" "sum(increase(${output}[$bucket]))" "输出")
+      (target "A" "sum(sum_over_time(${input}[$bucket]))" "输入")
+      (target "B" "sum(sum_over_time(${output}[$bucket]))" "输出")
     ])
 
     (row 104 "延迟与可靠性" 36)
     (
       (panel 13 "调用耗时 / $bucket" "timeseries" "s" (grid 0 37 12 9) [
         (target "A"
-          "sum(increase(${duration}[$bucket])) / (sum(increase(${calls}[$bucket])) > 0)"
+          "sum(sum_over_time(${duration}[$bucket])) / (sum(sum_over_time(${calls}[$bucket])) > 0)"
           "平均"
         )
         (target "B"
-          "histogram_quantile(0.50, sum by (le) (increase(${buckets}[$bucket]))) > 0"
+          "histogram_quantile(0.50, sum by (le) (sum_over_time(${buckets}[$bucket]))) > 0"
           "P50"
         )
         (target "C"
-          "histogram_quantile(0.95, sum by (le) (increase(${buckets}[$bucket]))) > 0"
+          "histogram_quantile(0.95, sum by (le) (sum_over_time(${buckets}[$bucket]))) > 0"
           "P95"
         )
       ])
@@ -385,14 +389,14 @@ mkDashboard {
     )
     (panel 14 "错误次数 / $bucket" "timeseries" "short" (grid 12 37 12 9) [
       (target "A"
-        ''sum by ("gen_ai.provider.name", "error.type") (increase(${errors}[$bucket]))''
+        ''sum by ("gen_ai.provider.name", "error.type") (sum_over_time(${errors}[$bucket]))''
         "{{gen_ai.provider.name}} · {{error.type}}"
       )
     ])
     (lib.recursiveUpdate
       (panel 15 "错误汇总" "table" "short" (grid 0 46 24 8) [
         (target "A"
-          ''sort_desc(sum by ("gen_ai.provider.name", "gen_ai.request.model", "error.type") (increase(${errors}[$__range])) > 0)''
+          ''sort_desc(sum by ("gen_ai.provider.name", "gen_ai.request.model", "error.type") (sum_over_time(${errors}[$__range])) > 0)''
           "错误次数"
         )
       ])
