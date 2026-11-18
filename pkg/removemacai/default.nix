@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "removemacai";
-  version = "1.1.4";
+  version = "1.2.1";
 
   src = fetchurl {
     url = "https://github.com/omlahore/RemoveMacAI/releases/download/v${finalAttrs.version}/RemoveMacAI.zip";
-    hash = "sha256-IGPU3H4LQbFc682eG5gHsEYVuW4+I9s1y9EZa+PJa+4=";
+    hash = "sha256-8dFyhb5dlVFB92kpOcB5lDUevT9Br8Wuf/XR8yUwEfU=";
   };
 
   nativeBuildInputs = [ unzip ];

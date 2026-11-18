@@ -4,13 +4,14 @@
   fetchFromGitHub,
   applyPatches,
   python3,
+  neuve ? null,
 }:
 let
   anthropicSkills = fetchFromGitHub {
     owner = "anthropics";
     repo = "skills";
-    rev = "2c5958ecac7cee2b583967a2c4981d0f4a75c579";
-    hash = "sha256-dRCZrNarCCJFuvATgfW6qmwwVS5HGFXNVGOhbVZd7LA=";
+    rev = "e4bb5d960d87126ff3b3a8af1a104b7db67560ba";
+    hash = "sha256-Gr9LatjawHHK9uKpoclWoiDHZ0NTpP3/4Pmeatl8p/Q=";
   };
 
   astGrep = fetchFromGitHub {
@@ -45,8 +46,8 @@ let
     src = fetchFromGitHub {
       owner = "mattpocock";
       repo = "skills";
-      rev = "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d";
-      hash = "sha256-3vhd77xfZjKUYJsIwPFevIZPUAzUgZXr0RYj5NQrBwk=";
+      rev = "5863806dd4e15c63174bee4e7515a4256792ecfa";
+      hash = "sha256-AYSRCvBL8TDDdW3rgKu2T7gl4YYDoDId0jYbabEFyfs=";
     };
 
     # Quote the description's colon so the published frontmatter is valid YAML.
@@ -68,8 +69,8 @@ let
   pstack = fetchFromGitHub {
     owner = "backnotprop";
     repo = "pstack";
-    rev = "4161d4ef5051574e825ffe70e2f43a2e49e4b3db";
-    hash = "sha256-q8Jk2fqwLWUJtRkv61AL0YvciDnlpVai+M05UgZlUng=";
+    rev = "83a729a182a29b59a2a42fc3d7736b0c376b55d4";
+    hash = "sha256-uCCDUGr0sG7ormy9b/j1IXOroJvaZRVDb+tYmemHQ5k=";
   };
 in
 stdenvNoCC.mkDerivation {
@@ -91,7 +92,9 @@ stdenvNoCC.mkDerivation {
       kill-ai-slop=${killAiSlop}/skill \
       mattpocock=${mattPocockSkills}/skills \
       obelisk=${obelisk}/skills \
-      pstack=${pstack}/skills
+      pstack=${pstack}/skills ${
+        lib.optionalString (neuve != null) "neuve=${neuve}/share/neuve/skills"
+      }
 
     runHook postInstall
   '';
