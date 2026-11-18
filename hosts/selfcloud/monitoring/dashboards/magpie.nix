@@ -85,7 +85,7 @@ let
       unit = if unit == "short" then "locale" else unit;
       interval = "$bucket";
       fieldConfig.defaults = {
-        min = if unit == "s" then 0.001 else 0;
+        min = 0;
         color.mode = "palette-classic";
       }
       // lib.optionalAttrs (unit == "short") { decimals = 0; }
@@ -94,23 +94,18 @@ let
         custom = {
           drawStyle = if unit == "s" then "line" else "bars";
           fillOpacity = if unit == "s" then 0 else 65;
-          lineWidth = 1;
-          showPoints = if unit == "s" then "always" else "never";
+          lineWidth = if unit == "s" then 2 else 0;
+          showPoints = if unit == "s" then "auto" else "never";
           pointSize = 3;
           spanNulls = false;
           stacking = {
             mode = if unit == "s" then "none" else "normal";
             group = "A";
           };
-          scaleDistribution =
-            if unit == "s" then
-              {
-                type = "log";
-                log = 10;
-              }
-            else
-              { type = "linear"; };
-          axisLabel = if unit == "s" then "耗时 · 对数刻度" else "窗口内数量";
+          scaleDistribution.type = "linear";
+          barAlignment = -1;
+          barWidthFactor = 0.85;
+          axisLabel = if unit == "s" then "调用耗时" else "时间桶内数量";
         };
       };
       options =
@@ -124,7 +119,7 @@ let
               showLegend = true;
               displayMode = "table";
               placement = "bottom";
-              calcs = [ "max" ];
+              calcs = [ (if unit == "s" then "max" else "sum") ];
             };
           }
         else if type == "piechart" then
@@ -270,8 +265,8 @@ in
 mkDashboard {
   uid = "selfcloud-magpie";
   title = "Magpie · 模型用量";
-  description = "总量、占比和明细按所选时间范围统计。Metrics 按批次上报时间统计，调用趋势使用所选粒度。缓存用量和 Token 趋势来自已保存的 Trace，Token 趋势使用自动粒度。调用次数可能包含路由重试，输入 Token 包含重复上下文。";
-  version = 7;
+  description = "总量、占比和明细按所选时间范围统计。Metrics 按批次上报时间统计，趋势默认使用自动粒度，查询窗口与实际采样步长一致。缓存用量和 Token 趋势来自已保存的 Trace。调用次数可能包含路由重试，输入 Token 包含重复上下文。";
+  version = 8;
   tags = [
     "selfcloud"
     "magpie"
@@ -289,19 +284,29 @@ mkDashboard {
     (variable "agent" "Agent" "magpie.agent")
     {
       name = "bucket";
-      label = "统计粒度";
-      type = "custom";
+      label = "最小统计粒度";
+      type = "interval";
       query = "5m,15m,1h,6h,1d";
+      auto = true;
+      auto_count = 48;
+      auto_min = "5m";
       current = {
-        text = "1h";
-        value = "1h";
+        text = "自动";
+        value = "$__auto_interval_bucket";
       };
-      options =
+      options = [
+        {
+          text = "自动";
+          value = "$__auto_interval_bucket";
+          selected = true;
+        }
+      ]
+      ++
         map
           (value: {
             text = value;
             inherit value;
-            selected = value == "1h";
+            selected = false;
           })
           [
             "5m"
@@ -532,9 +537,11 @@ mkDashboard {
     (modelCachePanel 20 "模型缓存写入 Token · Trace" "cache_creation.input_tokens" 12)
 
     (row 103 "调用与 Token 趋势" 38)
-    (panel 11 "调用次数 / $bucket · 按模型" "timeseries" "short" (grid 0 39 12 9) [
+    # Grafana may raise the step above the minimum interval on wide ranges.
+    # Use that actual step as the DELTA window to avoid gaps or double counting.
+    (panel 11 "调用次数 · 按模型" "timeseries" "short" (grid 0 39 12 9) [
       (target "A"
-        ''sum by ("gen_ai.request.model") (sum_over_time(${calls}[$bucket]))''
+        ''sum by ("gen_ai.request.model") (sum_over_time(${calls}[$__interval]))''
         "{{gen_ai.request.model}}"
       )
     ])
@@ -548,70 +555,138 @@ mkDashboard {
         ]
       )
       {
-        description = "按已保存的模型调用 Trace 统计，使用自动时间粒度。左柱堆叠输入和输出，右柱堆叠缓存读取和写入。输入已包含缓存读写，两根柱子不能相加。顶部供应商、模型和 Agent 筛选均生效。";
-        fieldConfig.defaults.custom.axisLabel = "窗口内 Token · 自动粒度";
-        options.legend.calcs = [ "sum" ];
-        fieldConfig.overrides =
+        description = "按已保存的模型调用 Trace 统计，使用自动时间粒度。每根柱子堆叠未缓存输入、缓存读取、缓存写入和输出，合计等于完整输入加输出。未缓存输入 = 完整输入 − 缓存读取 − 缓存写入。顶部供应商、模型和 Agent 筛选均生效。";
+        fieldConfig.defaults.custom.axisLabel = "时间桶内 Token · 自动粒度";
+        transformations = [
+          traceSamplesOnly
+        ]
+        ++
           map
-            (
-              {
-                refId,
-                name,
-                group,
-                alignment,
-              }:
-              {
-                matcher = {
-                  id = "byFrameRefID";
-                  options = refId;
-                };
-                properties = [
-                  {
-                    id = "displayName";
-                    value = name;
-                  }
-                  {
-                    id = "custom.stacking";
-                    value = {
-                      mode = "normal";
-                      inherit group;
-                    };
-                  }
-                  {
-                    id = "custom.barAlignment";
-                    value = alignment;
-                  }
-                  {
-                    id = "custom.barWidthFactor";
-                    value = 0.45;
-                  }
-                ];
-              }
-            )
+            ({ refId, name }: {
+              id = "renameByRegex";
+              filter = {
+                id = "byRefId";
+                options = refId;
+              };
+              # Grafana normalizes Tempo's empty value-field name to Value.
+              # Leave the time field intact so the buckets can be joined.
+              options = {
+                regex = "^(?![Tt]ime$).*";
+                renamePattern = name;
+              };
+            })
             [
               {
                 refId = "A";
-                name = "输入，含缓存";
-                group = "用量";
-                alignment = -1;
+                name = "完整输入";
               }
               {
                 refId = "B";
                 name = "输出";
-                group = "用量";
-                alignment = -1;
               }
               {
                 refId = "C";
                 name = "缓存读取";
-                group = "缓存";
-                alignment = 1;
               }
               {
                 refId = "D";
                 name = "缓存写入";
-                group = "缓存";
-                alignment = 1;
+              }
+            ]
+        ++ [
+          {
+            id = "joinByField";
+            options = {
+              byField = "time";
+              mode = "outer";
+            };
+          }
+          {
+            id = "calculateField";
+            options = {
+              mode = "binary";
+              binary = {
+                left.matcher = {
+                  id = "byName";
+                  options = "完整输入";
+                };
+                operator = "-";
+                right.matcher = {
+                  id = "byName";
+                  options = "缓存读取";
+                };
+              };
+              alias = "输入减缓存读取";
+            };
+          }
+          {
+            id = "calculateField";
+            options = {
+              mode = "binary";
+              binary = {
+                left.matcher = {
+                  id = "byName";
+                  options = "输入减缓存读取";
+                };
+                operator = "-";
+                right.matcher = {
+                  id = "byName";
+                  options = "缓存写入";
+                };
+              };
+              alias = "未缓存输入";
+            };
+          }
+          {
+            id = "organize";
+            options = {
+              excludeByName = {
+                "完整输入" = true;
+                "输入减缓存读取" = true;
+              };
+              indexByName = {
+                time = 0;
+                "未缓存输入" = 1;
+                "缓存读取" = 2;
+                "缓存写入" = 3;
+                "输出" = 4;
+              };
+            };
+          }
+        ];
+        fieldConfig.overrides =
+          map
+            ({ name, color }: {
+              matcher = {
+                id = "byName";
+                options = name;
+              };
+              properties = [
+                {
+                  id = "color";
+                  value = {
+                    mode = "fixed";
+                    fixedColor = color;
+                  };
+                }
+              ];
+            })
+            [
+              {
+                name = "未缓存输入";
+                color = "purple";
+              }
+              {
+                name = "缓存读取";
+                color = "blue";
+              }
+              {
+                name = "缓存写入";
+                color = "orange";
+              }
+              {
+                name = "输出";
+                color = "green";
               }
             ];
       }
@@ -619,27 +694,27 @@ mkDashboard {
 
     (row 104 "延迟与可靠性" 48)
     (
-      (panel 13 "调用耗时 / $bucket" "timeseries" "s" (grid 0 49 12 9) [
+      (panel 13 "调用耗时" "timeseries" "s" (grid 0 49 12 9) [
         (target "A"
-          "sum(sum_over_time(${duration}[$bucket])) / (sum(sum_over_time(${calls}[$bucket])) > 0)"
+          "sum(sum_over_time(${duration}[$__interval])) / (sum(sum_over_time(${calls}[$__interval])) > 0)"
           "平均"
         )
         (target "B"
-          "histogram_quantile(0.50, sum by (le) (sum_over_time(${buckets}[$bucket]))) > 0"
+          "histogram_quantile(0.50, sum by (le) (sum_over_time(${buckets}[$__interval]))) > 0"
           "P50"
         )
         (target "C"
-          "histogram_quantile(0.95, sum by (le) (sum_over_time(${buckets}[$bucket]))) > 0"
+          "histogram_quantile(0.95, sum by (le) (sum_over_time(${buckets}[$__interval]))) > 0"
           "P95"
         )
       ])
       // {
-        description = "纵轴使用对数刻度，包含异常长调用。没有调用时不显示耗时。P50 和 P95 由直方图估算，调用量少时误差较大。";
+        description = "每个时间桶分别计算平均耗时和直方图分位数，默认自动粒度。无调用时留空，不连接空档。纵轴使用线性刻度并保留异常长调用；P50 和 P95 在调用量少时误差较大。";
       }
     )
-    (panel 14 "错误次数 / $bucket" "timeseries" "short" (grid 12 49 12 9) [
+    (panel 14 "错误次数" "timeseries" "short" (grid 12 49 12 9) [
       (target "A"
-        ''sum by ("gen_ai.provider.name", "error.type") (sum_over_time(${errors}[$bucket]))''
+        ''sum by ("gen_ai.provider.name", "error.type") (sum_over_time(${errors}[$__interval]))''
         "{{gen_ai.provider.name}} · {{error.type}}"
       )
     ])
