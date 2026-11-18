@@ -225,8 +225,8 @@ in
 mkDashboard {
   uid = "selfcloud-magpie";
   title = "Magpie · 模型用量";
-  description = "总量、占比和明细按所选时间范围统计。Metrics 按批次上报时间统计，趋势使用所选粒度。缓存用量来自已保存的 Trace，趋势使用自动粒度。调用次数可能包含路由重试，输入 Token 包含重复上下文。";
-  version = 5;
+  description = "总量、占比和明细按所选时间范围统计。Metrics 按批次上报时间统计，调用趋势使用所选粒度。缓存用量和 Token 趋势来自已保存的 Trace，Token 趋势使用自动粒度。调用次数可能包含路由重试，输入 Token 包含重复上下文。";
+  version = 6;
   tags = [
     "selfcloud"
     "magpie"
@@ -490,10 +490,84 @@ mkDashboard {
         "{{gen_ai.request.model}}"
       )
     ])
-    (panel 12 "Token 用量 / $bucket" "timeseries" "short" (grid 12 27 12 9) [
-      (target "A" "sum(sum_over_time(${input}[$bucket]))" "输入")
-      (target "B" "sum(sum_over_time(${output}[$bucket]))" "输出")
-    ])
+    (lib.recursiveUpdate
+      (tracePanel 12 "Token 用量 · Trace · 自动粒度" "timeseries" "short" (grid 12 31 12 9)
+        [
+          (traceTarget "A" "input_tokens")
+          (traceTarget "B" "output_tokens")
+          (traceTarget "C" "cache_read.input_tokens")
+          (traceTarget "D" "cache_creation.input_tokens")
+        ]
+      )
+      {
+        description = "按已保存的模型调用 Trace 统计，使用自动时间粒度。左柱堆叠输入和输出，右柱堆叠缓存读取和写入。输入已包含缓存读写，两根柱子不能相加。顶部供应商、模型和 Agent 筛选均生效。";
+        fieldConfig.defaults.custom.axisLabel = "窗口内 Token · 自动粒度";
+        options.legend.calcs = [ "sum" ];
+        fieldConfig.overrides =
+          map
+            (
+              {
+                refId,
+                name,
+                group,
+                alignment,
+              }:
+              {
+                matcher = {
+                  id = "byFrameRefID";
+                  options = refId;
+                };
+                properties = [
+                  {
+                    id = "displayName";
+                    value = name;
+                  }
+                  {
+                    id = "custom.stacking";
+                    value = {
+                      mode = "normal";
+                      inherit group;
+                    };
+                  }
+                  {
+                    id = "custom.barAlignment";
+                    value = alignment;
+                  }
+                  {
+                    id = "custom.barWidthFactor";
+                    value = 0.45;
+                  }
+                ];
+              }
+            )
+            [
+              {
+                refId = "A";
+                name = "输入，含缓存";
+                group = "用量";
+                alignment = -1;
+              }
+              {
+                refId = "B";
+                name = "输出";
+                group = "用量";
+                alignment = -1;
+              }
+              {
+                refId = "C";
+                name = "缓存读取";
+                group = "缓存";
+                alignment = 1;
+              }
+              {
+                refId = "D";
+                name = "缓存写入";
+                group = "缓存";
+                alignment = 1;
+              }
+            ];
+      }
+    )
 
     (row 104 "延迟与可靠性" 40)
     (
@@ -556,42 +630,6 @@ mkDashboard {
             };
           }
         ];
-      }
-    )
-    (lib.recursiveUpdate
-      (tracePanel 19 "缓存读写 Token · Trace · 自动粒度" "timeseries" "short" (grid 0 59 24 9)
-        [
-          (traceTarget "A" "cache_read.input_tokens")
-          (traceTarget "B" "cache_creation.input_tokens")
-        ]
-      )
-      {
-        fieldConfig.defaults.custom.axisLabel = "窗口内 Token · 自动粒度";
-        options.legend.calcs = [ "sum" ];
-        fieldConfig.overrides =
-          map
-            ({ refId, name }: {
-              matcher = {
-                id = "byFrameRefID";
-                options = refId;
-              };
-              properties = [
-                {
-                  id = "displayName";
-                  value = name;
-                }
-              ];
-            })
-            [
-              {
-                refId = "A";
-                name = "缓存读取";
-              }
-              {
-                refId = "B";
-                name = "缓存写入";
-              }
-            ];
       }
     )
   ];
