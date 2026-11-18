@@ -28,6 +28,25 @@ let
     ''sum by (model) (label_replace(sum_over_time(${series}[$__range]), "model", "$1", "gen_ai.request.model", "(.*)"))'';
   modelCalls = byModel calls;
   modelErrors = "(${byModel errors} or (0 * ${modelCalls}))";
+  traceDatasource = {
+    type = "tempo";
+    uid = "victoriatraces-metrics";
+  };
+  # All cache queries use the same spans, including zero cache usage. Parent
+  # spans without usage attributes are excluded from both numerator and denominator.
+  # Raw TraceQL strings preserve the backslashes from Grafana's regex formatter.
+  traceSelector = ''{ resource.service.name = "magpie" && span.gen_ai.provider.name =~ `''${provider:regex}` && span.gen_ai.request.model =~ `''${model:regex}` && span.magpie.agent =~ `''${agent:regex}` && span.gen_ai.usage.cache_read.input_tokens >= 0 && span.gen_ai.usage.cache_creation.input_tokens >= 0 && span.gen_ai.usage.input_tokens >= 0 }'';
+  traceTarget = refId: attribute: {
+    inherit refId;
+    datasource = traceDatasource;
+    queryType = "traceql";
+    metricsQueryType = "range";
+    query = "${traceSelector} | sum_over_time(span.gen_ai.usage.${attribute})";
+    # Tempo does not interpolate variables in step; let VictoriaTraces select
+    # disjoint buckets for the requested range instead of sending "$bucket".
+    filters = [ ];
+    exemplars = 0;
+  };
   grid = x: y: w: h: {
     inherit
       x
@@ -160,6 +179,29 @@ let
           fixedColor = color;
         };
       };
+  # Tempo returns disjoint time buckets. Total stats sum every bucket instead
+  # of taking the last one; the ratio reduces each operand before dividing.
+  tracePanel =
+    id: title: type: unit: gridPos: targets:
+    lib.recursiveUpdate
+      (builtins.removeAttrs (panel id title type unit gridPos [ ]) [ "interval" ])
+      {
+        datasource = traceDatasource;
+        inherit targets;
+        description = "按已保存的模型调用 Trace 统计，受顶部筛选影响。仅包含同时上报缓存读写与输入 Token 的 span；缺失 Trace 的调用不计入。时间以 span 开始时刻为准，与 Metrics 批次上报时间可能不同。";
+        options.reduceOptions.calcs = [ "sum" ];
+        fieldConfig.defaults.noValue = "无数据";
+        transformations = [ traceSamplesOnly ];
+      };
+  # VictoriaTraces returns exemplar frames even with exemplars=0. They carry
+  # repeated bucket values and must not participate in token totals.
+  traceSamplesOnly = {
+    id = "filterFrames";
+    options.exclude = {
+      id = "byName";
+      options = "exemplar";
+    };
+  };
   variable = name: label: sourceLabel: {
     inherit name label datasource;
     type = "query";
@@ -184,7 +226,7 @@ mkDashboard {
   uid = "selfcloud-magpie";
   title = "Magpie · 模型用量";
   description = "调用与 Token 用量分析。按 Magpie 上报的增量批次求和：总量、占比和明细按所选时间范围统计，趋势按统计粒度展示窗口用量。时间以批次上报时刻为准；调用可能包含路由重试；输入 Token 包含重复上下文。";
-  version = 4;
+  version = 5;
   tags = [
     "selfcloud"
     "magpie"
@@ -428,6 +470,128 @@ mkDashboard {
             };
           }
         ];
+      }
+    )
+    (row 105 "缓存用量 · Trace" 54)
+    (tracePanel 16 "缓存读取 Token · Trace" "stat" "short" (grid 0 55 8 4) [
+      (traceTarget "A" "cache_read.input_tokens")
+    ])
+    (tracePanel 17 "缓存写入 Token · Trace" "stat" "short" (grid 8 55 8 4) [
+      (traceTarget "A" "cache_creation.input_tokens")
+    ])
+    (lib.recursiveUpdate
+      (tracePanel 18 "Token 缓存命中率 · Trace" "stat" "percentunit" (grid 16 55 8 4) [
+        (traceTarget "A" "cache_read.input_tokens")
+        (traceTarget "B" "input_tokens")
+      ])
+      {
+        description = "同一组模型调用 span 的缓存读取 Token 总和 ÷ 完整输入 Token 总和（含缓存读写）。先求和再相除；输入为零时显示无输入。仅代表已保存且带有缓存字段的 Trace。";
+        transformations = [
+          traceSamplesOnly
+          {
+            id = "reduce";
+            options = {
+              mode = "reduceFields";
+              reducers = [ "sum" ];
+            };
+          }
+        ]
+        ++
+          map
+            ({ refId, name }: {
+              id = "renameByRegex";
+              filter = {
+                id = "byRefId";
+                options = refId;
+              };
+              options = {
+                regex = ".*";
+                renamePattern = name;
+              };
+            })
+            [
+              {
+                refId = "A";
+                name = "缓存读取";
+              }
+              {
+                refId = "B";
+                name = "完整输入";
+              }
+            ]
+        ++ [
+          {
+            id = "concatenate";
+            options.frameNameMode = "drop";
+          }
+          {
+            id = "calculateField";
+            options = {
+              mode = "binary";
+              binary = {
+                left.matcher = {
+                  id = "byName";
+                  options = "缓存读取";
+                };
+                operator = "/";
+                right.matcher = {
+                  id = "byName";
+                  options = "完整输入";
+                };
+              };
+              alias = "缓存命中率";
+              replaceFields = true;
+            };
+          }
+        ];
+        fieldConfig.defaults = {
+          decimals = 2;
+          mappings = [
+            {
+              type = "special";
+              options = {
+                match = "nan";
+                result.text = "无输入";
+              };
+            }
+          ];
+        };
+      }
+    )
+    (lib.recursiveUpdate
+      (tracePanel 19 "缓存读写 Token · Trace（自动粒度）" "timeseries" "short" (grid 0 59 24 9)
+        [
+          (traceTarget "A" "cache_read.input_tokens")
+          (traceTarget "B" "cache_creation.input_tokens")
+        ]
+      )
+      {
+        fieldConfig.defaults.custom.axisLabel = "窗口内 Token（自动粒度）";
+        options.legend.calcs = [ "sum" ];
+        fieldConfig.overrides =
+          map
+            ({ refId, name }: {
+              matcher = {
+                id = "byFrameRefID";
+                options = refId;
+              };
+              properties = [
+                {
+                  id = "displayName";
+                  value = name;
+                }
+              ];
+            })
+            [
+              {
+                refId = "A";
+                name = "缓存读取";
+              }
+              {
+                refId = "B";
+                name = "缓存写入";
+              }
+            ];
       }
     )
   ];

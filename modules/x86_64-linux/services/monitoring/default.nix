@@ -203,6 +203,7 @@ in
           declarativePlugins = with pkgs.grafanaPlugins; [
             victoriametrics-metrics-datasource
             victoriametrics-logs-datasource
+            tempo
 
             grafana-github-datasource
             # Visualize data from JSON, CSV, XML, GraphQL and HTML endpoints.
@@ -238,6 +239,18 @@ in
                   type = "victoriametrics-logs-datasource";
                   url = "http://127.0.0.1:${toString ports.logs}";
                   editable = false;
+                }
+                {
+                  # Use Tempo's TraceQL metrics API for aggregating span attributes.
+                  name = "victoriatraces-metrics";
+                  type = "tempo";
+                  uid = "victoriatraces-metrics";
+                  url = "http://127.0.0.1:${toString ports.traces}/select/tempo";
+                  editable = false;
+                  jsonData.streamingEnabled = {
+                    search = false;
+                    metrics = false;
+                  };
                 }
                 {
                   # VictoriaTraces exposes a Jaeger-compatible query API.
