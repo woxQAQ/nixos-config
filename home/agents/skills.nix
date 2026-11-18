@@ -1,11 +1,15 @@
 {
   lib,
   pkgs,
+  config,
   ...
 }:
 let
   # Packaging includes every upstream skill; this list controls agent exposure.
-  agentSkills = pkgs.agent-skills;
+  neuve = config.modules.agents.neuve;
+  agentSkills = pkgs.agent-skills.override {
+    neuve = if neuve.enable && neuve.skills.enable then neuve.package else null;
+  };
   enabledSkills = {
     anthropic = [ "frontend-design" ];
     ast-grep = [
@@ -31,6 +35,9 @@ let
       "why"
       "bro"
     ];
+  }
+  // lib.optionalAttrs (neuve.enable && neuve.skills.enable) {
+    neuve = [ "neuve" ];
   };
   selectedSkills = lib.concatLists (
     lib.mapAttrsToList (

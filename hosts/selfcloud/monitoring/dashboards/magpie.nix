@@ -17,9 +17,9 @@ let
   tokens = metric "gen_ai.client.token.usage_sum" "";
   input = metric "gen_ai.client.token.usage_sum" '',"gen_ai.token.type"="input"'';
   output = metric "gen_ai.client.token.usage_sum" '',"gen_ai.token.type"="output"'';
-  # Magpie exports DELTA histograms (aggregationTemporality = 1); the OTLP
-  # gateway forwards them unchanged and VictoriaMetrics stores each batch.
-  # Sum batch values directly: increase() would interpret drops as resets.
+  # Magpie exports DELTA histograms with aggregationTemporality=1.
+  # VictoriaMetrics stores each batch unchanged. Sum the batches because
+  # increase() would mistake a smaller batch for a counter reset.
   total = series: "sum(sum_over_time(${series}[$__range]))";
   totalCalls = total calls;
   totalErrors = "(${total errors} or (0 * ${totalCalls}))";
@@ -32,8 +32,8 @@ let
     type = "tempo";
     uid = "victoriatraces-metrics";
   };
-  # All cache queries use the same spans, including zero cache usage. Parent
-  # spans without usage attributes are excluded from both numerator and denominator.
+  # Use the same spans for cache totals and hit rate, including zero cache usage.
+  # Parent spans have no usage attributes and do not count toward either total.
   # Raw TraceQL strings preserve the backslashes from Grafana's regex formatter.
   traceSelector = ''{ resource.service.name = "magpie" && span.gen_ai.provider.name =~ `''${provider:regex}` && span.gen_ai.request.model =~ `''${model:regex}` && span.magpie.agent =~ `''${agent:regex}` && span.gen_ai.usage.cache_read.input_tokens >= 0 && span.gen_ai.usage.cache_creation.input_tokens >= 0 && span.gen_ai.usage.input_tokens >= 0 }'';
   traceTarget = refId: attribute: {
@@ -42,8 +42,8 @@ let
     queryType = "traceql";
     metricsQueryType = "range";
     query = "${traceSelector} | sum_over_time(span.gen_ai.usage.${attribute})";
-    # Tempo does not interpolate variables in step; let VictoriaTraces select
-    # disjoint buckets for the requested range instead of sending "$bucket".
+    # Tempo sends step without expanding variables. Omit it so VictoriaTraces
+    # chooses the bucket size for the requested time range.
     filters = [ ];
     exemplars = 0;
   };
@@ -105,7 +105,7 @@ let
               }
             else
               { type = "linear"; };
-          axisLabel = if unit == "s" then "耗时（对数刻度）" else "窗口内数量";
+          axisLabel = if unit == "s" then "耗时 · 对数刻度" else "窗口内数量";
         };
       };
       options =
@@ -179,8 +179,8 @@ let
           fixedColor = color;
         };
       };
-  # Tempo returns disjoint time buckets. Total stats sum every bucket instead
-  # of taking the last one; the ratio reduces each operand before dividing.
+  # Tempo returns non-overlapping buckets. Sum all buckets for each total,
+  # then divide the cache-read total by the input total for the hit rate.
   tracePanel =
     id: title: type: unit: gridPos: targets:
     lib.recursiveUpdate
@@ -188,7 +188,7 @@ let
       {
         datasource = traceDatasource;
         inherit targets;
-        description = "按已保存的模型调用 Trace 统计，受顶部筛选影响。仅包含同时上报缓存读写与输入 Token 的 span；缺失 Trace 的调用不计入。时间以 span 开始时刻为准，与 Metrics 批次上报时间可能不同。";
+        description = "按顶部条件筛选已保存的模型调用 Trace。只统计同时带有缓存读写和输入 Token 字段的 span。时间按 span 开始时刻计算，与 Metrics 的批次上报时间可能不同。";
         options.reduceOptions.calcs = [ "sum" ];
         fieldConfig.defaults.noValue = "无数据";
         transformations = [ traceSamplesOnly ];
@@ -225,7 +225,7 @@ in
 mkDashboard {
   uid = "selfcloud-magpie";
   title = "Magpie · 模型用量";
-  description = "调用与 Token 用量分析。按 Magpie 上报的增量批次求和：总量、占比和明细按所选时间范围统计，趋势按统计粒度展示窗口用量。时间以批次上报时刻为准；调用可能包含路由重试；输入 Token 包含重复上下文。";
+  description = "总量、占比和明细按所选时间范围统计。Metrics 按批次上报时间统计，趋势使用所选粒度。缓存用量来自已保存的 Trace，趋势使用自动粒度。调用次数可能包含路由重试，输入 Token 包含重复上下文。";
   version = 5;
   tags = [
     "selfcloud"
@@ -303,7 +303,7 @@ mkDashboard {
         (target "F" "${byModel duration} / (${modelCalls} > 0)" "平均耗时")
       ])
       {
-        description = "各列均按所选时间范围与筛选条件计算。空白表示没有该指标；平均耗时保留异常值，不能视作活跃编码时间。";
+        description = "按所选时间范围和筛选条件统计。空白表示缺少指标。平均耗时包含异常长调用，不代表实际编码时间。";
         transformations = [
           {
             id = "joinByField";
@@ -426,7 +426,7 @@ mkDashboard {
         )
       ])
       // {
-        description = "对数纵轴保留异常长耗时；无调用时不显示延迟。分位数由直方图估计，低调用量时仅供参考。";
+        description = "纵轴使用对数刻度，包含异常长调用。没有调用时不显示耗时。P50 和 P95 由直方图估算，调用量少时误差较大。";
       }
     )
     (panel 14 "错误次数 / $bucket" "timeseries" "short" (grid 12 37 12 9) [
@@ -443,7 +443,7 @@ mkDashboard {
         )
       ])
       {
-        description = "按供应商、模型与错误类型聚合计数；指标不包含逐次请求的错误消息。";
+        description = "按供应商、模型和错误类型统计次数。指标不含每次请求的错误消息。";
         options.sortBy = [
           {
             displayName = "错误次数";
@@ -485,7 +485,7 @@ mkDashboard {
         (traceTarget "B" "input_tokens")
       ])
       {
-        description = "同一组模型调用 span 的缓存读取 Token 总和 ÷ 完整输入 Token 总和（含缓存读写）。先求和再相除；输入为零时显示无输入。仅代表已保存且带有缓存字段的 Trace。";
+        description = "先分别汇总同一组 span 的缓存读取和完整输入 Token，再计算缓存读取占输入的比例。完整输入包含缓存读写。输入为零时显示无输入。只统计已保存且带有缓存字段的 Trace。";
         transformations = [
           traceSamplesOnly
           {
@@ -559,14 +559,14 @@ mkDashboard {
       }
     )
     (lib.recursiveUpdate
-      (tracePanel 19 "缓存读写 Token · Trace（自动粒度）" "timeseries" "short" (grid 0 59 24 9)
+      (tracePanel 19 "缓存读写 Token · Trace · 自动粒度" "timeseries" "short" (grid 0 59 24 9)
         [
           (traceTarget "A" "cache_read.input_tokens")
           (traceTarget "B" "cache_creation.input_tokens")
         ]
       )
       {
-        fieldConfig.defaults.custom.axisLabel = "窗口内 Token（自动粒度）";
+        fieldConfig.defaults.custom.axisLabel = "窗口内 Token · 自动粒度";
         options.legend.calcs = [ "sum" ];
         fieldConfig.overrides =
           map

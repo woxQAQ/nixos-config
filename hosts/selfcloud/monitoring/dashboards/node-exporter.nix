@@ -52,7 +52,7 @@ in
 mkDashboard {
   uid = "selfcloud-node-exporter";
   title = "Node exporter";
-  description = "Host metrics collected by vmagent. Select a host to inspect CPU, memory, persistent filesystems, block devices, networking and services.";
+  description = "vmagent collects CPU, memory, filesystem, disk, network and service metrics. Select a host to view its metrics.";
   tags = [ "node-exporter" ];
   time = {
     from = "now-6h";

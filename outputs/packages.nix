@@ -17,7 +17,7 @@
         if isLinux then host.config.services.hidpipe else home.services.hidpipe;
       # Cache source builds, including the OpenLogi component used by hidpipe.
       packages = {
-        inherit (pkgs) helix;
+        inherit (pkgs) helix neuve;
         hidpipe = hidpipe.package;
       }
       // lib.optionalAttrs isLinux {

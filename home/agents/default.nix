@@ -101,6 +101,7 @@ in
   imports = [
     ./skills.nix
     ./options.nix
+    ./neuve.nix
     ./pi
     ./tuicr
     (import ./update-notifier { packages = monitoredAgents; })

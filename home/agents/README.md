@@ -96,3 +96,40 @@ Only selected skills are linked into every supported agent directory. Selected
 names must be unique across sources because agent directories have a flat layout.
 Keep delegated skills enabled together (for example, `grill-me` and `grilling`).
 The obelisk CLI is packaged separately as `pkgs.obelisk-cli`.
+
+## Neuve
+
+`modules.agents.neuve.enable` 显式控制 CLI、skills 和仓库 setup，默认关闭，
+不根据平台自动启用。Home Manager 配置示例：
+
+```nix
+modules.agents.neuve = {
+  enable = true;
+  route = "openai"; # anthropic / openai / claude
+  repositories."/absolute/path/to/repository" = {
+    hooks.enable = true;
+    hooks.agents = [ "claude-code" "codex" ]; # [] 表示只安装 Git hooks
+  };
+};
+```
+
+启用后会安装 `package`（默认 `pkgs.neuve`），并将该包自带的 skill 通过
+`agent-skills` 分发给各 agent；`skills.enable = false` 可单独关闭 skill。
+每次 activation 都执行 `neuve setup --no-skills`，使用选定的 route 和当前包的
+CLI、Graph 路径刷新仓库状态。仓库必须已存在，且有可供 Graph 检查的提交。
+route 写入 Neuve 的用户设置；其他设置由 Neuve 保留。凭据仍需通过 provider
+或 `neuve auth login` 配置，activation 不负责登录。
+
+`hooks.enable` 默认关闭。启用后调用上游 `neuve setup hooks`，安装 Git hooks，
+并合并、备份 Claude Code / Codex 的用户 hook 配置。Hook 使用 Home Manager
+profile 中的稳定命令路径。`hooks.sessionTrailer` 默认关闭；`stack.enable`
+默认关闭，开启后 hook setup 会拉取依赖源码。禁用模块或移除仓库配置不会
+自动卸载已有 hooks，也不会删除 Records。
+
+`pkgs.neuve` 在 Apple Silicon macOS 上使用 v0.2.1 官方发行包，在 x86_64 Linux
+上从同一版本的源码构建 CLI、review desk 和锁定的 Graph 引擎，同时安装 semantic
+workers、skills 和带文件校验值的安装清单。Linux 无需额外指定 `package`，沿用
+上述 option 即可。两种平台共用一个版本号，更新脚本会刷新源码及依赖 hash，并
+在 Linux 上构建、验证 setup 和 hooks；因此运行包更新需要 Linux builder。
+`package` 仍可覆盖，需提供 `bin/neuve`、`lib/neuve/entire-graph`，以及启用
+skill 时所需的 `share/neuve/skills`。

@@ -51,6 +51,7 @@ in
     inter-noto-sans-sc = prev.callPackage ../pkg/inter-noto-sans-sc { };
     ioskeley-chillround = prev.callPackage ../pkg/ioskeley-chillround { };
     magpie = prev.callPackage ../pkg/magpie { };
+    neuve = prev.callPackage ../pkg/neuve { };
     obelisk-cli = prev.callPackage ../pkg/obelisk-cli { };
     otelcol = prev.callPackage ../pkg/otelcol { };
     removemacai = prev.callPackage ../pkg/removemacai { };

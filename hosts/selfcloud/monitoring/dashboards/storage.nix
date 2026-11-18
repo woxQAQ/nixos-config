@@ -65,7 +65,7 @@ mkDashboard {
     to = "now";
   };
   panels = [
-    (panel 1 "RAID degraded disks (0 = healthy)" "stat" "short"
+    (panel 1 "RAID degraded disks, 0 = healthy" "stat" "short"
       ''max(node_md_degraded{${node},device="md0"})''
     )
     (panel 2 "Data filesystem used" "gauge" "percentunit"
@@ -74,7 +74,7 @@ mkDashboard {
     (panel 3 "Disk temperature" "timeseries" "celsius"
       ''smartctl_device_temperature{${smart},temperature_type="current"}''
     )
-    (panel 4 "SMART health (1 = passed)" "timeseries" "short"
+    (panel 4 "SMART health, 1 = passed" "timeseries" "short"
       "smartctl_device_smart_status{${smart}}"
     )
     (panel 5 "Reallocated, pending and uncorrectable sectors" "timeseries" "short"
@@ -83,10 +83,10 @@ mkDashboard {
     (panel 6 "Head load and spindle start/stop counts" "timeseries" "short"
       ''${attributes},attribute_id=~"4|193"}''
     )
-    (panel 7 "Failed storage maintenance units (0 = healthy)" "stat" "short"
+    (panel 7 "Failed storage maintenance units, 0 = healthy" "stat" "short"
       "max(node_systemd_unit_state{${maintenance}}) or vector(0)"
     )
-    (panel 8 "SMART exporter available (1 = healthy)" "stat" "short"
+    (panel 8 "SMART exporter available, 1 = healthy" "stat" "short"
       "max(up{${smart}}) or vector(0)"
     )
   ];
