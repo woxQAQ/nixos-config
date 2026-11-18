@@ -1,5 +1,6 @@
 { lib }:
 let
+  inherit (import ./lib.nix { inherit lib; }) mkDashboard mkPanel mkTarget;
   datasource = {
     type = "prometheus";
     uid = "\${datasource}";
@@ -8,52 +9,51 @@ let
   disk = ''${node},device!~"loop.*|ram.*|zram.*"'';
   network = ''${node},device!="lo"'';
   filesystem = ''${node},fstype!~"tmpfs|devtmpfs|overlay|squashfs|nsfs"'';
-  panel = id: title: type: unit: expressions: {
-    inherit
-      id
-      title
-      type
-      datasource
-      ;
-    gridPos =
-      if id <= 4 then
-        {
-          x = (id - 1) * 6;
-          y = 0;
-          w = 6;
-          h = 4;
+  panel =
+    id: title: type: unit: expressions:
+    mkPanel {
+      inherit
+        id
+        title
+        type
+        datasource
+        unit
+        ;
+      gridPos =
+        if id <= 4 then
+          {
+            x = (id - 1) * 6;
+            y = 0;
+            w = 6;
+            h = 4;
+          }
+        else
+          {
+            x = lib.mod (id - 5) 2 * 12;
+            y = 4 + builtins.div (id - 5) 2 * 8;
+            w = 12;
+            h = 8;
+          };
+      fieldConfig.defaults = lib.optionalAttrs (unit == "percentunit") {
+        min = 0;
+        max = 1;
+      };
+      options = lib.optionalAttrs (type == "stat") { colorMode = "none"; };
+      targets = lib.imap0 (
+        index: target:
+        mkTarget {
+          refId = "Q${toString index}";
+          expr = target.value;
+          legendFormat = target.name;
         }
-      else
-        {
-          x = lib.mod (id - 5) 2 * 12;
-          y = 4 + builtins.div (id - 5) 2 * 8;
-          w = 12;
-          h = 8;
-        };
-    fieldConfig.defaults = {
-      inherit unit;
-    }
-    // lib.optionalAttrs (unit == "percentunit") {
-      min = 0;
-      max = 1;
+      ) (lib.mapAttrsToList lib.nameValuePair expressions);
     };
-    options = lib.optionalAttrs (type == "stat") { colorMode = "none"; };
-    targets = lib.imap0 (index: target: {
-      refId = "Q${toString index}";
-      expr = target.value;
-      legendFormat = target.name;
-    }) (lib.mapAttrsToList lib.nameValuePair expressions);
-  };
 in
-{
+mkDashboard {
   uid = "selfcloud-node-exporter";
   title = "Node exporter";
   description = "Host metrics collected by vmagent. Select a host to inspect CPU, memory, persistent filesystems, block devices, networking and services.";
-  schemaVersion = 39;
-  version = 1;
   tags = [ "node-exporter" ];
-  timezone = "browser";
-  refresh = "1m";
   time = {
     from = "now-6h";
     to = "now";

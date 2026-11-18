@@ -1,5 +1,6 @@
 { lib }:
 let
+  inherit (import ./lib.nix { inherit lib; }) mkDashboard mkPanel mkTarget;
   datasource = {
     type = "prometheus";
     uid = "selfcloud-storage";
@@ -9,64 +10,56 @@ let
   filesystem = ''${node},mountpoint="/mnt/data"'';
   attributes = ''smartctl_device_attribute{${smart},attribute_value_type="raw"'';
   maintenance = ''${node},state="failed",name=~"storage-.*[.]service|btrfs-scrub@.*[.]service|smartd[.]service|mdmonitor[.]service"'';
-  panel = id: title: type: unit: expression: {
-    inherit
-      id
-      title
-      type
-      datasource
-      ;
-    gridPos = {
-      x = if lib.mod (id - 1) 2 == 0 then 0 else 12;
-      y = builtins.div (id - 1) 2 * 8;
-      w = 12;
-      h = 8;
-    };
-    fieldConfig.defaults = {
-      inherit unit;
-    }
-    // lib.optionalAttrs (unit == "percentunit") {
-      min = 0;
-      max = 1;
-      thresholds = {
-        mode = "absolute";
-        steps = [
-          {
-            color = "green";
-            value = null;
-          }
-          {
-            color = "orange";
-            value = 0.85;
-          }
-          {
-            color = "red";
-            value = 0.95;
-          }
-        ];
+  panel =
+    id: title: type: unit: expression:
+    mkPanel {
+      inherit
+        id
+        title
+        type
+        datasource
+        unit
+        ;
+      gridPos = {
+        x = if lib.mod (id - 1) 2 == 0 then 0 else 12;
+        y = builtins.div (id - 1) 2 * 8;
+        w = 12;
+        h = 8;
       };
+      fieldConfig.defaults = lib.optionalAttrs (unit == "percentunit") {
+        min = 0;
+        max = 1;
+        thresholds = {
+          mode = "absolute";
+          steps = [
+            {
+              color = "green";
+              value = null;
+            }
+            {
+              color = "orange";
+              value = 0.85;
+            }
+            {
+              color = "red";
+              value = 0.95;
+            }
+          ];
+        };
+      };
+      options = lib.optionalAttrs (type == "stat") { colorMode = "none"; };
+      targets = [
+        (mkTarget { expr = expression; })
+      ];
     };
-    options = lib.optionalAttrs (type == "stat") { colorMode = "none"; };
-    targets = [
-      {
-        refId = "A";
-        expr = expression;
-        legendFormat = "__auto";
-      }
-    ];
-  };
 in
-{
+mkDashboard {
   uid = "selfcloud-storage";
   title = "Selfcloud storage";
-  schemaVersion = 39;
-  version = 1;
   tags = [
     "selfcloud"
     "storage"
   ];
-  timezone = "browser";
-  refresh = "1m";
   time = {
     from = "now-24h";
     to = "now";

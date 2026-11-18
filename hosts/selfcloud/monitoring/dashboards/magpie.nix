@@ -1,5 +1,6 @@
 { lib }:
 let
+  inherit (import ./lib.nix { inherit lib; }) mkDashboard mkPanel mkTarget;
   datasource = {
     type = "prometheus";
     uid = "selfcloud-storage";
@@ -39,109 +40,113 @@ let
     panels = [ ];
     gridPos = grid 0 y 24 1;
   };
-  target = refId: expr: legendFormat: {
-    inherit refId expr legendFormat;
-  };
-  panel = id: title: type: unit: gridPos: targets: {
-    inherit
-      id
-      title
-      type
-      datasource
-      gridPos
-      ;
-    interval = "$bucket";
-    fieldConfig.defaults = {
-      unit = if unit == "short" then "locale" else unit;
-      min = if unit == "s" then 0.001 else 0;
-      color.mode = "palette-classic";
-    }
-    // lib.optionalAttrs (unit == "short") { decimals = 0; }
-    // lib.optionalAttrs (unit == "percentunit") { max = 1; }
-    // lib.optionalAttrs (type == "timeseries") {
-      custom = {
-        drawStyle = if unit == "s" then "line" else "bars";
-        fillOpacity = if unit == "s" then 0 else 65;
-        lineWidth = 1;
-        showPoints = if unit == "s" then "always" else "never";
-        pointSize = 3;
-        spanNulls = false;
-        stacking = {
-          mode = if unit == "s" then "none" else "normal";
-          group = "A";
-        };
-        scaleDistribution =
-          if unit == "s" then
-            {
-              type = "log";
-              log = 10;
-            }
-          else
-            { type = "linear"; };
-        axisLabel = if unit == "s" then "耗时（对数刻度）" else "窗口内数量";
-      };
+  target =
+    refId: expr: legendFormat:
+    mkTarget {
+      inherit refId expr legendFormat;
     };
-    options =
-      if type == "timeseries" then
-        {
-          tooltip = {
-            mode = "multi";
-            sort = "desc";
-          };
-          legend = {
-            showLegend = true;
-            displayMode = "table";
-            placement = "bottom";
-            calcs = [ "max" ];
-          };
-        }
-      else if type == "piechart" then
-        {
-          pieType = "donut";
-          sort = "desc";
-          reduceOptions = {
-            calcs = [ "lastNotNull" ];
-            values = false;
-          };
-          legend = {
-            showLegend = true;
-            displayMode = "table";
-            placement = "right";
-            values = [
-              "value"
-              "percent"
-            ];
-          };
-          tooltip.mode = "single";
-        }
-      else if type == "table" then
-        {
-          showHeader = true;
-          cellHeight = "sm";
-          sortBy = [
-            {
-              displayName = "调用次数";
-              desc = true;
-            }
-          ];
-        }
-      else
-        {
-          colorMode = "value";
-          graphMode = "none";
-          justifyMode = "center";
-          reduceOptions.calcs = [ "lastNotNull" ];
-        };
-    targets = map (
-      query:
-      query
-      // {
-        instant = type != "timeseries";
-        range = type == "timeseries";
-        format = if type == "table" then "table" else "time_series";
+  panel =
+    id: title: type: unit: gridPos: targets:
+    mkPanel {
+      inherit
+        id
+        title
+        type
+        datasource
+        gridPos
+        ;
+      unit = if unit == "short" then "locale" else unit;
+      interval = "$bucket";
+      fieldConfig.defaults = {
+        min = if unit == "s" then 0.001 else 0;
+        color.mode = "palette-classic";
       }
-    ) targets;
-  };
+      // lib.optionalAttrs (unit == "short") { decimals = 0; }
+      // lib.optionalAttrs (unit == "percentunit") { max = 1; }
+      // lib.optionalAttrs (type == "timeseries") {
+        custom = {
+          drawStyle = if unit == "s" then "line" else "bars";
+          fillOpacity = if unit == "s" then 0 else 65;
+          lineWidth = 1;
+          showPoints = if unit == "s" then "always" else "never";
+          pointSize = 3;
+          spanNulls = false;
+          stacking = {
+            mode = if unit == "s" then "none" else "normal";
+            group = "A";
+          };
+          scaleDistribution =
+            if unit == "s" then
+              {
+                type = "log";
+                log = 10;
+              }
+            else
+              { type = "linear"; };
+          axisLabel = if unit == "s" then "耗时（对数刻度）" else "窗口内数量";
+        };
+      };
+      options =
+        if type == "timeseries" then
+          {
+            tooltip = {
+              mode = "multi";
+              sort = "desc";
+            };
+            legend = {
+              showLegend = true;
+              displayMode = "table";
+              placement = "bottom";
+              calcs = [ "max" ];
+            };
+          }
+        else if type == "piechart" then
+          {
+            pieType = "donut";
+            sort = "desc";
+            reduceOptions = {
+              calcs = [ "lastNotNull" ];
+              values = false;
+            };
+            legend = {
+              showLegend = true;
+              displayMode = "table";
+              placement = "right";
+              values = [
+                "value"
+                "percent"
+              ];
+            };
+            tooltip.mode = "single";
+          }
+        else if type == "table" then
+          {
+            showHeader = true;
+            cellHeight = "sm";
+            sortBy = [
+              {
+                displayName = "调用次数";
+                desc = true;
+              }
+            ];
+          }
+        else
+          {
+            colorMode = "value";
+            graphMode = "none";
+            justifyMode = "center";
+            reduceOptions.calcs = [ "lastNotNull" ];
+          };
+      targets = map (
+        query:
+        query
+        // {
+          instant = type != "timeseries";
+          range = type == "timeseries";
+          format = if type == "table" then "table" else "time_series";
+        }
+      ) targets;
+    };
   stat =
     id: title: x: unit: color: expression:
     lib.recursiveUpdate
@@ -172,20 +177,17 @@ let
     regex = ''/option="([^"]+)"/'';
   };
 in
-{
+mkDashboard {
   uid = "selfcloud-magpie";
   title = "Magpie · 模型用量";
   description = "调用与 Token 用量分析。总量、占比和明细按所选时间范围统计，趋势按统计粒度展示窗口增量。调用可能包含路由重试；输入 Token 包含重复上下文。";
-  schemaVersion = 39;
   version = 3;
   tags = [
     "selfcloud"
     "magpie"
     "gen-ai"
   ];
-  timezone = "browser";
   graphTooltip = 1;
-  refresh = "1m";
   time = {
     from = "now-7d";
     to = "now";
