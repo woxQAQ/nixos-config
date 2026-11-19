@@ -48,6 +48,11 @@ in
     delta-bin = prev.callPackage ../pkg/delta-bin { };
     # Vendored from nixpkgs: upstream removed flclash as unmaintained.
     flclash = prev.callPackage ../pkg/flclash { };
+    # Browser sign-in is broken until the Linux protocol branch lands upstream;
+    # the same override also fixes the Wayland flags the C wrapper mangled.
+    github-desktop = prev.callPackage ../pkg/github-desktop {
+      inherit (prev) github-desktop electron;
+    };
     inter-noto-sans-sc = prev.callPackage ../pkg/inter-noto-sans-sc { };
     ioskeley-chillround = prev.callPackage ../pkg/ioskeley-chillround { };
     # Vendored from nixpkgs: upstream package is unmaintained and stuck at 5.x.

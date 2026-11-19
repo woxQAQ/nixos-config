@@ -57,8 +57,8 @@ in
 
     onCalendar = lib.mkOption {
       type = lib.types.str;
-      default = "hourly";
-      description = "systemd calendar for the snapshot timer.";
+      default = "*-*-* 00/6:00:00";
+      description = "systemd calendar for the snapshot timer. Defaults to every 6 hours.";
     };
 
     snapshotPreserveMin = lib.mkOption {
@@ -69,10 +69,10 @@ in
 
     snapshotPreserve = lib.mkOption {
       type = lib.types.str;
-      default = "48h 14d 8w";
+      default = "24h 7d 4w";
       description = ''
-        GFS-style retention: all snapshots for 48h, then one per day for 14
-        days, then one per week for 8 weeks. See btrbk.conf(5).
+        GFS-style retention: all snapshots for 24h, then one per day for 7
+        days, then one per week for 4 weeks. See btrbk.conf(5).
       '';
     };
   };
