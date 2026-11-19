@@ -112,9 +112,11 @@ def main [
                 ^$nu_executable --no-config-file $updater ($group.updates | to json --raw)
                 | complete
             )
-            if $prepared.exit_code != 0 { error make {
-                msg: ($prepared.stderr | str trim)
-            } }
+            if $prepared.exit_code != 0 {
+                error make {
+                    msg: ($prepared.stderr | str trim)
+                }
+            }
             let plan = $prepared.stdout | from json
             apply-plan $plan $directory
             print $"Updated ($group.package)."

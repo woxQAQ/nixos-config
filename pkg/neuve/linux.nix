@@ -29,11 +29,29 @@ let
       rev = graphRevision;
       hash = "sha256-z7xTxmKhMmudgZvjwKiRrR+ujDGpSgwhq2wlcsyoxpM=";
     };
-    # go mod vendor omits headers included by the bundled Tree-sitter grammars.
+    # go mod vendor omits the tree_sitter/ header directories the PHP and SQL
+    # grammars include, so the module cache is mirrored instead.
     proxyVendor = true;
-    vendorHash = "sha256-Resv2bjymy2g7XmyBidHOZZxvruH2L2/2E/SEnBn60c=";
+    vendorHash = "sha256-bWD7sC/GLR+6OqiJAnrgetvLjvXP1opy5FIILGwCduk=";
     subPackages = [ "cmd/entire-graph" ];
     env.CGO_ENABLED = "1";
+    # buildGoModule lists GOPROXY in impureEnvVars, so a builder's mirror (e.g.
+    # a daemon-wide goproxy.cn) overrides env and yields a different set of
+    # re-packaged zips for the same module graph. Pin it in the phase to keep
+    # vendorHash reproducible across builders.
+    modBuildPhase = ''
+      runHook preBuild
+      if [ -d vendor ]; then
+        echo "vendor folder exists, please set 'vendorHash = null;' in your expression"
+        exit 10
+      fi
+      export GIT_SSL_CAINFO=$NIX_SSL_CERT_FILE
+      export GOPROXY='https://proxy.golang.org'
+      mkdir -p "$GOPATH/pkg/mod/cache/download"
+      go mod download
+      mkdir -p vendor
+      runHook postBuild
+    '';
     doCheck = false;
   };
   nodeModules = stdenvNoCC.mkDerivation {
