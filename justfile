@@ -208,4 +208,8 @@ check-store:
 # Delete system and user Nix generations older than seven days.
 [group('maintenance')]
 gc:
-    sudo nix-collect-garbage
+  # garbage collect all unused nix store entries(system-wide)
+  sudo nix-collect-garbage --delete-older-than 7d
+  # garbage collect all unused nix store entries(for the user - home-manager)
+  # https://github.com/NixOS/nix/issues/8508
+  nix-collect-garbage --delete-older-than 7d
