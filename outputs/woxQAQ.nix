@@ -28,6 +28,7 @@ in
               environment = "niri";
               fcitx5.enable = true;
               game.enable = true;
+              game.maa.enable = true;
             };
           }
           ../modules/x86_64-linux/packages

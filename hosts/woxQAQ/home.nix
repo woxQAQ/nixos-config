@@ -7,7 +7,7 @@
 }:
 
 {
-  imports = [ ./waydroid-display.nix ];
+  # imports = [ ./waydroid-display.nix ];
 
   # Keep GTK and SWT on the same integer scale under native Wayland.
   programs.dbeaver = {

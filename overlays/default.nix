@@ -50,6 +50,8 @@ in
     flclash = prev.callPackage ../pkg/flclash { };
     inter-noto-sans-sc = prev.callPackage ../pkg/inter-noto-sans-sc { };
     ioskeley-chillround = prev.callPackage ../pkg/ioskeley-chillround { };
+    # Vendored from nixpkgs: upstream package is unmaintained and stuck at 5.x.
+    maa-assistant-arknights = prev.callPackage ../pkg/maa-assistant-arknights { };
     magpie = prev.callPackage ../pkg/magpie { };
     neuve = prev.callPackage ../pkg/neuve { };
     obelisk-cli = prev.callPackage ../pkg/obelisk-cli { };

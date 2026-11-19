@@ -3,7 +3,10 @@ with lib;
 {
   options.modules.desktop = {
     fcitx5.enable = mkEnableOption "fcitx5 input method";
-    game.enable = mkEnableOption "Gaming";
+    game = {
+      enable = mkEnableOption "Gaming";
+      maa.enable = mkEnableOption "MAA (MaaAssistantArknights) automation running on Waydroid";
+    };
     environment = mkOption {
       type = types.nullOr (
         types.enum [

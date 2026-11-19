@@ -23,6 +23,11 @@ let
     import nixpkgs {
       inherit system;
       config.allowUnfree = true;
+      # Keep the alternate channels consistent with the main package set, so
+      # that mixing pkgs and unstable-pkg/fastest-pkg/stable-pkg at runtime
+      # (e.g. maa-cli dlopening the vendored MaaCore) stays ABI-coherent
+      # within each set.
+      overlays = builtins.attrValues (import ../overlays { inherit inputs; });
     };
 in
 inputs
