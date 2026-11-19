@@ -4,5 +4,7 @@ use ../../scripts/lib/pkg-updates.nu github-release
 const package_file = path self default.nix
 
 def main [] {
-    [ (github-release $package_file 'omlahore/RemoveMacAI') ] | to json
+    [
+        (github-release $package_file 'omlahore/RemoveMacAI')
+    ] | to json
 }

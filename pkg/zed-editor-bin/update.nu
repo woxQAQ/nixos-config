@@ -3,7 +3,7 @@ use ../../scripts/lib/pkg-update.nu release-plan
 const package_file = path self default.nix
 
 def main [updates: string] {
-    let rows = ($updates | from json)
+    let rows = $updates | from json
     let v = $rows.0.latest
     release-plan $package_file $rows [
         $"https://github.com/zed-industries/zed/releases/download/v($v)/Zed-aarch64.dmg"

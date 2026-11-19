@@ -4,5 +4,9 @@ use ../../scripts/lib/pkg-updates.nu github-release
 const package_file = path self default.nix
 
 def main [] {
-    [ (github-release $package_file 'MaaAssistantArknights/MaaAssistantArknights') ] | to json
+    [
+        (
+            github-release $package_file 'MaaAssistantArknights/MaaAssistantArknights'
+        )
+    ] | to json
 }

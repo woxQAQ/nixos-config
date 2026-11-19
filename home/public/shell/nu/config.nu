@@ -1,18 +1,10 @@
 $env.config = {
-    history: {
-        file_format: "sqlite"
-        max_size: 5_000_000
-        isolation: true
-    }
+    history: {file_format: "sqlite", max_size: 5_000_000, isolation: true}
     show_banner: false
     recursion_limit: 50
     edit_mode: "vi"
     buffer_editor: ["hx"]
-    cursor_shape: {
-        vi_insert: "block"
-        vi_normal: "underscore"
-        emacs: "inherit"
-    }
+    cursor_shape: {vi_insert: "block", vi_normal: "underscore", emacs: "inherit"}
     completions: {
         case_sensitive: false
         quick: true
@@ -44,18 +36,31 @@ def loc [
     path: path = .
     --include-submodules # Include submodule code in the totals.
 ] {
-    let target = ($path | path expand)
-    let directory = if ($target | path type) == dir { $target } else { $target | path dirname }
+    let target = $path | path expand
+    let directory = if ($target | path type) == dir {
+        $target
+    } else {
+        $target | path dirname
+    }
     let repo = (^git -C $directory rev-parse --show-toplevel | complete)
-    let root = if $repo.exit_code == 0 { $repo.stdout | str trim | path expand } else { $directory }
-    let gitmodules = ($root | path join .gitmodules)
+    let root = if $repo.exit_code == 0 {
+        $repo.stdout | str trim | path expand
+    } else {
+        $directory
+    }
+    let gitmodules = $root | path join .gitmodules
     let submodules = if not $include_submodules and ($gitmodules | path exists) {
-        let paths = (^git config get --file $gitmodules --null --all --regexp '^submodule\..*\.path$' | complete)
+        let paths = (
+            ^git config get --file $gitmodules --null --all --regexp '^submodule\..*\.path$'
+            | complete
+        )
         if $paths.exit_code not-in [0 1] {
             error make {msg: $paths.stderr}
         }
-        $paths.stdout | split row (char nul) | where $it != ''
-            | each { |submodule| $root | path join $submodule | path expand }
+        $paths.stdout
+        | split row (char nul)
+        | where $it != ''
+        | each {|submodule| $root | path join $submodule | path expand }
     } else { [] }
     if ($submodules | any { |submodule|
         $target == $submodule or ($target | str starts-with $'($submodule)/')
@@ -63,23 +68,24 @@ def loc [
         return []
     }
     let excludes = ($submodules | each { |submodule|
-        let relative = ($submodule | path relative-to $root)
-        let pattern = ($relative | str replace --all --regex '([\\*?\[\]{}])' '\$1')
+        let relative = $submodule | path relative-to $root
+        let pattern = $relative | str replace --all --regex '([\\*?\[\]{}])' '\$1'
         [--exclude $'/($pattern)']
     } | flatten)
     # Tokei matches anchored exclusions against relative inputs from its working directory.
     cd $root
-    let relative = ($target | path relative-to $root)
+    let relative = $target | path relative-to $root
     let input = if ($relative | is-empty) { '.' } else { $relative }
-    tokei -o json ...$excludes -- $input | from json
-        | transpose lang stats
-        | each { |it|
+    tokei -o json ...$excludes -- $input
+    | from json
+    | transpose lang stats
+    | each { |it|
             $it.stats
             | reject reports children inaccurate
             | insert files ($it.stats.reports | length)
             | insert lang $it.lang
         }
-        | select lang files code comments blanks
-        | where lang != Total
-        | sort-by code -r
+    | select lang files code comments blanks
+    | where lang != Total
+    | sort-by code -r
 }

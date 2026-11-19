@@ -9,7 +9,7 @@ const check_script = path self check-pkg-updates.nu
 def validate-nix [text: string] {
     let temporary = (^mktemp -d | str trim)
     try {
-        let candidate = ($temporary | path join default.nix)
+        let candidate = $temporary | path join default.nix
         $text | save --raw $candidate
         let parsed = (^nix-instantiate --parse $candidate | complete)
         if $parsed.exit_code != 0 { error make {msg: $parsed.stderr} }
@@ -28,17 +28,24 @@ def apply-plan [plan: record, directory: path] {
             }
         }
         try {
-            let execution = (with-env $plan.environment { run-external ...$plan.command } | complete)
+            let execution = (
+                with-env $plan.environment { run-external ...$plan.command }
+                | complete
+            )
             if $execution.exit_code != 0 {
-                error make {msg: ($execution.stdout + $execution.stderr)}
+                error make {
+                    msg: ($execution.stdout + $execution.stderr)
+                }
             }
             if $execution.stdout != '' { print $execution.stdout }
         } catch {|err|
-            for file in $plan.files { $file.original | save --raw --force $file.path }
+            for file in $plan.files {
+                $file.original | save --raw --force $file.path
+            }
             error make {msg: $err.msg}
         }
     } else {
-        let expected = ($directory | path join default.nix)
+        let expected = $directory | path join default.nix
         if $plan.path != $expected { error make {msg: 'Updater returned an unexpected target path'} }
         validate-nix $plan.updated
         if (open --raw $plan.path) != $plan.original {
@@ -57,16 +64,19 @@ def main [
 ] {
     let nu_executable = $nu.current-exe
     print --stderr 'Checking upstream versions…'
-    let checked = (^$nu_executable --no-config-file $check_script ...$packages --json --jobs $jobs | complete)
+    let checked = (
+        ^$nu_executable --no-config-file $check_script ...$packages --json --jobs $jobs
+        | complete
+    )
     if $checked.stdout == '' {
         error make {msg: $checked.stderr}
     }
-    let rows = ($checked.stdout | from json)
-    let errors = ($rows | where status == error)
+    let rows = $checked.stdout | from json
+    let errors = $rows | where status == error
     if not ($errors | is-empty) {
         print --stderr (format-errors $errors)
     }
-    let candidates = ($rows | where {|row| $row.status in [update changed] })
+    let candidates = $rows | where {|row| $row.status in [update changed] }
     if ($candidates | is-empty) {
         print 'No available updates.'
         if not ($errors | is-empty) { exit 1 }
@@ -93,14 +103,19 @@ def main [
     }
     mut failures = []
     for group in ($selected | group-by package | transpose package updates) {
-        let directory = ($repo_root | path join pkg $group.package)
-        let updater = ($directory | path join update.nu)
+        let directory = $repo_root | path join pkg $group.package
+        let updater = $directory | path join update.nu
         print --stderr $"Updating ($group.package)…"
         let outcome = try {
             if not ($updater | path exists) { error make {msg: 'Missing update.nu'} }
-            let prepared = (^$nu_executable --no-config-file $updater ($group.updates | to json --raw) | complete)
-            if $prepared.exit_code != 0 { error make {msg: ($prepared.stderr | str trim)} }
-            let plan = ($prepared.stdout | from json)
+            let prepared = (
+                ^$nu_executable --no-config-file $updater ($group.updates | to json --raw)
+                | complete
+            )
+            if $prepared.exit_code != 0 { error make {
+                msg: ($prepared.stderr | str trim)
+            } }
+            let plan = $prepared.stdout | from json
             apply-plan $plan $directory
             print $"Updated ($group.package)."
             {ok: true, error: ''}

@@ -2,156 +2,213 @@
 # Reference: https://go.dev/cmd/go/
 
 def "nu-complete go commands" [] {
-  [
-    { value: "bug", description: "Start a bug report" }
-    { value: "build", description: "Compile packages and dependencies" }
-    { value: "clean", description: "Remove object files and cached files" }
-    { value: "doc", description: "Show documentation for a package or symbol" }
-    { value: "env", description: "Print Go environment information" }
-    { value: "fix", description: "Apply fixes suggested by static checkers" }
-    { value: "fmt", description: "Reformat package sources with gofmt" }
-    { value: "generate", description: "Generate Go files by processing source" }
-    { value: "get", description: "Add dependencies to the current module" }
-    { value: "help", description: "Show help for a command or topic" }
-    { value: "install", description: "Compile and install packages and dependencies" }
-    { value: "list", description: "List packages or modules" }
-    { value: "mod", description: "Module maintenance" }
-    { value: "run", description: "Compile and run a Go program" }
-    { value: "telemetry", description: "Manage telemetry data and settings" }
-    { value: "test", description: "Test packages" }
-    { value: "tool", description: "Run a specified Go tool" }
-    { value: "version", description: "Print the Go version or binary build information" }
-    { value: "vet", description: "Report likely mistakes in packages" }
-    { value: "work", description: "Workspace maintenance" }
-  ]
+    [
+        {value: "bug", description: "Start a bug report"}
+        {value: "build", description: "Compile packages and dependencies"}
+        {value: "clean", description: "Remove object files and cached files"}
+        {
+            value: "doc"
+            description: "Show documentation for a package or symbol"
+        }
+        {value: "env", description: "Print Go environment information"}
+        {value: "fix", description: "Apply fixes suggested by static checkers"}
+        {value: "fmt", description: "Reformat package sources with gofmt"}
+        {
+            value: "generate"
+            description: "Generate Go files by processing source"
+        }
+        {value: "get", description: "Add dependencies to the current module"}
+        {value: "help", description: "Show help for a command or topic"}
+        {
+            value: "install"
+            description: "Compile and install packages and dependencies"
+        }
+        {value: "list", description: "List packages or modules"}
+        {value: "mod", description: "Module maintenance"}
+        {value: "run", description: "Compile and run a Go program"}
+        {value: "telemetry", description: "Manage telemetry data and settings"}
+        {value: "test", description: "Test packages"}
+        {value: "tool", description: "Run a specified Go tool"}
+        {
+            value: "version"
+            description: "Print the Go version or binary build information"
+        }
+        {value: "vet", description: "Report likely mistakes in packages"}
+        {value: "work", description: "Workspace maintenance"}
+    ]
 }
 
 def "nu-complete go mod commands" [] {
-  [
-    { value: "download", description: "Download modules to the local cache" }
-    { value: "edit", description: "Edit go.mod from tools or scripts" }
-    { value: "graph", description: "Print the module requirement graph" }
-    { value: "init", description: "Initialize a new module in the current directory" }
-    { value: "tidy", description: "Add missing and remove unused modules" }
-    { value: "vendor", description: "Make a vendored copy of dependencies" }
-    { value: "verify", description: "Verify dependencies have expected content" }
-    { value: "why", description: "Explain why packages or modules are needed" }
-  ]
+    [
+        {value: "download", description: "Download modules to the local cache"}
+        {value: "edit", description: "Edit go.mod from tools or scripts"}
+        {value: "graph", description: "Print the module requirement graph"}
+        {
+            value: "init"
+            description: "Initialize a new module in the current directory"
+        }
+        {value: "tidy", description: "Add missing and remove unused modules"}
+        {value: "vendor", description: "Make a vendored copy of dependencies"}
+        {
+            value: "verify"
+            description: "Verify dependencies have expected content"
+        }
+        {
+            value: "why"
+            description: "Explain why packages or modules are needed"
+        }
+    ]
 }
 
 def "nu-complete go work commands" [] {
-  [
-    { value: "edit", description: "Edit go.work from tools or scripts" }
-    { value: "init", description: "Initialize a workspace file" }
-    { value: "sync", description: "Sync the workspace build list to its modules" }
-    { value: "use", description: "Add modules to a workspace file" }
-    { value: "vendor", description: "Make a vendored copy of workspace dependencies" }
-  ]
+    [
+        {value: "edit", description: "Edit go.work from tools or scripts"}
+        {value: "init", description: "Initialize a workspace file"}
+        {
+            value: "sync"
+            description: "Sync the workspace build list to its modules"
+        }
+        {value: "use", description: "Add modules to a workspace file"}
+        {
+            value: "vendor"
+            description: "Make a vendored copy of workspace dependencies"
+        }
+    ]
 }
 
 def "nu-complete go help topics" [] {
-  (nu-complete go commands) | append [
-    { value: "buildconstraint", description: "Build constraints" }
-    { value: "buildjson", description: "Build -json encoding" }
-    { value: "buildmode", description: "Build modes" }
-    { value: "c", description: "Calling between Go and C" }
-    { value: "cache", description: "Build and test caching" }
-    { value: "environment", description: "Environment variables" }
-    { value: "filetype", description: "File types" }
-    { value: "goauth", description: "GOAUTH environment variable" }
-    { value: "go.mod", description: "The go.mod file" }
-    { value: "gopath", description: "GOPATH environment variable" }
-    { value: "goproxy", description: "Module proxy protocol" }
-    { value: "importpath", description: "Import path syntax" }
-    { value: "modules", description: "Modules and module versions" }
-    { value: "module-auth", description: "Module authentication using go.sum" }
-    { value: "packages", description: "Package lists and patterns" }
-    { value: "private", description: "Configuration for downloading non-public code" }
-    { value: "testflag", description: "Testing flags" }
-    { value: "testfunc", description: "Testing functions" }
-    { value: "vcs", description: "Version control with GOVCS" }
-  ]
+    (nu-complete go commands) | append [
+        {value: "buildconstraint", description: "Build constraints"}
+        {value: "buildjson", description: "Build -json encoding"}
+        {value: "buildmode", description: "Build modes"}
+        {value: "c", description: "Calling between Go and C"}
+        {value: "cache", description: "Build and test caching"}
+        {value: "environment", description: "Environment variables"}
+        {value: "filetype", description: "File types"}
+        {value: "goauth", description: "GOAUTH environment variable"}
+        {value: "go.mod", description: "The go.mod file"}
+        {value: "gopath", description: "GOPATH environment variable"}
+        {value: "goproxy", description: "Module proxy protocol"}
+        {value: "importpath", description: "Import path syntax"}
+        {value: "modules", description: "Modules and module versions"}
+        {
+            value: "module-auth"
+            description: "Module authentication using go.sum"
+        }
+        {value: "packages", description: "Package lists and patterns"}
+        {
+            value: "private"
+            description: "Configuration for downloading non-public code"
+        }
+        {value: "testflag", description: "Testing flags"}
+        {value: "testfunc", description: "Testing functions"}
+        {value: "vcs", description: "Version control with GOVCS"}
+    ]
 }
 
 def "nu-complete go build modes" [] {
-  [archive c-archive c-shared default exe pie plugin shared]
+    [
+        archive
+        c-archive
+        c-shared
+        default
+        exe
+        pie
+        plugin
+        shared
+    ]
 }
 
 def "nu-complete go compilers" [] {
-  [gc gccgo]
+    [gc gccgo]
 }
 
 def "nu-complete go cover modes" [] {
-  [set count atomic]
+    [set count atomic]
 }
 
 def "nu-complete go module modes" [] {
-  [readonly vendor mod]
+    [readonly vendor mod]
 }
 
 def "nu-complete go vcs modes" [] {
-  [auto true false]
+    [auto true false]
 }
 
 def "nu-complete go telemetry modes" [] {
-  [
-    { value: "off", description: "Disable telemetry collection and uploading" }
-    { value: "local", description: "Collect telemetry locally without uploading" }
-    { value: "on", description: "Enable telemetry collection and uploading" }
-  ]
+    [
+        {
+            value: "off"
+            description: "Disable telemetry collection and uploading"
+        }
+        {
+            value: "local"
+            description: "Collect telemetry locally without uploading"
+        }
+        {value: "on", description: "Enable telemetry collection and uploading"}
+    ]
 }
 
 def "nu-complete go shuffle modes" [] {
-  [off on]
+    [off on]
 }
 
 def "nu-complete go packages" [buffer: string, place: record] {
-  let preceding = $buffer | str substring ..<$place.cursor
-  let token = $preceding | split row --regex '\s+' | last
-  let query = match $token {
-    "" => "./..."
-    $it if ($it | str ends-with "...") => $it
-    $it => $"($it)..."
-  }
+    let preceding = $buffer | str substring ..<$place.cursor
+    let token = $preceding | split row --regex '\s+' | last
+    let query = match $token {
+        "" => "./..."
+        $it if ($it | str ends-with "...") => $it
+        $it => $"($it)..."
+    }
 
-  # Completion should only inspect local source and the module cache.
-  let result = with-env { GOPROXY: "off" } {
+    # Completion should only inspect local source and the module cache.
+    let result = with-env { GOPROXY: "off" } {
     do { ^go list -e -f '{{.ImportPath}}{{"\t"}}{{.Doc}}' $query } | complete
   }
-  let packages = if $result.exit_code == 0 {
-    $result.stdout
-    | lines
-    | split column --number 2 (char tab) value description
-    | where { |row| not ($row.value | str contains "...") }
-    | update description { |row|
+    let packages = if $result.exit_code == 0 {
+        $result.stdout
+        | lines
+        | split column --number 2 (char tab) value description
+        | where {|row| not ($row.value | str contains "...") }
+        | update description { |row|
         if ($row.description | is-empty) { "Go package" } else { $row.description }
       }
-  } else {
-    []
-  }
+    } else {
+        []
+    }
 
-  [
-    { value: ".", description: "Package in the current directory" }
-    { value: "./...", description: "All packages below the current directory" }
-    { value: "all", description: "All packages in the main module and their dependencies" }
-    { value: "cmd", description: "Go repository commands and their internal libraries" }
-    { value: "std", description: "All packages in the Go standard library" }
-    { value: "tool", description: "Tools declared by the current module" }
-  ]
-  | append $packages
-  | uniq-by value
+    [
+        {value: ".", description: "Package in the current directory"}
+        {
+            value: "./..."
+            description: "All packages below the current directory"
+        }
+        {
+            value: "all"
+            description: "All packages in the main module and their dependencies"
+        }
+        {
+            value: "cmd"
+            description: "Go repository commands and their internal libraries"
+        }
+        {value: "std", description: "All packages in the Go standard library"}
+        {value: "tool", description: "Tools declared by the current module"}
+    ]
+    | append $packages
+    | uniq-by value
 }
 
 def "nu-complete go files or packages" [buffer: string, place: record] {
-  let preceding = $buffer | str substring ..<$place.cursor
-  let token = $preceding | split row --regex '\s+' | last
-  let files = try {
-    glob $"($token)*"
-    | where { |item|
+    let preceding = $buffer | str substring ..<$place.cursor
+    let token = $preceding | split row --regex '\s+' | last
+    let files = try {
+        glob $"($token)*"
+        | where { |item|
         let kind = $item | path type
         $kind == "dir" or ($kind == "file" and ($item | str ends-with ".go"))
       }
-    | each { |item|
+        | each { |item|
         let kind = $item | path type
         let relative = try { $item | path relative-to $env.PWD } catch { $item }
         {
@@ -159,71 +216,77 @@ def "nu-complete go files or packages" [buffer: string, place: record] {
           description: (if $kind == "dir" { "Directory" } else { "Go source file" })
         }
       }
-  } catch {
-    []
-  }
+    } catch {
+        []
+    }
 
-  let packages = nu-complete go packages $buffer $place
-  $packages | append $files | uniq-by value
+    let packages = nu-complete go packages $buffer $place
+    $packages | append $files | uniq-by value
 }
 
 def "nu-complete go modules" [] {
-  let result = with-env { GOPROXY: "off" } {
+    let result = with-env { GOPROXY: "off" } {
     do {
       ^go list -m -e -f '{{.Path}}{{"\t"}}{{if .Version}}{{.Version}}{{else}}main module{{end}}' all
     } | complete
   }
 
-  let modules = if $result.exit_code == 0 {
-    $result.stdout
-    | lines
-    | split column --number 2 (char tab) value description
-  } else {
-    []
-  }
+    let modules = if $result.exit_code == 0 {
+        $result.stdout
+        | lines
+        | split column --number 2 (char tab) value description
+    } else {
+        []
+    }
 
-  [{ value: "all", description: "All active modules" }]
-  | append $modules
-  | uniq-by value
+    [
+        {value: "all", description: "All active modules"}
+    ]
+    | append $modules
+    | uniq-by value
 }
 
 def "nu-complete go packages or modules" [buffer: string, place: record] {
-  let preceding = $buffer | str substring ..<$place.cursor
-  if ($preceding | split row --regex '\s+' | any { |word| $word in ["-m" "--m"] }) {
-    nu-complete go modules
-  } else {
-    nu-complete go packages $buffer $place
-  }
+    let preceding = $buffer | str substring ..<$place.cursor
+    if ($preceding | split row --regex '\s+' | any {|word| $word in ["-m" "--m"] }) {
+        nu-complete go modules
+    } else {
+        nu-complete go packages $buffer $place
+    }
 }
 
 def "nu-complete go env variables" [buffer: string, place: record] {
-  let result = do { ^go env -json } | complete
-  if $result.exit_code == 0 {
-    let preceding = $buffer | str substring ..<$place.cursor
-    let writing = $preceding | split row --regex '\s+' | any { |word| $word in ["-w" "--w"] }
-    $result.stdout
-    | from json
-    | transpose value current
-    | each { |row|
+    let result = do { ^go env -json } | complete
+    if $result.exit_code == 0 {
+        let preceding = $buffer | str substring ..<$place.cursor
+        let writing = $preceding | split row --regex '\s+' | any {|word| $word in ["-w" "--w"] }
+        $result.stdout
+        | from json
+        | transpose value current
+        | each { |row|
         {
           value: (if $writing { $"($row.value)=" } else { $row.value })
           description: ($row.current | into string)
         }
       }
-  } else {
-    []
-  }
+    } else {
+        []
+    }
 }
 
 def "nu-complete go tools" [] {
-  let result = do { ^go tool } | complete
-  if $result.exit_code == 0 { $result.stdout | lines } else { [] }
+    let result = do { ^go tool } | complete
+    if $result.exit_code == 0 {
+        $result.stdout | lines
+    } else {
+        []
+    }
 }
 
 def "nu-complete go test names" [] {
-  try {
-    glob '*_test.go'
-    | each { |file|
+    try {
+        glob '*_test.go'
+        | each { |file|
         open --raw $file
         | lines
         | parse --regex '^\s*func\s+(?<value>(?:Test|Benchmark|Fuzz)\w*)\s*\('
@@ -238,36 +301,36 @@ def "nu-complete go test names" [] {
             { value: $row.value, description: $kind }
           }
       }
-    | flatten
-    | uniq-by value
-  } catch {
-    []
-  }
+        | flatten
+        | uniq-by value
+    } catch {
+        []
+    }
 }
 
 def "nu-complete go tests" [] {
-  nu-complete go test names | where value starts-with "Test"
+    nu-complete go test names | where value starts-with "Test"
 }
 
 def "nu-complete go benchmarks" [] {
-  nu-complete go test names | where value starts-with "Benchmark"
+    nu-complete go test names | where value starts-with "Benchmark"
 }
 
 def "nu-complete go fuzz targets" [] {
-  nu-complete go test names | where value starts-with "Fuzz"
+    nu-complete go test names | where value starts-with "Fuzz"
 }
 
 def "nu-complete go work modules" [] {
-  let result = do { ^go work edit -json } | complete
-  if $result.exit_code == 0 {
-    $result.stdout
-    | from json
-    | get -o Use
-    | default []
-    | each { |entry| { value: $entry.DiskPath, description: $entry.ModulePath } }
-  } else {
-    []
-  }
+    let result = do { ^go work edit -json } | complete
+    if $result.exit_code == 0 {
+        $result.stdout
+        | from json
+        | get -o Use
+        | default []
+        | each {|entry| { value: $entry.DiskPath, description: $entry.ModulePath } }
+    } else {
+        []
+    }
 }
 
 # Go is a tool for managing Go source code.

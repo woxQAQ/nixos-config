@@ -5,7 +5,8 @@ const package_file = path self default.nix
 
 def main [] {
     let current = (nix-string $package_file version)
-    [ (result 'Warren2060/ChillRound (ChillRoundF)' $current {
+    [
+        (result 'Warren2060/ChillRound (ChillRoundF)' $current {
         mut candidates = []
         mut page = 1
         loop {
@@ -21,5 +22,6 @@ def main [] {
         }
         # Full-round and half-round fonts have independent version sequences.
         $candidates | sort-by --natural version | last
-    }) ] | to json
+    })
+    ] | to json
 }

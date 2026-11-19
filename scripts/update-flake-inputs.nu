@@ -8,32 +8,32 @@ const flake_file = path self ../flake.nix
 const update_all = "[update-all-inputs]"
 
 def indentation [line: string] {
-  ($line | str length) - ($line | str trim --left | str length)
+    ($line | str length) - ($line | str trim --left | str length)
 }
 
 # Read inputs already present in flake.lock without requiring jq.
 def get_locked_inputs [] {
-  let lock_file = ($flake_dir | path join "flake.lock")
+    let lock_file = $flake_dir | path join "flake.lock"
 
-  if not ($lock_file | path exists) {
-    return []
-  }
+    if not ($lock_file | path exists) {
+        return []
+    }
 
-  try {
-    open --raw $lock_file
-    | from json
-    | get nodes.root.inputs
-    | columns
-  } catch {
-    []
-  }
+    try {
+        open --raw $lock_file
+        | from json
+        | get nodes.root.inputs
+        | columns
+    } catch {
+        []
+    }
 }
 
 # Extract direct children of the inputs attrset from flake.nix so newly added,
 # not-yet-locked inputs are available too. Supports `name = { ... };` and
 # the shorthand `name.url = "...";`.
 def get_declared_inputs [] {
-  let state = (
+    let state = (
     open --raw $flake_file
     | lines
     | reduce --fold {
@@ -46,7 +46,7 @@ def get_declared_inputs [] {
         if $state.done {
           $state
         } else {
-          let trimmed = ($line | str trim --left)
+          let trimmed = $line | str trim --left
           let line_indent = (indentation $line)
 
           if not $state.in_inputs {
@@ -91,110 +91,114 @@ def get_declared_inputs [] {
       }
   )
 
-  $state.inputs
+    $state.inputs
 }
 
 # Nix can return success after a fetch failure by falling back to cached data.
 # Such a result does not confirm that the requested inputs are up to date.
 def run_update [nix_flags: list<string>, target: path, inputs: list<string>] {
-  let result = (^nix ...$nix_flags flake update --flake $target ...$inputs | complete)
+    let result = (^nix ...$nix_flags flake update --flake $target ...$inputs | complete)
 
-  if ($result.stdout | is-not-empty) {
-    print --no-newline $result.stdout
-  }
-  if ($result.stderr | is-not-empty) {
-    print --stderr --no-newline $result.stderr
-  }
+    if ($result.stdout | is-not-empty) {
+        print --no-newline $result.stdout
+    }
+    if ($result.stderr | is-not-empty) {
+        print --stderr --no-newline $result.stderr
+    }
 
-  if $result.exit_code != 0 {
-    print --stderr $"(ansi red)Update failed. Lock files may contain partial updates.(ansi reset)"
-    exit $result.exit_code
-  }
+    if $result.exit_code != 0 {
+        print --stderr $"(ansi red)Update failed. Lock files may contain partial updates.(ansi reset)"
+        exit $result.exit_code
+    }
 
-  if ($result.stderr | str contains "using cached version") {
-    print --stderr $"(ansi red)Update incomplete: Nix used cached data after a fetch failure. Lock files may contain partial updates; retry once the fetch issue is resolved.(ansi reset)"
-    exit 1
-  }
+    if ($result.stderr | str contains "using cached version") {
+        print --stderr $"(ansi red)Update incomplete: Nix used cached data after a fetch failure. Lock files may contain partial updates; retry once the fetch issue is resolved.(ansi reset)"
+        exit 1
+    }
 }
 
 def update_input [input_name: string] {
-  let nix_flags = if $nu.os-info.name == "macos" {
-    [--extra-experimental-features "nix-command flakes"]
-  } else {
-    []
-  }
+    let nix_flags = if $nu.os-info.name == "macos" {
+        [--extra-experimental-features "nix-command flakes"]
+    } else {
+        []
+    }
 
-  if $input_name == $update_all {
-    print $"(ansi cyan)Updating all inputs...(ansi reset)"
-    run_update $nix_flags $flake_dir []
-  } else {
-    print $"(ansi cyan)Updating input: (ansi yellow)($input_name)(ansi reset)"
-    run_update $nix_flags $flake_dir [$input_name]
-  }
+    if $input_name == $update_all {
+        print $"(ansi cyan)Updating all inputs...(ansi reset)"
+        run_update $nix_flags $flake_dir []
+    } else {
+        print $"(ansi cyan)Updating input: (ansi yellow)($input_name)(ansi reset)"
+        run_update $nix_flags $flake_dir [$input_name]
+    }
 
-  print $"(ansi cyan)Syncing the dev lock's root snapshot...(ansi reset)"
-  run_update $nix_flags ($flake_dir | path join "outputs" "dev") [root]
+    print $"(ansi cyan)Syncing the dev lock's root snapshot...(ansi reset)"
+    run_update $nix_flags ($flake_dir | path join "outputs" "dev") [root]
 }
 
 def main [] {
-  print $"(ansi blue)╔══════════════════════════════════╗(ansi reset)"
-  print $"(ansi blue)║     (ansi cyan)Nix Flake Inputs Updater(ansi blue)     ║(ansi reset)"
-  print $"(ansi blue)╚══════════════════════════════════╝(ansi reset)"
-  print ""
+    print $"(ansi blue)╔══════════════════════════════════╗(ansi reset)"
+    print $"(ansi blue)║     (ansi cyan)Nix Flake Inputs Updater(ansi blue)     ║(ansi reset)"
+    print $"(ansi blue)╚══════════════════════════════════╝(ansi reset)"
+    print ""
 
-  if not ($flake_file | path exists) {
-    print --stderr $"(ansi red)Error: flake.nix not found at ($flake_file)(ansi reset)"
-    exit 1
-  }
+    if not ($flake_file | path exists) {
+        print --stderr $"(ansi red)Error: flake.nix not found at ($flake_file)(ansi reset)"
+        exit 1
+    }
 
-  print $"(ansi cyan)Parsing flake.nix for inputs...(ansi reset)"
+    print $"(ansi cyan)Parsing flake.nix for inputs...(ansi reset)"
 
-  let inputs = (
+    let inputs = (
     (get_locked_inputs)
     | append (get_declared_inputs)
     | uniq
     | sort
   )
 
-  if ($inputs | is-empty) {
-    print --stderr $"(ansi red)No inputs found in flake.nix(ansi reset)"
-    exit 1
-  }
+    if ($inputs | is-empty) {
+        print --stderr $"(ansi red)No inputs found in flake.nix(ansi reset)"
+        exit 1
+    }
 
-  print ""
-  print $"(ansi cyan)Select an input to update; the first option updates all inputs.(ansi reset)"
-
-  let selected = try {
-    [$update_all]
-    | append $inputs
-    | input list --fuzzy "Select input"
-  } catch {
-    null
-  }
-
-  if $selected == null {
     print ""
-    print $"(ansi yellow)No input selected. Exiting.(ansi reset)"
-    return
-  }
+    print $"(ansi cyan)Select an input to update; the first option updates all inputs.(ansi reset)"
 
-  print ""
-  if $selected == $update_all {
-    print $"(ansi green)You selected: Update ALL inputs(ansi reset)"
-  } else {
-    print $"(ansi green)You selected input: (ansi cyan)($selected)(ansi reset)"
-  }
+    let selected = try {
+        [$update_all]
+        | append $inputs
+        | input list --fuzzy "Select input"
+    } catch {
+        null
+    }
 
-  print ""
-  let confirmation = (input --default "y" "Proceed with update? [Y/n]: " | str trim | str lowercase)
-  if $confirmation not-in ["" "y" "yes"] {
-    print $"(ansi yellow)Update cancelled.(ansi reset)"
-    return
-  }
+    if $selected == null {
+        print ""
+        print $"(ansi yellow)No input selected. Exiting.(ansi reset)"
+        return
+    }
 
-  print ""
-  update_input $selected
+    print ""
+    if $selected == $update_all {
+        print $"(ansi green)You selected: Update ALL inputs(ansi reset)"
+    } else {
+        print $"(ansi green)You selected input: (ansi cyan)($selected)(ansi reset)"
+    }
 
-  print ""
-  print $"(ansi green)✓ Update complete!(ansi reset)"
+    print ""
+    let confirmation = (
+        input --default "y" "Proceed with update? [Y/n]: "
+        | str trim
+        | str lowercase
+    )
+    if $confirmation not-in ["" "y" "yes"] {
+        print $"(ansi yellow)Update cancelled.(ansi reset)"
+        return
+    }
+
+    print ""
+    update_input $selected
+
+    print ""
+    print $"(ansi green)✓ Update complete!(ansi reset)"
 }

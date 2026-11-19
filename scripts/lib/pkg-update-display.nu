@@ -5,13 +5,26 @@ def wrap-cell [value: string, width: int] {
     $value | split chars | chunks $width | each { str join } | str join (char newline)
 }
 
-def column-width [rows: list, column: string, limit: int] {
-    let longest = ($rows | get $column | append $column | each { str length } | math max)
+def column-width [rows: list<any>, column: string, limit: int] {
+    let longest = (
+        $rows
+        | get $column
+        | append $column
+        | each { str length }
+        | math max
+    )
     [$limit $longest] | math min
 }
 
-export def format-updates [rows: list] {
-    let colors = {current: green, update: yellow, ahead: cyan, changed: yellow, skipped: dark_gray, error: red}
+export def format-updates [rows: list<any>] {
+    let colors = {
+        current: green
+        update: yellow
+        ahead: cyan
+        changed: yellow
+        skipped: dark_gray
+        error: red
+    }
     let color = ($env.config.use_ansi_coloring != false) and ($env.NO_COLOR? == null)
     let display = ($rows | each {|row|
         $row | update current {|r| short-version $r.current } | update latest {|r| short-version $r.latest }
@@ -19,7 +32,15 @@ export def format-updates [rows: list] {
     let package_width = (column-width $display package 20)
     let current_width = (column-width $display current 16)
     let latest_width = (column-width $display latest 16)
-    let source_width = ([10 ((term size).columns - $package_width - $current_width - $latest_width - 7 - 16)] | math max)
+    let source_width = (
+        [
+            10
+            (
+                (term size).columns - $package_width - $current_width - $latest_width - 7 - 16
+            )
+        ]
+        | math max
+    )
     $display | each {|row|
         let status = if $color {
             $"(ansi ($colors | get $row.status))($row.status)(ansi reset)"
@@ -40,11 +61,14 @@ def short-version [value: string] {
     } else { $value }
 }
 
-export def format-errors [rows: list] {
-    let errors = ($rows | where status == error)
+export def format-errors [rows: list<any>] {
+    let errors = $rows | where status == error
     let package_width = (column-width $errors package 20)
     let source_width = (column-width $errors source 24)
-    let error_width = ([20 ((term size).columns - $package_width - $source_width - 10)] | math max)
+    let error_width = ([
+        20
+        ((term size).columns - $package_width - $source_width - 10)
+    ] | math max)
     $errors | each {|row|
         {
             package: (wrap-cell $row.package $package_width)

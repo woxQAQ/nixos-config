@@ -14,15 +14,23 @@ def main [
         error make {msg: '--jobs must be at least 1'}
     }
     let root = $package_root
-    let available = (glob ($root | path join '*/default.nix') | each { path dirname | path basename } | sort)
-    let unknown = ($packages | where {|name| $name not-in $available })
+    let available = (
+        glob ($root | path join '*/default.nix')
+        | each { path dirname | path basename }
+        | sort
+    )
+    let unknown = $packages | where {|name| $name not-in $available }
     if not ($unknown | is-empty) {
         error make {msg: $"Unknown packages: ($unknown | str join ', ')"}
     }
-    let selected = if ($packages | is-empty) { $available } else { $packages | uniq | sort }
+    let selected = if ($packages | is-empty) {
+        $available
+    } else {
+        $packages | uniq | sort
+    }
     let nu_executable = $nu.current-exe
     let rows = ($selected | par-each --threads $jobs {|package|
-        let checker = ($root | path join $package 'check-update.nu')
+        let checker = $root | path join $package 'check-update.nu'
         if not ($checker | path exists) {
             return [{package: $package, source: '', current: '', latest: '', status: 'error', url: '', error: 'Missing check-update.nu'}]
         }
@@ -31,7 +39,7 @@ def main [
             if $output.exit_code != 0 {
                 error make {msg: ($output.stderr | str trim)}
             }
-            let results = ($output.stdout | from json)
+            let results = $output.stdout | from json
             if ($results | describe) !~ '^list|^table' or ($results | is-empty) {
                 error make {msg: 'Checker must return a nonempty JSON array'}
             }

@@ -1,23 +1,35 @@
 # Keep the left revision intact while completing the right side of a range.
 def "nu-complete tuicr revisions" [buffer: string, place: record] {
-  let token = ($buffer | str substring ..<$place.cursor | split row --regex '\s+' | last)
-  let range = ($token | parse --regex '^(?<base>.*?\.{2,3})[^.]*$')
-  let base = ($range | get -o 0.base | default '')
-  let refs = (do { ^git for-each-ref --format='%(refname:short)' refs/heads refs/remotes refs/tags } | complete)
-  if $refs.exit_code != 0 { return [] }
+    let token = (
+        $buffer
+        | str substring ..<$place.cursor
+        | split row --regex '\s+'
+        | last
+    )
+    let range = $token | parse --regex '^(?<base>.*?\.{2,3})[^.]*$'
+    let base = $range | get -o 0.base | default ''
+    let refs = (
+        do { ^git for-each-ref --format='%(refname:short)' refs/heads refs/remotes refs/tags }
+        | complete
+    )
+    if $refs.exit_code != 0 { return [] }
 
-  $refs.stdout
-  | lines
-  | prepend HEAD
-  | uniq
-  | each {|ref| $base + $ref }
+    $refs.stdout
+    | lines
+    | prepend HEAD
+    | uniq
+    | each {|ref| $base + $ref }
 }
 
 def "nu-complete tuicr appearance" [] { [light dark system] }
 
 def "nu-complete tuicr remotes" [] {
-  let result = (do { ^git remote } | complete)
-  if $result.exit_code == 0 { $result.stdout | lines } else { [] }
+    let result = do { ^git remote } | complete
+    if $result.exit_code == 0 {
+        $result.stdout | lines
+    } else {
+        []
+    }
 }
 
 # Leave --help undeclared so Nushell forwards it to the original command.
