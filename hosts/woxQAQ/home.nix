@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   mylib,
   dotfilesDir,
@@ -8,6 +9,29 @@
 
 {
   # imports = [ ./waydroid-display.nix ];
+
+  # Trust HTTPS certificates issued by selfcloud's Caddy internal CA in
+  # browsers. They verify with NSS instead of the OpenSSL system store
+  # populated by security.pki.certificateFiles.
+  programs.firefox.policies.Certificates = {
+    # Firefox keeps its own per-profile NSS database; install the root via
+    # enterprise policy. ImportEnterpriseRoots also trusts the NixOS system
+    # store via p11-kit, covering tools that read it that way.
+    ImportEnterpriseRoots = true;
+    Install = [ ../../cert/selfcloud-caddy-root.crt ];
+  };
+
+  # Chrome and Chromium read the shared NSS database at ~/.pki/nssdb.
+  # Re-import on every switch to follow root rotation (e.g. server reinstalls).
+  home.activation.trustSelfcloudCA = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    db="${config.home.homeDirectory}/.pki/nssdb"
+    run mkdir -p "$db"
+    if [ ! -f "$db/cert9.db" ]; then
+      run ${pkgs.nss.tools}/bin/certutil -d "sql:$db" -N --empty-password
+    fi
+    run ${pkgs.nss.tools}/bin/certutil -d "sql:$db" -D -n selfcloud-caddy-root || true
+    run ${pkgs.nss.tools}/bin/certutil -d "sql:$db" -A -t "C,," -n selfcloud-caddy-root -i ${../../cert/selfcloud-caddy-root.crt}
+  '';
 
   # Keep GTK and SWT on the same integer scale under native Wayland.
   programs.dbeaver = {

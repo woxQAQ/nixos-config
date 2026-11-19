@@ -7,6 +7,10 @@
   ...
 }:
 {
+  imports = [
+    ../../cert
+  ];
+
   networking = {
     hostName = hostname;
     computerName = hostname;

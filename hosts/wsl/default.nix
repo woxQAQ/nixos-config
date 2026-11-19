@@ -6,6 +6,10 @@
   ...
 }:
 {
+  imports = [
+    ../../cert
+  ];
+
   networking.hostName = "wsl";
   system.stateVersion = stateVersion;
   wsl = {

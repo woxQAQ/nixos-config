@@ -14,7 +14,7 @@ in
     unstable = mkNixpkgs inputs.nixpkgs-unstable final.system;
   };
 
-  modifications = _final: prev: {
+  modifications = final: prev: {
     helix =
       inputs.helix.packages.${prev.stdenv.hostPlatform.system}.default.override
         {
@@ -52,6 +52,13 @@ in
     ioskeley-chillround = prev.callPackage ../pkg/ioskeley-chillround { };
     # Vendored from nixpkgs: upstream package is unmaintained and stuck at 5.x.
     maa-assistant-arknights = prev.callPackage ../pkg/maa-assistant-arknights { };
+    # Vendored from nixpkgs: stuck at 0.5.x; link the vendored core instead of
+    # the equally stale nixpkgs one.
+    maa-cli = prev.callPackage ../pkg/maa-cli {
+      inherit (final)
+        maa-assistant-arknights
+        ;
+    };
     magpie = prev.callPackage ../pkg/magpie { };
     neuve = prev.callPackage ../pkg/neuve { };
     obelisk-cli = prev.callPackage ../pkg/obelisk-cli { };

@@ -10,7 +10,7 @@ on:
       source:
         description: Source package to build
         type: choice
-        options: [all, helix, hidpipe]
+        options: [all, helix, hidpipe, maa]
         default: all
       revision:
         description: Full source commit SHA (empty uses flake.lock)
@@ -54,7 +54,9 @@ jobs:
             experimental-features = nix-command flakes
             system = ${{ matrix.system }}
       - name: Compute grammar cache key
-        if: inputs.source != 'hidpipe'
+        # Only helix builds consume this key component; other sources keep a
+        # stable tarball cache key instead of rotating with helix grammars.
+        if: inputs.source == 'helix'
         id: grammar-cache
         env:
           GH_TOKEN: ${{ github.token }}
@@ -92,12 +94,12 @@ jobs:
           SOURCE_REVISION: ${{ inputs.revision }}
         run: |
           case "$CACHE_SOURCE" in
-            all|helix|hidpipe) ;;
+            all|helix|hidpipe|maa) ;;
             *) echo "::error::Unsupported cache source: $CACHE_SOURCE"; exit 1 ;;
           esac
           nix_flags=(--no-update-lock-file)
           if [[ -n "$SOURCE_REVISION" ]]; then
-            if [[ "$CACHE_SOURCE" == all || ! "$SOURCE_REVISION" =~ ^[0-9a-f]{40}$ ]]; then
+            if [[ "$CACHE_SOURCE" == all || "$CACHE_SOURCE" == maa || ! "$SOURCE_REVISION" =~ ^[0-9a-f]{40}$ ]]; then
               echo "::error::A source revision must be a full commit SHA for helix or hidpipe."
               exit 1
             fi
@@ -111,7 +113,7 @@ jobs:
           targets=()
           while IFS= read -r package; do
             case "$CACHE_SOURCE:$package" in
-              all:*|helix:helix|hidpipe:hidpipe|hidpipe:hidpipe-openlogi)
+              all:*|helix:helix|hidpipe:hidpipe|hidpipe:hidpipe-openlogi|maa:maa-cli|maa:maa-assistant-arknights)
                 targets+=(".#packages.${NIX_SYSTEM}.${package}") ;;
             esac
           done <<< "$package_names"

@@ -7,6 +7,10 @@
   ...
 }:
 {
+  imports = [
+    ../../cert
+  ];
+
   services.openssh.enable = true;
 
   networking = {

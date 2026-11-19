@@ -14,13 +14,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "maa-cli";
-  version = "0.7.8";
+  # Pinned to the newest release whose maa-sys bindings all exist in the
+  # latest stable MaaCore: 0.7.3+ eagerly binds AsstAsyncAttachWindow, which
+  # only exists on MAA's unreleased dev branch.
+  version = "0.7.2";
 
   src = fetchFromGitHub {
     owner = "MaaAssistantArknights";
     repo = "maa-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-5qfA37es0wgVV8c8RqLrG4dtqc4T12w1OXf220h+eio=";
+    hash = "sha256-ndCe46+Q8ljFAingAHWoPcsf6NgtHJmApLcUP//2igc=";
   };
 
   nativeBuildInputs = [
@@ -36,7 +39,19 @@ rustPlatform.buildRustPackage (finalAttrs: {
   buildNoDefaultFeatures = true;
   buildFeatures = [ "git2" ];
 
-  cargoHash = "sha256-TQIW+1BiOcTSx9XjitE8nqPet2KKg2TMDbx0I5jasUw=";
+  cargoHash = "sha256-3fjh8ofu6DsI0VspNjT2oBCN/q6BB3Nz/4KKn4DQYaM=";
+
+  # Tests write to the maa cache dir; the sandbox's default HOME is read-only.
+  preCheck = ''
+    export HOME="$TMPDIR"
+    export XDG_CACHE_HOME="$TMPDIR/cache"
+  '';
+
+  # This test clones a real repository; the build sandbox has no network.
+  checkFlags = [
+    "--skip"
+    "installer::resource::git::tests::clone_and_update_custom_branch_with_each_git_implementation"
+  ];
 
   # maa-cli only searches libMaaCore.so and resources next to its own binary
   # https://github.com/MaaAssistantArknights/maa-cli/issues/67

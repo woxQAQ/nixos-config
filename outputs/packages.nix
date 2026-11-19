@@ -21,7 +21,9 @@
         hidpipe = hidpipe.package;
       }
       // lib.optionalAttrs isLinux {
-        inherit (pkgs) flclash;
+        # Vendored MAA stack: long source builds that users should not pay for
+        # on every machine, so cache them via cicd_cache.yaml.
+        inherit (pkgs) flclash maa-assistant-arknights maa-cli;
       }
       // lib.optionalAttrs hidpipe.openlogi.enable {
         hidpipe-openlogi = hidpipe.openlogi.package;

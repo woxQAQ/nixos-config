@@ -12,6 +12,7 @@
     ./services
     ./resource.nix
     ./monitoring
+    ../../cert
   ];
 
   boot.loader = {

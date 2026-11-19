@@ -23,6 +23,15 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
+  # The fork ships a pre-generated config.h that hardcodes WITH_COREML, while
+  # nixpkgs' onnxruntime ships coreml_provider_factory.h without exporting the
+  # corresponding function on Linux; the CoreML call would compile in and fail
+  # at dlopen time. CoreML is Apple-only anyway.
+  postPatch = ''
+    substituteInPlace fastdeploy/core/config.h \
+      --replace-fail "#define WITH_COREML" "/* #undef WITH_COREML */"
+  '';
+
   buildInputs = [
     eigen
     onnxruntime
