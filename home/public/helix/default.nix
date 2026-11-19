@@ -125,6 +125,9 @@ in
         }
         {
           name = "nu";
+          auto-format = true;
+          formatter.command = "${pkgs.nufmt}/bin/nufmt";
+          formatter.args = [ "--stdin" ];
         }
         {
           name = "toml";
@@ -160,6 +163,7 @@ in
       tinymist
       nixfmt
       nixd
+      nufmt
     ];
   };
 }
