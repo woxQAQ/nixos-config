@@ -185,6 +185,10 @@ flutter350.buildFlutterApplication {
 
   flutterBuildFlags = [ "--dart-define=APP_ENV=stable" ];
 
+  # Flutter 3.50 keeps the Wayland subsurface's initial buffer scale when the
+  # window changes monitors. Prefer XWayland until flutter/flutter#196476 is fixed.
+  extraWrapProgramArgs = "--set GDK_BACKEND x11,wayland";
+
   desktopItems = [
     (makeDesktopItem {
       name = "flclash";
