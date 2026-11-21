@@ -76,6 +76,10 @@
       url = "github:nixos/nixpkgs/nixpkgs-unstable";
     };
 
+    # FlClash >= 0.9.4 requires Flutter 3.50, which has not reached
+    # nixpkgs-unstable yet; drop this once the main nixpkgs ships flutter350.
+    nixpkgs-flutter.url = "github:NixOS/nixpkgs/a1e3e2dc037d7fdc907e3f08675e17c37b9ef1e9";
+
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -100,7 +104,7 @@
     };
 
     tuios = {
-      url = "github:Gaurav-Gosain/tuios/v0.12.0";
+      url = "github:Gaurav-Gosain/tuios/v0.13.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

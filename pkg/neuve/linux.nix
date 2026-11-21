@@ -16,7 +16,7 @@ let
     owner = "NeuveAI";
     repo = "neuve";
     tag = "v${version}";
-    hash = "sha256-W23obTad7GR1xnTRJ31nN4Nal3a3SbGpNndU0zwDRUI=";
+    hash = "sha256-3XgRSbj78MnMwkKKN9Vp1vYkXPPAzZ+sSO4zvEbIw9w=";
   };
   # Matches the release's apps/neuve-graph submodule pin.
   graphRevision = "bd99ee8f2a84d1cf0ac95f5e770ac368c0f2a576";

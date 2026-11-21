@@ -67,7 +67,14 @@
 
   programs.git = {
     enable = true;
-    lfs.enable = true;
+    lfs = {
+      enable = true;
+      # Use a PATH-relative git-lfs instead of baking a store path into the
+      # generated git config; a pinned path breaks after GC and trips
+      # git-lfs's install check ("filter.lfs.process should be ...").
+      # git-lfs stays on PATH via modules/public/packages/core.nix.
+      package = null;
+    };
     signing.format = "openpgp";
     settings = {
       user = {

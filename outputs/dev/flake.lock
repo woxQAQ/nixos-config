@@ -54,11 +54,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790001035,
-        "narHash": "sha256-1/SLBjSYBzDdDhvLQ83wrzBakyS/xNGgtxHGNuveOEQ=",
+        "lastModified": 1795172407,
+        "narHash": "sha256-fSkAj71qq1cD7k6+zb8oJbd77feGRO++WX50XOcHBM0=",
         "owner": "Mic92",
         "repo": "bun2nix",
-        "rev": "07a5bfc8ac36c5370199343fa620b69f63186e33",
+        "rev": "b8243c1e7ccacfe66210311884708687c883ae47",
         "type": "github"
       },
       "original": {
@@ -407,11 +407,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1794468972,
-        "narHash": "sha256-4s0qPeJ+9GWGqpr5obADUyfZio6nPRSpBpPfnd/XGng=",
+        "lastModified": 1795097978,
+        "narHash": "sha256-zpBlYb2O3S+D6v4xZiiiz1bwXRV7AvjEq6sRkAO5mbs=",
         "owner": "woxQAQ",
         "repo": "helix",
-        "rev": "ec546135111048c997cf703f5b180debe4bef5a0",
+        "rev": "c9f4a42f9e8d1707930914703529295f1554a2c8",
         "type": "github"
       },
       "original": {
@@ -499,11 +499,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1794529915,
-        "narHash": "sha256-7RDIC9WIlfKgsyh+OkjeL3Ae5KvokiF5JclFFtHrLUM=",
+        "lastModified": 1795241446,
+        "narHash": "sha256-v8/CnsHh4/p58E5d0k208omIYUUu6EruiKRIYYNNuE0=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "60533bc9bb15b0c60c12607ecf8dfc00c87b298e",
+        "rev": "a59764a6424689d67c1bd9070fd48afa44a47ee0",
         "type": "github"
       },
       "original": {
@@ -649,11 +649,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1793977579,
-        "narHash": "sha256-WrSODdZFVIs/Hh2NzC0bY+ROByi0bATg8WfePX8dPj8=",
+        "lastModified": 1795095985,
+        "narHash": "sha256-DOTZsOOoEtOY0ysY9L6JzyDHZm4lGBr6P1bt1mFXcRw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4fe25e12eb9f4c744966dd3de5a05246cf098601",
+        "rev": "19cfded70b91ca0981373973c5b1efffdd4d6647",
         "type": "github"
       },
       "original": {
@@ -692,6 +692,22 @@
         "owner": "nixos",
         "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-flutter": {
+      "locked": {
+        "lastModified": 1795206184,
+        "narHash": "sha256-oQQ6cEDZXsnvR45ZDrFzR9/5lAAKoEO3oxOqOCecqE4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a1e3e2dc037d7fdc907e3f08675e17c37b9ef1e9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a1e3e2dc037d7fdc907e3f08675e17c37b9ef1e9",
         "type": "github"
       }
     },
@@ -919,6 +935,7 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-fast": "nixpkgs-fast",
+        "nixpkgs-flutter": "nixpkgs-flutter",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
@@ -1047,11 +1064,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791885023,
-        "narHash": "sha256-C3alQ2MEt0zVrUSho5NUDo3jmhbff72++bfwoqT9Omo=",
+        "lastModified": 1795173499,
+        "narHash": "sha256-J8IYl3oEdctyvBgWr+/L01MY5Xm0TU4WXwZDccN5jjk=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "0d6d739a833ba9a9c93034862e4a7b061a062a1c",
+        "rev": "a0a97e31a897a3537eea5c49df4f8adaa83b3b37",
         "type": "github"
       },
       "original": {
@@ -1118,16 +1135,16 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1793368780,
-        "narHash": "sha256-74V4F/xyDyWmJtmhIlpfSyAa0018SWw/dr2RsF4gGdM=",
+        "lastModified": 1794850830,
+        "narHash": "sha256-K5HdrurAchfL8OCLTXRej+s7EjYhicoFgKlFdKQaeP0=",
         "owner": "Gaurav-Gosain",
         "repo": "tuios",
-        "rev": "789919466a01422cb26d93870e0fe86e719246c3",
+        "rev": "135eb82908f14b9d28362602ba9887077e4ee767",
         "type": "github"
       },
       "original": {
         "owner": "Gaurav-Gosain",
-        "ref": "v0.12.0",
+        "ref": "v0.13.3",
         "repo": "tuios",
         "type": "github"
       }

@@ -8,8 +8,6 @@
 }:
 
 {
-  imports = [ ./waydroid-display.nix ];
-
   # Trust HTTPS certificates issued by selfcloud's Caddy internal CA in
   # browsers. They verify with NSS instead of the OpenSSL system store
   # populated by security.pki.certificateFiles.

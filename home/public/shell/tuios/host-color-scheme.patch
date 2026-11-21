@@ -1,6 +1,8 @@
+diff --git a/vt/color_scheme.go b/vt/color_scheme.go
+index ec540b3..979f9f7 100644
 --- a/vt/color_scheme.go
 +++ b/vt/color_scheme.go
-@@ -10,9 +10,10 @@
+@@ -10,9 +10,10 @@ import "image/color"
  // again, and opencode asks for the whole palette again. A program that reads
  // the notice only as dark or light sees the same value twice.
  //
@@ -14,9 +16,11 @@
  // notice, so one theme change is one notice. SetThemeColors sends none. It sets
  // the colours the screen is drawn in, and a host may call it for a preview
  // that it never reports, as tuios does while its theme picker is open. A host
+diff --git a/vt/conform_color_scheme_test.go b/vt/conform_color_scheme_test.go
+index 12156ae..d574077 100644
 --- a/vt/conform_color_scheme_test.go
 +++ b/vt/conform_color_scheme_test.go
-@@ -15,7 +15,7 @@
+@@ -15,7 +15,7 @@ package vt_test
  //   - one theme push sends more than one notice;
  //   - a push that changes nothing sends a notice;
  //   - a program that never set ?2031, or reset it, gets a notice;
@@ -25,7 +29,7 @@
  //   - DSR 996 goes unanswered, or is answered only with ?2031 set;
  //   - SetThemeColors sends a notice, which would tell the guest about a
  //     theme a host only previews.
-@@ -102,9 +102,11 @@
+@@ -102,9 +102,11 @@ func TestConform_ColorSchemeNotice(t *testing.T) {
  			tokyoNight.with(func(r *reportSet) { r.bg = color.NRGBA{R: 0x1a, G: 0x1b, B: 0x26, A: 0xff} }), ""},
  		{"no mode 2031", "", tokyoNight, dracula, ""},
  		{"mode 2031 reset", "\x1b[?2031h\x1b[?2031l", tokyoNight, dracula, ""},
@@ -40,7 +44,7 @@
  	} {
  		t.Run(tc.name, func(t *testing.T) {
  			term := vt.New(20, 4)
-@@ -155,7 +157,7 @@
+@@ -155,7 +157,7 @@ func TestConform_ColorSchemeDSR(t *testing.T) {
  			term.SetThemeColors(color.Black, lightBg, nil, [16]color.Color{})
  		}, "\x1b[?996n", "\x1b[?997;2n"},
  		{"answered with mode 2031 set too", func(term vt.Terminal) { term.SetReportColors(latte.fg, latte.bg, latte.pal) }, "\x1b[?2031h\x1b[?996n", "\x1b[?997;2n"},
@@ -49,9 +53,11 @@
  	} {
  		t.Run(tc.name, func(t *testing.T) {
  			term := vt.New(20, 4)
+diff --git a/vt/emulator.go b/vt/emulator.go
+index e8d44b6..7b259cb 100644
 --- a/vt/emulator.go
 +++ b/vt/emulator.go
-@@ -1661,10 +1661,23 @@
+@@ -1737,10 +1737,23 @@ func (e *Emulator) SetReportColors(fg, bg color.Color, pal [16]color.Color) {
  	changed := !sameReport(e.reportFg, e.reportBg, e.reportPal, fg, bg, pal)
  	e.reportFg, e.reportBg, e.reportPal = fg, bg, pal
  	if changed && e.isModeSet(ansi.ModeLightDark) {
@@ -76,10 +82,12 @@
  // reportedIndexedColor is the answer to an OSC 4 query: the guest's or the
  // theme's colour for the slot when one is set, the reported colour when there
  // is one, and the xterm default otherwise.
+diff --git a/vt/ghostty_observe.go b/vt/ghostty_observe.go
+index 1415487..2ba871d 100644
 --- a/vt/ghostty_observe.go
 +++ b/vt/ghostty_observe.go
-@@ -312,7 +312,7 @@
- 		_, _ = t.pipe.Write([]byte(ansi.ExtendedCursorPositionReport(line+1, col+1, 0)))
+@@ -315,7 +315,7 @@ func (t *GhosttyTerminal) answerDecStatusReport(params []byte) {
+ 		_, _ = t.pipe.Write([]byte(ansi.DeviceStatusReport(ansi.DECStatusReport(0))))
  	case 996:
  		t.scanner.flushOut()
 -		_, _ = t.pipe.Write([]byte(colorSchemeNotice(t.reportedBackgroundLocked())))
@@ -87,12 +95,14 @@
  	}
  }
  
+diff --git a/vt/ghostty_state.go b/vt/ghostty_state.go
+index 1644442..690bee9 100644
 --- a/vt/ghostty_state.go
 +++ b/vt/ghostty_state.go
-@@ -275,10 +275,16 @@
+@@ -275,10 +275,16 @@ func (t *GhosttyTerminal) SetReportColors(fg, bg color.Color, pal [16]color.Colo
  		return
  	}
- 	if on, _ := t.term.Mode(gh.ModeColorSchemeReport); on {
+ 	if on, _ := t.term.Mode(gh.ModeReportColorScheme); on {
 -		_, _ = io.WriteString(t.pipe, colorSchemeNotice(t.reportedBackgroundLocked()))
 +		_, _ = io.WriteString(t.pipe, colorSchemeNotice(t.schemeBackgroundLocked()))
  	}
@@ -107,11 +117,13 @@
  // reportedBackgroundLocked is the answer to an OSC 11 query. t.mu is held.
  func (t *GhosttyTerminal) reportedBackgroundLocked() color.Color {
  	return firstColor(t.guestBg, t.reportBg, t.defaultBg, color.Black)
+diff --git a/vt/handlers.go b/vt/handlers.go
+index 00e4eb1..e6981d5 100644
 --- a/vt/handlers.go
 +++ b/vt/handlers.go
-@@ -955,7 +955,7 @@
- 			line, col := e.reportedCursorPosition()
- 			_, _ = io.WriteString(e.pipe, ansi.ExtendedCursorPositionReport(line, col, 0)) // We don't support page numbers //nolint:errcheck
+@@ -969,7 +969,7 @@ func (e *Emulator) registerDefaultCsiHandlers() {
+ 			// libghostty-vt send it too.
+ 			_, _ = io.WriteString(e.pipe, ansi.ExtendedCursorPositionReport(line, col, 1))
  		case 996: // Colour scheme: answered as the mode 2031 notice is sent.
 -			_, _ = io.WriteString(e.pipe, colorSchemeNotice(e.reportedBackground()))
 +			_, _ = io.WriteString(e.pipe, colorSchemeNotice(e.schemeBackground()))

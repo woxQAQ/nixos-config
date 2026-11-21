@@ -47,7 +47,23 @@ in
     chillroundf = prev.callPackage ../pkg/chillroundf { };
     delta-bin = prev.callPackage ../pkg/delta-bin { };
     # Vendored from nixpkgs: upstream removed flclash as unmaintained.
-    flclash = prev.callPackage ../pkg/flclash { };
+    # FlClash >= 0.9.4 needs Flutter >= 3.50; take flutter350 from the pinned
+    # nixpkgs-flutter input until the main nixpkgs ships it. The GTK stack
+    # comes from the same nixpkgs instance so the app and the rust_api
+    # plugin's -sys crates link one consistent glib/gtk3.
+    flclash =
+      let
+        flutterPkgs = mkNixpkgs inputs.nixpkgs-flutter prev.stdenv.hostPlatform.system;
+      in
+      prev.callPackage ../pkg/flclash {
+        inherit (flutterPkgs)
+          flutter350
+          glib
+          gtk3
+          keybinder3
+          libayatana-appindicator
+          ;
+      };
     # Browser sign-in is broken until the Linux protocol branch lands upstream;
     # the same override also fixes the Wayland flags the C wrapper mangled.
     github-desktop = prev.callPackage ../pkg/github-desktop {

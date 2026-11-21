@@ -33,8 +33,8 @@
 }:
 let
   hashes = {
-    x86_64-linux = "sha256-nWmR0N0HG/mvxmLCGInfBqdFWZ678CqNUSq0EIkE71o=";
-    aarch64-linux = "sha256-hAlrlULIGkt7uBITDT2zktrCgGuhxP+MyeopC3jTVEg=";
+    x86_64-linux = "sha256-n4oQQ7UXzq5QXrEncHVfegQju+l7VrruPCkBMBe7ygM=";
+    aarch64-linux = "sha256-1bfbAopsd2jVas30xW0GVYI7SxzU3MLK/jS47iy5MD0=";
   };
   runtimeLibraryPath = lib.makeLibraryPath [
     stdenv.cc.cc.lib
@@ -66,7 +66,7 @@ in
 # Adapted from https://github.com/zed-industries/delta-nix.
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "delta-bin";
-  version = "0.24.0";
+  version = "0.28.4";
 
   src = fetchurl {
     url = "https://github.com/zed-industries/delta-nix/releases/download/v${finalAttrs.version}/delta-linux-${stdenvNoCC.hostPlatform.parsed.cpu.name}.tar.gz";

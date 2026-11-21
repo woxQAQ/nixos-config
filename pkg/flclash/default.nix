@@ -1,9 +1,12 @@
 {
   lib,
   fetchFromGitHub,
-  flutter347,
+  flutter350,
+  glib,
+  gtk3,
   keybinder3,
   libayatana-appindicator,
+  pkg-config,
   buildGoModule,
   go_1_27,
   runCommand,
@@ -18,7 +21,7 @@
 
 let
   pname = "flclash";
-  version = "0.9.3";
+  version = "0.9.4";
 
   src = fetchFromGitHub {
     owner = "chen08209";
@@ -29,7 +32,7 @@ let
       export GIT_CONFIG_KEY_0=url.https://github.com/.insteadOf
       export GIT_CONFIG_VALUE_0=git@github.com:
     '';
-    hash = "sha256-HVyVBCmFzSAdp2NtPS8vIwqo67d/e0klgAHd/MbJzEg=";
+    hash = "sha256-SkefPGfdxB04wHcBg/Dg4ZZkvLjJb/LHzxtRe9u2reA=";
     fetchSubmodules = true;
   };
 
@@ -55,7 +58,8 @@ let
     sed -i '/^    setup:$/,/build_assets/ s/build_assets: true/build_assets: false/' \
       $out/pubspec.yaml
 
-    # `final` on named parameters needs Dart 3.14; pinned flutter ships 3.13.
+    # `final` on named parameters exceeds the package's language version
+    # (pubspec sdk floor is 3.10); drop the modifier.
     sed -i 's/final VoidCallback? onPressed,/VoidCallback? onPressed,/' \
       $out/lib/views/profiles/custom/groups.dart \
       $out/lib/views/profiles/custom/rules.dart
@@ -72,7 +76,7 @@ let
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit pname version src;
     cargoRoot = "plugins/rust_api/rust";
-    hash = "sha256-IWXqZxqjiV4frGpGeHSBvPPQWbr0tzzNDzp+9BQ0ZG4=";
+    hash = "sha256-DKMzkfDt2CJYqaxcm635seFJydKNNdtC69o2b2bWWUY=";
   };
 
   # Upstream's setup build hook also builds FlClashHelperService: a Rust
@@ -129,7 +133,7 @@ let
 
     modRoot = "core";
 
-    vendorHash = "sha256-9rvq8PtXDxwORx80GBQa4CHIm2b3iDqWRkA55osiQl0=";
+    vendorHash = "sha256-FeSLlJ70KSiWFoZ61yyj9BoZTPHdv7lnwPBEnCmNElg=";
 
     env.CGO_ENABLED = 0;
 
@@ -143,7 +147,7 @@ let
     '';
   };
 in
-flutter347.buildFlutterApplication {
+flutter350.buildFlutterApplication {
   inherit pname version;
   src = srcPatched;
 
@@ -167,9 +171,14 @@ flutter347.buildFlutterApplication {
     cargo
     rustc
     rustupShim
+    # rust_api 0.9.4 links glib/gtk via *-sys crates whose build scripts
+    # probe pkg-config.
+    pkg-config
   ];
 
   buildInputs = [
+    glib
+    gtk3
     keybinder3
     libayatana-appindicator
   ];
@@ -202,9 +211,18 @@ flutter347.buildFlutterApplication {
       > libclash/linux/manifest.json
 
     # Offline cargo setup for the rust_api native-assets hook.
+    # hooks_runner (pinned by flutter_tools) spawns hooks with a whitelist
+    # environment that drops PKG_CONFIG_PATH, so inject it through cargo's
+    # [env] table instead; $HOME survives the whitelist.
     mkdir -p "$HOME/.cargo"
-    printf '[source.crates-io]\nreplace-with = "vendored-sources"\n[source.vendored-sources]\ndirectory = "%s"\n' \
-      "${cargoDeps}/source-registry-0" > "$HOME/.cargo/config.toml"
+    cat > "$HOME/.cargo/config.toml" <<EOF
+    [source.crates-io]
+    replace-with = "vendored-sources"
+    [source.vendored-sources]
+    directory = "${cargoDeps}/source-registry-0"
+    [env]
+    PKG_CONFIG_PATH = { value = "$PKG_CONFIG_PATH", force = true }
+    EOF
     export CARGO_NET_OFFLINE=true
   '';
 
