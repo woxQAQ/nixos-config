@@ -2,7 +2,6 @@
   mylib,
   inputs,
   system,
-  llm-agents,
   ...
 }@args:
 let
@@ -25,8 +24,8 @@ let
     {
       modules.agents = {
         profile = "terminal";
-        extraPackages = with llm-agents; [
-          codebuddy-code
+        extraPackages = [
+          inputs.llm-agents.packages.${system}.codebuddy-code
         ];
       };
     }
