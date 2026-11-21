@@ -125,7 +125,8 @@ in
             providerPackages = map (name: agents.${name}) providerNames;
           };
         })
-      ];
+      ]
+      ++ cfg.extraPackages;
     file = {
       ".codex/AGENTS.md".text = mkAgentInstructions {
         includeBashEditGuideance = true;

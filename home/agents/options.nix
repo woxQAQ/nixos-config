@@ -18,5 +18,13 @@
         and the desktop app.
       '';
     };
+    extraPackages = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = [ ];
+      description = ''
+        Extra packages appended to the agents module's home.packages on top of
+        the selected profile.
+      '';
+    };
   };
 }
