@@ -9,6 +9,7 @@ let
   client = ''resource.service.name = "hidpipe-client"'';
   forward = ''${server} && name = "server.forward"'';
   process = ''${client} && name = "client.process"'';
+  sampledFrames = "{ (${forward}) || (${process}) }";
   target = query: {
     inherit datasource query;
     refId = "A";
@@ -69,7 +70,7 @@ mkDashboard {
       "每个时间桶分别统计 server.forward 和 client.process。每个采样帧在两端各产生一个这样的 span，跨桶到达可能使同一桶的数量略有差异。"
       (grid 0 0 24 6)
       "short"
-      "{ (${forward}) || (${process}) } | count_over_time() by (name)"
+      "${sampledFrames} | count_over_time() by (name)"
     )
     (timeSeries 2 "Linux 转发耗时 · P95"
       "forward 从输入帧入队开始，覆盖 queue 排队和 write 写入套接字。各阶段独立计算 P95。"
@@ -86,15 +87,15 @@ mkDashboard {
     {
       id = 4;
       title = "采样输入 Trace";
-      description = "选择 Trace ID 查看两端的父子 span。跨主机时间差受时钟同步精度影响。最多显示 50 条。";
+      description = "每个采样帧分别列出已上报的 Linux 转发和 macOS 处理 span，按 Trace ID 对照。跨主机时间差受时钟同步精度影响。最多查询 50 条 trace。";
       type = "table";
       inherit datasource;
       gridPos = grid 0 14 24 10;
       targets = [
         (
-          (target "{ ${forward} }")
+          (target "${sampledFrames} | select(resource.service.name, name, duration)")
           // {
-            tableType = "traces";
+            tableType = "spans";
             limit = 50;
           }
         )
