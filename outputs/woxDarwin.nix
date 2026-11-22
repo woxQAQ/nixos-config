@@ -44,6 +44,8 @@ let
       {
         # macOS 注入端。woxqaq.local 由 Linux 侧 avahi 发布。
         # 固定安装并签名 ~/Applications 中的两个 agent；首次迁移需授权一次。
+        launchd.agents.hidpipe.config.EnvironmentVariables.OTEL_EXPORTER_OTLP_LOGS_ENDPOINT =
+          "http://selfcloud.local:9428/insert/opentelemetry/v1/logs";
         services.hidpipe = {
           enable = true;
           localSigning.enable = true;
