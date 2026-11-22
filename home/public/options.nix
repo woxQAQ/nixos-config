@@ -7,6 +7,9 @@
     zed = {
       enable = lib.mkEnableOption "Zed editor";
     };
+    vscode = {
+      enable = lib.mkEnableOption "VS Code";
+    };
     neovim = {
       enable = lib.mkEnableOption "neovim";
     };

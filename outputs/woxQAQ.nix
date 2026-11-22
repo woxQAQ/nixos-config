@@ -88,6 +88,7 @@ in
           {
             modules.public = {
               cloud-native.enable = true;
+              vscode.enable = true;
               zed.enable = true;
               neovim.enable = true;
               helix.enable = true;
