@@ -82,6 +82,14 @@ in
         rustc.source = "discover";
       };
       languages.language-server.tinymist.config.formatterMode = "typstyle";
+      languages.language-server.actions-languageserver = {
+        command = "${pkgs.actions-languageserver}/bin/actions-languageserver";
+        args = [ "--stdio" ];
+        # The server reads initializationOptions.sessionToken unguarded; helix
+        # only forwards this attrset as initializationOptions, and omits the
+        # field entirely when unset, crashing the server on initialize.
+        config = { };
+      };
       languages.language = [
         {
           name = "lua";
@@ -138,6 +146,25 @@ in
           ];
           auto-format = true;
         }
+        {
+          # GitHub Actions workflow files. We reuse the yaml tree-sitter
+          # grammar for highlighting; the dedicated LSP provides validation
+          # and completion. The glob matches the absolute path (helix
+          # prepends `*/` automatically), so workflows resolve to this
+          # language while plain yaml files still fall back to `yaml`.
+          name = "github-actions";
+          scope = "source.yaml";
+          grammar = "yaml";
+          file-types = [
+            { glob = ".github/workflows/*.{yml,yaml}"; }
+          ];
+          language-servers = [ "actions-languageserver" ];
+          comment-token = "#";
+          indent = {
+            tab-width = 2;
+            unit = "  ";
+          };
+        }
       ];
 
       # nixd asks for the `nixd` section via workspace/configuration; helix
@@ -148,8 +175,27 @@ in
     # serde_json::json! accepts Rust expressions as values. Parsing the entire
     # macro body as JSON leaves everything after the first expression in an
     # ERROR node and highlights otherwise identical object keys differently.
-    xdg.configFile."helix/runtime/queries/rust/injections.scm".source =
-      rustInjectionsWithoutJson;
+    #
+    # Query files are looked up by language name, so reusing the yaml grammar
+    # is not enough: give `github-actions` its own queries that inherit
+    # yaml's, keeping highlighting/indentation identical to plain yaml.
+    xdg.configFile = {
+      "helix/runtime/queries/rust/injections.scm".source = rustInjectionsWithoutJson;
+    }
+    // builtins.listToAttrs (
+      map
+        (query: {
+          name = "helix/runtime/queries/github-actions/${query}";
+          value.text = "; inherits: yaml";
+        })
+        [
+          "highlights.scm"
+          "indents.scm"
+          "injections.scm"
+          "rainbows.scm"
+          "textobjects.scm"
+        ]
+    );
 
     home.packages = with pkgs; [
       lua-language-server
@@ -164,6 +210,7 @@ in
       nixfmt
       nixd
       nufmt
+      actions-languageserver
     ];
   };
 }
