@@ -49,6 +49,7 @@ let
           localSigning.enable = true;
           host = "woxqaq.local";
           latencyStats = true;
+          trace.endpoint = "http://selfcloud.lan:10428/insert/opentelemetry/v1/traces";
           inputFeedback = true;
           clipboard = {
             enable = true;

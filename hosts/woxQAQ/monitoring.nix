@@ -1,3 +1,7 @@
+{ config, ... }:
+let
+  collector = config.modules.services.otelcol;
+in
 {
   # Client side of the monitoring setup: the hub (VictoriaMetrics family and
   # Grafana) runs on selfcloud. This host only exposes node_exporter for
@@ -14,6 +18,8 @@
       "processes"
     ];
   };
+
+  services.hidpipe.trace.endpoint = "http://${collector.listenAddress}:${toString collector.httpPort}/v1/traces";
 
   modules.services.otelcol = {
     enable = true;
