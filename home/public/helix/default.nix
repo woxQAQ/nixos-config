@@ -30,6 +30,28 @@ let
     substitute ${helix}/runtime/queries/rust/injections.scm "$out" \
       --replace-fail ${lib.escapeShellArg jsonMacroInjection} ""
   '';
+
+  # The match-pattern rule that captures `Name::SCREAMING` as @constant only
+  # accepts [A-Z_], so variant names containing digits (KEY_KP8, KEY_F13, ...)
+  # miss it and keep the earlier @type.enum.variant capture, while pure-letter
+  # names turn @constant — identical match arms render in two colors. The
+  # generic constant rule already allows digits; align this one with it.
+  rustHighlightsWithDigitConstants =
+    pkgs.runCommand "helix-rust-highlights.scm" { }
+      ''
+        substitute ${helix}/runtime/queries/rust/highlights.scm "$out" \
+          --replace-fail ${lib.escapeShellArg ''
+            (match_pattern
+              (scoped_identifier
+                name: (identifier) @constant
+                (#match? @constant "^[A-Z_]+$")))
+          ''} ${lib.escapeShellArg ''
+            (match_pattern
+              (scoped_identifier
+                name: (identifier) @constant
+                (#match? @constant "^[A-Z\\d_]+$")))
+          ''}
+      '';
 in
 {
   config = lib.mkIf cfg.enable {
@@ -181,6 +203,8 @@ in
     # yaml's, keeping highlighting/indentation identical to plain yaml.
     xdg.configFile = {
       "helix/runtime/queries/rust/injections.scm".source = rustInjectionsWithoutJson;
+      "helix/runtime/queries/rust/highlights.scm".source =
+        rustHighlightsWithDigitConstants;
     }
     // builtins.listToAttrs (
       map
