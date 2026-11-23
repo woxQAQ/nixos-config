@@ -36,9 +36,6 @@ layout {
     default-column-width { proportion 0.5; }
     focus-ring {
         width 4
-        active-color "#7fc8ff"
-        inactive-color "#ffffff00"
-        active-gradient from="#f00f" to="#0f05" angle=45 in="oklch longer hue"
     }
 
     border {
@@ -79,5 +76,5 @@ animations {
     // Uncomment to turn off all animations.
     // off
 }
-include "./noctalia.kdl"
+include optional=true "./noctalia.kdl"
 spawn-at-startup "noctalia"
