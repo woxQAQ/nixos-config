@@ -18,7 +18,7 @@ in
           # Nix manages updates; the app bundle in the store is read-only.
           "update.mode" = "none";
           "telemetry.telemetryLevel" = "off";
-          "extensions.autoUpdate" = false;
+          "extensions.autoUpdate" = "off";
         };
       };
     };
