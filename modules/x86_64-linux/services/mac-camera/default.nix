@@ -46,6 +46,8 @@ in
         hls = false;
         webrtc = false;
         srt = false;
+        # path 必须显式声明才存在；权限完全交给 authInternalUsers，这里保持空配置
+        paths.macbook = { };
         authInternalUsers = [
           {
             user = "any";
