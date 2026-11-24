@@ -42,6 +42,8 @@ in
       enable = true;
       settings = {
         rtspAddress = ":${toString cfg.rtspPort}";
+        # relay 空等推流时会每 3 秒产生一次握手日志，属正常状态，只保留警告以上
+        logLevel = "warn";
         rtmp = false;
         hls = false;
         webrtc = false;
