@@ -34,40 +34,14 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # 必须用 agent 而非 daemon：摄像头受 TCC 保护，root 上下文拿不到权限。
-    # 首次运行需在 macOS 系统设置中授予 ffmpeg 摄像头权限。
-    # 若 nixpkgs 的 ffmpeg 缺少 avfoundation（ffmpeg -devices | grep avfoundation
-    # 无输出），改用 brew 的 ffmpeg 并替换下面的路径。
-    launchd.agents.camera-push = {
-      serviceConfig = {
-        ProgramArguments = [
-          "${pkgs.ffmpeg}/bin/ffmpeg"
-          "-hide_banner"
-          "-loglevel"
-          "error"
-          "-f"
-          "avfoundation"
-          "-framerate"
-          "30"
-          "-video_size"
-          "1280x720"
-          "-i"
-          "${cfg.deviceIndex}:none"
-          "-c:v"
-          "h264_videotoolbox"
-          "-b:v"
-          "4M"
-          "-f"
-          "rtsp"
-          "-rtsp_transport"
-          "tcp"
-          "rtsp://${cfg.target}:${toString cfg.rtspPort}/macbook"
-        ];
-        KeepAlive = true;
-        RunAtLoad = true;
-        StandardOutPath = "/tmp/camera-push.log";
-        StandardErrorPath = "/tmp/camera-push.log";
-      };
-    };
+    environment.systemPackages = [
+      (pkgs.writeShellScriptBin "camera-push" ''
+        exec ${pkgs.ffmpeg}/bin/ffmpeg -hide_banner \
+          -f avfoundation -pixel_format nv12 -framerate 30 -video_size 1280x720 \
+          -i ${lib.escapeShellArg "${cfg.deviceIndex}:none"} -an \
+          -c:v h264_videotoolbox -b:v 4M -f rtsp -rtsp_transport tcp \
+          ${lib.escapeShellArg "rtsp://${cfg.target}:${toString cfg.rtspPort}/macbook"}
+      '')
+    ];
   };
 }
