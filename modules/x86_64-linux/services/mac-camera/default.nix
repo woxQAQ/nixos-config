@@ -74,18 +74,24 @@ in
       };
     };
 
-    # 无流时 ffmpeg 立即退出，交给 systemd 低频重试，代价可忽略
+    # Mac 未推流时 ffmpeg 会立即退出，在脚本内循环等待，使服务保持 active，
+    # 避免 nixos-rebuild switch 因 unit 反复 auto-restart 而整体报错。
+    # -timeout 让 Mac 掉线（TCP 半开）能在 5 秒内被感知并重连。
     systemd.services.mac-camera-relay = {
       description = "Relay the MacBook RTSP stream into the v4l2loopback device";
+      wantedBy = [ "multi-user.target" ];
       after = [ "mediamtx.service" ];
-      serviceConfig = {
-        ExecStart = ''
+      script = ''
+        while true; do
           ${pkgs.ffmpeg}/bin/ffmpeg -hide_banner -loglevel error \
-            -rtsp_transport tcp -fflags nobuffer \
+            -rtsp_transport tcp -fflags nobuffer -timeout 5000000 \
             -i ${rtspUrl} \
-            -f v4l2 -pix_fmt yuv420p ${videoDevice}
-        '';
-        Restart = "always";
+            -f v4l2 -pix_fmt yuv420p ${videoDevice} || true
+          sleep 3
+        done
+      '';
+      serviceConfig = {
+        Restart = "on-failure";
         RestartSec = 5;
         DynamicUser = true;
         SupplementaryGroups = [ "video" ];
