@@ -3,6 +3,7 @@
   # defaults to disabled and is enabled explicitly by hosts.
   imports = [
     ./monitoring
+    ./mac-camera
     ./otelcol.nix
   ];
 }

@@ -15,6 +15,7 @@ let
     {
       modules.darwin = {
         rime.enable = true;
+        camera-push.enable = true;
         brew.casks = [
           # keep-sorted start
           "feishu"
