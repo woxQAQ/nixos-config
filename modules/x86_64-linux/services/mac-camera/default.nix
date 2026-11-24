@@ -87,10 +87,11 @@ in
       after = [ "mediamtx.service" ];
       script = ''
         while true; do
+          # Decode within each frame and emit raw frames without a frame-thread queue.
           ${pkgs.ffmpeg}/bin/ffmpeg -hide_banner -loglevel error \
-            -rtsp_transport tcp -fflags nobuffer -timeout 5000000 \
+            -rtsp_transport tcp -fflags nobuffer -timeout 5000000 -thread_type slice \
             -i ${rtspUrl} \
-            -f v4l2 -pix_fmt yuv420p ${videoDevice} || true
+            -f v4l2 -pix_fmt yuv420p -threads:v 1 ${videoDevice} || true
           sleep 3
         done
       '';
