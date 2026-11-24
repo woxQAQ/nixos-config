@@ -36,18 +36,41 @@ in
     '';
 
     # mediamtx 做推流端与消费端的中转，Mac 断开后可自动重连。
+    # 只开 RTSP：其余协议端口（如 HLS 的 8888）在本机有占用，且无使用场景。
     # 只放行内网（含 tailnet）推流，且只允许本机 relay 读流。
     services.mediamtx = {
       enable = true;
       settings = {
         rtspAddress = ":${toString cfg.rtspPort}";
-        paths.macbook = {
-          publishIPs = [
-            "192.168.31.0/24"
-            "100.64.0.0/10"
-          ];
-          readIPs = [ "127.0.0.1/32" ];
-        };
+        rtmp = false;
+        hls = false;
+        webrtc = false;
+        srt = false;
+        authInternalUsers = [
+          {
+            user = "any";
+            ips = [
+              "192.168.31.0/24"
+              "100.64.0.0/10"
+            ];
+            permissions = [
+              {
+                action = "publish";
+                path = "macbook";
+              }
+            ];
+          }
+          {
+            user = "any";
+            ips = [ "127.0.0.1/32" ];
+            permissions = [
+              {
+                action = "read";
+                path = "macbook";
+              }
+            ];
+          }
+        ];
       };
     };
 
