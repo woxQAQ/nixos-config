@@ -41,7 +41,7 @@ in
           ../modules/x86_64-linux/boot
           ../modules/x86_64-linux/services
           {
-            # 借用 woxMac-m1 的摄像头：RTSP 收流写入 /dev/video10
+            # 借用 woxMac 的摄像头：RTSP 收流写入 /dev/video10
             modules.services.mac-camera.enable = true;
           }
           ../modules/hardware/cpu

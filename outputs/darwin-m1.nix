@@ -15,7 +15,6 @@ let
     {
       modules.darwin = {
         rime.enable = true;
-        # 把本机摄像头推流给 woxQAQ 的虚拟摄像头
       };
     }
   ];
