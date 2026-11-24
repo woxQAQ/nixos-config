@@ -5,7 +5,7 @@
   callPackage,
 }:
 let
-  version = "0.3.0";
+  version = "0.3.5";
 in
 if stdenvNoCC.hostPlatform.isLinux then
   callPackage ./linux.nix { inherit version; }
@@ -16,7 +16,7 @@ else
 
     src = fetchurl {
       url = "https://github.com/NeuveAI/neuve/releases/download/v${finalAttrs.version}/neuve-darwin-arm64.tar.gz";
-      hash = "sha256-ZyaMS++Z1jCDjzzJmZmz4XsiLQbh/8AlMIIB/IZOCj4=";
+      hash = "sha256-lSEGMTSm4vR4erga2EDdeS7q8SFHS9b8ymfFvbsrs+k=";
     };
 
     dontConfigure = true;

@@ -12,7 +12,7 @@
 }:
 
 let
-  version = "6.22.0";
+  version = "6.23.1";
 
   fastdeploy = callPackage ./fastdeploy-ppocr.nix { };
 
@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "MaaAssistantArknights";
     repo = "MaaAssistantArknights";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-hWgJu5fjHfG450cRqUmh0iUIKZFb6zKZwB2gsUmZl3U=";
+    hash = "sha256-8GZvIOv8coQoRnOxAKpkMzZK+AwdWhKaJN91cvI4JLI=";
   };
 
   nativeBuildInputs = [ cmake ];

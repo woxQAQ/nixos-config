@@ -2,7 +2,6 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  applyPatches,
   python3,
   neuve ? null,
 }:
@@ -42,35 +41,18 @@ let
     hash = "sha256-5kUlXiBbbpwj6UT2VhFIW7f9EFo3iWT0UKWl41PGbQA=";
   };
 
-  mattPocockSkills = applyPatches {
-    src = fetchFromGitHub {
-      owner = "mattpocock";
-      repo = "skills";
-      rev = "5863806dd4e15c63174bee4e7515a4256792ecfa";
-      hash = "sha256-AYSRCvBL8TDDdW3rgKu2T7gl4YYDoDId0jYbabEFyfs=";
-    };
-
-    # Quote the description's colon so the published frontmatter is valid YAML.
-    postPatch = ''
-      substituteInPlace skills/in-progress/software-factory/SKILL.md \
-        --replace-fail \
-        'description: Shared language for designing a software factory: the tasks it runs and the services it plugs into.' \
-        'description: "Shared language for designing a software factory: the tasks it runs and the services it plugs into."'
-    '';
-  };
-
-  obelisk = fetchFromGitHub {
-    owner = "tommy0103";
-    repo = "obelisk-skill";
-    rev = "506c221788d5377c08a297998f62e1783319a121";
-    hash = "sha256-J5Pl8/ZFxbUODDRMNUyqpLgs32gGJcfW9i+sXnuX+5Y=";
+  mattPocockSkills = fetchFromGitHub {
+    owner = "mattpocock";
+    repo = "skills";
+    rev = "abeeaf95660ba9e8b7c753eb38f441ca707a8823";
+    hash = "sha256-fc5+qmchp1IQ/rQP1olWKC1eC4VdYhaB7YYzC3+JBe0=";
   };
 
   pstack = fetchFromGitHub {
     owner = "backnotprop";
     repo = "pstack";
-    rev = "83a729a182a29b59a2a42fc3d7736b0c376b55d4";
-    hash = "sha256-uCCDUGr0sG7ormy9b/j1IXOroJvaZRVDb+tYmemHQ5k=";
+    rev = "9dd340887a043aa1da07a0d5c4e6918bbb3a02a0";
+    hash = "sha256-CTRN0y018Xlmnxb5Y0Zm/VPxMqVrA/wOrEkmY/nn/R4=";
   };
 in
 stdenvNoCC.mkDerivation {
@@ -91,7 +73,6 @@ stdenvNoCC.mkDerivation {
       improve=${improve}/skills \
       kill-ai-slop=${killAiSlop}/skill \
       mattpocock=${mattPocockSkills}/skills \
-      obelisk=${obelisk}/skills \
       pstack=${pstack}/skills ${
         lib.optionalString (neuve != null) "neuve=${neuve}/share/neuve/skills"
       }

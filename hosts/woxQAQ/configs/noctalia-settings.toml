@@ -123,11 +123,11 @@ show_weather = true
 [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2"]
 box_height = 196.0
 box_width = 810.0
-cx = 959.99993896484375
-cy = 952.03118896484375
+cx = 767.99993896484375
+cy = 761.62493896484375
 output = "HDMI-A-2"
-placement_height = 1080.0
-placement_width = 1920.0
+placement_height = 864.0
+placement_width = 1536.0
 rotation = 0.0
 type = "login_box"
 

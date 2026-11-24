@@ -2,9 +2,19 @@
   lib,
   stdenvNoCC,
   fetchurl,
+  fetchFromGitHub,
   makeWrapper,
   nodejs,
 }:
+let
+  # Companion skill teaching agents to query session history through this CLI.
+  skill = fetchFromGitHub {
+    owner = "tommy0103";
+    repo = "obelisk-skill";
+    rev = "506c221788d5377c08a297998f62e1783319a121";
+    hash = "sha256-J5Pl8/ZFxbUODDRMNUyqpLgs32gGJcfW9i+sXnuX+5Y=";
+  };
+in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "obelisk";
   version = "0.3.2";
@@ -35,6 +45,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     makeWrapper ${nodejs}/bin/node $out/bin/obelisk \
       --add-flags $out/lib/obelisk/dist/cli/src/obelisk.js
+
+    mkdir -p $out/share/skills
+    cp -R ${skill}/skills/. $out/share/skills/
 
     runHook postInstall
   '';

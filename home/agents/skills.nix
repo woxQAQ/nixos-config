@@ -28,7 +28,6 @@ let
       "teach"
       "writing-for-agents"
     ];
-    obelisk = [ "obelisk" ];
     pstack = [
       "unslop"
       "how"
@@ -39,14 +38,23 @@ let
   // lib.optionalAttrs (neuve.enable && neuve.skills.enable) {
     neuve = [ "neuve" ];
   };
-  selectedSkills = lib.concatLists (
-    lib.mapAttrsToList (
-      source:
-      map (name: {
-        inherit source name;
-      })
-    ) enabledSkills
-  );
+  selectedSkills =
+    lib.concatLists (
+      lib.mapAttrsToList (
+        source:
+        map (name: {
+          inherit name;
+          path = "${agentSkills}/share/skills/agent-skills/${source}/${name}";
+        })
+      ) enabledSkills
+    )
+    ++ [
+      # The skill ships with the CLI it documents.
+      {
+        name = "obelisk";
+        path = "${pkgs.obelisk-cli}/share/skills/obelisk";
+      }
+    ];
   skillNames = map (skill: skill.name) selectedSkills;
   skillPath = [
     ".codex/skills"
@@ -75,7 +83,7 @@ in
         target:
         map (skill: {
           name = "${target}/${skill.name}";
-          value.source = "${agentSkills}/share/skills/agent-skills/${skill.source}/${skill.name}";
+          value.source = skill.path;
         }) selectedSkills
       ) skillPath
     );

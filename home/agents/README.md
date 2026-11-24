@@ -15,7 +15,7 @@ use llm-agents flake to apply agent.
 ## Layout
 
 - default.nix: packages and generated global instructions for each agent
-- skills.nix: mounts the skills packaged in pkg/agent-skills into each agent's dotfiles
+- skills.nix: mounts the skills packaged in pkg/agent-skills (plus the one shipped with obelisk-cli) into each agent's dotfiles
 - update-notifier/: macOS scheduled version checks, release notes, and notifications
 
 ## Pi 终端工具
@@ -95,7 +95,8 @@ pstack = [ "unslop" ];
 Only selected skills are linked into every supported agent directory. Selected
 names must be unique across sources because agent directories have a flat layout.
 Keep delegated skills enabled together (for example, `grill-me` and `grilling`).
-The obelisk CLI is packaged separately as `pkgs.obelisk-cli`.
+The obelisk skill ships inside `pkgs.obelisk-cli` together with the CLI it
+documents; `skills.nix` links it from the CLI package instead of `agent-skills`.
 
 ## Neuve
 
