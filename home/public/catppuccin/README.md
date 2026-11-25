@@ -18,10 +18,10 @@ catppuccin = {
 
 `appearance` is `static` by default. Setting it to `auto` enables the extensions below. Each extended port inherits the global `appearance` and `lightFlavor`; its existing `flavor` option selects its dark theme. Ports outside this list retain upstream behavior. The existing enable and accent options continue to apply.
 
-| Ports                                                     | Mechanism                                                               |
-| --------------------------------------------------------- | ----------------------------------------------------------------------- |
-| bat, Ghostty, Helix, Yazi, Zellij                         | Native light/dark theme selection from the terminal or desktop          |
-| Atuin, btop, delta, eza, fzf, k9s, lazygit, Nushell, tmux | Linux desktop setting selects a bundle of upstream Catppuccin resources |
+| Ports                                                     | Mechanism                                                              |
+| --------------------------------------------------------- | ---------------------------------------------------------------------- |
+| bat, Ghostty, Helix, Yazi, Zellij                         | Native light/dark theme selection from the terminal or desktop         |
+| Atuin, btop, delta, eza, fzf, k9s, lazygit, Nushell, tmux | An appearance source selects a bundle of upstream Catppuccin resources |
 
 ## Desktop setting bridge
 
@@ -35,7 +35,7 @@ Both bundles are built ahead of time. `catppuccin-apply` atomically replaces `$X
 - Alternate tmux sockets are not reloaded by the service.
 - Programs using native detection require the terminal and any intervening multiplexer to propagate appearance notifications.
 
-On macOS, the native integrations work the same way. The GSettings bridge is Linux-only; its ports retain their upstream static configuration on macOS. Adding a macOS event source can reuse the same bundle design later.
+On macOS there is no GSettings bridge. Activation seeds the bundle from `AppleInterfaceStyle`, and `catppuccin-probe` then runs once per interactive Nushell session: it queries the terminal background (OSC 11) and switches the same bundle. The probe covers SSH sessions, where the client terminal — not the Mac's system appearance — is authoritative. With concurrently attached clients of different appearances the bundle is last-writer-wins. Only Nushell runs the probe; other shells keep the seeded selection. The native integrations work the same way as on Linux.
 
 Do not enable Noctalia's btop template alongside the btop port: both would own its theme selection. Applications such as tuios that already maintain a mutable configuration keep their native theme pair in that application-owned file; catppuccin/nix has no tuios port to replace.
 

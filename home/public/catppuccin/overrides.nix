@@ -14,9 +14,9 @@ let
       path = catppuccin + "/modules/home-manager/${name}.nix";
       original = (import path { inherit catppuccinLib; }) args;
       cfg = config.catppuccin.${name};
-      automatic =
-        cfg.appearance == "auto"
-        && (!adapter.runtime || pkgs.stdenv.hostPlatform.isLinux);
+      # The runtime bundle stays current on both platforms: the Linux
+      # desktop bridge, or the macOS terminal probe (see runtime.nix).
+      automatic = cfg.appearance == "auto";
       programEnabled = config.programs.${name}.enable or false;
       inherit (lib)
         recursiveUpdate
