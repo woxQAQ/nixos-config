@@ -139,9 +139,9 @@ let
       fi
 
       # Channels arrive as 1-4 hex digits; the leading two carry the weight.
-      r=$((16#${"red:0:2"}))
-      g=$((16#${"green:0:2"}))
-      b=$((16#${"blue:0:2"}))
+      r=$((16#''${red:0:2}))
+      g=$((16#''${green:0:2}))
+      b=$((16#''${blue:0:2}))
       luminance=$(( (299 * r + 587 * g + 114 * b) / 1000 ))
       if [ "$luminance" -gt 127 ]; then
         mode=light
