@@ -194,6 +194,10 @@ flutter350.buildFlutterApplication {
       name = "flclash";
       exec = "FlClash %U";
       icon = "flclash";
+      # Wayland app_id is the upstream APPLICATION_ID (linux/CMakeLists.txt).
+      # Without this, docks fall back to fuzzy token matching and misattribute
+      # the window to clash-verge via the shared "clash" token.
+      startupWMClass = "com.follow.clash";
       genericName = "FlClash";
       desktopName = "FlClash";
       categories = [ "Network" ];
