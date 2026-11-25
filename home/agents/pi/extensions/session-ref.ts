@@ -3,16 +3,15 @@
 // - Typing `%` at the start of a token opens autocomplete over this project's
 //   sessions (fuzzy match on name / first message / id). Selecting one inserts
 //   a `%<id-prefix>` reference token.
-// - On submit, every `%<id-prefix>` token is expanded inline into a
-//   `<referenced-session>` block holding that session's compaction summary and
-//   most recent user/assistant messages (budget-truncated).
+// - On submit, every `%<id-prefix>` token is expanded into a
+//   `<referenced-session>` block pointing at the session's transcript file,
+//   so the model reads the path itself instead of us inlining the excerpt.
 // - `%%` escapes a literal percent sign.
 
 import {
   SessionManager,
   type ExtensionAPI,
   type ExtensionContext,
-  type SessionEntry,
   type SessionInfo,
 } from "@earendil-works/pi-coding-agent";
 import {
@@ -26,10 +25,6 @@ const MAX_SUGGESTIONS = 20;
 const ID_PREFIX_LENGTH = 8;
 // How fresh the cached session list must be before we re-scan the session dir.
 const CACHE_TTL_MS = 10_000;
-// Per-reference budget for the expanded transcript excerpt.
-const EXCERPT_BUDGET = 4_000;
-const PER_MESSAGE_CAP = 600;
-const MAX_MESSAGES = 30;
 
 const ESCAPE_SENTINEL = "\u0000PCT\u0000";
 const TOKEN_PATTERN = /%([0-9a-fA-F-]{4,36})/g;
@@ -72,74 +67,19 @@ function filterSessions(sessions: SessionInfo[], query: string): AutocompleteIte
     .map(toItem);
 }
 
-function messageText(content: unknown): string {
-  if (typeof content === "string") return content;
-  if (!Array.isArray(content)) return "";
-  return content
-    .filter(
-      (block): block is { type: string; text: string } =>
-        typeof block === "object" &&
-        block !== null &&
-        (block as { type?: unknown }).type === "text" &&
-        typeof (block as { text?: unknown }).text === "string",
-    )
-    .map((block) => block.text)
-    .join("\n");
-}
-
-type ExcerptLine = { label: string; text: string };
-
-// Map a context entry to a labeled text line, or undefined when the entry
-// carries no human-readable content for the excerpt.
-function entryToLine(entry: SessionEntry): ExcerptLine | undefined {
-  if (entry.type === "message") {
-    // Older type stubs do not model system messages; treat the stored
-    // message generically so both stub and runtime shapes typecheck.
-    const message = entry.message as { role?: string; content?: unknown };
-    if (message.role === "system" || message.role === "toolResult") return undefined;
-    const text = messageText(message.content).trim();
-    return text ? { label: message.role ?? "message", text } : undefined;
-  }
-  if (entry.type === "compaction") {
-    return entry.summary ? { label: "summary", text: entry.summary } : undefined;
-  }
-  if (entry.type === "branch_summary") {
-    return entry.summary ? { label: "branch-summary", text: entry.summary } : undefined;
-  }
-  if (entry.type === "custom_message") {
-    const text = messageText(entry.content).trim();
-    return text ? { label: entry.customType, text } : undefined;
-  }
-  return undefined;
-}
-
-// Walk the active branch from newest to oldest, collecting labeled message
-// lines until the budget runs out, then restore chronological order.
-function buildExcerpt(info: SessionInfo): string {
-  const manager = SessionManager.open(info.path);
-  const entries = manager.buildContextEntries();
-
-  const lines: string[] = [];
-  let budget = EXCERPT_BUDGET;
-  for (let i = entries.length - 1; i >= 0 && lines.length < MAX_MESSAGES; i--) {
-    const excerpt = entryToLine(entries[i]);
-    if (!excerpt) continue;
-    let { text } = excerpt;
-    if (text.length > PER_MESSAGE_CAP) {
-      text = `${text.slice(0, PER_MESSAGE_CAP)} …[truncated]`;
-    }
-    const line = `[${excerpt.label}] ${text}`;
-    if (line.length > budget) {
-      if (lines.length === 0) lines.push(line.slice(0, budget));
-      break;
-    }
-    lines.push(line);
-    budget -= line.length;
-  }
-  lines.reverse();
-
+// Expand a reference to a pointer at the session's transcript file. The
+// transcript is a JSONL file (one entry per line, e.g. message/compaction
+// entries); the model decides how much of it to read.
+function buildReference(info: SessionInfo): string {
   const name = info.name ? ` name=${JSON.stringify(info.name)}` : "";
-  return `<referenced-session id="${info.id}"${name} modified="${info.modified.toISOString()}">\n${lines.join("\n")}\n</referenced-session>`;
+  const title = info.name || info.firstMessage;
+  return [
+    `<referenced-session id="${info.id}"${name} modified="${info.modified.toISOString()}">`,
+    `The user referenced a previous session: "${title}".`,
+    `Its transcript is stored as JSONL at: ${info.path}`,
+    "Use the read tool on that path to inspect it.",
+    `</referenced-session>`,
+  ].join("\n");
 }
 
 export default function (pi: ExtensionAPI): void {
@@ -221,7 +161,7 @@ export default function (pi: ExtensionAPI): void {
 
     const sessions = await getSessions(ctx, true);
     const unresolved: string[] = [];
-    const excerpts = new Map<string, string>();
+    const references = new Map<string, string>();
 
     for (const token of tokens) {
       const matches = sessions.filter((s) => s.id !== currentSessionId && s.id.startsWith(token));
@@ -230,7 +170,7 @@ export default function (pi: ExtensionAPI): void {
         continue;
       }
       // list() sorts by recency, so the first match wins on a prefix collision.
-      excerpts.set(token, buildExcerpt(matches[0]));
+      references.set(token, buildReference(matches[0]));
     }
 
     if (unresolved.length > 0) {
@@ -239,14 +179,14 @@ export default function (pi: ExtensionAPI): void {
         "warning",
       );
     }
-    if (excerpts.size === 0) {
+    if (references.size === 0) {
       return hadEscape
         ? { action: "transform", text: protectedText.replaceAll(ESCAPE_SENTINEL, "%") }
         : { action: "continue" };
     }
 
     const expanded = protectedText.replace(TOKEN_PATTERN, (raw, token: string) => {
-      return excerpts.get(token) ?? raw;
+      return references.get(token) ?? raw;
     });
     return { action: "transform", text: expanded.replaceAll(ESCAPE_SENTINEL, "%") };
   });
