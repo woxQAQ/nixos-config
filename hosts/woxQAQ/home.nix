@@ -65,7 +65,6 @@
     remmina
 
     font-manager
-    # qq - via nixpaks (modules/sandboxed/nixpaks)
     obs-studio
     wineWow64Packages.wayland
   ];

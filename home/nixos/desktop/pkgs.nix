@@ -2,9 +2,6 @@
 {
   home.packages = with pkgs; [
     wev
-
-    nixpaks.qq
-    bwraps.wechat
   ];
 
   programs.zathura = {

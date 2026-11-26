@@ -15,7 +15,8 @@
   };
 
   home.sessionVariables = {
-    XCURSOR_SIZE = "16";
+    XCURSOR_SIZE = "28";
+    XCURSOR_THEME = "Bibata-Modern-Ice";
   };
 
   catppuccin.gtk.icon.enable = false;

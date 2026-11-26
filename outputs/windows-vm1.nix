@@ -18,8 +18,6 @@ in
           ../modules/x86_64-linux/desktop
           ../modules/x86_64-linux/system
           ../modules/public
-          ../modules/sandboxed/nixpaks
-          ../modules/sandboxed/bwraps
           {
             modules.desktop = {
               environment = "gnome";

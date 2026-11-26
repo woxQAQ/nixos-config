@@ -60,8 +60,6 @@ in
             };
           }
           ../modules/public
-          ../modules/sandboxed/nixpaks
-          ../modules/sandboxed/bwraps
           {
             modules.flclash = {
               enable = true;
