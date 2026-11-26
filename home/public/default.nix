@@ -17,6 +17,7 @@
     ./playwright.nix
     ./shell_core.nix
     ./ssh.nix
+    ./trash.nix
     ./yazi.nix
   ];
 }

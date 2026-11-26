@@ -31,6 +31,49 @@ const NU_LIB_DIRS = [
 
 $env.PATH = ($env.PATH | uniq)
 
+# Capture the builtin du so our wrapper below can delegate to it.
+alias core-du = du
+
+# Like builtin du, but renders paths relative to the cwd and caps the column
+# width so the table stays readable instead of collapsing cells into "..." on
+# narrow terminals.
+def du [
+    --deref(-r)                   # Dereference symlinks to their targets for size.
+    --long(-l)                    # Get underlying directories and files for each entry.
+    --exclude(-x): glob           # Exclude these file names.
+    --max-depth(-d): int          # Directory recursion limit.
+    --min-size(-m): int           # Exclude files below this size.
+    --all(-a)                     # Include hidden files if '*' is provided.
+    ...paths: oneof<glob, string> # Starting directory.
+] {
+    # Reserve room for the remaining columns; --long adds directories/files.
+    let overhead = if $long { 64 } else { 40 }
+    let max_width = ([
+        ((term size).columns - $overhead)
+        20
+    ] | math max)
+    let result = if ($paths | is-empty) {
+        core-du --deref=$deref --long=$long --exclude=$exclude --max-depth=$max_depth --min-size=$min_size --all=$all
+    } else {
+        core-du --deref=$deref --long=$long --exclude=$exclude --max-depth=$max_depth --min-size=$min_size --all=$all ...$paths
+    }
+    $result | update path { |row|
+        # path relative-to errors on paths outside the cwd; keep those as-is.
+        let display = try {
+            let relative = $row.path | path relative-to $env.PWD
+            if ($relative | is-empty) { "." } else { $relative }
+        } catch {
+            $row.path
+        }
+        # Truncate from the left so the file name stays visible.
+        if ($display | str length) > $max_width {
+            $display | str substring (($max_width - 1) * -1).. | $"…($in)"
+        } else {
+            $display
+        }
+      }
+}
+
 # Count source lines, excluding submodule paths declared in .gitmodules.
 def loc [
     path: path = .
