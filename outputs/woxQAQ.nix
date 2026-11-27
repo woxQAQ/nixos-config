@@ -19,9 +19,6 @@ in
           inputs.hidpipe.nixosModules.default
           ../hosts/${name}
           ../modules/x86_64-linux/system
-          {
-            modules.btrbk.enable = true;
-          }
           ../modules/x86_64-linux/desktop
           {
             modules.desktop = {

@@ -10,7 +10,6 @@
     ./ssh.nix
     ./environment.nix
     ./optimization.nix
-    ./btrbk.nix
     ./flclash.nix
     ./users.nix
     ./qmk.nix
