@@ -33,29 +33,7 @@ widget_spacing = 7
 [bar.default.monitor.HDMI-A-2]
 padding = 13
 scale = 1.0000000074505806
-
-[[bar.default.monitor.HDMI-A-2.capsule_group]]
-accordion = false
-accordion_direction = "end"
-border = ""
-border_width = 1.0
-enabled = false
-fill = "surface_container"
-id = "g1"
-members = ["cpu", "ram", "disk", "network_tx", "network_rx", "temp"]
-opacity = 1.0
-padding = 6.0
-
-[[bar.default.monitor.HDMI-A-2.capsule_group]]
-accordion = false
-accordion_direction = "end"
-border_width = 1.0
-enabled = false
-fill = "surface_container"
-id = "g2"
-members = ["cpu_2", "memory", "disk_2", "network_2", "magpie", "gpu"]
-opacity = 1.0
-padding = 6.0
+start = ["launcher", "workspaces", "group:g1", "group:g2"]
 
 [[bar.default.capsule_group]]
 accordion = false

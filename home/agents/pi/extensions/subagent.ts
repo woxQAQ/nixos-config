@@ -6,6 +6,9 @@
 //   subagent_result   Read the current/final output of given subagents without blocking.
 //   subagent_destroy  Kill running subagents and drop them from the registry.
 //
+// Viewer: `/subagents` (or ctrl+shift+s) opens an interactive browser to
+// inspect each subagent's status, usage, and full message transcript.
+//
 // Model selection: `model` is optional and inherits the dispatching session's
 // model when omitted. A specified model is resolved against the available
 // catalogue; unknown or ambiguous names are errors, never a silent fallback.
@@ -20,8 +23,15 @@ import {
   type ExtensionAPI,
   type ExtensionContext,
   type JsonAgentSessionEvent,
+  type Theme,
 } from "@earendil-works/pi-coding-agent";
-import { Text } from "@earendil-works/pi-tui";
+import {
+  matchesKey,
+  Text,
+  truncateToWidth,
+  visibleWidth,
+  wrapTextWithAnsi,
+} from "@earendil-works/pi-tui";
 import { Type } from "typebox";
 
 const MAX_TASKS_PER_CREATE = 8;
@@ -80,6 +90,50 @@ function formatUsage(usage: UsageStats): string {
 function elapsedSeconds(handle: SubagentHandle): number {
   const end = handle.finishedAt ?? Date.now();
   return Math.round((end - handle.startedAt) / 1000);
+}
+
+/** Compact duration: 42s, 12m09s, 1h07m. */
+function formatElapsed(totalSeconds: number): string {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  if (minutes >= 60)
+    return `${Math.floor(minutes / 60)}h${(minutes % 60).toString().padStart(2, "0")}m`;
+  if (minutes > 0) return `${minutes}m${seconds.toString().padStart(2, "0")}s`;
+  return `${seconds}s`;
+}
+
+/** "inherit(magpie/remote/codex/gpt-6.2-sol)" -> "gpt-6.2-sol". */
+function shortModelLabel(model: string): string {
+  const inner = /^inherit\((.+)\)$/.exec(model)?.[1] ?? model;
+  return inner.split("/").pop() ?? inner;
+}
+
+/** What the subagent is doing right now, derived from its latest activity. */
+function lastActivity(handle: SubagentHandle): string {
+  for (let i = handle.messages.length - 1; i >= 0; i--) {
+    const msg = handle.messages[i];
+    if (msg.role !== "assistant") continue;
+    for (let j = msg.content.length - 1; j >= 0; j--) {
+      const part = msg.content[j];
+      if (part.type === "toolCall") return ` ↪ ${part.name}`;
+    }
+    return "";
+  }
+  return "";
+}
+
+/** One-line summary shared by the widget and the browser's list view. */
+function widgetLine(h: SubagentHandle): string {
+  const time = formatElapsed(elapsedSeconds(h));
+  const stats =
+    h.status === "running"
+      ? `${h.usage.turns}t ↑${formatTokens(h.usage.input)} ↓${formatTokens(h.usage.output)}`
+      : formatUsage(h.usage) || "—";
+  const activity = h.status === "running" ? lastActivity(h) : "";
+  const task = h.task.replace(/\s+/g, " ").trim();
+  const preview = task.length > 48 ? `${task.slice(0, 48)}…` : task;
+  const err = h.status === "failed" && h.error ? ` — ${h.error.split("\n")[0].slice(0, 60)}` : "";
+  return `${statusIcon(h.status)} ${h.id} ${shortModelLabel(h.model)} ${stats} ${time}${activity} · ${preview}${err}`;
 }
 
 function finalOutput(messages: Message[]): string {
@@ -169,8 +223,28 @@ export default function (pi: ExtensionAPI) {
   /** Whether the available-model list has been injected into context this session. */
   let modelListInjected = false;
 
+  /** Open viewers (list browser and detail overlays), notified when subagent state changes. */
+  const viewers = new Set<{ onUpdate(): void }>();
+  /** 1s ticker so elapsed time and activity stay fresh while agents run. */
+  let ticker: ReturnType<typeof setInterval> | undefined;
+
+  function ensureTicker(): void {
+    const anyRunning = [...registry.values()].some((h) => h.status === "running");
+    if (anyRunning && ticker === undefined) {
+      ticker = setInterval(() => {
+        refreshWidget();
+        for (const viewer of viewers) viewer.onUpdate();
+      }, 1000);
+      ticker.unref?.();
+    } else if (!anyRunning && ticker !== undefined) {
+      clearInterval(ticker);
+      ticker = undefined;
+    }
+  }
+
   function refreshWidget(): void {
     const ctx = lastCtx;
+    ensureTicker();
     if (!ctx?.hasUI) return;
     const handles = [...registry.values()];
     const running = handles.filter((h) => h.status === "running").length;
@@ -183,16 +257,10 @@ export default function (pi: ExtensionAPI) {
 
     ctx.ui.setStatus(
       "subagent",
-      running > 0 ? `⚙ ${running} subagent${running > 1 ? "s" : ""}` : undefined,
+      running > 0 ? `⚙ ${running} subagent${running > 1 ? "s" : ""} — /subagents` : undefined,
     );
 
-    const lines = handles.map((h) => {
-      const usage = h.status === "running" ? ` ${h.usage.turns}t` : "";
-      const err =
-        h.status === "failed" && h.error ? ` — ${h.error.split("\n")[0].slice(0, 60)}` : "";
-      return `${statusIcon(h.status)} ${h.id} ${h.model}${usage} ${elapsedSeconds(h)}s${err}`;
-    });
-    ctx.ui.setWidget("subagent", lines);
+    ctx.ui.setWidget("subagent", handles.map(widgetLine));
   }
 
   function killHandle(handle: SubagentHandle, status: Status): void {
@@ -701,6 +769,314 @@ export default function (pi: ExtensionAPI) {
       );
       for (const id of details.unknown) lines.push(theme.fg("error", `✗ ${id} unknown`));
       return new Text(lines.join("\n") || theme.fg("muted", "(nothing destroyed)"), 0, 0);
+    },
+  });
+
+  // ---------------------------------------------------------------------------
+  // Interactive browser: `/subagents` or ctrl+shift+s.
+  // The list shows one widgetLine per handle; pressing enter opens the full
+  // transcript (task, usage, every message, tool calls and results) in a
+  // floating overlay stacked above the list.
+  // ---------------------------------------------------------------------------
+
+  function messageText(msg: Message): string {
+    const content = msg.content;
+    if (typeof content === "string") return content;
+    if (!Array.isArray(content)) return "";
+    const parts: string[] = [];
+    for (const part of content) {
+      if (part.type === "text") parts.push(part.text);
+      else if (part.type === "thinking") parts.push(`[thinking] ${part.thinking}`);
+      else if (part.type === "image") parts.push("[image]");
+    }
+    return parts.join("\n");
+  }
+
+  /** Build the styled, wrapped transcript lines for the detail view. */
+  function buildTranscript(h: SubagentHandle, theme: Theme, width: number): string[] {
+    const lines: string[] = [];
+    const wrapWidth = Math.max(20, width - 4);
+    const pushWrapped = (text: string, style: (s: string) => string, indent = "  ") => {
+      for (const raw of text.split("\n")) {
+        for (const wrapped of wrapTextWithAnsi(raw, wrapWidth - visibleWidth(indent))) {
+          lines.push(style(indent + wrapped));
+        }
+      }
+    };
+    const section = (label: string, color: Parameters<Theme["fg"]>[0]) =>
+      lines.push(
+        theme.fg(color, `── ${label} ${"─".repeat(Math.max(0, wrapWidth - label.length - 4))}`),
+      );
+
+    for (const msg of h.messages) {
+      if (msg.role === "user") {
+        section("user", "accent");
+        pushWrapped(messageText(msg) || "(empty)", (s) => s);
+      } else if (msg.role === "assistant") {
+        section("assistant", "success");
+        let wrote = false;
+        for (const part of msg.content) {
+          if (part.type === "text") {
+            pushWrapped(part.text, (s) => s);
+            wrote = true;
+          } else if (part.type === "thinking") {
+            pushWrapped(part.thinking, (s) => theme.fg("dim", s));
+            wrote = true;
+          } else if (part.type === "toolCall") {
+            const args = JSON.stringify(part.arguments ?? {});
+            lines.push(
+              theme.fg("warning", `  ▶ ${part.name} `) +
+                theme.fg("dim", args.length > 120 ? `${args.slice(0, 120)}…` : args),
+            );
+            wrote = true;
+          }
+        }
+        if (!wrote) lines.push(theme.fg("muted", "  (no content)"));
+      } else if (msg.role === "toolResult") {
+        const isError = "isError" in msg && Boolean((msg as { isError?: boolean }).isError);
+        section(isError ? "result (error)" : "result", isError ? "error" : "muted");
+        // Results can be huge; keep the head so scrolling stays cheap.
+        const text = messageText(msg) || "(empty)";
+        const head = text.split("\n").slice(0, 8).join("\n");
+        pushWrapped(head, (s) => theme.fg("dim", s));
+        const total = text.split("\n").length;
+        if (total > 8) lines.push(theme.fg("muted", `  … ${total - 8} more lines`));
+      }
+    }
+    if (h.messages.length === 0) lines.push(theme.fg("muted", "  (no messages yet)"));
+    if (h.status === "running") lines.push(theme.fg("warning", "  … still running …"));
+    return lines;
+  }
+
+  class SubagentBrowser {
+    private selected = 0;
+
+    constructor(
+      private tui: { requestRender(): void },
+      private theme: Theme,
+      private openDetail: (id: string) => void,
+      private done: () => void,
+    ) {}
+
+    /** Called by the ticker while the browser is open. */
+    onUpdate(): void {
+      this.tui.requestRender();
+    }
+
+    invalidate(): void {}
+
+    private handles(): SubagentHandle[] {
+      return [...registry.values()];
+    }
+
+    handleInput(data: string): void {
+      if (matchesKey(data, "escape") || data === "q") {
+        this.done();
+        return;
+      }
+      const handles = this.handles();
+      if (handles.length === 0) return;
+      if (matchesKey(data, "up") || data === "k") {
+        this.selected = (this.selected - 1 + handles.length) % handles.length;
+      } else if (matchesKey(data, "down") || data === "j") {
+        this.selected = (this.selected + 1) % handles.length;
+      } else if (matchesKey(data, "return") || matchesKey(data, "enter")) {
+        const h = handles[this.selected];
+        if (!h) return;
+        this.openDetail(h.id);
+        return;
+      } else if (data === "d") {
+        const h = handles[this.selected];
+        if (!h) return;
+        killHandle(h, "destroyed");
+        registry.delete(h.id);
+        this.selected = Math.min(this.selected, Math.max(0, this.handles().length - 1));
+        refreshWidget();
+      } else {
+        return;
+      }
+      this.tui.requestRender();
+    }
+
+    render(width: number): string[] {
+      const th = this.theme;
+      const handles = this.handles();
+      const lines: string[] = [
+        th.fg("accent", th.bold("Subagents")) + th.fg("dim", `  ${handles.length} total`),
+      ];
+      if (handles.length === 0) {
+        lines.push(th.fg("muted", "  (none yet)"));
+      }
+      handles.forEach((h, i) => {
+        const cursor = i === this.selected ? th.fg("accent", "▸ ") : "  ";
+        lines.push(cursor + widgetLine(h));
+      });
+      lines.push("", th.fg("dim", "↑/↓ move · enter details · d destroy · esc close"));
+      return lines.map((l) => truncateToWidth(l, width));
+    }
+  }
+
+  /** Floating transcript view for one subagent, stacked over the list. */
+  class SubagentDetail {
+    private scroll = 0;
+    /** Follow the tail of a running subagent's transcript. */
+    private follow = true;
+    private cacheKey = "";
+    private cacheLines: string[] = [];
+
+    constructor(
+      private id: string,
+      private tui: { requestRender(): void },
+      private theme: Theme,
+      private done: () => void,
+    ) {}
+
+    /** Called by the ticker while this overlay is open. */
+    onUpdate(): void {
+      if (this.follow) this.scroll = Number.MAX_SAFE_INTEGER;
+      this.tui.requestRender();
+    }
+
+    invalidate(): void {
+      this.cacheKey = "";
+    }
+
+    /** Viewport rows; leaves room for the header and footer within the overlay. */
+    private pageLines(): number {
+      return Math.max(4, Math.floor((process.stdout.rows ?? 24) * 0.85) - 7);
+    }
+
+    handleInput(data: string): void {
+      if (matchesKey(data, "escape") || matchesKey(data, "backspace") || data === "q") {
+        this.done();
+        return;
+      }
+      const page = this.pageLines();
+      if (matchesKey(data, "up") || data === "k") {
+        this.scroll -= 1;
+        this.follow = false;
+      } else if (matchesKey(data, "down") || data === "j") {
+        this.scroll += 1;
+      } else if (matchesKey(data, "pageUp") || data === "b") {
+        this.scroll -= page;
+        this.follow = false;
+      } else if (matchesKey(data, "pageDown") || data === " ") {
+        this.scroll += page;
+      } else if (matchesKey(data, "home") || data === "g") {
+        this.scroll = 0;
+        this.follow = false;
+      } else if (matchesKey(data, "end") || data === "G") {
+        this.scroll = Number.MAX_SAFE_INTEGER;
+        this.follow = true;
+      } else {
+        return;
+      }
+      this.tui.requestRender();
+    }
+
+    render(width: number): string[] {
+      const th = this.theme;
+      const h = registry.get(this.id);
+      if (!h) {
+        return [th.fg("muted", `  ${this.id} is gone — esc to close`)];
+      }
+
+      const cacheKey = `${h.id}:${h.messages.length}:${h.usage.turns}:${h.status}:${width}`;
+      if (cacheKey !== this.cacheKey) {
+        this.cacheLines = buildTranscript(h, th, Math.max(20, width - 2));
+        this.cacheKey = cacheKey;
+      }
+
+      const header: string[] = [
+        th.fg("accent", th.bold(`${statusIcon(h.status)} ${h.id}`)) +
+          ` ${th.fg("muted", h.status)} ${th.fg("muted", h.model)}`,
+        th.fg(
+          "muted",
+          `  ${formatUsage(h.usage) || "—"} · elapsed ${formatElapsed(elapsedSeconds(h))}`,
+        ),
+        th.fg(
+          "dim",
+          `  task: ${h.task
+            .replace(/\s+/g, " ")
+            .trim()
+            .slice(0, Math.max(20, width - 10))}`,
+        ),
+      ];
+      if (h.error) header.push(th.fg("error", `  error: ${h.error.split("\n")[0]}`));
+      header.push(th.fg("dim", "─".repeat(Math.max(10, width - 4))));
+
+      const viewH = this.pageLines();
+      const maxScroll = Math.max(0, this.cacheLines.length - viewH);
+      this.scroll = Math.max(0, Math.min(this.scroll, maxScroll));
+      if (this.scroll >= maxScroll) this.follow = true;
+
+      const slice = this.cacheLines.slice(this.scroll, this.scroll + viewH);
+      const footer =
+        this.cacheLines.length > viewH
+          ? th.fg(
+              "dim",
+              `lines ${this.scroll + 1}-${Math.min(this.scroll + viewH, this.cacheLines.length)}/${this.cacheLines.length} · ↑/↓ scroll · space/b page · g/G top/bottom · esc close`,
+            )
+          : th.fg("dim", "esc close");
+      return [...header, ...slice, footer].map((l) => truncateToWidth(l, width));
+    }
+  }
+
+  /** Open the transcript of one subagent in a floating overlay above the list. */
+  function openDetailView(ctx: ExtensionContext, id: string): void {
+    let detail: SubagentDetail | undefined;
+    const settled = ctx.ui.custom<undefined>(
+      (tui, theme, _keybindings, done) => {
+        detail = new SubagentDetail(id, tui, theme, () => done(undefined));
+        viewers.add(detail);
+        return detail;
+      },
+      {
+        overlay: true,
+        overlayOptions: {
+          anchor: "center",
+          width: "85%",
+          maxHeight: Math.floor((process.stdout.rows ?? 24) * 0.85),
+        },
+      },
+    );
+    const cleanup = () => {
+      if (detail) viewers.delete(detail);
+    };
+    void settled.then(cleanup, cleanup);
+  }
+
+  async function showBrowser(ctx: ExtensionContext): Promise<void> {
+    if (!ctx.hasUI) return;
+    lastCtx = ctx;
+    let browser: SubagentBrowser | undefined;
+    try {
+      await ctx.ui.custom<undefined>((tui, theme, _keybindings, done) => {
+        browser = new SubagentBrowser(
+          tui,
+          theme,
+          (id) => openDetailView(ctx, id),
+          () => done(undefined),
+        );
+        viewers.add(browser);
+        return browser;
+      });
+    } finally {
+      if (browser) viewers.delete(browser);
+    }
+  }
+
+  pi.registerCommand("subagents", {
+    description: "Browse subagents and inspect their transcripts",
+    handler: async (_args, ctx) => {
+      await showBrowser(ctx);
+    },
+  });
+
+  pi.registerShortcut("ctrl+shift+s", {
+    description: "Browse subagents",
+    handler: async (ctx) => {
+      await showBrowser(ctx);
     },
   });
 }
