@@ -50,9 +50,11 @@ in
           ../modules/hardware/opengl
           ../modules/hardware/storage
           ../modules/hardware/audio
+          ../modules/hardware/controllers
           {
             modules.hardware = {
               opengl.enable = true;
+              controllers.playstation.enable = true;
               amd = {
                 enable = true;
                 rocm.enable = true;
