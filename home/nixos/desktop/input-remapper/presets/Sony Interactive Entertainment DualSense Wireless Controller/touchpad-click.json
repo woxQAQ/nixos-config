@@ -1,0 +1,13 @@
+[
+  {
+    "input_combination": [
+      {
+        "type": 1,
+        "code": 272
+      }
+    ],
+    "target_uinput": "gamepad",
+    "output_symbol": "BTN_SOUTH",
+    "name": "touchpad-click-to-gamepad-cross"
+  }
+]

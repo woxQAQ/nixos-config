@@ -21,7 +21,7 @@
 
 let
   pname = "flclash";
-  version = "0.9.4";
+  version = "0.9.5";
 
   src = fetchFromGitHub {
     owner = "chen08209";
@@ -32,7 +32,7 @@ let
       export GIT_CONFIG_KEY_0=url.https://github.com/.insteadOf
       export GIT_CONFIG_VALUE_0=git@github.com:
     '';
-    hash = "sha256-SkefPGfdxB04wHcBg/Dg4ZZkvLjJb/LHzxtRe9u2reA=";
+    hash = "sha256-+EBrNQnR4o6LShhN/g3fUQT8Ef6FFJjnuFLwFMGexH0=";
     fetchSubmodules = true;
   };
 
@@ -76,7 +76,7 @@ let
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit pname version src;
     cargoRoot = "plugins/rust_api/rust";
-    hash = "sha256-DKMzkfDt2CJYqaxcm635seFJydKNNdtC69o2b2bWWUY=";
+    hash = "sha256-PbZtKbvjgfQSbIuPO43SBsD7BeLWa2dlB4DdDaz6G7I=";
   };
 
   # Upstream's setup build hook also builds FlClashHelperService: a Rust
@@ -133,7 +133,7 @@ let
 
     modRoot = "core";
 
-    vendorHash = "sha256-FeSLlJ70KSiWFoZ61yyj9BoZTPHdv7lnwPBEnCmNElg=";
+    vendorHash = "sha256-UqV876KJcvr4xCdo2SktvGdNaj0v9YgADPWV6Pu22aQ=";
 
     env.CGO_ENABLED = 0;
 

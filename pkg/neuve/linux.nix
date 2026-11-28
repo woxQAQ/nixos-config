@@ -16,7 +16,7 @@ let
     owner = "NeuveAI";
     repo = "neuve";
     tag = "v${version}";
-    hash = "sha256-YPf6JE2sEExJNGC7MrFei6xYia2MPbv3f2Xfd+m7Lm0=";
+    hash = "sha256-EOuFTrSsud9qORTUCpVs3Z5s+BQnEFWngInbwBgsmWg=";
   };
   # Matches the release's apps/neuve-graph submodule pin.
   graphRevision = "bd99ee8f2a84d1cf0ac95f5e770ac368c0f2a576";
@@ -79,7 +79,7 @@ let
     '';
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash = "sha256-XfPldXjUxLOFWKanNfh2iRTO2yChLx7xBUXbabjsVwc=";
+    outputHash = "sha256-qcCrNo9wojcgVcBDyaQ8h7hNchqs/W1sbgMUp3BGzEc=";
   };
 in
 stdenvNoCC.mkDerivation {

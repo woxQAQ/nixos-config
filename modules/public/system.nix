@@ -82,6 +82,9 @@ in
       ];
 
       fallback = true;
+      # Catch deprecated URL literal syntax (RFC 45) while it is still only a
+      # warning; flakes lock file contents are exempt in practice.
+      lint-url-literals = "warn";
       connect-timeout = 5;
       log-lines = 50;
       keep-going = true;

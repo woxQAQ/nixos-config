@@ -52,6 +52,7 @@ in
             modules.hardware = {
               opengl.enable = true;
               controllers.playstation.enable = true;
+              controllers.playstation.dualsenseTouchpad = "remap";
               amd = {
                 enable = true;
                 rocm.enable = true;

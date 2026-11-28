@@ -14,6 +14,9 @@
 // catalogue; unknown or ambiguous names are errors, never a silent fallback.
 // The first create call of a session appends the available model list to its
 // result so the model can resolve user mentions to full provider/id strings.
+//
+// Other extensions (cron) dispatch subagents through the event-bus contract in
+// `lib/subagent-bus.ts`; each terminal state is published once on that bus.
 
 import { type ChildProcess, spawn } from "node:child_process";
 import * as fs from "node:fs";
@@ -33,6 +36,17 @@ import {
   wrapTextWithAnsi,
 } from "@earendil-works/pi-tui";
 import { Type } from "typebox";
+import { availableModels, resolveModel } from "./lib/model-choice.ts";
+import {
+  SUBAGENT_FINISHED_CHANNEL,
+  SUBAGENT_SERVICE_CHANNEL,
+  type SubagentCreateResult,
+  type SubagentCreatedSummary,
+  type SubagentFinishedEvent,
+  type SubagentService,
+  type SubagentServiceReply,
+  type SubagentSpec,
+} from "./lib/subagent-bus.ts";
 
 const MAX_TASKS_PER_CREATE = 8;
 const OUTPUT_CAP_BYTES = 40 * 1024;
@@ -65,6 +79,8 @@ interface SubagentHandle {
   startedAt: number;
   finishedAt?: number;
   done: Promise<void>;
+  /** Whether the terminal state has been published on the shared bus. */
+  announced: boolean;
 }
 
 function emptyUsage(): UsageStats {
@@ -187,35 +203,6 @@ function getPiInvocation(args: string[]): { command: string; args: string[] } {
   return { command: "pi", args };
 }
 
-type ModelResolution = { ok: true; model: string } | { ok: false; error: string };
-
-/** Resolve a user/model-supplied name against the catalogue. Never falls back. */
-function resolveModel(available: string[], query: string): ModelResolution {
-  const normalized = query.trim();
-  const exact = available.find((m) => m === normalized);
-  if (exact) return { ok: true, model: exact };
-
-  const lower = normalized.toLowerCase();
-  const byBareId = available.filter((m) => m.split("/").pop()?.toLowerCase() === lower);
-  if (byBareId.length === 1) return { ok: true, model: byBareId[0] };
-
-  const pool = byBareId.length > 1 ? byBareId : available;
-  const bySubstring = pool.filter((m) => m.toLowerCase().includes(lower));
-  if (bySubstring.length === 1) return { ok: true, model: bySubstring[0] };
-
-  if (bySubstring.length > 1) {
-    const candidates = bySubstring.slice(0, 10).join(", ");
-    return {
-      ok: false,
-      error: `Ambiguous model "${query}" (${bySubstring.length} matches: ${candidates}). Pass the full provider/id.`,
-    };
-  }
-  return {
-    ok: false,
-    error: `Unknown model "${query}". No fallback is applied; pick one from the available model list.`,
-  };
-}
-
 export default function (pi: ExtensionAPI) {
   const registry = new Map<string, SubagentHandle>();
   let counter = 0;
@@ -263,6 +250,26 @@ export default function (pi: ExtensionAPI) {
     ctx.ui.setWidget("subagent", handles.map(widgetLine));
   }
 
+  /**
+   * Publish a subagent's terminal state on the shared bus. The `announced`
+   * guard keeps it to one event even when a kill races the process exit.
+   */
+  function announceFinished(handle: SubagentHandle): void {
+    if (handle.announced || handle.status === "running") return;
+    handle.announced = true;
+    const event: SubagentFinishedEvent = {
+      id: handle.id,
+      task: handle.task,
+      status: handle.status,
+      output: finalOutput(handle.messages),
+      error: handle.error,
+      usage: handle.usage,
+      startedAt: handle.startedAt,
+      finishedAt: handle.finishedAt ?? Date.now(),
+    };
+    pi.events.emit(SUBAGENT_FINISHED_CHANNEL, event);
+  }
+
   function killHandle(handle: SubagentHandle, status: Status): void {
     if (handle.status !== "running") return;
     handle.status = status;
@@ -274,6 +281,7 @@ export default function (pi: ExtensionAPI) {
         if (proc.exitCode === null && proc.signalCode === null) proc.kill("SIGKILL");
       }, KILL_GRACE_MS).unref();
     }
+    announceFinished(handle);
   }
 
   function launch(
@@ -304,6 +312,7 @@ export default function (pi: ExtensionAPI) {
       handle.finishedAt = Date.now();
       handle.error = error instanceof Error ? error.message : String(error);
       resolveDone();
+      announceFinished(handle);
       refreshWidget();
       return;
     }
@@ -367,16 +376,76 @@ export default function (pi: ExtensionAPI) {
       }
       handle.proc = null;
       resolveDone();
+      announceFinished(handle);
       refreshWidget();
     });
   }
 
-  function availableModels(ctx: ExtensionContext): string[] {
-    const scoped = ctx.scopedModels;
-    const models =
-      scoped.length > 0 ? scoped.map((s) => s.model) : ctx.modelRegistry.getAvailable();
-    return models.map((m) => `${m.provider}/${m.id}`).sort();
+  /**
+   * Spawn one subagent per spec and register it. Shared by the subagent tools
+   * and by other extensions asking for subagents over the event bus.
+   * Per-spec failures are reported; nothing falls back to another model.
+   */
+  function createSubagents(specs: SubagentSpec[], ctx: ExtensionContext): SubagentCreateResult {
+    const catalogue = availableModels(ctx);
+    const inherited = ctx.model ? `${ctx.model.provider}/${ctx.model.id}` : undefined;
+    const created: SubagentCreatedSummary[] = [];
+    const failures: string[] = [];
+
+    for (const spec of specs) {
+      let modelArg: string | undefined;
+      let modelLabel: string;
+      let thinking: string | undefined;
+      if (spec.model) {
+        const resolved = resolveModel(catalogue, spec.model);
+        if (!resolved.ok) {
+          failures.push(`task ${JSON.stringify(spec.task.slice(0, 50))}: ${resolved.error}`);
+          continue;
+        }
+        modelArg = resolved.model;
+        modelLabel = resolved.model;
+      } else {
+        modelArg = inherited;
+        modelLabel = inherited ? `inherit(${inherited})` : "inherit(default)";
+        thinking = ctx.thinkingLevel;
+      }
+
+      const handle: SubagentHandle = {
+        id: `sa-${++counter}`,
+        task: spec.task,
+        model: modelLabel,
+        cwd: spec.cwd ? path.resolve(ctx.cwd, spec.cwd) : ctx.cwd,
+        status: "running",
+        proc: null,
+        messages: [],
+        stderr: "",
+        usage: emptyUsage(),
+        startedAt: Date.now(),
+        done: Promise.resolve(),
+        announced: false,
+      };
+      launch(handle, modelArg, thinking);
+      registry.set(handle.id, handle);
+      created.push({ id: handle.id, model: handle.model, task: handle.task, cwd: handle.cwd });
+    }
+    refreshWidget();
+    return { created, failures };
   }
+
+  // Other extensions cannot share our module state (each extension is loaded
+  // through its own jiti registry), so they request this service over the
+  // shared event bus. The reply is synchronous; see `lib/subagent-bus.ts`.
+  pi.events.on(SUBAGENT_SERVICE_CHANNEL, (data: unknown) => {
+    const reply = data as SubagentServiceReply | undefined;
+    if (typeof reply !== "function") return;
+    const service: SubagentService = {
+      create: (specs, ctx) => {
+        lastCtx = ctx;
+        return createSubagents(specs, ctx);
+      },
+    };
+    reply(service);
+  });
 
   function lookup(ids: string[]): { found: SubagentHandle[]; unknown: string[] } {
     const found: SubagentHandle[] = [];
@@ -469,47 +538,7 @@ export default function (pi: ExtensionAPI) {
         };
       }
 
-      const catalogue = availableModels(ctx);
-      const inherited = ctx.model ? `${ctx.model.provider}/${ctx.model.id}` : undefined;
-      const created: SubagentHandle[] = [];
-      const failures: string[] = [];
-
-      for (const spec of params.tasks) {
-        let modelArg: string | undefined;
-        let modelLabel: string;
-        let thinking: string | undefined;
-        if (spec.model) {
-          const resolved = resolveModel(catalogue, spec.model);
-          if (!resolved.ok) {
-            failures.push(`task ${JSON.stringify(spec.task.slice(0, 50))}: ${resolved.error}`);
-            continue;
-          }
-          modelArg = resolved.model;
-          modelLabel = resolved.model;
-        } else {
-          modelArg = inherited;
-          modelLabel = inherited ? `inherit(${inherited})` : "inherit(default)";
-          thinking = ctx.thinkingLevel;
-        }
-
-        const handle: SubagentHandle = {
-          id: `sa-${++counter}`,
-          task: spec.task,
-          model: modelLabel,
-          cwd: spec.cwd ? path.resolve(ctx.cwd, spec.cwd) : ctx.cwd,
-          status: "running",
-          proc: null,
-          messages: [],
-          stderr: "",
-          usage: emptyUsage(),
-          startedAt: Date.now(),
-          done: Promise.resolve(),
-        };
-        launch(handle, modelArg, thinking);
-        registry.set(handle.id, handle);
-        created.push(handle);
-      }
-      refreshWidget();
+      const { created, failures } = createSubagents(params.tasks, ctx);
 
       const lines: string[] = [];
       if (created.length > 0) {
@@ -527,7 +556,7 @@ export default function (pi: ExtensionAPI) {
         lines.push(
           "",
           "Available models (resolve user-mentioned names against this list and pass the full provider/id):",
-          ...catalogue,
+          ...availableModels(ctx),
         );
       }
 
